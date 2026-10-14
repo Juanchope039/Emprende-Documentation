@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.26.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.27.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -64,6 +64,7 @@ consideraron y qué consecuencias tiene.
 | [053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) | Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado | Aceptado |
 | [054](ADR-054-la-entrega-va-al-monorepo-de-producto.md) | La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia | Aceptado |
 | [055](ADR-055-uat-se-despliega-desde-el-monorepo.md) | uat se despliega desde `main` del monorepo de producto, y lo aprobado es solo la etiqueta | Aceptado |
+| [056](ADR-056-qa-se-aloja-desde-su-rama.md) | qa también se aloja en Railway, construido desde la rama `qa` | Aceptado |
 
 Son **45 decisiones** registradas: 36 aceptadas y 9 reemplazadas.
 
