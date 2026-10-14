@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/14-roadmap-e-ideas.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-13 | 2026-10-04 | [Negocio](INDICE.md#etiqueta-negocio) · [Plan](INDICE.md#etiqueta-plan) |
+| [2.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/14-roadmap-e-ideas.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-13 | 2026-10-13 | [Negocio](INDICE.md#etiqueta-negocio) · [Plan](INDICE.md#etiqueta-plan) |
 
 Todo lo que quedó fuera del MVP, más 30 ideas para después. Priorizado por **impacto sobre
 esfuerzo**, no por qué tan llamativo suena.
@@ -19,6 +19,7 @@ esfuerzo**, no por qué tan llamativo suena.
 | <a id="d-04"></a>D-04 | Parámetros legales versionados por año | Diferido | Junto con [D-02](#d-02) |
 | <a id="d-05"></a>D-05 | ~~Construcción del exportador de respaldos~~ | **Ya no está diferido:** el [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) lo metió al [Sprint 8](08-plan-de-desarrollo.md#sprint-8) | Tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17) |
 | <a id="d-06"></a>D-06 | Procedimiento y simulacro de restauración | Fase posterior | Mes 2 post go-live. **Sigue diferido**, aunque [D-05](#d-05) ya no lo esté |
+| <a id="d-07"></a>D-07 | 📝 Una sola imagen del front para todos los emprendimientos | Posible mejora, en borrador: quien dirige no la contempla por ahora (2026-10-13) | Antes de que un segundo emprendimiento despliegue con su propio dominio |
 
 > **Sobre [D-05](#d-05), que ya no es una deuda.** El [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) metió el respaldo con manifiesto al [Sprint 8](08-plan-de-desarrollo.md#sprint-8), y
 > con él se fue la idea 01 de la Fase A. **Las dos filas se quedan tachadas en lugar de borrarse**:
@@ -28,6 +29,14 @@ esfuerzo**, no por qué tan llamativo suena.
 > **No arrastró a [D-06](#d-06).** Restaurar y exportar no son la misma cosa: lo primero necesita un
 > procedimiento escrito y un simulacro, y de eso depende la prueba [RE-01](12-pruebas-y-calidad.md#re-01) del 12. Tener el exportador
 > no la habilita.
+
+> **Sobre [D-07](#d-07), en borrador.** La URL de la API entra al front al compilar, con
+> `--dart-define=PRISMA_API_URL`, así que la imagen que construye qa le habla a **una** API. El
+> [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md) pide que cada emprendimiento corra esa misma imagen con su propio dominio, y eso solo cierra
+> si el front encuentra su API al arrancar. La salida propuesta es que nginx del front reenvíe
+> `/api/` al servicio de la API de cada emprendimiento, con la dirección tomada de una variable, y que
+> el front le hable a su propio origen. **Mientras siga diferida**, el segundo emprendimiento con
+> otro dominio obliga a compilar su front aparte, y esa compilación ya no es la que pasó uat.
 
 > **Sobre [D-03](#d-03).** La figura jurídica tiene un efecto económico directo y considerable sobre el
 > costo de emplear a alguien en Colombia. Cuando se retome el tema de la contratación formal,
