@@ -30,7 +30,8 @@ construirse desde `main` del monorepo**. Un solo repositorio para todo el despli
 
 1. **Los dos servicios del ambiente uat de Railway se construyen desde `Juanchope039/PRISMA`, rama
    `main`**: la API con raíz `/backend-api` y el front con raíz `/frontend-flutter`, cada uno con
-   su `railway.json`. Solo en el ambiente uat: dev y qa siguen construyendo desde `develop`.
+   el `Dockerfile` de su carpeta. Solo en el ambiente uat: dev sigue construyendo desde `develop`
+   y qa desde su rama `qa`, en cada repositorio.
 2. **Cada servicio redespliega solo si cambia su carpeta.** Un cambio en `documentation/` o en
    `.github/` del monorepo no toca uat.
 3. **El monorepo recibe `main` de los repositorios de desarrollo** por subárbol de git, con un PR
