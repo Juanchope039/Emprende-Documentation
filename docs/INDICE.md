@@ -183,7 +183,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Seguridad](#etiqueta-seguridad) · [Datos personales](#etiqueta-datos-personales) · [Negocio](#etiqueta-negocio) |
 | [12 · Pruebas y calidad](12-pruebas-y-calidad.md) | 4.2.1 | ✅ Vigente | 2026-10-04 | [Calidad](#etiqueta-calidad) |
 | [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.3.0 | ✅ Vigente | 2026-10-10 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
-| [14 · Roadmap e ideas de valor](14-roadmap-e-ideas.md) | 2.0.0 | 🔄 Vivo | 2026-10-04 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
+| [14 · Roadmap e ideas de valor](14-roadmap-e-ideas.md) | 2.1.0 | 🔄 Vivo | 2026-10-13 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [15 · Glosario](15-glosario.md) | 2.0.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) |
 | [16 · Base de datos: snapshots y datos de prueba](16-base-de-datos-y-snapshots.md) | 3.4.0 | ✅ Vigente | 2026-09-23 | [Base de datos](#etiqueta-base-de-datos) · [Calidad](#etiqueta-calidad) |
 | [17 · Resiliencia, trabajo sin conexión y caché](17-resiliencia-offline-y-cache.md) | 1.1.0 | ✅ Vigente | 2026-09-22 | [Front](#etiqueta-front) · [API](#etiqueta-api) · [Arquitectura](#etiqueta-arquitectura) |
