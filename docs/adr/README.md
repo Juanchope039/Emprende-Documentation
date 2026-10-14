@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.25.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-13 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.26.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -63,6 +63,7 @@ consideraron y qué consecuencias tiene.
 | [052](ADR-052-la-entrega-del-release-a-prod.md) | La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada | Aceptado |
 | [053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) | Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado | Aceptado |
 | [054](ADR-054-la-entrega-va-al-monorepo-de-producto.md) | La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia | Aceptado |
+| [057](ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión | Aceptado |
 
 Son **45 decisiones** registradas: 36 aceptadas y 9 reemplazadas.
 
