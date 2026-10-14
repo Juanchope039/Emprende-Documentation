@@ -2,11 +2,15 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-052-la-entrega-del-release-a-prod.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-052-la-entrega-del-release-a-prod.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-13 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** Gerencia aprueba en uat, no en pre-prod, que se quitó. La entrega no
 > cambia de forma: sale del árbol de `main`, no recompila nada y la dispara una persona. El cuerpo de
 > abajo se conserva tal como se escribió.
+>
+> **Lo modifica [ADR-054](ADR-054-la-entrega-va-al-monorepo-de-producto.md):** el destino ya no es el espejo de un taller sino el monorepo de producto,
+> uno solo, del que cada emprendimiento adopta las entregas desde su copia. Las imágenes no se copian
+> a ningún registro ajeno: se quedan donde las construyó qa.
 
 ## Contexto
 
@@ -167,5 +171,5 @@ la aprobación y prod hay una persona decidiendo, y un disparo automático la sa
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [08](../08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado")
+**🔗 Referenciado desde:** [08](../08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia")
 <!-- /generado:referenciado-desde -->
