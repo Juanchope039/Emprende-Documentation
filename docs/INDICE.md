@@ -166,7 +166,7 @@ Qué significa cada estado y cuándo sube una versión está en
 <!-- generado:estado-de-la-documentacion · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
-| [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.8.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
+| [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.9.0 | ✅ Vigente | 2026-10-14 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [Tareas de PRISMA](../TODO.md) | 9.67.0 | 🔄 Vivo | 2026-10-14 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [Índice navegable de la documentación](INDICE.md) | 1.21.0 | 🔄 Vivo | 2026-10-13 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.0.0 | ✅ Vigente | 2026-09-16 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
@@ -189,7 +189,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [17 · Resiliencia, trabajo sin conexión y caché](17-resiliencia-offline-y-cache.md) | 1.1.0 | ✅ Vigente | 2026-09-22 | [Front](#etiqueta-front) · [API](#etiqueta-api) · [Arquitectura](#etiqueta-arquitectura) |
 | [18 · Distribución multiplataforma y automatización (pipelines)](18-distribucion-y-pipelines.md) | 0.1.0 | 💡 Propuesta | 2026-09-16 | [Entrega](#etiqueta-entrega) · [Front](#etiqueta-front) |
 | [19 · Ambientes, versionado y entrega](19-ambientes-y-entrega.md) | 11.0.0 | ✅ Vigente | 2026-10-13 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
-| [20 · Contrato de la API](20-contrato-de-api.md) | 3.0.0 | ✅ Vigente | 2026-10-06 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
+| [20 · Contrato de la API](20-contrato-de-api.md) | 3.1.0 | ✅ Vigente | 2026-10-14 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
 | [21 · Trabajo en paralelo por carriles](21-trabajo-en-paralelo.md) | 6.3.0 | ✅ Vigente | 2026-10-10 | [Paralelo](#etiqueta-paralelo) · [Proceso](#etiqueta-proceso) |
 | [22 · Documentación: versiones, estados y referencias](22-documentacion.md) | 2.2.1 | ✅ Vigente | 2026-10-04 | [Proceso](#etiqueta-proceso) |
 | [23 · Diagramas de los casos de uso](23-diagramas-de-casos-de-uso.md) | 0.4.0 | 🔍 En revisión | 2026-10-06 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) · [Arquitectura](#etiqueta-arquitectura) |
