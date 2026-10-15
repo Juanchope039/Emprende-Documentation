@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [14.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [14.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -107,6 +107,8 @@ ni referencias de proyectos, ni nombres de clientes.
   se abre el PR contra esa base. Antes, la base no se fusiona en la rama.
 - **No basta con que no queden marcas `<<<<<<<`.** Dos ramas que suben la versión al mismo número, o
   que agregan una ruta a la copia fijada del contrato, fusionan limpio y dejan [C-04](docs/12-pruebas-y-calidad.md#c-04) y [C-05](docs/12-pruebas-y-calidad.md#c-05) en rojo.
+- **Todo PR nombra su issue de `Juanchope039/PRISMA`** ([ADR-060](docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md)): `Closes #n` en el monorepo y
+  `Refs Juanchope039/PRISMA#n` en los otros cuatro. Sin issue no se abre el PR.
 - El paso a paso es la skill `pr`. Quien dirige la invoca con `/pr`; si lo pide en palabras, se
   sigue su archivo.
 
