@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.29.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-15 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.30.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-15 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -68,6 +68,7 @@ consideraron y qué consecuencias tiene.
 | [057](ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión | Aceptado |
 | [058](ADR-058-el-monorepo-no-va-adelante-de-develop.md) | El monorepo de producto nunca lleva en sus subárboles algo que no esté en `develop` | Aceptado |
 | [059](ADR-059-etiquetas-con-esquema-y-release-en-main.md) | Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a `main` | Aceptado |
+| [061](ADR-061-se-promueve-con-merge-commit.md) | Se promueve con merge commit, y qa no recibe nada que no esté en develop | Aceptado |
 
 Son **58 decisiones** registradas: 48 aceptadas y 10 reemplazadas.
 

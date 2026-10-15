@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [12.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de PRISMA.
 
@@ -451,8 +451,8 @@ solo hace esperar. La puerta para fusionar es que **todos** terminen en verde, n
 juzgar el resultado, y **Tubería en verde**, que falla si algún trabajo quedó en rojo o cancelado.
 La primera es la que exige `develop` para recibir un PR; la segunda, la que exigen `qa` y `main`.
 De las dos depende **el sentido de la promoción**, que en el PR a `qa` exige que todo lo que trae
-la rama ya esté en `develop`, salvo la entrada del changelog, y en el PR a `main`, que ya esté en
-`qa` ([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)). Corren con `if: always()`, así que existen aunque la tubería falle: un check
+la rama ya esté en `develop`, sin excepción, y en el PR a `main`, que ya esté en `qa`
+([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md), [ADR-061](adr/ADR-061-se-promueve-con-merge-commit.md)). Las dos promociones se fusionan con merge commit. Corren con `if: always()`, así que existen aunque la tubería falle: un check
 exigido que nunca se reporta deja el PR bloqueado para siempre.
 
 Lo que comprueba cada etapa:

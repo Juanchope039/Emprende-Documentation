@@ -90,5 +90,5 @@ tubería. Que la punta sea otra solo dice que `develop` siguió.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-061](ADR-061-se-promueve-con-merge-commit.md "ADR-061 · Se promueve con merge commit, y qa no recibe nada que no esté en develop") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->
