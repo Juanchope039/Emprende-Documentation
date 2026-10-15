@@ -270,7 +270,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [AGENTS.md](../AGENTS.md) | 2.4.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [CLAUDE.md](../CLAUDE.md) | 14.3.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.2.0 | ✅ Vigente | 2026-09-27 | [Proceso](#etiqueta-proceso) |
-| [Políticas de rama](../scripts/github/README.md) | 3.3.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
+| [Políticas de rama](../scripts/github/README.md) | 3.3.1 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 <!-- /generado:estado-de-la-documentacion -->
 
 ---

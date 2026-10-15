@@ -26,7 +26,7 @@
   ],
   "repositorios": [
     {
-      "nombre": "Finanzas-PRISMA",
+      "nombre": "Emprende-Documentation",
       "proyecto": "la especificacion",
       "visibilidad": "publico",
       "pr-en-el-proyecto": true,
@@ -38,7 +38,7 @@
       }
     },
     {
-      "nombre": "Finanzas-PRISMA-DB",
+      "nombre": "Emprende-DataBase",
       "proyecto": "prisma_db",
       "visibilidad": "privado",
       "pr-en-el-proyecto": true,
@@ -50,7 +50,7 @@
       }
     },
     {
-      "nombre": "Finanzas-PRISMA-API",
+      "nombre": "Emprende-API",
       "proyecto": "prisma_api",
       "visibilidad": "privado",
       "pr-en-el-proyecto": true,
@@ -62,7 +62,7 @@
       }
     },
     {
-      "nombre": "Finanzas-PRISMA-Front",
+      "nombre": "Emprende-Front",
       "proyecto": "prisma_front",
       "visibilidad": "privado",
       "pr-en-el-proyecto": true,
@@ -74,7 +74,7 @@
       }
     },
     {
-      "nombre": "PRISMA",
+      "nombre": "Emprende-MiniApp-MonoRepo",
       "proyecto": "el monorepo de producto",
       "visibilidad": "privado",
       "pr-en-el-proyecto": false,
