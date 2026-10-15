@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-048-las-ramas-principales-las-protege-github.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-14 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-048-las-ramas-principales-las-protege-github.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-15 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** las ramas principales son **cuatro**, no cinco: `pre-prod` se quitó.
 > `develop` sigue pidiendo «Tubería completa» y las otras tres, «Tubería en verde». El cuerpo de
@@ -11,6 +11,10 @@
 > **Nota del 2026-10-14:** la cuenta pasó a GitHub Pro, así que lo que las consecuencias dan
 > por bloqueado ya no lo está: los tres privados admiten reglas de rama y se pueden aplicar.
 > Falta aplicarlas. La decisión de no publicar ningún repositorio no cambia ([ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)).
+
+> **Lo modifica [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md):** las ramas principales son **tres**: `uat` sale, y su
+> etapa la corre `main`. `develop` sigue pidiendo «Tubería completa», y `qa` y `main`, «Tubería en
+> verde». El cuerpo de abajo se conserva tal como se escribió.
 
 ## Contexto
 
@@ -114,5 +118,5 @@ agrega con su ADR, que es más barato que descubrir que la protección no proteg
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](../21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [ADR-050](ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-058](ADR-058-el-monorepo-no-va-adelante-de-develop.md "ADR-058 · El monorepo de producto nunca lleva en sus subárboles algo que no esté en develop") · [AGENTS](../../AGENTS.md "AGENTS.md") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](../21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [ADR-050](ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md "ADR-055 · uat se despliega desde main del monorepo de producto, y lo aprobado es solo la etiqueta") · [ADR-058](ADR-058-el-monorepo-no-va-adelante-de-develop.md "ADR-058 · El monorepo de producto nunca lleva en sus subárboles algo que no esté en develop") · [AGENTS](../../AGENTS.md "AGENTS.md") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->

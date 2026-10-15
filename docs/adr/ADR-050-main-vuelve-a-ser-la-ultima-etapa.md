@@ -2,11 +2,15 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-14 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** a `main` entra `uat` por PR, no `pre-prod`, que se quitó. `main` sigue
 > siendo la última etapa y sigue comprobando que el árbol es el que compiló qa, sin construir, sin
 > publicar y sin desplegar. El cuerpo de abajo se conserva tal como se escribió.
+
+> **Lo modifica [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md):** la rama `uat` sale, y a `main` entra `qa` por PR, antes de que
+> Gerencia mire, porque de `main` sale lo que el monorepo lleva al uat alojado. `main` corre lo
+> que corría la etapa uat. Lo aprobado es la etiqueta `entrega-vN`, no la rama.
 
 ## Contexto
 
@@ -63,10 +67,10 @@ puerta de atrás.
 
 - [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md), que este modifica.
 - [ADR-048](ADR-048-las-ramas-principales-las-protege-github.md), que protege las cinco ramas.
-- [`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md) [§6.3](../19-ambientes-y-entrega.md#63-las-cuatro-etapas-cada-una-más-exhaustiva), donde viven las etapas.
+- [`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md) [§6.3](../19-ambientes-y-entrega.md#63-las-tres-etapas-cada-una-más-exhaustiva), donde viven las etapas.
 
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-052](ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado")
+**🔗 Referenciado desde:** [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-052](ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md "ADR-055 · uat se despliega desde main del monorepo de producto, y lo aprobado es solo la etiqueta")
 <!-- /generado:referenciado-desde -->
