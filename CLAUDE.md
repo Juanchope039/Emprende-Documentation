@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [14.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [14.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -74,6 +74,8 @@ ni referencias de proyectos, ni nombres de clientes.
   integración diaria. **A las otras dos, con la tubería en verde**, porque de ahí sale lo que se
   despliega. Lo exigen los checks «Tubería completa» y «Tubería en verde», dos trabajos al final del
   `ci.yml` de cada repositorio.
+- **Todo PR a una de las tres está en «Prisma project»**, el proyecto 4 de `Juanchope039` ([ADR-062](docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)).
+  Lo exige el check «El PR está en el proyecto», en los cuatro repositorios y no en el monorepo.
 - La definición vive en `scripts/github/politicas-de-ramas.json` y la pone su herramienta, no el
   panel. Cubre también `main` del monorepo de producto. En los privados exige GitHub Pro, y cómo se
   aplica está en `scripts/github/README.md`.

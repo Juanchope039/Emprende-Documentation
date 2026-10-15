@@ -1,8 +1,9 @@
 {
-  "reglas": "Las de ADR-048. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
+  "reglas": "Las de ADR-048 y ADR-062. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
   "puertas": {
     "completa": "Tubería completa",
     "en-verde": "Tubería en verde",
+    "proyecto": "El PR está en el proyecto",
     "integracion": 15368
   },
   "conjuntos": [
@@ -27,6 +28,7 @@
       "nombre": "Finanzas-PRISMA",
       "proyecto": "la especificacion",
       "visibilidad": "publico",
+      "pr-en-el-proyecto": true,
       "ramas": {
         "sin-borrar": ["main"],
         "tuberia-completa": [],
@@ -37,6 +39,7 @@
       "nombre": "Finanzas-PRISMA-DB",
       "proyecto": "prisma_db",
       "visibilidad": "privado",
+      "pr-en-el-proyecto": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
         "tuberia-completa": ["develop"],
@@ -47,6 +50,7 @@
       "nombre": "Finanzas-PRISMA-API",
       "proyecto": "prisma_api",
       "visibilidad": "privado",
+      "pr-en-el-proyecto": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
         "tuberia-completa": ["develop"],
@@ -57,6 +61,7 @@
       "nombre": "Finanzas-PRISMA-Front",
       "proyecto": "prisma_front",
       "visibilidad": "privado",
+      "pr-en-el-proyecto": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
         "tuberia-completa": ["develop"],
@@ -67,6 +72,7 @@
       "nombre": "PRISMA",
       "proyecto": "el monorepo de producto",
       "visibilidad": "privado",
+      "pr-en-el-proyecto": false,
       "ramas": {
         "sin-borrar": ["main"],
         "tuberia-completa": [],

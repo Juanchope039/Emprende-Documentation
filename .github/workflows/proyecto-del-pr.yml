@@ -1,0 +1,76 @@
+# El PR está en el proyecto: todo PR a una rama principal tiene que estar en «Prisma project», el
+# proyecto 4 de Juanchope039, que es el tablero (ADR-062 de la especificación).
+#
+# GitHub no tiene una regla de rama para eso, así que la exige este check, que el ruleset de la rama
+# pide por su nombre. El mismo archivo vive en los cuatro repositorios, y el monorepo no lo lleva.
+#
+# Los proyectos de un usuario no los lee GITHUB_TOKEN: hace falta el secreto PRISMA_PROYECTO_TOKEN,
+# un token fino del dueño con Pull requests y Projects en lectura. Sin él, el check falla.
+#
+# Agregar el PR al proyecto no dispara ningún evento del PR. Por eso el trabajo espera hasta dos
+# minutos a que el auto-add del proyecto lo agregue, y si entró después, se vuelve a correr a mano.
+
+name: Proyecto del PR
+
+on:
+  pull_request:
+    branches: [develop, qa, main]
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+
+permissions:
+  contents: read
+
+# Una sola comprobación viva por PR: la nueva reemplaza a la que todavía espera.
+concurrency:
+  group: proyecto-del-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  en-el-proyecto:
+    name: El PR está en el proyecto
+    # En los runners de GitHub, no en el propio: necesita `gh` seguro, y no compila nada.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Buscar el PR en el proyecto
+        env:
+          GH_TOKEN: ${{ secrets.PRISMA_PROYECTO_TOKEN }}
+          DUENO: Juanchope039
+          NUMERO: '4'
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Falta el secreto PRISMA_PROYECTO_TOKEN: un token fino del dueño con Pull requests y Projects en lectura (ADR-062)."
+            exit 1
+          fi
+
+          CONSULTA='query($o: String!, $r: String!, $n: Int!) {
+            repository(owner: $o, name: $r) { pullRequest(number: $n) {
+              projectItems(first: 50) { nodes { project { number owner {
+                ... on User { login } ... on Organization { login } } } } } } } }'
+          FILTRO="[.data.repository.pullRequest.projectItems.nodes[].project
+            | select(.number == $NUMERO and .owner.login == \"$DUENO\")] | length"
+
+          for intento in 1 2 3 4 5 6 7; do
+            # Si GitHub rechaza la consulta (token sin permisos, sin el repositorio o vencido), dice por qué.
+            if ! ESTA=$(gh api graphql -f query="$CONSULTA" -f o="${REPO%/*}" -f r="${REPO#*/}" \
+              -F n="$PR" --jq "$FILTRO" 2>&1); then
+              # La anotacion se corta en el primer salto: primero la ultima linea, que es la de gh.
+              ULTIMA=$(echo "$ESTA" | tr -d '\r' | grep -v '^[[:space:]]*$' | tail -n 1)
+              echo "::error::GitHub rechazó la consulta del proyecto con PRISMA_PROYECTO_TOKEN: $ULTIMA"
+              echo "$ESTA"
+              exit 1
+            fi
+            if [ "$ESTA" -gt 0 ]; then
+              echo "El PR #$PR está en el proyecto $NUMERO de $DUENO."
+              exit 0
+            fi
+            [ "$intento" -lt 7 ] && sleep 20
+          done
+
+          echo "::error::El PR #$PR no está en el proyecto $NUMERO de $DUENO («Prisma project»)."
+          echo "Agrégalo en el panel Projects del PR, o con gh pr edit $PR --add-project 'Prisma project',"
+          echo "y vuelve a correr este trabajo: agregarlo no lo dispara solo."
+          exit 1

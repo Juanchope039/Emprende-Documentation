@@ -7,8 +7,8 @@
 //   node scripts/github/politicas-de-ramas.mjs aplicar --en-seco   dice que haria, sin hacerlo
 //
 // Cualquiera de las tres acepta el nombre de un repositorio al final, para trabajar solo en ese.
-// La decision esta en docs/adr/ADR-048-las-ramas-principales-las-protege-github.md, y lo que hace
-// falta para correrlo, en scripts/github/README.md.
+// La decision esta en docs/adr/ADR-048-las-ramas-principales-las-protege-github.md y en ADR-062, y
+// lo que hace falta para correrlo, en scripts/github/README.md.
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -38,22 +38,30 @@ function pullRequest(extra = {}) {
   };
 }
 
-/** El check que tiene que estar en verde, y la app que lo reporta: solo GitHub Actions. */
-function checkExigido(contexto) {
+/** Los checks que tienen que estar en verde, y la app que los reporta: solo GitHub Actions. */
+function checksExigidos(contextos) {
   return {
     type: 'required_status_checks',
     parameters: {
       strict_required_status_checks_policy: false,
-      required_status_checks: [{ context: contexto, integration_id: DEF.puertas.integracion }],
+      required_status_checks: contextos.map((c) => ({ context: c, integration_id: DEF.puertas.integracion })),
     },
   };
 }
 
+/** La puerta de la tuberia y, si el repositorio la lleva, la del proyecto del tablero (ADR-062). */
+function puertasDe(repo, tuberia) {
+  return repo['pr-en-el-proyecto'] ? [tuberia, DEF.puertas.proyecto] : [tuberia];
+}
+
 const REGLAS = {
   'sin-borrar': () => [{ type: 'deletion' }],
-  'tuberia-completa': () => [pullRequest(), checkExigido(DEF.puertas.completa)],
+  'tuberia-completa': (repo) => [pullRequest(), checksExigidos(puertasDe(repo, DEF.puertas.completa))],
   // Las etapas se promueven solo con merge commit: squash y rebase reescriben la historia (ADR-061).
-  'tuberia-en-verde': () => [pullRequest({ allowed_merge_methods: ['merge'] }), checkExigido(DEF.puertas['en-verde'])],
+  'tuberia-en-verde': (repo) => [
+    pullRequest({ allowed_merge_methods: ['merge'] }),
+    checksExigidos(puertasDe(repo, DEF.puertas['en-verde'])),
+  ],
 };
 
 /** Los conjuntos que le toca a un repositorio: los que tienen al menos una rama. */
@@ -68,7 +76,7 @@ function conjuntosDe(repo) {
         enforcement: 'active',
         bypass_actors: [],
         conditions: { ref_name: { include: repo.ramas[c.clave].map((r) => `refs/heads/${r}`), exclude: [] } },
-        rules: REGLAS[c.clave](),
+        rules: REGLAS[c.clave](repo),
       },
     }));
 }
