@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.69.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-14 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.70.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-14 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -347,8 +347,10 @@ o indirectamente. No es el orden en que se descubrieron.
       aplicados allá. Lo que de verdad le faltaba eran cinco migraciones: las claves de idempotencia
       ([1.13](docs/08-plan-de-desarrollo.md#tarea-1-13)), su purga ([1.16](docs/08-plan-de-desarrollo.md#tarea-1-16)), las dos tablas del canal firmado ([2.20](docs/08-plan-de-desarrollo.md#tarea-2-20)) y las dos filas de versión.
       De 45 comprobaciones en falla a **109 en `OK`**. Queda al revés: dev sin la `0.3.0`.
-- [ ] ⚡ **uat y prod** ([9.12](docs/08-plan-de-desarrollo.md#tarea-9-12)) · Decisión — son los dos proyectos de Supabase que faltan, y
-      desde que la [0.4](docs/08-plan-de-desarrollo.md#tarea-0-4) se partió tienen tarea propia, en el [Sprint 9](docs/08-plan-de-desarrollo.md#sprint-9). Los dos son **de pago**
+- [ ] ⚡ **uat** ([9.12](docs/08-plan-de-desarrollo.md#tarea-9-12)) · Decisión — **la base ya existe, pero no el ambiente.** Es el proyecto
+      que se creó para pre-prod, y quien dirige confirmó el 2026-10-14 que es el de uat; la viñeta
+      del [§9](#9-a-vigilar) cuenta lo que eso deja pendiente. Prod salió de esta tarea con el [ADR-053](docs/adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md): el 08 solo le
+      pide uat, y prod vive en el repositorio del taller. Lo que falta no cambia, y es **de pago**
       ([19 §8.1](docs/19-ambientes-y-entrega.md#81-qué-se-paga-y-qué-no)), y **ya no falta averiguar nada:** el expediente está en el
       [§7.1](#71-el-expediente-de-uat-y-prod) con la cifra —≈ 55 USD al mes—, cada fuente con su fecha de consulta y las cuatro
       condiciones del [ADR-026](docs/adr/ADR-026-railway-al-final.md) comprobadas contra Railway una por una. Lo que falta es la firma de
@@ -1873,6 +1875,20 @@ a `anon`.
   corrieron en verde en el PR 217 ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), `scripts/github/README.md`). **Lo que queda es
   vigilar que sigan puestas:** `verificar` las compara con la definición y es lo que avisa si alguien
   las cambia desde el panel.
+- **La base de uat existe, pero está en el plan gratuito, así que el [RNF-20](docs/03-requisitos-y-bdd.md#rnf-20) todavía no se cumple
+  ahí.** Comprobado el 2026-10-14 contra la API de Supabase: la organización tiene **dos proyectos**,
+  el de dev y el que se creó para pre-prod, y **no hay un tercero**. Quien dirige confirmó que ese
+  segundo es la base de uat: es el que la [0.4](docs/08-plan-de-desarrollo.md#tarea-0-4) creó como qa, pasó a pre-prod con el [ADR-045](docs/adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md) y quedó
+  como uat al quitarse pre-prod ([ADR-053](docs/adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)). De ahí que su nombre siga diciendo pre-prod; renombrarlo
+  es del panel, porque ni el CLI ni la herramienta de la sesión lo hacen. **Lo que hay que vigilar
+  son dos cosas.** La primera: **la organización está en el gratuito**, y ese plan pausa el proyecto
+  tras una semana sin uso, que es justo lo que el [RNF-20](docs/03-requisitos-y-bdd.md#rnf-20) no admite en un ambiente desplegado
+  ([§7.1](#71-el-expediente-de-uat-y-prod)) —que exista la base no es que el ambiente esté listo, y por eso la [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) sigue sin
+  marcar—. La segunda: **a ese proyecto le faltan ocho migraciones**, desde la `0.24.0` hasta la
+  `0.26.1`; está en la `0.23.0`, de 2026-10-03. Promoverlas es `promover.ps1 -Ambiente uat`, que
+  pide el ambiente y la referencia del proyecto escrita entera, y conviene `-EnSeco` antes: una
+  migración aplicada no se edita jamás ([ADR-004](docs/adr/ADR-004-base-solo-escritura.md), [19 §2.2](docs/19-ambientes-y-entrega.md#22-una-migración-aplicada-no-se-edita-nunca))
+
 - **`cuentas` y `categorias` ya llevan RLS, y la decidió la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10).** El [04 §7](docs/04-modelo-de-datos.md#7-seguridad-por-tipo-de-usuario-rls) las dejaba a
   propósito sin política, y entonces el «solo Gerencia» del contrato de la [1.17](docs/08-plan-de-desarrollo.md#tarea-1-17) no lo imponía
   nadie: **Operación podía crear las dos**. Se tomó la primera de las dos salidas —política, no
