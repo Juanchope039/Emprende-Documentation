@@ -57,7 +57,7 @@ jobs:
             # Si GitHub rechaza la consulta (token sin read:project, vencido o fino), se dice por qué.
             if ! ESTA=$(gh api graphql -f query="$CONSULTA" -f o="${REPO%/*}" -f r="${REPO#*/}" \
               -F n="$PR" --jq "$FILTRO" 2>&1); then
-              echo "::error::GitHub rechazó la consulta del proyecto con PRISMA_PROYECTO_TOKEN: $ESTA"
+              echo "::error::GitHub rechazó la consulta del proyecto con PRISMA_PROYECTO_TOKEN: $(echo "$ESTA" | tr -s '\n ' ' ')"
               exit 1
             fi
             if [ "$ESTA" -gt 0 ]; then
