@@ -1,6 +1,6 @@
 ---
 name: pr
-description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue. Se invoca a mano, con /pr.
+description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA, comprueba su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue. Se invoca a mano, con /pr.
 argument-hint: "[repositorio o id de la tarea]"
 disable-model-invocation: true
 model: sonnet
@@ -29,6 +29,9 @@ especificación.
    para subirlo. Dile a quien dirige qué issue harías, con su tipo, su padre y sus puntos.
 3. **Si el issue cubre solo una parte**, el PR lo dice: «Avanza» en vez de cerrar.
 4. Todos los PR hermanos de la rama nombran el mismo issue.
+5. **Su milestone** ([ADR-063](../../../docs/adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md)): el issue tiene uno, y el PR lleva el de mismo título en
+   su repositorio. Si el issue no tiene, para y pregunta a quien dirige cuál, y pónselo primero al
+   issue. Los cinco repositorios tienen los mismos milestones; si en uno falta, se crea igual.
 
 ## 3. La base, los conflictos y las puertas
 
@@ -61,6 +64,10 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    ```bash
    gh pr create --base <base> --head <rama> --title "…" --body-file cuerpo.md
    ```
+
+   Y el milestone, en el mismo paso: `gh pr edit <n> --milestone "<título>"`, o
+   `PATCH /repos/<dueño>/<repositorio>/issues/<n>` con `{"milestone": <número>}`. Sin él, el check
+   «El PR tiene milestone» queda en rojo hasta ponérselo.
 
    **Con la herramienta de GitHub que tenga la sesión**, lo mismo. **Sin ninguna**, se le deja a
    quien dirige el enlace `https://github.com/<dueño>/<repositorio>/compare/<base>...<rama>?expand=1`

@@ -48,5 +48,5 @@ ver desde cualquiera de los dos qué pasó con el otro, sin buscar.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [ADR-063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md "ADR-063 · Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->

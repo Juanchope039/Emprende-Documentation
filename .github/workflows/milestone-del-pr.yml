@@ -1,0 +1,38 @@
+# El PR tiene milestone: todo PR a una rama principal lleva el milestone de su issue (ADR-063 de la
+# especificación). Los cinco repositorios tienen los mismos milestones, con el mismo número y título.
+#
+# Solo lee el evento: no necesita token ni secretos. Poner o quitar el milestone vuelve a correrlo,
+# así que no hace falta empujar nada para ponerlo en verde.
+
+name: Milestone del PR
+
+on:
+  pull_request:
+    branches: [develop, qa, main]
+    types: [opened, reopened, synchronize, edited, ready_for_review, milestoned, demilestoned]
+
+permissions: {}
+
+concurrency:
+  group: milestone-del-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  con-milestone:
+    name: El PR tiene milestone
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Buscar el milestone del PR
+        env:
+          MILESTONE: ${{ github.event.pull_request.milestone.title }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          if [ -n "$MILESTONE" ]; then
+            echo "El PR #$PR está en el milestone «$MILESTONE»."
+            exit 0
+          fi
+          echo "::error::El PR #$PR no tiene milestone. Ponle el de su issue de Juanchope039/PRISMA (ADR-063)."
+          echo "En el panel Milestone del PR, o con gh pr edit $PR --milestone '<título>'."
+          exit 1
