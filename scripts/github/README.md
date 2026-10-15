@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [3.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -43,6 +43,9 @@ Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempr
 **Y el check «El PR está en el proyecto»**, junto a la tubería en los dos conjuntos de los cuatro
 repositorios, no en el monorepo ([ADR-062](../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)). Es el trabajo de `proyecto-del-pr.yml`, el mismo en los
 cuatro, y mira que el PR esté en «Prisma project», el proyecto 4 de `Juanchope039`.
+
+**Y el check «El PR tiene milestone»**, en los cinco, también en el monorepo ([ADR-063](../../docs/adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md)). Es el
+trabajo de `milestone-del-pr.yml`, que solo lee el evento del PR y no necesita ningún secreto.
 
 **La especificación no tiene `develop`**: su base es `main` ([21 §6.5](../../docs/21-trabajo-en-paralelo.md#65-ramas-e-integración)), así que ahí solo se ponen
 dos conjuntos, y `main` entra en el de la tubería en verde.
@@ -99,7 +102,7 @@ de los tres conjuntos de la tabla de arriba:
 4. **Rules**: `Restrict deletions` en el primero. En los otros dos, `Require a pull request before
    merging` con **0** aprobaciones y `Require status checks to pass`, agregando el check por su
    nombre —**Tubería completa** o **Tubería en verde**, y **El PR está en el proyecto** salvo en el
-   monorepo— y dejando sin marcar «Require branches to be
+   monorepo, y **El PR tiene milestone** en los cinco— y dejando sin marcar «Require branches to be
    up to date before merging».
 
 `mostrar` imprime el mismo JSON que se envía, que sirve para comparar lo que quedó en el panel.

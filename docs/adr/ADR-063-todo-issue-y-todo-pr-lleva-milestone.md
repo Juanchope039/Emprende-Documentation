@@ -32,7 +32,7 @@ monorepo, y los issues solo viven en `Juanchope039/PRISMA` ([ADR-060](ADR-060-to
    Uno nuevo se crea en los cinco a la vez, y se cierra en los cinco cuando no le queda nada
    abierto. Qué milestones hay lo decide quien dirige.
 4. **Lo exige el check «El PR tiene milestone»** (`.github/workflows/milestone-del-pr.yml`) en los
-   cinco. En el monorepo solo corre en el de `Juanchope039`: las copias de los emprendimientos no
+   cinco, y las reglas de rama lo exigen. En el monorepo solo corre en el de `Juanchope039`: las copias de los emprendimientos no
    heredan la regla.
 5. **Los dos primeros**, creados el 2026-10-15:
    - **M1 · Lo construido**: todo lo implementado hasta esa fecha, con todos los PR fusionados de
@@ -52,9 +52,9 @@ que ya trae la tubería.
 - **Positivas:** cada entrega cuenta su avance en GitHub, por repositorio y en el tablero.
 - **Negativas:** un milestone nuevo son cinco altas; si una falta, el PR de ese repositorio no
   encuentra el suyo.
-- **A vigilar:** que los títulos sigan iguales en los cinco. El check todavía no es obligatorio en
-  las reglas de rama: entra en `politicas-de-ramas.json` cuando se fusione el [ADR-062](https://github.com/Juanchope039/Finanzas-PRISMA/pull/223), que
-  cambia ese mismo archivo.
+- **A vigilar:** que los títulos sigan iguales en los cinco. El check entra en
+  `politicas-de-ramas.json` junto al del [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md), y se exige cuando quien dirige vuelve a correr
+  `aplicar` después de fusionar este cambio en los cinco.
 
 ## Referencias
 
@@ -65,5 +65,5 @@ que ya trae la tubería.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->
