@@ -2,7 +2,11 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-15 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-15 | [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Nota del 2026-10-15:** las consecuencias negativas hablan de «un token personal con `repo`»,
+> y eso quedó de un borrador. El token es el de la decisión (punto 3): uno fino, limitado a los cuatro
+> repositorios, con *Pull requests* y *Projects* en lectura. Lo que sí vale es que vence.
 
 ## Contexto
 
