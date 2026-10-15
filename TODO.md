@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.67.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-14 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.69.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-14 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -1850,14 +1850,29 @@ a `anon`.
   mientras la comprobación no esté marcada como obligatoria en la protección de `develop`. Lo que sí
   hace hoy en la API y el front, aunque se fusione en rojo, es parar el despliegue: el empuje a
   `develop` también la corre, y Railway no construye dev con la integración continua en rojo.
-  `prisma_db` no se despliega, así que ahí la única cerradura es esa casilla. **Y esa casilla no
-  existe:** los tres repositorios de código son privados en el plan gratuito, y GitHub responde
+  `prisma_db` no se despliega, así que ahí la única cerradura es esa casilla. Hasta el 2026-10-14 esa
+  casilla no existía: los tres repositorios de código son privados y el plan gratuito contestaba
   *«Upgrade to GitHub Pro or make this repository public»* tanto a la protección de rama como a los
-  rulesets (comprobado el 2026-09-19 contra su API). No es que nadie la haya marcado: no está. Las
-  dos salidas cuestan algo —pagar el plan, o hacer públicos unos repositorios de los que `prisma_db`
-  lleva la semilla con nombres reales del equipo ([R-23](docs/11-riesgos-y-proteccion-de-datos.md))—, así que **se decidió dejarlo y escribirlo
-  aquí**: API y front quedan cubiertos de hecho por Railway, y el hueco real, el único, es que un PR
-  de `prisma_db` con la versión sin subir se puede fusionar.
+  rulesets (comprobado el 2026-09-19 contra su API). Las dos salidas costaban algo —pagar el plan, o
+  hacer públicos unos repositorios de los que `prisma_db` lleva la semilla con nombres reales del
+  equipo ([R-23](docs/11-riesgos-y-proteccion-de-datos.md))—, así que se decidió dejarlo y escribirlo aquí. **Ya no es así: la cuenta
+  pasó a GitHub Pro el 2026-10-14**, la casilla se puede marcar, y publicar quedó prohibido aparte
+  ([ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)). **Y ya se hizo:** la casilla está marcada, como cuenta la viñeta siguiente.
+
+- **Las protecciones de rama están puestas en los cinco repositorios, y la costumbre dejó de ser la
+  cerradura.** `node scripts/github/politicas-de-ramas.mjs verificar` dice `las politicas de rama
+  estan puestas`: trece cosas, dos en la especificación, tres en cada uno de los tres repositorios
+  de código y dos en el monorepo de producto. Que las ramas principales no se borren, y que a
+  `develop` y a las demás no se entre sin PR con su puerta de tubería. Quien dirige lo aplicó el
+  2026-10-14 con `politicas-de-ramas.mjs aplicar`, después de que la cuenta pasara a GitHub Pro.
+  **Lo que podía dejar PR colgados se comprobó antes**, y no pasa: una puerta que exige un check
+  cuyo nombre no produce ningún flujo bloquea el PR para siempre, así que se miró repositorio por
+  repositorio. En los tres de código los dos trabajos existen con `if: always()`, y su `ci.yml`
+  dispara en `pull_request` a `develop`, `qa`, `uat` y `main`; en el monorepo, «Tubería en verde»
+  vive en `sincronia.yml` y dispara en `pull_request` a `main`; en la especificación las dos
+  corrieron en verde en el PR 217 ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), `scripts/github/README.md`). **Lo que queda es
+  vigilar que sigan puestas:** `verificar` las compara con la definición y es lo que avisa si alguien
+  las cambia desde el panel.
 - **`cuentas` y `categorias` ya llevan RLS, y la decidió la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10).** El [04 §7](docs/04-modelo-de-datos.md#7-seguridad-por-tipo-de-usuario-rls) las dejaba a
   propósito sin política, y entonces el «solo Gerencia» del contrato de la [1.17](docs/08-plan-de-desarrollo.md#tarea-1-17) no lo imponía
   nadie: **Operación podía crear las dos**. Se tomó la primera de las dos salidas —política, no

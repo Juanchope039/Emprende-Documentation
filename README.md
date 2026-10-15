@@ -3,7 +3,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.8.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
+| [1.9.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
 
 > **PRISMA** = **P**lataforma de **R**egistro, **I**nversión, **S**eguimiento, **M**árgenes y **A**dministración.
 > Un solo lugar para saber cuánto entra, cuánto sale, cuánto queda y cuánto se puede pagar.
@@ -196,6 +196,18 @@ paralelo— está en [`TODO.md`](TODO.md).
 - **Si diriges el negocio:** lee [`00-resumen-ejecutivo.md`](docs/00-resumen-ejecutivo.md), abre el mockup, y luego [`05-reglas-financieras.md`](docs/05-reglas-financieras.md).
 - **Si vas a programar:** lee `01`, `02`, `03`, `04`, `07`, `19` y `20` en ese orden.
 - **Si eres el contador:** lee `05`, `06` y `11`.
+
+**La documentación Swagger la genera la API** con springdoc, a partir de sus controladores
+([ADR-022](docs/adr/ADR-022-openapi-generado.md)), y cuelga de la misma dirección que la API:
+
+| Qué | Ruta | En una máquina, con `./gradlew bootRun` |
+|---|---|---|
+| Swagger UI, para leer y probar las operaciones | `/docs` | <http://localhost:8081/docs> |
+| El OpenAPI generado, en JSON | `/docs/openapi` | <http://localhost:8081/docs/openapi> |
+
+En dev y en qa está abierta. En uat y en prod pide usuario y clave, y prod cuenta aunque no se
+despliegue en el dominio del proyecto sino en la copia de cada emprendimiento. Lo que se publica en
+cada ambiente lo dice [20 §7.2](docs/20-contrato-de-api.md#72-dónde-se-publica-en-cada-ambiente). El contrato que manda sigue siendo el acordado, en [`contrato/`](contrato/).
 
 ---
 

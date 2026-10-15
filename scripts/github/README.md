@@ -4,7 +4,8 @@
 |---|---|---|---|---|
 | [3.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
-Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios: que no se
+Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
+`main` del monorepo de producto: que no se
 borren, y qué tiene que haber pasado para entrar en cada una. La decisión está en
 [ADR-048](../../docs/adr/ADR-048-las-ramas-principales-las-protege-github.md) y la regla, en el [`CLAUDE.md`](../../CLAUDE.md) de la especificación.
 
@@ -19,7 +20,7 @@ node scripts/github/politicas-de-ramas.mjs verificar Finanzas-PRISMA-API   # sol
 ```
 
 - **Necesita Node 20 o más, el `gh` de GitHub en el `PATH`, y un token del dueño con permiso de
-  administración** sobre los cuatro repositorios: `gh auth login` como la cuenta dueña, o un
+  administración** sobre los cinco repositorios: `gh auth login` como la cuenta dueña, o un
   `GH_TOKEN` fino con `Administration: write`. Con el token de una app o de una sesión de agente
   dice que no administra el repositorio y no escribe nada.
 - **`verificar` no escribe nunca**, y devuelve 1 si falta algo. Es lo que conviene correr después de
@@ -52,14 +53,14 @@ Y lo mismo cada vez que una puerta cambie de nombre: mientras el nombre viejo si
 PR pasa. Se cambian los dos a la vez —el `name:` del trabajo y el de la definición— y la regla se
 vuelve a aplicar en cuanto la rama con el nombre nuevo esté en la base.
 
-## Lo que hoy lo bloquea
+## Los repositorios privados
 
-- **Los tres repositorios de código son privados y la cuenta está en el plan Free.** La API contesta
-  `403 Upgrade to GitHub Pro or make this repository public`, y el panel tampoco ofrece las reglas.
-  **De las dos salidas que nombra GitHub, la segunda está prohibida**: la visibilidad de un
-  repositorio no se cambia ([ADR-051](../../docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)). Queda una, pasar la cuenta a GitHub Pro, y
-  mientras no esté, la herramienta lo dice y no inventa nada.
-- **La especificación es pública y sí las admite**, pero hace falta el token del dueño.
+- **Los privados solo admiten reglas con GitHub Pro.** En el plan Free la API contesta `403 Upgrade
+  to GitHub Pro or make this repository public`. La segunda salida está prohibida: la visibilidad
+  de un repositorio no se cambia ([ADR-051](../../docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)). La cuenta pasó a Pro el 2026-10-14.
+- **El monorepo de producto solo protege `main`**, y su puerta «Tubería en verde» es el último
+  trabajo de su flujo «Sincronia» ([ADR-058](../../docs/adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md)). Como dice el apartado anterior, se aplica después de
+  que ese flujo esté en `main`.
 
 ## A mano, en el panel
 

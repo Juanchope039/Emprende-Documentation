@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/20-contrato-de-api.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-06 | [Contrato](INDICE.md#etiqueta-contrato) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) |
+| [3.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/20-contrato-de-api.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-14 | [Contrato](INDICE.md#etiqueta-contrato) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) |
 
 Qué forma tiene toda respuesta de `prisma_api`, cómo se numeran los errores y qué cabeceras lleva
 cada petición. Es el documento de referencia para quien vaya a construir o a consumir la API.
@@ -629,13 +629,19 @@ contrato que ese artefacto implementa viaja al lado, en `x-prisma-contrato` ([AD
 |---|---|---|
 | dev | `/docs` | Abierto |
 | qa | `/docs` | Abierto |
-| uat | `/docs` | Abierto |
-| **pre-prod** | `/docs` | **Detrás de autenticación** ([ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md)) |
+| **uat** | `/docs` | **Detrás de autenticación** |
 | **prod** | `/docs` | **Detrás de autenticación** |
 
-En producción va cerrado a propósito: **el catálogo de endpoints es un mapa del sistema** y no
-tiene por qué ser público. Los cuatro ambientes están descritos en
-[`19-ambientes-y-entrega.md`](19-ambientes-y-entrega.md).
+El JSON del documento cuelga de `/docs/openapi`, con la misma puerta que la página.
+
+En uat y en prod va cerrado a propósito: **el catálogo de endpoints es un mapa del sistema** y no
+tiene por qué ser público. La puerta es autenticación básica, desde la tarea [9.11](08-plan-de-desarrollo.md#tarea-9-11), y sin credencial
+configurada las rutas contestan como si no existieran.
+
+**prod cuenta aunque no viva en el dominio del proyecto.** Cada emprendimiento lo despliega en su
+propia infraestructura, desde su copia del monorepo de producto ([ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md)), con esta misma imagen y
+el perfil `prod`. La puerta viaja en la imagen, así que ahí también queda cerrado. Los ambientes
+están descritos en [`19-ambientes-y-entrega.md`](19-ambientes-y-entrega.md).
 
 ### 7.3 Qué documenta cada operación
 
