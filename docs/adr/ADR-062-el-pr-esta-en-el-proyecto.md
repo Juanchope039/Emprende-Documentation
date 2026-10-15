@@ -75,5 +75,5 @@ nada: el check solo falla cuando el auto-add no hizo su trabajo, que es justo lo
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md "ADR-063 · Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->

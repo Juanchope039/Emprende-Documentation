@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.31.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-15 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.32.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-15 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -68,10 +68,12 @@ consideraron y qué consecuencias tiene.
 | [057](ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión | Aceptado |
 | [058](ADR-058-el-monorepo-no-va-adelante-de-develop.md) | El monorepo de producto nunca lleva en sus subárboles algo que no esté en `develop` | Aceptado |
 | [059](ADR-059-etiquetas-con-esquema-y-release-en-main.md) | Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a `main` | Aceptado |
+| [060](ADR-060-todo-pr-se-asocia-a-un-issue.md) | Todo PR se asocia a un issue del monorepo de producto | Aceptado |
 | [061](ADR-061-se-promueve-con-merge-commit.md) | Se promueve con merge commit, y qa no recibe nada que no esté en develop | Aceptado |
 | [062](ADR-062-el-pr-esta-en-el-proyecto.md) | Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige | Aceptado |
+| [063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md) | Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios | Aceptado |
 
-Son **59 decisiones** registradas: 49 aceptadas y 10 reemplazadas.
+Son **61 decisiones** registradas: 51 aceptadas y 10 reemplazadas.
 
 > **Sobre la numeración.** El cambio de stack se planeó como [ADR-010](ADR-010-almacenamiento-contrasenas.md) y [ADR-011](ADR-011-stack-flutter-dart.md), pero el 010 ya
 > estaba ocupado por la decisión de contraseñas. Un número asignado no se reutiliza, así que el

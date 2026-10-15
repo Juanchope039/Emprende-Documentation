@@ -49,9 +49,13 @@ function checksExigidos(contextos) {
   };
 }
 
-/** La puerta de la tuberia y, si el repositorio la lleva, la del proyecto del tablero (ADR-062). */
+/** La puerta de la tuberia y, si el repositorio las lleva, la del proyecto (ADR-062) y la del milestone (ADR-063). */
 function puertasDe(repo, tuberia) {
-  return repo['pr-en-el-proyecto'] ? [tuberia, DEF.puertas.proyecto] : [tuberia];
+  return [
+    tuberia,
+    ...(repo['pr-en-el-proyecto'] ? [DEF.puertas.proyecto] : []),
+    ...(repo['pr-con-milestone'] ? [DEF.puertas.milestone] : []),
+  ];
 }
 
 const REGLAS = {

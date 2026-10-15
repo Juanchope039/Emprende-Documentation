@@ -1,9 +1,10 @@
 {
-  "reglas": "Las de ADR-048 y ADR-062. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
+  "reglas": "Las de ADR-048, ADR-062 y ADR-063. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
   "puertas": {
     "completa": "Tubería completa",
     "en-verde": "Tubería en verde",
     "proyecto": "El PR está en el proyecto",
+    "milestone": "El PR tiene milestone",
     "integracion": 15368
   },
   "conjuntos": [
@@ -29,6 +30,7 @@
       "proyecto": "la especificacion",
       "visibilidad": "publico",
       "pr-en-el-proyecto": true,
+      "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main"],
         "tuberia-completa": [],
@@ -40,6 +42,7 @@
       "proyecto": "prisma_db",
       "visibilidad": "privado",
       "pr-en-el-proyecto": true,
+      "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
         "tuberia-completa": ["develop"],
@@ -51,6 +54,7 @@
       "proyecto": "prisma_api",
       "visibilidad": "privado",
       "pr-en-el-proyecto": true,
+      "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
         "tuberia-completa": ["develop"],
@@ -62,6 +66,7 @@
       "proyecto": "prisma_front",
       "visibilidad": "privado",
       "pr-en-el-proyecto": true,
+      "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
         "tuberia-completa": ["develop"],
@@ -73,6 +78,7 @@
       "proyecto": "el monorepo de producto",
       "visibilidad": "privado",
       "pr-en-el-proyecto": false,
+      "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main"],
         "tuberia-completa": [],
