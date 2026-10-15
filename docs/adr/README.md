@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.26.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.27.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -64,8 +64,9 @@ consideraron y qué consecuencias tiene.
 | [053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) | Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado | Aceptado |
 | [054](ADR-054-la-entrega-va-al-monorepo-de-producto.md) | La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia | Aceptado |
 | [057](ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión | Aceptado |
+| [058](ADR-058-el-monorepo-no-va-adelante-de-develop.md) | El monorepo de producto nunca lleva en sus subárboles algo que no esté en `develop` | Aceptado |
 
-Son **45 decisiones** registradas: 36 aceptadas y 9 reemplazadas.
+Son **46 decisiones** registradas: 37 aceptadas y 9 reemplazadas.
 
 > **Sobre la numeración.** El cambio de stack se planeó como [ADR-010](ADR-010-almacenamiento-contrasenas.md) y [ADR-011](ADR-011-stack-flutter-dart.md), pero el 010 ya
 > estaba ocupado por la decisión de contraseñas. Un número asignado no se reutiliza, así que el

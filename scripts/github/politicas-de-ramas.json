@@ -62,6 +62,16 @@
         "tuberia-completa": ["develop"],
         "tuberia-en-verde": ["qa", "uat", "main"]
       }
+    },
+    {
+      "nombre": "PRISMA",
+      "proyecto": "el monorepo de producto",
+      "visibilidad": "privado",
+      "ramas": {
+        "sin-borrar": ["main"],
+        "tuberia-completa": [],
+        "tuberia-en-verde": ["main"]
+      }
     }
   ]
 }
