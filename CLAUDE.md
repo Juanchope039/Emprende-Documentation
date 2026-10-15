@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [13.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -143,6 +143,12 @@ ni referencias de proyectos, ni nombres de clientes.
 - No piden versión las pruebas, los README, los flujos ni las guías de agentes: `CLAUDE.md`,
   `AGENTS.md` y `.claude/`.
 - Lo exige la prueba [C-05](docs/12-pruebas-y-calidad.md#c-05).
+
+**Las etiquetas y los releases los pone la tubería, nunca una persona ni una sesión** ([ADR-059](docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md)).
+- La etiqueta nace cuando la versión entra a `develop`, y el release cuando llega a `main`. En el
+  monorepo, los dos en cada entrega.
+- Una etiqueta no se mueve ni se borra. Si quedó mal, la siguiente lo declara con `Corrige:`.
+- El esquema, con sus ejemplos, está en el [19 §4.4](docs/19-ambientes-y-entrega.md#44-etiquetas-y-releases), y el paso a paso en las skills `etiqueta` y `release`.
 
 **Todo `.md` de los cuatro repositorios lleva encabezado con versión, estado y fechas** ([ADR-027](docs/adr/ADR-027-documentacion-versionada.md),
 [`22-documentacion.md`](docs/22-documentacion.md)).

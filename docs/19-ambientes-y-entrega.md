@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [12.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [12.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de PRISMA.
 
@@ -250,7 +250,8 @@ corriendo».
   significa que el contrato rompió y no «todavía no hay nada que prometer».
 - **Cada versión lleva su etiqueta de git, `v<versión>`, y la pone la tubería.** En cada empuje a
   `develop`, sobre el commit con que esa versión entró, y sin mover nunca una que ya exista. A mano
-  se saltaba: en `prisma_db` ocho veces seguidas. Las anteriores a la `1.0.0` no la tienen.
+  se saltaba: en `prisma_db` ocho veces seguidas. Las anteriores a la `1.0.0` no la tienen. Su
+  esquema, su mensaje y cuándo nace un release están en el [§4.4](#44-etiquetas-y-releases).
 - **MAJOR** de la API: cambio que rompe el contrato con el front —un campo que desaparece, un
   tipo que cambia, un endpoint que se va—.
 - **MINOR**: funcionalidad nueva compatible hacia atrás.
@@ -300,6 +301,62 @@ suyo.
 **El prefijo de la ruta no es el MAJOR de SemVer.** Todo cuelga de `/api/v0` por el
 [ADR-030](adr/ADR-030-contrato-sin-get.md), y el paso a `1.0.0` no lo movió: el contrato no rompió, solo dejó de ser
 provisional. Si algún día rompe, es ese ADR el que decide qué pasa con la ruta.
+
+### 4.4 Etiquetas y releases
+
+**Una etiqueta dice que una versión existe; un release, que se le entrega a alguien**
+([ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md)). Las dos las pone la tubería, y ninguna persona ni sesión las crea a mano.
+
+| | Etiqueta | Release |
+|---|---|---|
+| **Cuándo** | Cada vez que una versión entra a `develop`; en el monorepo, en cada entrega | Cuando esa versión llega a `main`, aprobada en uat; en el monorepo, en cada `entrega-vN` |
+| **Tramo** | Desde la etiqueta anterior del mismo patrón | Desde el release anterior: junta las etiquetas intermedias |
+| **Contenido** | Lo escribe la tubería: `Paso:` e `Incluye:` | Lo generan los `CHANGELOG.md` del tramo |
+| **Para quién** | La tubería y quien depura | Quien adopta: el equipo y, en el monorepo, cada emprendimiento |
+
+**El nombre.** `N` es un número sin ceros a la izquierda, y el punto y el `+` son literales:
+
+| Repositorio | Patrón | Vale | No vale, y por qué | Nace en |
+|---|---|---|---|---|
+| `prisma_api` | `vN.N.N` | `v2.4.0` | `2.4.0` (sin la `v`), `v2.4` (le falta el PATCH) | `develop` |
+| `prisma_front` | `vN.N.N+N` | `v2.1.3+55` | `v2.1.3` (sin `+BUILD`), `v2.1.03+55` (cero a la izquierda) | `develop` |
+| `prisma_db` | `esquema-vN.N.N` | `esquema-v0.26.1` | `v0.26.1` (sin el prefijo), `esquema-0.26.1` (sin la `v`) | `develop` |
+| Monorepo | `entrega-vN`, desde 1 | `entrega-v3` | `entrega-v0`, `entrega-v03`, `entrega-v1.0.0` (es un consecutivo) | `main` |
+
+**Las reglas de toda etiqueta:**
+
+- es anotada, nunca ligera, y **no se mueve ni se borra jamás**;
+- va sobre el commit de la primera línea con que la versión entró;
+- **sube un solo paso** con respecto a la anterior del mismo patrón: después de `v2.4.0` valen
+  `v2.4.1`, `v2.5.0` o `v3.0.0`, y no `v2.6.0`; en el front, después de `v2.1.3+55` vale
+  `v2.1.4+56` y no `v2.1.4+57`; después de `entrega-v3`, solo `entrega-v4`.
+
+**El mensaje** tiene forma fija, y no nombra otras etiquetas: la anterior se deduce.
+
+```text
+prisma_api 2.5.0
+
+Paso: MINOR
+Incluye:
+- #141 Sprint 9 / 9.18: lo que agrega la tarea
+- #143 Arreglo: lo que corrige
+```
+
+- `Incluye:` son los PR fusionados en la primera línea desde la etiqueta anterior, **sin las
+  fusiones de promoción** (las que vienen de `develop`, `qa`, `main` o `uat`).
+- La base agrega `Migraciones:`, con los archivos nuevos del tramo, y la API `Esquema que pide:`.
+- **Solo se nombra otra etiqueta para corregirla**, en un renglón `Corrige: <etiqueta>: lo que estaba
+  mal`. Una etiqueta equivocada no se rehace: la siguiente lo declara.
+
+**Lo verifica `verificar-etiquetas.sh`** en cada repositorio de código, en el empuje a `develop`.
+Las etiquetas de antes del [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) llevan el mensaje viejo, y ocho de la base no cumplen el resto
+(seis ligeras y dos fuera de la primera línea): están en su lista de excepciones, que solo se
+encoge.
+
+**El release** no se publica si a una versión del tramo le falta su entrada en el `CHANGELOG.md`, o
+si a la API o al front les falta su imagen en GHCR con el árbol de esa versión. Su cuerpo nombra la
+imagen con su digest, dice qué versiones junta y no nombra el release anterior. En el monorepo, el
+mismo texto queda en `entrega/RELEASE.md`, que se reescribe en cada entrega.
 
 ---
 
@@ -732,7 +789,7 @@ solo está **con qué configuración corre cada ambiente y cómo se mueve una ve
 | Qué forma tiene cada respuesta de la API y qué cabeceras lleva | [`20-contrato-de-api.md`](20-contrato-de-api.md) |
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [18](18-distribucion-y-pipelines.md "18 · Distribución multiplataforma y automatización (pipelines)") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-024](adr/ADR-024-java-25-y-gradle.md "ADR-024 · Java 25, Gradle y Spring Boot 4 en la API") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md "ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio") · [ADR-046](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-049](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE") · [ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-051](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia") · [ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md "ADR-055 · uat se despliega desde main del monorepo de producto, y lo aprobado es solo la etiqueta") · [ADR-056](adr/ADR-056-qa-se-aloja-desde-su-rama.md "ADR-056 · qa también se aloja en Railway, construido desde la rama qa") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [18](18-distribucion-y-pipelines.md "18 · Distribución multiplataforma y automatización (pipelines)") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-024](adr/ADR-024-java-25-y-gradle.md "ADR-024 · Java 25, Gradle y Spring Boot 4 en la API") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md "ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio") · [ADR-046](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-049](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE") · [ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-051](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia") · [ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md "ADR-055 · uat se despliega desde main del monorepo de producto, y lo aprobado es solo la etiqueta") · [ADR-056](adr/ADR-056-qa-se-aloja-desde-su-rama.md "ADR-056 · qa también se aloja en Railway, construido desde la rama qa") · [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
 
 ---
