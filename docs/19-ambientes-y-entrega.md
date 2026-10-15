@@ -135,6 +135,12 @@ prod en el momento de publicar**, porque eso es recompilar. Cada ambiente compil
 artefacto: el de prod lo compila la etapa qa con sus `--dart-define`, y el de uat lo compila
 Railway desde `main` del monorepo de producto, con su configuración ([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)).
 
+> **El alojamiento todavía no despliega desde GHCR: construye desde la rama.** Las imágenes son
+> privadas, como sus repositorios ([ADR-051](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)), y Railway solo acepta credenciales de un registro privado
+> en su plan Pro. Hacer pública la imagen no es salida: lleva la API compilada y no se recoge. Se
+> intentó con la API de qa el 2026-10-15, el despliegue no pudo bajar la imagen y se volvió a la
+> rama. Se retoma cuando haya plan Pro, una etapa a la vez y empezando por la API de qa.
+
 ### 2.4 El artefacto de la API: una imagen de contenedor con una JVM adentro
 
 `prisma_api` es una aplicación Java 25 con Spring Boot, y eso decide cómo se construye, qué se
