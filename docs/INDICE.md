@@ -262,7 +262,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-058 · El monorepo de producto nunca lleva en sus subárboles algo que no esté en develop](adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-061 · Se promueve con merge commit, y qa no recibe nada que no esté en develop](adr/ADR-061-se-promueve-con-merge-commit.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
-| [ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige](adr/ADR-062-el-pr-esta-en-el-proyecto.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | [Proceso](#etiqueta-proceso) |
+| [ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige](adr/ADR-062-el-pr-esta-en-el-proyecto.md) | 1.1.0 | ✅ Aceptado | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [AGENTS.md](../AGENTS.md) | 2.2.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [CLAUDE.md](../CLAUDE.md) | 14.1.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.2.0 | ✅ Vigente | 2026-09-27 | [Proceso](#etiqueta-proceso) |
