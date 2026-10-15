@@ -5,7 +5,7 @@
 # pide por su nombre. El mismo archivo vive en los cuatro repositorios, y el monorepo no lo lleva.
 #
 # Los proyectos de un usuario no los lee GITHUB_TOKEN: hace falta el secreto PRISMA_PROYECTO_TOKEN,
-# un token clásico del dueño con `repo` y `read:project`. Sin él, el check falla y lo dice.
+# un token fino del dueño con Pull requests y Projects en lectura. Sin él, el check falla.
 #
 # Agregar el PR al proyecto no dispara ningún evento del PR. Por eso el trabajo espera hasta dos
 # minutos a que el auto-add del proyecto lo agregue, y si entró después, se vuelve a correr a mano.
@@ -42,7 +42,7 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "::error::Falta el secreto PRISMA_PROYECTO_TOKEN: un token clásico del dueño con repo y read:project (ADR-062)."
+            echo "::error::Falta el secreto PRISMA_PROYECTO_TOKEN: un token fino del dueño con Pull requests y Projects en lectura (ADR-062)."
             exit 1
           fi
 
@@ -54,7 +54,7 @@ jobs:
             | select(.number == $NUMERO and .owner.login == \"$DUENO\")] | length"
 
           for intento in 1 2 3 4 5 6 7; do
-            # Si GitHub rechaza la consulta (token sin read:project, vencido o fino), se dice por qué.
+            # Si GitHub rechaza la consulta (token sin permisos, sin el repositorio o vencido), dice por qué.
             if ! ESTA=$(gh api graphql -f query="$CONSULTA" -f o="${REPO%/*}" -f r="${REPO#*/}" \
               -F n="$PR" --jq "$FILTRO" 2>&1); then
               # La anotacion se corta en el primer salto: primero la ultima linea, que es la de gh.

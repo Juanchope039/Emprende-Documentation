@@ -62,8 +62,10 @@ vuelve a aplicar en cuanto la rama con el nombre nuevo esté en la base.
 El check «El PR está en el proyecto» necesita dos cosas que esta herramienta no pone:
 
 1. **El secreto `PRISMA_PROYECTO_TOKEN` en cada uno de los cuatro repositorios**, en *Settings →
-   Secrets and variables → Actions → Secrets*. Es un token clásico del dueño con `repo` y
-   `read:project`: el `GITHUB_TOKEN` de Actions no lee los proyectos de un usuario. Cuando vence,
+   Secrets and variables → Actions → Secrets*. Es un token fino del dueño, limitado a los
+   cuatro repositorios, con *Pull requests* y *Projects* (de la cuenta) en lectura: el
+   `GITHUB_TOKEN` de Actions no lee los proyectos de un usuario. Uno clásico necesitaría `repo`,
+   que escribe en todos los repositorios. Cuando vence,
    todos los PR quedan en rojo el mismo día.
 2. **El auto-add del proyecto**, para que nadie tenga que agregar el PR a mano: en «Prisma project»,
    *⋯ → Workflows → Auto-add to project*, un flujo por repositorio con el filtro `is:pr`.

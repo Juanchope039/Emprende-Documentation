@@ -16,7 +16,8 @@ Cuatro hechos limitan cómo se hace:
 - **GitHub no tiene una regla de rama para «está en un proyecto».** Un ruleset solo puede exigir un
   check por su nombre ([ADR-048](ADR-048-las-ramas-principales-las-protege-github.md)).
 - **El `GITHUB_TOKEN` de Actions no lee los proyectos de un usuario**: hace falta un token del dueño
-  con `read:project`, y con `repo` para leer un PR de un repositorio privado.
+  que lea el proyecto y los PR. Uno clásico necesitaría `repo`, que escribe en todos sus
+  repositorios; uno fino se limita a los cuatro y a la lectura.
 - **Agregar un PR a un proyecto no dispara ningún evento del PR**, así que un check no se entera solo
   de que ya está.
 - **Una sesión de agente en la nube no alcanza los proyectos**: ni GraphQL ni las rutas REST de
@@ -38,7 +39,8 @@ Cuatro hechos limitan cómo se hace:
    uno de los cuatro, y los rulesets de [ADR-048](ADR-048-las-ramas-principales-las-protege-github.md) lo exigen junto a la tubería. Espera hasta dos
    minutos a que el PR aparezca, y si no, falla diciendo qué hacer.
 3. **Lee el proyecto con el secreto `PRISMA_PROYECTO_TOKEN`**, que pone quien dirige en cada
-   repositorio: un token clásico suyo con `repo` y `read:project`. Sin él, el check falla y lo dice.
+   repositorio: un token fino suyo, limitado a los cuatro repositorios, con *Pull requests* y
+   *Projects* en lectura. Sin él, el check falla y lo dice.
 4. **El proyecto agrega solo cada PR nuevo**, con un flujo «Auto-add to project» por repositorio,
    filtrado por `is:pr`. Lo activa quien dirige en el panel del proyecto.
 5. **La skill `pr` agrega el PR al proyecto 4**, o al que quien dirige nombre al pedir el PR. Un
