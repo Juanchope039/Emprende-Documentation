@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-14 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [2.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Guía para los agentes de código que trabajan en la especificación de PRISMA. **Las reglas están en
 [`CLAUDE.md`](CLAUDE.md)**, tanto las del proceso como las de la arquitectura y las de este
@@ -22,7 +22,7 @@ lo que se repite está en las skills del [§3](#3-los-procedimientos).
 | [`TODO.md`](TODO.md) | El tablero: en qué va cada tarea y qué decisiones tiene que revisar quien dirige |
 | `scripts/docs/` | La herramienta que pone y verifica encabezados, enlaces y bloques generados |
 | `.claude/skills/` | Los procedimientos paso a paso del [§3](#3-los-procedimientos). Son Markdown: cualquier agente los puede leer |
-| `scripts/github/` | La herramienta que pone en GitHub las protecciones de las cinco ramas principales ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md)) |
+| `scripts/github/` | La herramienta que pone en GitHub las protecciones de las ramas principales ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md)) |
 
 Los repositorios de código están al lado, en `../backend-api`, `../backend-db` y
 `../frontend-flutter`. Cuando están en disco, la herramienta también revisa sus `.md`.
