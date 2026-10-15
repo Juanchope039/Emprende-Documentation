@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.25.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | — |
+| [1.26.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | — |
 
 > Guía para moverte por toda la documentación de PRISMA **sin perderte y sin saber de programación**.
 > Cada documento dice para qué sirve, en lenguaje sencillo, y está marcado si es técnico.
@@ -146,6 +146,7 @@ a una pregunta concreta. Ver el [índice de ADRs](adr/README.md).
 | [057](adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | Lo que un asistente automático publica en GitHub lleva su firma una sola vez, y no deja a la vista el enlace privado de la conversación que lo produjo | ¿Por qué un cambio hecho por un asistente no repite su firma ni enlaza a su conversación? |
 | [058](adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md) | La copia del programa que reciben los emprendimientos solo puede llevar lo que ya pasó por las pruebas del día a día. Una revisión automática lo comprueba antes de cada cambio | ¿Puede la copia que reciben los emprendimientos tener algo que no se probó? |
 | [059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) | Cada versión lleva una marca con un nombre fijo que dice qué trae, y cuando Gerencia la aprueba se publica un aviso con todo lo nuevo desde el anterior | ¿Cómo sé qué trae una versión nueva? |
+| [060](adr/ADR-060-todo-pr-se-asocia-a-un-issue.md) | Cada cambio que se propone dice a qué tarea anotada del tablero responde, para que el tablero y el código cuenten lo mismo | ¿Cómo sé qué cambio cerró una tarea del tablero? |
 
 Del 017 al 026 están las decisiones del modelo de tres partes: el cambio de Dart a Java en la
 API, que el front no decide nada, el contrato de respuesta, la idempotencia, el canal firmado,
@@ -173,7 +174,7 @@ Qué significa cada estado y cuándo sube una versión está en
 |---|:---:|---|:---:|---|
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.9.0 | ✅ Vigente | 2026-10-14 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [Tareas de PRISMA](../TODO.md) | 9.70.0 | 🔄 Vivo | 2026-10-14 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
-| [Índice navegable de la documentación](INDICE.md) | 1.25.0 | 🔄 Vivo | 2026-10-15 | — |
+| [Índice navegable de la documentación](INDICE.md) | 1.26.0 | 🔄 Vivo | 2026-10-15 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.0.0 | ✅ Vigente | 2026-09-16 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
 | [02 · Casos de uso](02-casos-de-uso.md) | 2.0.0 | ✅ Vigente | 2026-10-06 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
@@ -199,7 +200,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [22 · Documentación: versiones, estados y referencias](22-documentacion.md) | 2.2.1 | ✅ Vigente | 2026-10-04 | [Proceso](#etiqueta-proceso) |
 | [23 · Diagramas de los casos de uso](23-diagramas-de-casos-de-uso.md) | 0.4.0 | 🔍 En revisión | 2026-10-06 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) · [Arquitectura](#etiqueta-arquitectura) |
 | [Contrato de la API · v0.33.0](../contrato/README.md) | 4.5.0 | ✅ Vigente | 2026-10-10 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
-| [Decisiones de arquitectura (ADR)](adr/README.md) | 1.29.0 | 🔄 Vivo | 2026-10-15 | [Arquitectura](#etiqueta-arquitectura) |
+| [Decisiones de arquitectura (ADR)](adr/README.md) | 1.30.0 | 🔄 Vivo | 2026-10-15 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-001 · Stack tecnológico](adr/ADR-001-stack.md) | 1.0.0 | ⛔ Reemplazado | 2026-09-16 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-002 · Arquitectura hexagonal con regla de dependencias verificada](adr/ADR-002-arquitectura-hexagonal.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) |
 | [ADR-003 · Dinero como entero de pesos](adr/ADR-003-dinero-entero.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Finanzas](#etiqueta-finanzas) · [API](#etiqueta-api) · [Base de datos](#etiqueta-base-de-datos) |
@@ -259,8 +260,9 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-057 · La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión](adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Proceso](#etiqueta-proceso) |
 | [ADR-058 · El monorepo de producto nunca lleva en sus subárboles algo que no esté en develop](adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
-| [AGENTS.md](../AGENTS.md) | 2.2.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
-| [CLAUDE.md](../CLAUDE.md) | 13.1.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
+| [ADR-060 · Todo PR se asocia a un issue del monorepo de producto](adr/ADR-060-todo-pr-se-asocia-a-un-issue.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | — |
+| [AGENTS.md](../AGENTS.md) | 2.3.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
+| [CLAUDE.md](../CLAUDE.md) | 13.2.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.2.0 | ✅ Vigente | 2026-09-27 | [Proceso](#etiqueta-proceso) |
 | [Políticas de rama](../scripts/github/README.md) | 3.0.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 <!-- /generado:estado-de-la-documentacion -->
