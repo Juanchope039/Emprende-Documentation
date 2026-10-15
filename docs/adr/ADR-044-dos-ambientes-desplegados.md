@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-044-dos-ambientes-desplegados.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-03 | 2026-10-14 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-044-dos-ambientes-desplegados.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-03 | 2026-10-15 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo modifica [ADR-045](ADR-045-pre-prod-y-prod-en-otro-repositorio.md):** el ambiente que este ADR llama prod **se llama pre-prod**, no tiene
 > datos reales y es donde Gerencia aprueba. **prod vive en otro repositorio**, recibe el artefacto
@@ -14,6 +14,10 @@
 
 > **Lo modifica [ADR-056](ADR-056-qa-se-aloja-desde-su-rama.md):** qa también se despliega, en Railway y desde la rama `qa`. La
 > etapa qa sigue compilando el artefacto de prod. El cuerpo de abajo se conserva tal como se escribió.
+
+> **Lo modifica [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md):** la rama `uat` sale y la cadena es develop → qa → main. La
+> batería sobre la semilla anonimizada la corre la etapa `main`, y el uat alojado se construye
+> desde el monorepo de producto. El cuerpo de abajo se conserva tal como se escribió.
 
 ## Contexto
 

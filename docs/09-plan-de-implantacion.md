@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-10 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [7.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-15 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Cómo se pasa de tener el software construido a que el negocio realmente lo use.
 
@@ -344,13 +344,13 @@ segundos en total.
 
 ### 6.1 La promoción hasta prod
 
-El go-live no empieza el día −1: empieza cuando la versión firmada termina de recorrer las cuatro
+El go-live no empieza el día −1: empieza cuando la versión firmada termina de recorrer las
 etapas. Ninguna se salta. Desde el [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md), qa y uat son etapas de la tubería, no ambientes alojados, y desde el [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md) la firma se hace en pre-prod.
 
 | # | Paso | Quién | Qué tiene que pasar para seguir |
 |---|---|---|---|
 | 1 | La versión se promueve a la etapa qa, que construye el artefacto una vez y corre sus pruebas | Apoyo técnico | Las pruebas de extremo a extremo pasan en la etapa qa |
-| 2 | Se promueve a la etapa uat, que corre la batería entera sobre la semilla anonimizada | Apoyo técnico | La etapa uat queda en verde |
+| 2 | Se promueve a `main`, la última etapa, que corre la batería entera sobre la semilla anonimizada ([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)) | Apoyo técnico | La etapa `main` queda en verde |
 | 3 | El artefacto se despliega en uat sin recompilar, y Gerencia recorre ahí el checklist de UAT ([§1.1](#11-la-segunda-firma-el-mismo-checklist-en-uat)) y firma la versión | Gerencia | La firma queda con número de versión y fecha |
 | 4 | **El mismo artefacto** se entrega a prod, en el otro repositorio ([9.15](08-plan-de-desarrollo.md#tarea-9-15)), sin recompilar: la misma etiqueta de la imagen de la API y el mismo paquete web del front | Apoyo técnico | La versión en prod es idéntica a la firmada |
 | 5 | Alistamiento de usuarios y migración de datos en prod ([§4](#4-migración-de-datos-históricos)) | Gerencia + apoyo técnico | Los saldos cuadran con el dinero real |

@@ -8,9 +8,9 @@
 > siendo la última etapa y sigue comprobando que el árbol es el que compiló qa, sin construir, sin
 > publicar y sin desplegar. El cuerpo de abajo se conserva tal como se escribió.
 
-> **Lo modifica [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md):** `uat` entra en `main` cuando pasa la etapa, antes de que Gerencia
-> mire, porque de `main` sale lo que el monorepo lleva al uat alojado. Lo aprobado es la etiqueta
-> `entrega-vN`, no la rama.
+> **Lo modifica [ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md):** la rama `uat` sale, y a `main` entra `qa` por PR, antes de que
+> Gerencia mire, porque de `main` sale lo que el monorepo lleva al uat alojado. `main` corre lo
+> que corría la etapa uat. Lo aprobado es la etiqueta `entrega-vN`, no la rama.
 
 ## Contexto
 
@@ -67,7 +67,7 @@ puerta de atrás.
 
 - [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md), que este modifica.
 - [ADR-048](ADR-048-las-ramas-principales-las-protege-github.md), que protege las cinco ramas.
-- [`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md) [§6.3](../19-ambientes-y-entrega.md#63-las-cuatro-etapas-cada-una-más-exhaustiva), donde viven las etapas.
+- [`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md) [§6.3](../19-ambientes-y-entrega.md#63-las-tres-etapas-cada-una-más-exhaustiva), donde viven las etapas.
 
 ---
 

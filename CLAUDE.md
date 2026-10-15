@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [12.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-10 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [13.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -59,14 +59,17 @@ ni referencias de proyectos, ni nombres de clientes.
 - **Sale de su base al día y de una copia limpia.** La base es `develop` en los repositorios de
   código y `main` en la especificación, que no tiene `develop`. Un árbol sucio no se arrastra a la
   rama nueva: se enseña lo que hay y se pregunta qué hacer con ello. El paso a paso: la skill `tarea`.
-- **Se empuja siempre**, desde su primer commit y sin que haya que pedirlo. `develop`, `main`, `qa`,
-  `uat` y `prod` no se mueven por cuenta propia.
+- **Se empuja siempre**, desde su primer commit y sin que haya que pedirlo. `develop`, `main`, `qa`
+  y `prod` no se mueven por cuenta propia.
 
-**Las cuatro ramas principales las protege GitHub, no la costumbre** ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), [ADR-053](docs/adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)).
-- `develop`, `qa`, `uat` y `main` **no se pueden borrar**, y a ninguna se entra sin PR.
-  La especificación no tiene `develop`: su base es `main`.
+**Las tres ramas principales las protege GitHub, no la costumbre** ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), [ADR-055](docs/adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)).
+- `develop`, `qa` y `main` **no se pueden borrar**, y a ninguna se entra sin PR. La especificación
+  no tiene `develop`: su base es `main`. La rama `uat` ya no es una etapa: la corre `main`.
+- **Se promueve hacia adelante**: a `qa` solo entra lo que ya está en `develop`, más la entrada
+  del changelog, y a `main` solo lo que ya está en `qa`. Lo exige el trabajo «El sentido de la
+  promoción» de cada `ci.yml`.
 - **A `develop` se entra con la tubería terminada**, aunque haya terminado mal: es la rama de
-  integración diaria. **A las otras tres, con la tubería en verde**, porque de ahí sale lo que se
+  integración diaria. **A las otras dos, con la tubería en verde**, porque de ahí sale lo que se
   despliega. Lo exigen los checks «Tubería completa» y «Tubería en verde», dos trabajos al final del
   `ci.yml` de cada repositorio.
 - La definición vive en `scripts/github/politicas-de-ramas.json` y la pone su herramienta, no el
