@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [3.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -34,7 +34,7 @@ node scripts/github/politicas-de-ramas.mjs verificar Finanzas-PRISMA-API   # sol
 |---|---|---|
 | Las ramas principales no se borran | las tres | Nadie puede borrarlas, ni el dueño |
 | A `develop` se entra por PR, con la tubería terminada | `develop` | PR, y el check **Tubería completa** en verde: la tubería corrió hasta el final. **No se le exige haber terminado bien** |
-| A las demás ramas principales se entra por PR, con la tubería en verde | `qa`, `main` | PR, y el check **Tubería en verde**: ningún trabajo quedó en rojo ni cancelado |
+| A las demás ramas principales se entra por PR, con la tubería en verde | `qa`, `main` | PR, solo con merge commit ([ADR-061](../../docs/adr/ADR-061-se-promueve-con-merge-commit.md)), y el check **Tubería en verde**: ningún trabajo quedó en rojo ni cancelado |
 
 Los dos checks son trabajos puerta al final del `ci.yml` de cada repositorio —y del
 `documentacion.yml` de este—, y corren con `if: always()`, así que existen aunque la tubería falle.

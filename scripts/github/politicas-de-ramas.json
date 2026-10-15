@@ -19,7 +19,7 @@
     {
       "clave": "tuberia-en-verde",
       "nombre": "A las demas ramas principales se entra por PR, con la tuberia en verde",
-      "porque": "Una etapa no recibe nada que su tuberia no haya aprobado entero."
+      "porque": "Una etapa no recibe nada que su tuberia no haya aprobado entero, y solo con merge commit (ADR-061)."
     }
   ],
   "repositorios": [

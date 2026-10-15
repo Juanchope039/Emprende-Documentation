@@ -24,16 +24,19 @@ const DEF = JSON.parse(fs.readFileSync(path.join(AQUI, 'politicas-de-ramas.json'
 // ---------------------------------------------------------------------------------------------
 
 /** Entrar solo por PR. Sin revisiones obligatorias: una sola persona no aprueba su propio PR. */
-const PULL_REQUEST = {
-  type: 'pull_request',
-  parameters: {
-    required_approving_review_count: 0,
-    dismiss_stale_reviews_on_push: false,
-    require_code_owner_review: false,
-    require_last_push_approval: false,
-    required_review_thread_resolution: false,
-  },
-};
+function pullRequest(extra = {}) {
+  return {
+    type: 'pull_request',
+    parameters: {
+      required_approving_review_count: 0,
+      dismiss_stale_reviews_on_push: false,
+      require_code_owner_review: false,
+      require_last_push_approval: false,
+      required_review_thread_resolution: false,
+      ...extra,
+    },
+  };
+}
 
 /** El check que tiene que estar en verde, y la app que lo reporta: solo GitHub Actions. */
 function checkExigido(contexto) {
@@ -48,8 +51,9 @@ function checkExigido(contexto) {
 
 const REGLAS = {
   'sin-borrar': () => [{ type: 'deletion' }],
-  'tuberia-completa': () => [PULL_REQUEST, checkExigido(DEF.puertas.completa)],
-  'tuberia-en-verde': () => [PULL_REQUEST, checkExigido(DEF.puertas['en-verde'])],
+  'tuberia-completa': () => [pullRequest(), checkExigido(DEF.puertas.completa)],
+  // Las etapas se promueven solo con merge commit: squash y rebase reescriben la historia (ADR-061).
+  'tuberia-en-verde': () => [pullRequest({ allowed_merge_methods: ['merge'] }), checkExigido(DEF.puertas['en-verde'])],
 };
 
 /** Los conjuntos que le toca a un repositorio: los que tienen al menos una rama. */

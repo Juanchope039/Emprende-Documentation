@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [14.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -65,9 +65,11 @@ ni referencias de proyectos, ni nombres de clientes.
 **Las tres ramas principales las protege GitHub, no la costumbre** ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), [ADR-055](docs/adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)).
 - `develop`, `qa` y `main` **no se pueden borrar**, y a ninguna se entra sin PR. La especificación
   no tiene `develop`: su base es `main`. La rama `uat` ya no es una etapa: la corre `main`.
-- **Se promueve hacia adelante**: a `qa` solo entra lo que ya está en `develop`, más la entrada
-  del changelog, y a `main` solo lo que ya está en `qa`. Lo exige el trabajo «El sentido de la
-  promoción» de cada `ci.yml`.
+- **Se promueve hacia adelante, y con merge commit** ([ADR-061](docs/adr/ADR-061-se-promueve-con-merge-commit.md)): a `qa` solo entra lo que ya está
+  en `develop`, también la entrada del changelog, y a `main` solo lo que ya está en `qa`. Lo exige
+  el trabajo «El sentido de la promoción» de cada `ci.yml`, y GitHub no deja fusionar de otra forma.
+- **No se abre PR de `main` a `develop`.** Las fusiones de promoción que `develop` no tiene no
+  traen archivos: la diferencia se mide por contenido, no por commits.
 - **A `develop` se entra con la tubería terminada**, aunque haya terminado mal: es la rama de
   integración diaria. **A las otras dos, con la tubería en verde**, porque de ahí sale lo que se
   despliega. Lo exigen los checks «Tubería completa» y «Tubería en verde», dos trabajos al final del
