@@ -1,7 +1,7 @@
 ---
 name: pr
-description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA, comprueba su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue. Se invoca a mano, con /pr.
-argument-hint: "[repositorio o id de la tarea]"
+description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue y en el proyecto del tablero. Se invoca a mano, con /pr.
+argument-hint: "[repositorio o id de la tarea] [proyecto, si no es Prisma project]"
 disable-model-invocation: true
 model: sonnet
 ---
@@ -72,6 +72,17 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    **Con la herramienta de GitHub que tenga la sesión**, lo mismo. **Sin ninguna**, se le deja a
    quien dirige el enlace `https://github.com/<dueño>/<repositorio>/compare/<base>...<rama>?expand=1`
    y el cuerpo en un archivo. Un token no se imprime nunca, ni se escribe en un archivo.
+6. **Agrégalo al proyecto** ([ADR-062](../../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)): por defecto «Prisma project», el 4 de `Juanchope039`, que
+   es el que exige el check «El PR está en el proyecto». Si quien dirige nombró otro al pedir el
+   PR, agrégalo también a ese, sin quitar el 4.
+
+   ```bash
+   gh pr edit <n> --add-project "Prisma project"   # necesita el alcance: gh auth refresh -s project
+   ```
+
+   **Una sesión en la nube no alcanza los proyectos**: ni GraphQL ni las rutas REST. Ahí lo agrega
+   el auto-add del proyecto; si el check sale en rojo, dile a quien dirige que lo agregue en el
+   panel Projects del PR y vuelva a correr el trabajo, porque agregarlo no lo dispara solo.
 
 ## 5. Después
 
