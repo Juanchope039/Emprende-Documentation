@@ -244,16 +244,16 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md) | 1.2.0 | ✅ Aceptado | 2026-10-10 | [Entrega](#etiqueta-entrega) · [Plan](#etiqueta-plan) |
 | [ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md) | 1.2.0 | ⛔ Reemplazado | 2026-10-10 | [Entrega](#etiqueta-entrega) |
 | [ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) | 1.0.0 | ✅ Aceptado | 2026-10-04 | [Plan](#etiqueta-plan) · [Base de datos](#etiqueta-base-de-datos) · [Seguridad](#etiqueta-seguridad) |
-| [ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar](adr/ADR-048-las-ramas-principales-las-protege-github.md) | 1.1.0 | ✅ Aceptado | 2026-10-10 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
+| [ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar](adr/ADR-048-las-ramas-principales-las-protege-github.md) | 1.2.0 | ✅ Aceptado | 2026-10-14 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md) | 1.1.0 | ✅ Aceptado | 2026-10-10 | [Entrega](#etiqueta-entrega) · [Seguridad](#etiqueta-seguridad) |
 | [ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md) | 1.1.0 | ✅ Aceptado | 2026-10-10 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
-| [ADR-051 · La visibilidad de un repositorio no se cambia](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md) | 1.0.0 | ✅ Aceptado | 2026-10-06 | [Proceso](#etiqueta-proceso) |
+| [ADR-051 · La visibilidad de un repositorio no se cambia](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md) | 1.1.0 | ✅ Aceptado | 2026-10-14 | [Proceso](#etiqueta-proceso) |
 | [ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada](adr/ADR-052-la-entrega-del-release-a-prod.md) | 1.2.0 | ✅ Aceptado | 2026-10-13 | [Entrega](#etiqueta-entrega) · [Plan](#etiqueta-plan) |
 | [ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) | 1.0.0 | ✅ Aceptado | 2026-10-10 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md) | 1.0.0 | ✅ Aceptado | 2026-10-13 | [Entrega](#etiqueta-entrega) · [Plan](#etiqueta-plan) |
 | [ADR-057 · La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión](adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Proceso](#etiqueta-proceso) |
 | [ADR-058 · El monorepo de producto nunca lleva en sus subárboles algo que no esté en develop](adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
-| [AGENTS.md](../AGENTS.md) | 1.4.0 | ✅ Vigente | 2026-10-05 | [Proceso](#etiqueta-proceso) |
+| [AGENTS.md](../AGENTS.md) | 2.0.0 | ✅ Vigente | 2026-10-14 | [Proceso](#etiqueta-proceso) |
 | [CLAUDE.md](../CLAUDE.md) | 12.5.0 | ✅ Vigente | 2026-10-14 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.2.0 | ✅ Vigente | 2026-09-27 | [Proceso](#etiqueta-proceso) |
 | [Políticas de rama](../scripts/github/README.md) | 2.2.0 | ✅ Vigente | 2026-10-14 | [Proceso](#etiqueta-proceso) |

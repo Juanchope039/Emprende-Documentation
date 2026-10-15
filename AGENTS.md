@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-05 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [2.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-14 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Guía para los agentes de código que trabajan en la especificación de PRISMA. **Las reglas están en
 [`CLAUDE.md`](CLAUDE.md)**, tanto las del proceso como las de la arquitectura y las de este
@@ -50,8 +50,9 @@ node scripts/github/politicas-de-ramas.mjs aplicar     # las pone; necesita un t
 ```
 
 - Qué pone cada conjunto, qué token hace falta y cómo se hace a mano: `scripts/github/README.md`.
-- Hoy solo se puede aplicar aquí: los tres repositorios de código son privados y el plan Free de
-  GitHub no tiene reglas de rama. La regla y el porqué están en el [`CLAUDE.md`](CLAUDE.md) y en [ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md).
+- Se puede aplicar en los cuatro: la cuenta pasó a GitHub Pro el 2026-10-14, que es lo que pedían
+  los privados para tener reglas de rama. Lo que falta es aplicarlas, y `verificar` dice cuánto. La
+  regla y el porqué están en el [`CLAUDE.md`](CLAUDE.md) y en [ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md).
 
 ---
 
