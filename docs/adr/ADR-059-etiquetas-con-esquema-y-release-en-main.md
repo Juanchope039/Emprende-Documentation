@@ -54,8 +54,8 @@ release y qué cuenta cada uno de su tramo, sabiendo que son incrementales.
 6. **El release de la API, el front y la base se publica al llegar a `main`**, sobre la etiqueta de
    su versión, y cuenta el tramo desde el release anterior: junta las etiquetas intermedias. En el
    monorepo, uno por cada `entrega-vN`.
-7. **Su cuerpo se genera de los `CHANGELOG.md`, no se escribe.** Si a una versión del tramo le falta
-   su entrada, o a la API y al front su imagen en GHCR con el árbol de esa versión, el release no se
+7. **Su cuerpo se genera de los `CHANGELOG.md`, no se escribe.** Junta las entradas que caen en su
+   tramo; si la versión que llega no tiene la suya, o a la API y al front su imagen en GHCR con el árbol de esa versión, el release no se
    publica. Tampoco nombra el release anterior.
 8. **`RELEASE.md` existe solo en el monorepo**, en `entrega/RELEASE.md`, generado con el mismo texto
    que el release de la entrega. En los repositorios de desarrollo sería un commit en `main` que no

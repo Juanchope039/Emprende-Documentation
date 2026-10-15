@@ -22,7 +22,8 @@ bash .github/scripts/notas-del-release.sh --en-seco origin/qa
 
 - Arma el cuerpo con las entradas del `CHANGELOG.md` de cada versión entre el último release y la
   de `qa`, y lo imprime sin publicar nada.
-- **Si falta la entrada de una versión del tramo, falla y la nombra.** Se agrega por la promoción
+- **Si la versión que llega no tiene su entrada, falla y la nombra.** Las intermedias pueden no
+  tenerla: qa recibe varias versiones juntas y el changelog las cuenta en una. Se agrega por la promoción
   a qa, como cualquier entrada del changelog; no en `main`.
 - En la API y el front, además, comprueba que la imagen `ghcr.io/…:<versión>` exista con el árbol
   de esa versión. Si el front no tiene imagen, es que faltan `PROD_API_URL` y `PROD_API_MAJOR`, y

@@ -353,8 +353,9 @@ Las etiquetas de antes del [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release
 (seis ligeras y dos fuera de la primera línea): están en su lista de excepciones, que solo se
 encoge.
 
-**El release** no se publica si a una versión del tramo le falta su entrada en el `CHANGELOG.md`, o
-si a la API o al front les falta su imagen en GHCR con el árbol de esa versión. Su cuerpo nombra la
+**El release** junta las entradas del `CHANGELOG.md` que caen en su tramo, y no se publica si la
+versión que llega no tiene la suya (el changelog cuenta lo que llega a qa, que puede juntar varias
+versiones en una entrada), o si a la API o al front les falta su imagen en GHCR con el árbol de esa versión. Su cuerpo nombra la
 imagen con su digest, dice qué versiones junta y no nombra el release anterior. En el monorepo, el
 mismo texto queda en `entrega/RELEASE.md`, que se reescribe en cada entrega.
 
