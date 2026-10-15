@@ -1857,22 +1857,22 @@ a `anon`.
   hacer públicos unos repositorios de los que `prisma_db` lleva la semilla con nombres reales del
   equipo ([R-23](docs/11-riesgos-y-proteccion-de-datos.md))—, así que se decidió dejarlo y escribirlo aquí. **Ya no es así: la cuenta
   pasó a GitHub Pro el 2026-10-14**, la casilla se puede marcar, y publicar quedó prohibido aparte
-  ([ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)). Queda hacerlo, y es lo que encola la viñeta siguiente.
+  ([ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)). **Y ya se hizo:** la casilla está marcada, como cuenta la viñeta siguiente.
 
-- **Las protecciones de rama están definidas y sin aplicar: trece cosas en los cinco repositorios.**
-  Lo dice `node scripts/github/politicas-de-ramas.mjs verificar`, que el 2026-10-14 contó dos en la
-  especificación, tres en cada uno de los tres repositorios de código y dos en el monorepo de
-  producto: que las ramas principales no se borren, y que a `develop` y a las demás no se entre sin
-  PR con su puerta de tubería. Aplicarlas es `politicas-de-ramas.mjs aplicar` con un token que
-  administre, y **lo autoriza quien dirige**: el 2026-10-14 decidió encolarlo, no aplicarlo todavía.
-  **Lo que podía dejar PR colgados ya se comprobó**, y no pasa: una puerta que exige un check cuyo
-  nombre no produce ningún flujo bloquea el PR para siempre, así que se miró repositorio por
+- **Las protecciones de rama están puestas en los cinco repositorios, y la costumbre dejó de ser la
+  cerradura.** `node scripts/github/politicas-de-ramas.mjs verificar` dice `las politicas de rama
+  estan puestas`: trece cosas, dos en la especificación, tres en cada uno de los tres repositorios
+  de código y dos en el monorepo de producto. Que las ramas principales no se borren, y que a
+  `develop` y a las demás no se entre sin PR con su puerta de tubería. Quien dirige lo aplicó el
+  2026-10-14 con `politicas-de-ramas.mjs aplicar`, después de que la cuenta pasara a GitHub Pro.
+  **Lo que podía dejar PR colgados se comprobó antes**, y no pasa: una puerta que exige un check
+  cuyo nombre no produce ningún flujo bloquea el PR para siempre, así que se miró repositorio por
   repositorio. En los tres de código los dos trabajos existen con `if: always()`, y su `ci.yml`
   dispara en `pull_request` a `develop`, `qa`, `uat` y `main`; en el monorepo, «Tubería en verde»
   vive en `sincronia.yml` y dispara en `pull_request` a `main`; en la especificación las dos
-  corrieron en verde en el PR 217 ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), `scripts/github/README.md`). Lo que falta es correr
-  `aplicar`, que el 2026-10-14 bloqueó el clasificador de permisos de la sesión: sale con una regla
-  de permiso para esa orden, o corriéndola a mano.
+  corrieron en verde en el PR 217 ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md), `scripts/github/README.md`). **Lo que queda es
+  vigilar que sigan puestas:** `verificar` las compara con la definición y es lo que avisa si alguien
+  las cambia desde el panel.
 - **`cuentas` y `categorias` ya llevan RLS, y la decidió la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10).** El [04 §7](docs/04-modelo-de-datos.md#7-seguridad-por-tipo-de-usuario-rls) las dejaba a
   propósito sin política, y entonces el «solo Gerencia» del contrato de la [1.17](docs/08-plan-de-desarrollo.md#tarea-1-17) no lo imponía
   nadie: **Operación podía crear las dos**. Se tomó la primera de las dos salidas —política, no
