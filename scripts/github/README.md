@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [3.3.1](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -16,7 +16,7 @@ node scripts/github/politicas-de-ramas.mjs mostrar              # lo que se le p
 node scripts/github/politicas-de-ramas.mjs verificar            # lo compara con lo que hay
 node scripts/github/politicas-de-ramas.mjs aplicar              # crea o corrige lo que falte
 node scripts/github/politicas-de-ramas.mjs aplicar --en-seco    # dice qué haría, sin hacerlo
-node scripts/github/politicas-de-ramas.mjs verificar Finanzas-PRISMA-API   # solo ese repositorio
+node scripts/github/politicas-de-ramas.mjs verificar Emprende-API   # solo ese repositorio
 ```
 
 - **Necesita Node 20 o más, el `gh` de GitHub en el `PATH`, y un token del dueño con permiso de
