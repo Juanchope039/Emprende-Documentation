@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [3.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -40,6 +40,10 @@ Los dos checks son trabajos puerta al final del `ci.yml` de cada repositorio —
 `documentacion.yml` de este—, y corren con `if: always()`, así que existen aunque la tubería falle.
 Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempre.
 
+**Y el check «El PR está en el proyecto»**, junto a la tubería en los dos conjuntos de los cuatro
+repositorios, no en el monorepo ([ADR-062](../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)). Es el trabajo de `proyecto-del-pr.yml`, el mismo en los
+cuatro, y mira que el PR esté en «Prisma project», el proyecto 4 de `Juanchope039`.
+
 **La especificación no tiene `develop`**: su base es `main` ([21 §6.5](../../docs/21-trabajo-en-paralelo.md#65-ramas-e-integración)), así que ahí solo se ponen
 dos conjuntos, y `main` entra en el de la tubería en verde.
 
@@ -52,6 +56,25 @@ ejecución, y no hay forma de fusionarlo sin quitar la regla.
 Y lo mismo cada vez que una puerta cambie de nombre: mientras el nombre viejo siga exigido, ningún
 PR pasa. Se cambian los dos a la vez —el `name:` del trabajo y el de la definición— y la regla se
 vuelve a aplicar en cuanto la rama con el nombre nuevo esté en la base.
+
+## El proyecto del PR
+
+El check «El PR está en el proyecto» necesita dos cosas que esta herramienta no pone:
+
+1. **El secreto `PRISMA_PROYECTO_TOKEN` en cada uno de los cuatro repositorios**, en *Settings →
+   Secrets and variables → Actions → Secrets*. Es un token clásico del dueño con `repo` y
+   `read:project`: el `GITHUB_TOKEN` de Actions no lee los proyectos de un usuario. Cuando vence,
+   todos los PR quedan en rojo el mismo día.
+2. **El auto-add del proyecto**, para que nadie tenga que agregar el PR a mano: en «Prisma project»,
+   *⋯ → Workflows → Auto-add to project*, un flujo por repositorio con el filtro `is:pr`.
+
+**El orden es el mismo de arriba, con un paso más**: primero `proyecto-del-pr.yml` en `develop` de
+los tres de código y en `main` de la especificación, después el secreto y el auto-add, y por último
+`aplicar`. Un PR de promoción trae el flujo consigo, así que `qa` y `main` no tienen que tenerlo
+antes.
+
+**Si el PR entró al proyecto después del check**, se vuelve a correr el trabajo desde el PR:
+agregarlo no dispara ningún evento, y el check solo espera dos minutos.
 
 ## Los repositorios privados
 
@@ -73,7 +96,8 @@ de los tres conjuntos de la tabla de arriba:
    según el conjunto.
 4. **Rules**: `Restrict deletions` en el primero. En los otros dos, `Require a pull request before
    merging` con **0** aprobaciones y `Require status checks to pass`, agregando el check por su
-   nombre —**Tubería completa** o **Tubería en verde**— y dejando sin marcar «Require branches to be
+   nombre —**Tubería completa** o **Tubería en verde**, y **El PR está en el proyecto** salvo en el
+   monorepo— y dejando sin marcar «Require branches to be
    up to date before merging».
 
 `mostrar` imprime el mismo JSON que se envía, que sirve para comparar lo que quedó en el panel.
