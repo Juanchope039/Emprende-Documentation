@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-10 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
+| [8.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-16 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
 
 Prototipo navegable: [`../mockup/prisma-mockup.html`](../mockup/prisma-mockup.html)
 
@@ -246,7 +246,7 @@ El detalle de sus decisiones está en [§5](#5-la-sesión-acceso-y-gestión-de-u
 | Cuentas | Saldo de efectivo, Nequi, Daviplata, banco |
 | Los 4 sobres | Barras con asignado contra usado |
 | Gráfico | 12 meses de utilidad y caja superpuestas |
-| Pendientes | Pedidos por entregar, cuentas por cobrar |
+| Pendientes | Pedidos por entregar, y lo que falta por cobrar de ellos |
 
 **Solo consulta.** Aquí no se crea, no se edita y no se anula nada ([principio 8](#principio-8)). Lo único que
 hace el botón **Descargar** es sacar en CSV o PDF lo que la pantalla ya muestra: las tres cifras
@@ -262,9 +262,9 @@ Movimientos ([§4.3](#43-movimientos)).
 
 **Pregunta:** *¿qué debo entregar y qué me deben?*
 
-Lista **ordenada por fecha**, con estado visual: anticipo cobrado (morado), entregado (verde),
-estancado 15+ días (ámbar). Filtros por estado, cliente y rango de fechas. Cada fila muestra
-valor total, anticipo y saldo.
+Lista **ordenada por fecha**, con la condición de cada pedido a la vista: sin pagar, pago parcial
+(morado), pagado, entregado (verde), cancelado, y estancado 15+ días (ámbar). Filtros por estado,
+cliente y rango de fechas. Cada fila muestra valor total, lo pagado y saldo.
 
 #### La lista y sus tres filtros
 
@@ -277,9 +277,21 @@ a la vez —cotizado, en proceso y entrega parcial—, y decidir cuáles caben a
 pantalla lo que dice la API. Por eso el filtro es un desplegable con los cinco y «todos», y no
 tres botones.
 
-**La etiqueta de la fila sale de la condición antes que del estado**: un pedido con anticipo
-cobrado y quince días sin entregar se lee «Sin entregar» en ámbar; uno con anticipo y sin
-entregar, «Anticipo cobrado» en morado; los demás llevan el nombre de su estado.
+**La columna Estado dice dos cosas en una sola píldora**, y se leen en este orden:
+
+1. **«Sin entregar»**, en ámbar, si el pedido lleva quince días o más con plata del cliente adentro
+   y sin entregarse ([RF-24](03-requisitos-y-bdd.md#rf-24)). Tapa a las demás a propósito: es lo que pide que se mire hoy.
+2. **«Entregado»** en verde o **«Cancelado»** si el pedido ya llegó a un final.
+3. Y si no, **la condición de pago**: «Sin pagar», «Pago parcial» en morado, o «Pagado».
+
+**El estado y la condición de pago son dos datos distintos**, y por eso la API manda los dos: el
+estado dice en qué punto va el trabajo, y la condición de pago, cuánto se ha cobrado. Se enseñan
+juntos porque quien mira la lista pregunta una sola cosa —«¿este en qué va?»—, pero mezclarlos en
+un solo campo obligaría a inventar estados como «entregado y pagado». **«Pago parcial» reemplazó a
+«Anticipo cobrado»**, que decía que había plata pero no cuánto faltaba.
+
+**Y la píldora se toca**: abre la fila del pedido, igual que su número, que es donde están las
+acciones. Un estado que se ve y no se puede cambiar manda a buscar dónde se cambia.
 
 **El rango va por la fecha del pedido, y sus dos fechas son independientes**: «de septiembre en
 adelante» es una pregunta legítima. Lo único que no se puede pedir es un rango al revés, y
@@ -296,6 +308,21 @@ enseña la factura y trae las acciones. La cierran «Cerrar» y Escape.
 **Se abre para los dos tipos de usuario**, porque la factura la adjuntan los dos ([RF-27](03-requisitos-y-bdd.md#rf-27)). Esconderla
 detrás de un panel de Gerencia sería decidir un permiso en la pantalla ([ADR-018](adr/ADR-018-front-sin-decisiones.md)), y quien lo
 impediría de verdad es la base. Modificar, marcar entregado y anular siguen siendo de Gerencia.
+
+**Las tres acciones de la fila**, además de la factura, y **cuáles se ofrecen lo dice la API**, no
+la pantalla: viajan con el pedido, como `sePuedeAnular` viaja con el movimiento ([§4.3](#43-movimientos)).
+
+| Acción | Cuándo se ofrece | Qué pregunta |
+|---|---|---|
+| **Registrar un pago** | Mientras el pedido está en proceso y le falta por cobrar | Valor, medio de pago y fecha. Caben varios, de a partes ([CU-06](02-casos-de-uso.md#cu-06)) |
+| **Marcar entregado** | Mientras no esté entregado ni cancelado | La fecha de entrega, y **si queda saldo**, en qué cuenta entra, con el monto a la vista. Si ya estaba pagado, no pregunta cuenta ([CU-07](02-casos-de-uso.md#cu-07)) |
+| **Cancelar pedido** | Mientras no esté entregado ni cancelado | El motivo, y si hay plata pagada, qué se hace con ella: devolverla o dejarla como ingreso |
+
+**Entregar es también cobrar lo que falta** ([RF-22](03-requisitos-y-bdd.md#rf-22)): un pedido no se entrega a medio pagar, y si
+se intenta, el error llega sobre el campo de la cuenta y se pinta ahí, no en un aviso suelto.
+
+**Entregado y cancelado no ofrecen nada**, porque son finales: la fila abierta de uno de ellos
+enseña su factura y nada más.
 
 **Las facturas que ya tiene el pedido llegan con él**, así que verlas no pide otra consulta. Bajar
 una sí: el archivo sale de la API y nunca del almacenamiento ([07 §1](07-arquitectura.md#1-stack)), y viaja en base64 dentro del
@@ -1051,7 +1078,7 @@ El checklist de aprobación pantalla por pantalla está en
 [`09-plan-de-implantacion.md`](09-plan-de-implantacion.md) [§1](09-plan-de-implantacion.md#1-checklist-de-aprobación-del-mockup).
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.33.0") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
 
 ---
