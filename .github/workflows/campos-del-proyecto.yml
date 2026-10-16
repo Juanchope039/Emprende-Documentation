@@ -6,13 +6,16 @@
 #
 # No es una puerta: si no puede escribir, avisa y termina en verde. Quien exige estar en el proyecto
 # es el check «El PR está en el proyecto», que es otro archivo.
+#
+# Corre también en cada empuje, y por eso solo escribe Status cuando está vacío: así no le deshace a
+# nadie el cambio de columna que hizo a mano.
 
 name: Campos del proyecto
 
 on:
   pull_request:
     branches: [develop, qa, main]
-    types: [opened, reopened, ready_for_review]
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
     inputs:
       pr:
@@ -93,10 +96,27 @@ jobs:
             echo "El PR #$PR se agregó al proyecto $NUMERO."
           fi
 
+          # Lo que el item ya tiene puesto. Se lee antes de escribir, por dos razones: para no
+          # pisar un Status que alguien movió a mano, y para decir después qué sigue vacío.
+          VALORES='query($i: ID!) { node(id: $i) { ... on ProjectV2Item {
+            fieldValues(first: 50) { nodes {
+              ... on ProjectV2ItemFieldTextValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldNumberValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldDateValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldIterationValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldSingleSelectValue {
+                field { ... on ProjectV2FieldCommon { name } } } } } } } }'
+          PUESTOS=$(gh api graphql -f query="$VALORES" -f i="$ITEM" \
+            --jq '[.data.node.fieldValues.nodes[].field.name // empty] | unique' 2>/dev/null) || PUESTOS='[]'
+
           # Status es el único campo que el tablero ordena por columnas, y el único que este trabajo
           # pone: «In review» mientras el PR espera. A «Done» lo pasa quien fusiona.
           ID_STATUS=$(echo "$PROYECTO" | jq -r '.fields.nodes[] | select(.name == "Status") | .id')
-          if [ -z "$ID_STATUS" ] || [ "$ID_STATUS" = null ]; then
+          YA_TIENE=$(echo "$PUESTOS" | jq 'index("Status") != null')
+
+          if [ "$YA_TIENE" = true ]; then
+            echo "Status ya tiene valor: no se toca."
+          elif [ -z "$ID_STATUS" ] || [ "$ID_STATUS" = null ]; then
             echo "::warning::El proyecto $NUMERO no tiene un campo «Status»."
             resumen "El proyecto no tiene un campo **Status**."
           else
@@ -119,22 +139,14 @@ jobs:
                 ULTIMA=$(echo "$SALIDA" | tr -d '\r' | grep -v '^[[:space:]]*$' | tail -n 1)
                 echo "::warning::No se pudo poner Status: $ULTIMA"
                 resumen "No se pudo poner **Status**: \`$ULTIMA\`. ¿Tiene el token Projects en escritura?"
+              else
+                PUESTOS=$(echo "$PUESTOS" | jq '. + ["Status"] | unique')
               fi
             fi
           fi
 
           # Y lo que no se puede adivinar se dice: los campos que siguen vacíos, por su nombre, para
           # que quien dirige los llene de una vez y no vuelva a mirar el tablero dos veces.
-          VALORES='query($i: ID!) { node(id: $i) { ... on ProjectV2Item {
-            fieldValues(first: 50) { nodes {
-              ... on ProjectV2ItemFieldTextValue { field { ... on ProjectV2FieldCommon { name } } }
-              ... on ProjectV2ItemFieldNumberValue { field { ... on ProjectV2FieldCommon { name } } }
-              ... on ProjectV2ItemFieldDateValue { field { ... on ProjectV2FieldCommon { name } } }
-              ... on ProjectV2ItemFieldIterationValue { field { ... on ProjectV2FieldCommon { name } } }
-              ... on ProjectV2ItemFieldSingleSelectValue {
-                field { ... on ProjectV2FieldCommon { name } } } } } } } }'
-          PUESTOS=$(gh api graphql -f query="$VALORES" -f i="$ITEM" \
-            --jq '[.data.node.fieldValues.nodes[].field.name // empty] | unique' 2>/dev/null) || PUESTOS='[]'
           VACIOS=$(echo "$PROYECTO" | jq -r --argjson p "$PUESTOS" \
             '[.fields.nodes[].name] - $p - ["Title", "Repository", "Linked pull requests"]
              | map("- " + .) | join("\n")')
