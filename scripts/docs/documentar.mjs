@@ -916,6 +916,41 @@ function revisarVersionesSubidas(archivos, base, errores) {
   }
 }
 
+// La tabla del 02 §4 dice cuándo entró cada caso de uso. Esta comprobación la cruza con
+// el §2 en los dos sentidos, para que un caso de uso nuevo no pueda entrar sin su fila.
+const CASOS_DE_USO = 'docs/02-casos-de-uso.md';
+const ESTADOS_DE_LA_TRAZA = ['✅', '🚧', '⏭️', '⛔'];
+
+function revisarTrazabilidadDeCasosDeUso(archivos, errores) {
+  const a = archivos.find((x) => x.ruta === CASOS_DE_USO);
+  if (!a) return;
+  const error = (texto) => errores.push({ ruta: CASOS_DE_USO, texto });
+  const texto = md.sinBloquesGenerados(a.contenido);
+  const detallados = [...texto.matchAll(/^### <a id="(cu-\d{2})"><\/a>/gm)].map((m) => m[1]);
+  const seccion = texto.split(/^## 4\. /m)[1];
+  if (!seccion) return error('no tiene la sección «4. Cuándo entró cada caso de uso»');
+  const filas = seccion
+    .split('\n')
+    .filter((l) => /^\| \[CU-\d{2}\]/.test(l))
+    .map((l) => l.split('|').map((c) => c.trim()));
+  if (!filas.length) return error('la tabla del §4 no tiene ninguna fila');
+  const conFila = new Set();
+  for (const celdas of filas) {
+    const [, caso, estado, tareas] = celdas;
+    const ancla = caso.match(/\(#(cu-\d{2})\)/)?.[1];
+    if (!ancla || !detallados.includes(ancla)) {
+      error(`la fila «${caso}» del §4 nombra un caso de uso que no está en el §2`);
+      continue;
+    }
+    conFila.add(ancla);
+    if (!ESTADOS_DE_LA_TRAZA.includes(estado)) error(`la fila «${caso}» del §4 lleva el estado «${estado}», que no está en la leyenda`);
+    if (estado === '✅' && !/\[\d+\.\d+\]/.test(tareas)) error(`la fila «${caso}» del §4 se declara integrada y no dice con qué tarea entró`);
+  }
+  for (const cu of detallados) {
+    if (!conFila.has(cu)) error(`${cu.toUpperCase()} tiene su flujo en el §2 y no tiene fila en el §4: di cuándo entró`);
+  }
+}
+
 function imprimir(lista, simbolo) {
   for (const e of lista) console.log(`${simbolo} ${e.ruta}${e.linea ? `:${e.linea}` : ''} · ${e.texto}${e.motivo ? ` (${e.motivo})` : ''}`);
 }
@@ -958,6 +993,7 @@ function main() {
 
   revisarEncabezados(archivos, errores);
   revisarEnlaces(archivos, ctx, errores);
+  revisarTrazabilidadDeCasosDeUso(archivos, errores);
   for (const a of cambiados) {
     errores.push({ ruta: a.ruta, texto: 'faltan anclas, enlaces o bloques generados: corre `node scripts/docs/documentar.mjs enlazar`' });
   }

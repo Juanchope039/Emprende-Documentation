@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/docs/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-09-16 | 2026-09-27 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [2.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/docs/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-16 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone y verifica los encabezados, las anclas, los enlaces y los bloques generados de toda la
 documentación de PRISMA. Las reglas que hace cumplir están en [`docs/22-documentacion.md`](../../docs/22-documentacion.md), y la
@@ -44,4 +44,8 @@ sus README, sus `CLAUDE.md` y sus `AGENTS.md`.
 | «declara N → M y el plan ya no la tiene» | Se arregló una dependencia y la deuda quedó vieja: borrar ese par de `DEPENDENCIAS_HACIA_ADELANTE`. Esa lista solo se encoge |
 | «no enumera N tareas del plan» | El plan tiene una tarea que el tablero no lista: agregarla a su sprint en [`TODO.md`](../../TODO.md) |
 | «enumera tareas que el plan no tiene» | Al revés: una tarea del tablero no existe en el plan. Lo nuevo entra primero al plan ([08 §6](../../docs/08-plan-de-desarrollo.md#6-backlog-priorizado)) |
+| «tiene su flujo en el `§2` y no tiene fila en el `§4`» | Un caso de uso detallado en [`docs/02-casos-de-uso.md`](../../docs/02-casos-de-uso.md) sin su fila de trazabilidad: decir cuándo entró, o dejarlo ⏭️ |
+| «nombra un caso de uso que no está en el `§2`» | La fila de trazabilidad apunta a un CU que no existe: corregir el identificador |
+| «lleva el estado «…», que no está en la leyenda» | Los estados de la trazabilidad son ✅, 🚧, ⏭️ y ⛔ |
+| «se declara integrada y no dice con qué tarea entró» | Una fila ✅ de la trazabilidad nombra la tarea que la integró |
 | «no tiene sección para el Sprint N» | El tablero lleva cada sprint a su sección de [`TODO.md`](../../TODO.md) y no la encontró: devolverle a su encabezado o a su línea en negrita el «Sprint N ·» del principio. Mientras tanto, el enlace va al plan |
