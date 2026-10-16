@@ -1,0 +1,163 @@
+# Campos del proyecto: el PR entra al tablero con su Status puesto, y no en la columna de los que
+# nadie clasificó (ADR-062, ADR-064 de la especificación).
+#
+# Existe porque los proyectos de GitHub solo se leen y se escriben por GraphQL, y una sesión de
+# agente en la nube no alcanza GraphQL: `gh project` contesta `unknown owner type`. En Actions sí.
+#
+# No es una puerta: si no puede escribir, avisa y termina en verde. Quien exige estar en el proyecto
+# es el check «El PR está en el proyecto», que es otro archivo.
+#
+# Corre también en cada empuje, y por eso solo escribe Status cuando está vacío: así no le deshace a
+# nadie el cambio de columna que hizo a mano.
+
+name: Campos del proyecto
+
+on:
+  pull_request:
+    branches: [develop, qa, main]
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: El número del PR al que hay que llenarle los campos
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: campos-del-proyecto-${{ github.event.pull_request.number || github.event.inputs.pr }}
+  cancel-in-progress: true
+
+jobs:
+  campos:
+    name: Los campos del proyecto
+    runs-on: ${{ vars.ETIQUETA_DEL_RUNNER || 'ubuntu-latest' }}
+    timeout-minutes: 10
+
+    steps:
+      - name: Llenar los campos del PR en el proyecto
+        env:
+          GH_TOKEN: ${{ secrets.PRISMA_PROYECTO_TOKEN }}
+          DUENO: Juanchope039
+          NUMERO: '4'
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number || github.event.inputs.pr }}
+        run: |
+          set -o pipefail
+          resumen() { echo "$*" >> "$GITHUB_STEP_SUMMARY"; }
+
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::Falta PRISMA_PROYECTO_TOKEN con Projects en escritura: los campos quedan vacíos."
+            resumen "Falta el secreto \`PRISMA_PROYECTO_TOKEN\` con **Projects en escritura**."
+            exit 0
+          fi
+
+          # El proyecto, con sus campos y las opciones de cada lista. De aquí sale todo lo demás.
+          CAMPOS='query($o: String!, $n: Int!) { user(login: $o) { projectV2(number: $n) { id
+            fields(first: 50) { nodes {
+              ... on ProjectV2FieldCommon { id name dataType }
+              ... on ProjectV2SingleSelectField { options { id name } } } } } } }'
+          if ! PROYECTO=$(gh api graphql -f query="$CAMPOS" -f o="$DUENO" -F n="$NUMERO" 2>&1); then
+            ULTIMA=$(echo "$PROYECTO" | tr -d '\r' | grep -v '^[[:space:]]*$' | tail -n 1)
+            echo "::warning::GitHub rechazó la lectura del proyecto: $ULTIMA"
+            resumen "GitHub rechazó la lectura del proyecto: \`$ULTIMA\`"
+            exit 0
+          fi
+          PROYECTO=$(echo "$PROYECTO" | jq '.data.user.projectV2')
+          ID_PROYECTO=$(echo "$PROYECTO" | jq -r '.id')
+
+          # El item del PR en el proyecto. El auto-add tarda, así que se le espera hasta dos minutos.
+          NODO=$(gh api "repos/$REPO/pulls/$PR" --jq '.node_id')
+          BUSCAR='query($o: String!, $r: String!, $n: Int!) {
+            repository(owner: $o, name: $r) { pullRequest(number: $n) {
+              projectItems(first: 50) { nodes { id project { id } } } } } }'
+          FILTRO=".data.repository.pullRequest.projectItems.nodes[]
+            | select(.project.id == \"$ID_PROYECTO\") | .id"
+          ITEM=''
+          for intento in 1 2 3 4 5 6 7; do
+            ITEM=$(gh api graphql -f query="$BUSCAR" -f o="${REPO%/*}" -f r="${REPO#*/}" \
+              -F n="$PR" --jq "$FILTRO" 2>/dev/null | head -n 1) || ITEM=''
+            [ -n "$ITEM" ] && break
+            [ "$intento" -lt 7 ] && sleep 20
+          done
+
+          # Si el auto-add no lo trajo, lo agrega este trabajo: para eso tiene el token.
+          if [ -z "$ITEM" ]; then
+            AGREGAR='mutation($p: ID!, $c: ID!) {
+              addProjectV2ItemById(input: {projectId: $p, contentId: $c}) { item { id } } }'
+            if ! ITEM=$(gh api graphql -f query="$AGREGAR" -f p="$ID_PROYECTO" -f c="$NODO" \
+              --jq '.data.addProjectV2ItemById.item.id' 2>&1); then
+              ULTIMA=$(echo "$ITEM" | tr -d '\r' | grep -v '^[[:space:]]*$' | tail -n 1)
+              echo "::warning::No se pudo agregar el PR al proyecto: $ULTIMA"
+              resumen "No se pudo agregar el PR al proyecto: \`$ULTIMA\`"
+              exit 0
+            fi
+            echo "El PR #$PR se agregó al proyecto $NUMERO."
+          fi
+
+          # Lo que el item ya tiene puesto. Se lee antes de escribir, por dos razones: para no
+          # pisar un Status que alguien movió a mano, y para decir después qué sigue vacío.
+          VALORES='query($i: ID!) { node(id: $i) { ... on ProjectV2Item {
+            fieldValues(first: 50) { nodes {
+              ... on ProjectV2ItemFieldTextValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldNumberValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldDateValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldIterationValue { field { ... on ProjectV2FieldCommon { name } } }
+              ... on ProjectV2ItemFieldSingleSelectValue {
+                field { ... on ProjectV2FieldCommon { name } } } } } } } }'
+          PUESTOS=$(gh api graphql -f query="$VALORES" -f i="$ITEM" \
+            --jq '[.data.node.fieldValues.nodes[].field.name // empty] | unique' 2>/dev/null) || PUESTOS='[]'
+
+          # Status es el único campo que el tablero ordena por columnas, y el único que este trabajo
+          # pone: «In review» mientras el PR espera. A «Done» lo pasa quien fusiona.
+          ID_STATUS=$(echo "$PROYECTO" | jq -r '.fields.nodes[] | select(.name == "Status") | .id')
+          YA_TIENE=$(echo "$PUESTOS" | jq 'index("Status") != null')
+
+          if [ "$YA_TIENE" = true ]; then
+            echo "Status ya tiene valor: no se toca."
+          elif [ -z "$ID_STATUS" ] || [ "$ID_STATUS" = null ]; then
+            echo "::warning::El proyecto $NUMERO no tiene un campo «Status»."
+            resumen "El proyecto no tiene un campo **Status**."
+          else
+            OPCION=''
+            for CANDIDATA in "In review" "In Review" "En revision" "En revisión" "Review" \
+              "In progress" "In Progress" "Todo"; do
+              OPCION=$(echo "$PROYECTO" | jq -r --arg c "$CANDIDATA" \
+                '.fields.nodes[] | select(.name == "Status") | .options[]? | select(.name == $c) | .id')
+              [ -n "$OPCION" ] && { echo "Status queda en «$CANDIDATA»."; break; }
+            done
+            if [ -z "$OPCION" ]; then
+              echo "::warning::Ninguna opción de «Status» se parece a «In review»."
+              resumen "Ninguna opción de **Status** se parece a «In review»."
+            else
+              PONER='mutation($p: ID!, $i: ID!, $f: ID!, $v: String!) {
+                updateProjectV2ItemFieldValue(input: {projectId: $p, itemId: $i, fieldId: $f,
+                  value: {singleSelectOptionId: $v}}) { projectV2Item { id } } }'
+              if ! SALIDA=$(gh api graphql -f query="$PONER" -f p="$ID_PROYECTO" -f i="$ITEM" \
+                -f f="$ID_STATUS" -f v="$OPCION" 2>&1); then
+                ULTIMA=$(echo "$SALIDA" | tr -d '\r' | grep -v '^[[:space:]]*$' | tail -n 1)
+                echo "::warning::No se pudo poner Status: $ULTIMA"
+                resumen "No se pudo poner **Status**: \`$ULTIMA\`. ¿Tiene el token Projects en escritura?"
+              else
+                PUESTOS=$(echo "$PUESTOS" | jq '. + ["Status"] | unique')
+              fi
+            fi
+          fi
+
+          # Y lo que no se puede adivinar se dice: los campos que siguen vacíos, por su nombre, para
+          # que quien dirige los llene de una vez y no vuelva a mirar el tablero dos veces.
+          VACIOS=$(echo "$PROYECTO" | jq -r --argjson p "$PUESTOS" \
+            '[.fields.nodes[].name] - $p - ["Title", "Repository", "Linked pull requests"]
+             | map("- " + .) | join("\n")')
+
+          resumen "### El PR #$PR en el proyecto $NUMERO"
+          if [ -n "$VACIOS" ]; then
+            resumen ""
+            resumen "Campos todavía vacíos, para llenar en el panel Projects:"
+            resumen ""
+            resumen "$VACIOS"
+          else
+            resumen ""
+            resumen "Sin campos vacíos."
+          fi

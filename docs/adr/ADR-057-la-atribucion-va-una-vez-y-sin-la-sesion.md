@@ -2,7 +2,13 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-14 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | 2026-10-14 | 2026-10-16 | [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Reemplazado por [ADR-064](ADR-064-la-atribucion-la-pone-la-plataforma.md).** Lo que este ADR daba por impuesto estaba al revés: el
+> bloque de dos líneas del cuerpo no lo impone nadie, y el pie sí, en cada escritura y con el id de
+> la sesión adentro. Así que el agente no escribe ninguna firma, y el cuerpo se reenvía para que el
+> pie pierda la sesión. Lo que sigue en pie es el fondo: una sola firma, y la sesión en ningún
+> sitio. El cuerpo de abajo se conserva tal como se escribió.
 
 ## Contexto
 
@@ -73,5 +79,5 @@ que no se puede quitar.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [ADR-064](ADR-064-la-atribucion-la-pone-la-plataforma.md "ADR-064 · La atribución la pone la plataforma, y el agente no escribe ninguna")
 <!-- /generado:referenciado-desde -->
