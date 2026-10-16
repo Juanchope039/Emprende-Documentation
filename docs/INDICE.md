@@ -177,11 +177,11 @@ Qué significa cada estado y cuándo sube una versión está en
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.9.0 | ✅ Vigente | 2026-10-14 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
-| [Tareas de PRISMA](../TODO.md) | 9.71.0 | 🔄 Vivo | 2026-10-16 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [Tareas de PRISMA](../TODO.md) | 9.72.0 | 🔄 Vivo | 2026-10-16 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [Índice navegable de la documentación](INDICE.md) | 1.29.0 | 🔄 Vivo | 2026-10-16 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.0.0 | ✅ Vigente | 2026-09-16 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
-| [02 · Casos de uso](02-casos-de-uso.md) | 3.0.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
+| [02 · Casos de uso](02-casos-de-uso.md) | 3.1.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
 | [03 · Requisitos, reglas de negocio y escenarios BDD](03-requisitos-y-bdd.md) | 5.0.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Calidad](#etiqueta-calidad) |
 | [04 · Modelo de datos](04-modelo-de-datos.md) | 6.1.0 | ✅ Vigente | 2026-10-08 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
 | [05 · Reglas financieras y KPIs](05-reglas-financieras.md) | 3.0.0 | ✅ Vigente | 2026-10-06 | [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
@@ -271,7 +271,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-064 · La atribución la pone la plataforma, y el agente no escribe ninguna](adr/ADR-064-la-atribucion-la-pone-la-plataforma.md) | 1.0.0 | ✅ Aceptado | 2026-10-16 | [Proceso](#etiqueta-proceso) |
 | [AGENTS.md](../AGENTS.md) | 2.4.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [CLAUDE.md](../CLAUDE.md) | 15.0.0 | ✅ Vigente | 2026-10-16 | [Proceso](#etiqueta-proceso) |
-| [Herramienta de documentación](../scripts/docs/README.md) | 2.2.0 | ✅ Vigente | 2026-09-27 | [Proceso](#etiqueta-proceso) |
+| [Herramienta de documentación](../scripts/docs/README.md) | 2.3.0 | ✅ Vigente | 2026-10-16 | [Proceso](#etiqueta-proceso) |
 | [Políticas de rama](../scripts/github/README.md) | 3.3.1 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 <!-- /generado:estado-de-la-documentacion -->
 

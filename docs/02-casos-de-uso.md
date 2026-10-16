@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/02-casos-de-uso.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-16 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [3.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/02-casos-de-uso.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-16 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Los 37 casos de uso del MVP, **todos con su flujo paso a paso** en el [§2](#2-casos-de-uso-detallados). Cada uno indica el
 **rol autorizado**, y esa autorización se implementa en la base de datos, no en la pantalla.
@@ -1660,30 +1660,95 @@ y la rama es siempre `feature/<id de la tarea>` ([ADR-040](adr/ADR-040-rama-feat
 **Quién llena la fila:** el PR de la tarea, igual que marca `[x]` en el tablero. Un caso de uso
 que se declare integrado sin su fila es una promesa sin respaldo.
 
+**La fila apunta a la última pieza que lo dejó usable**, no a la primera: un caso de uso se
+construye entre dos o tres repositorios, y la columna Tarea enseña la cadena entera. **Un guion
+quiere decir que el dato no está en la historia de git**, no que no aplique; el [§4.1](#41-las-filas-sin-rastro) dice por qué.
+
 | Estado | Qué quiere decir |
 |---|---|
 | ✅ | Integrado: está en `develop` y se puede usar |
-| 🚧 | En construcción: tiene tarea y rama, y todavía no se fusiona |
+| 🚧 | En construcción: una parte está en `develop` y otra no, y el [§4.2](#42-lo-que-les-falta-a-las-filas-en-construcción) dice cuál |
 | ⏭️ | Sin empezar |
 | ⛔ | Retirado |
 
 | Caso de uso | Estado | Tarea | Repositorio · PR | Commit | Rama | Fecha | Versión |
 |---|:---:|---|---|---|---|---|---|
-| [CU-05](#cu-05) · Registrar pedido | ✅ | [4.3](08-plan-de-desarrollo.md#tarea-4-3) | `prisma_api` · `prisma_front` | pendiente de la [10.8](08-plan-de-desarrollo.md#tarea-10-8) | `feature/4.3` | 2026-09 | — |
-| [CU-06](#cu-06) · Registrar un pago | ✅ la API · 🚧 la pantalla | [4.4](08-plan-de-desarrollo.md#tarea-4-4) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_api` · `prisma_front` | pendiente de la [10.8](08-plan-de-desarrollo.md#tarea-10-8) | `feature/4.4` | 2026-09 | — |
-| [CU-07](#cu-07) · Entregar y cobrar saldo | 🚧 | [4.5](08-plan-de-desarrollo.md#tarea-4-5) · [10.4](08-plan-de-desarrollo.md#tarea-10-4) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_db` · PR #37 | `12d3237` | `feature/4.5` | 2026-09-27 | esquema `0.18.0` |
-| [CU-07 A3](#cu-07) · Cancelar el pedido | ✅ la API · 🚧 la pantalla | [4.9](08-plan-de-desarrollo.md#tarea-4-9) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_api` | pendiente de la [10.8](08-plan-de-desarrollo.md#tarea-10-8) | `feature/4.9` | 2026-09 | — |
-| [CU-08](#cu-08) · Consultar pedidos | ✅ | [4.6](08-plan-de-desarrollo.md#tarea-4-6) | `prisma_front` · PR #44 | `596cb4d` | `feature/4.6` | 2026-09-27 | — |
+| [CU-01](#cu-01) · Registrar ingreso | ✅ | [3.4](08-plan-de-desarrollo.md#tarea-3-4) · [3.5](08-plan-de-desarrollo.md#tarea-3-5) | — | — | — | — | — |
+| [CU-02](#cu-02) · Registrar gasto con recibo | ✅ | [3.6](08-plan-de-desarrollo.md#tarea-3-6) | `prisma_db` · PR #25 | `0a5b93a` | `feature/3.6` | 2026-09-22 | esquema `0.10.0` |
+| [CU-03](#cu-03) · Anular movimiento errado | ✅ | [3.9](08-plan-de-desarrollo.md#tarea-3-9) · [3.20](08-plan-de-desarrollo.md#tarea-3-20) · [3.23](08-plan-de-desarrollo.md#tarea-3-23) | `prisma_db` · PR #30 | `da0b5e4` | `claude/tarea-pendiente-siguiente-mxvxly` | 2026-09-23 | esquema `0.14.0` |
+| [CU-04](#cu-04) · Corregir por contra-asiento | ✅ | [3.10](08-plan-de-desarrollo.md#tarea-3-10) | `prisma_db` · PR #32 | `e12ec32` | `sprint3` | 2026-09-24 | esquema `0.16.0` |
+| [CU-05](#cu-05) · Registrar pedido de venta | ✅ | [4.3](08-plan-de-desarrollo.md#tarea-4-3) | — | — | — | — | — |
+| [CU-06](#cu-06) · Registrar un pago del pedido | ✅ | [4.4](08-plan-de-desarrollo.md#tarea-4-4) · [10.5](08-plan-de-desarrollo.md#tarea-10-5) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_front` · PR #147 | `f08f8f2` | `feature/el-estado-del-pedido` | 2026-10-16 | `2.2.0+57` |
+| [CU-07](#cu-07) · Entregar pedido y cobrar saldo | ✅ | [4.5](08-plan-de-desarrollo.md#tarea-4-5) · [10.4](08-plan-de-desarrollo.md#tarea-10-4) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_front` · PR #147 | `f08f8f2` | `feature/el-estado-del-pedido` | 2026-10-16 | `2.2.0+57` |
+| [CU-07 A3](#cu-07) · Cancelar el pedido | ✅ | [4.9](08-plan-de-desarrollo.md#tarea-4-9) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_front` · PR #147 | `f08f8f2` | `feature/el-estado-del-pedido` | 2026-10-16 | `2.2.0+57` |
+| [CU-08](#cu-08) · Consultar pedidos por fecha | ✅ | [4.6](08-plan-de-desarrollo.md#tarea-4-6) · [10.7](08-plan-de-desarrollo.md#tarea-10-7) | `prisma_front` · PR #147 | `f08f8f2` | `feature/el-estado-del-pedido` | 2026-10-16 | `2.2.0+57` |
+| [CU-09](#cu-09) · Costear un producto | ✅ | [5.2](08-plan-de-desarrollo.md#tarea-5-2) · [5.3](08-plan-de-desarrollo.md#tarea-5-3) · [5.9](08-plan-de-desarrollo.md#tarea-5-9) | `prisma_front` · PR #49 | `166156c` | `feature/5.9` | 2026-09-29 | `0.27.0+33` |
+| [CU-10](#cu-10) · Costear servicio de bordado | ⛔ | [5.4](08-plan-de-desarrollo.md#tarea-5-4) · [10.3](08-plan-de-desarrollo.md#tarea-10-3) | `prisma_api` · PR #77 | `13fbb39` | `feature/5.4` | 2026-09-30 | `0.41.0` |
+| [CU-11](#cu-11) · Generar cotización PDF | ✅ | [8.8](08-plan-de-desarrollo.md#tarea-8-8) · [8.12](08-plan-de-desarrollo.md#tarea-8-12) | `prisma_front` · PR #56 | `35a813a` | `feature/8.8` | 2026-10-01 | `0.33.0+39` |
+| [CU-12](#cu-12) · Validar anticipo mínimo | ✅ | [8.9](08-plan-de-desarrollo.md#tarea-8-9) | `prisma_api` · PR #86 | `a8bbe31` | `feature/8.9` | 2026-10-02 | `0.48.0` |
+| [CU-13](#cu-13) · Ver utilidad, caja y caja libre | ✅ | [6.1](08-plan-de-desarrollo.md#tarea-6-1) · [6.3](08-plan-de-desarrollo.md#tarea-6-3) · [6.11](08-plan-de-desarrollo.md#tarea-6-11) | `prisma_front` · PR #47 | `3b47343` | `feature/6.3` | 2026-09-29 | `0.25.0+31` |
+| [CU-14](#cu-14) · Ver promedio de ganancias | ✅ | [6.5](08-plan-de-desarrollo.md#tarea-6-5) | `prisma_front` · PR #51 | `d13f9a8` | `feature/6.5` | 2026-09-29 | `0.29.0+35` |
+| [CU-15](#cu-15) · Registrar inversión en activo | ✅ | [7.1](08-plan-de-desarrollo.md#tarea-7-1) · [7.2](08-plan-de-desarrollo.md#tarea-7-2) | — | — | — | — | — |
+| [CU-16](#cu-16) · Registrar retiro | ✅ | [7.4](08-plan-de-desarrollo.md#tarea-7-4) | — | — | — | — | — |
+| [CU-17](#cu-17) · Configurar los 4 sobres | ✅ | [7.7](08-plan-de-desarrollo.md#tarea-7-7) · [7.8](08-plan-de-desarrollo.md#tarea-7-8) | `prisma_front` · PR #54 | `1f12af1` | `feature/7.8` | 2026-09-30 | `0.32.0+38` |
+| [CU-18](#cu-18) · Simular capacidad de pago | ✅ | [8.5](08-plan-de-desarrollo.md#tarea-8-5) · [8.6](08-plan-de-desarrollo.md#tarea-8-6) | `prisma_api` · PR #92 | `510357e` | `feature/8.6` | 2026-10-03 | `0.53.0` |
+| [CU-19](#cu-19) · Liquidar nómina del mes | 🚧 | [8.2](08-plan-de-desarrollo.md#tarea-8-2) | `prisma_db` · PR #41 | `e35406f` | `feature/8.2` | 2026-10-02 | esquema `0.22.0` |
+| [CU-20](#cu-20) · Ver el propio desprendible | 🚧 | [8.4](08-plan-de-desarrollo.md#tarea-8-4) | `prisma_api` · PR #91 | `cf16129` | `feature/8.4` | 2026-10-03 | `0.52.0` |
+| [CU-21](#cu-21) · Importar histórico de Excel | ✅ | [8.10](08-plan-de-desarrollo.md#tarea-8-10) | `prisma_front` · PR #64 | `5cf1cc5` | `feature/8.10` | 2026-10-03 | `0.39.0+46` |
+| [CU-22](#cu-22) · Exportar respaldo | 🚧 | [8.13](08-plan-de-desarrollo.md#tarea-8-13) · [8.14](08-plan-de-desarrollo.md#tarea-8-14) · [8.15](08-plan-de-desarrollo.md#tarea-8-15) · [8.17](08-plan-de-desarrollo.md#tarea-8-17) | `prisma_db` · PR #61 | `18c63c5` | `feature/8.14` | 2026-10-08 | esquema `0.26.0` |
+| [CU-23](#cu-23) · Consultar auditoría | 🚧 | [8.13](08-plan-de-desarrollo.md#tarea-8-13) · [8.18](08-plan-de-desarrollo.md#tarea-8-18) · [8.19](08-plan-de-desarrollo.md#tarea-8-19) | `prisma_api` · PR #118 | `558d99e` | `feature/8.18` | 2026-10-09 | `2.3.0` |
+| [CU-24](#cu-24) · Alertar descapitalización | ✅ | [6.7](08-plan-de-desarrollo.md#tarea-6-7) · [7.6](08-plan-de-desarrollo.md#tarea-7-6) | `prisma_api` · PR #74 | `8d3378f` | `feature/7.6` | 2026-09-29 | `0.38.0` |
+| [CU-25](#cu-25) · Definir el pro-labore | ✅ | [7.3](08-plan-de-desarrollo.md#tarea-7-3) | — | — | — | — | — |
+| [CU-26](#cu-26) · Registrar adelanto a la empleada | ✅ | [8.3](08-plan-de-desarrollo.md#tarea-8-3) | `prisma_api` · PR #87 | `3089bc8` | `feature/8.3` | 2026-10-02 | `0.49.0` |
+| [CU-27](#cu-27) · Horas pagadas vs. horas facturadas | ⛔ | [8.7](08-plan-de-desarrollo.md#tarea-8-7) · [10.3](08-plan-de-desarrollo.md#tarea-10-3) | `prisma_front` · PR #63 | `3cf3ab3` | `feature/8.7` | 2026-10-03 | `0.38.0+45` |
+| [CU-28](#cu-28) · Iniciar sesión con usuario y contraseña | ✅ | [2.1](08-plan-de-desarrollo.md#tarea-2-1) · [2.2](08-plan-de-desarrollo.md#tarea-2-2) · [2.6](08-plan-de-desarrollo.md#tarea-2-6) | `prisma_front` | `561874c` | — | 2026-09-17 | `0.1.0+1` |
+| [CU-29](#cu-29) · Crear un usuario | ✅ | [2.7](08-plan-de-desarrollo.md#tarea-2-7) | — | — | — | — | — |
+| [CU-30](#cu-30) · Desactivar un usuario | ✅ | [2.7](08-plan-de-desarrollo.md#tarea-2-7) · [2.15](08-plan-de-desarrollo.md#tarea-2-15) | — | — | — | — | — |
+| [CU-31](#cu-31) · Restablecer la contraseña de un usuario | ✅ | [2.7](08-plan-de-desarrollo.md#tarea-2-7) | — | — | — | — | — |
+| [CU-32](#cu-32) · Cambiar la propia contraseña | ✅ | [2.6](08-plan-de-desarrollo.md#tarea-2-6) | `prisma_front` | `561874c` | — | 2026-09-17 | `0.1.0+1` |
+| [CU-33](#cu-33) · Administrar el catálogo de cargos | ✅ | [2.8](08-plan-de-desarrollo.md#tarea-2-8) | — | — | — | — | — |
+| [CU-34](#cu-34) · Reactivar un usuario desactivado | ✅ | [2.17](08-plan-de-desarrollo.md#tarea-2-17) | — | — | — | — | — |
+| [CU-35](#cu-35) · Revertir un cambio desde la bitácora | ✅ | [2.16](08-plan-de-desarrollo.md#tarea-2-16) | `prisma_db` · PR #24 | `ab98f11` | `feature/2.16` | 2026-09-21 | esquema `0.10.0` |
+| [CU-36](#cu-36) · Previsualizar el sistema como lo ve Operación | ✅ | [2.18](08-plan-de-desarrollo.md#tarea-2-18) | — | — | — | — | — |
+| [CU-37](#cu-37) · Descargar lo que muestra una pantalla | ✅ | [6.9](08-plan-de-desarrollo.md#tarea-6-9) | `prisma_api` · PR #75 | `8556219` | `feature/6.9` | 2026-09-30 | `0.39.0` |
 
-**Los otros 32 casos de uso entran a esta tabla con la [10.8](08-plan-de-desarrollo.md#tarea-10-8)**, que es un barrido hacia atrás:
-cruzar el [`TODO.md`](../TODO.md), que ya anota la versión de cada tarea, con `git log --grep` en cada
-repositorio. **Se separó a propósito**: es trabajo mecánico y no bloquea nada, y meterlo aquí
-mezclaría dos cosas en un solo PR. Las celdas que esta tabla deja en «pendiente» son las que ese
-barrido llena, y se dejan dichas en vez de adivinadas: un dato inventado en una tabla de
-trazabilidad es peor que un hueco.
+### 4.1 Las filas sin rastro
+
+Trece filas llevan guion en el commit, la rama, la fecha o la versión, y **no es trabajo que
+falte: es historia que no existe.** Son dos causas, las dos anteriores al 2026-09-21:
+
+- **La API tiene tres commits raíz**, y el más nuevo —del 2026-09-29— agrega el árbol entero sin
+  padres. Todo lo que la API hizo antes de esa fecha no está en su historia, así que `git log` no
+  lo puede encontrar.
+- **El `Sprint N / N.M:` del asunto empezó con el [ADR-028](adr/ADR-028-un-commit-por-tarea.md), y la rama `feature/<id>` con el [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md).**
+  De las tareas de antes, 79 no tienen commit que las nombre en ninguno de los cuatro
+  repositorios, y las ramas de las que sí se llamaban `sprint3` o `claude/…`.
+
+Donde el commit aparece pero la rama no es rastreable, se anota el commit y la rama queda en
+guion: la fusión más antigua de su camino nombra una promoción posterior y no la rama de la tarea,
+así que escribirla sería inventarla. **Un dato inventado en una tabla de trazabilidad es peor que
+un hueco**, y de aquí para adelante no vuelve a pasar: cada tarea entra con su commit, su rama y
+su PR.
+
+### 4.2 Lo que les falta a las filas en construcción
+
+- **[CU-19](#cu-19) · Liquidar nómina del mes.** La base liquida desde la [8.2](08-plan-de-desarrollo.md#tarea-8-2) y el contrato tiene sus
+  seis rutas, pero **la API solo sirve `/consultas/desprendible`**: las cinco de `nomina` no las
+  sirve nadie y **ninguna tarea del [08](08-plan-de-desarrollo.md) las construye**. Es un hueco del plan, no una tarea
+  pendiente.
+- **[CU-20](#cu-20) · Ver el propio desprendible.** La API lo sirve desde la [8.4](08-plan-de-desarrollo.md#tarea-8-4), y **falta la pantalla**,
+  que tampoco tiene tarea.
+- **[CU-22](#cu-22) · Exportar respaldo.** Le faltan la [8.15](08-plan-de-desarrollo.md#tarea-8-15), el respaldo en la API, y la [8.17](08-plan-de-desarrollo.md#tarea-8-17), su panel.
+- **[CU-23](#cu-23) · Consultar auditoría.** Le falta la [8.19](08-plan-de-desarrollo.md#tarea-8-19), el panel «Auditoría».
+
+### 4.3 La comprobación que impide que envejezca
+
+`verificar` cruza esta tabla con el [§2](#2-casos-de-uso-detallados) en los dos sentidos y falla si algo no cuadra: un caso
+de uso sin fila, una fila que nombra uno que no existe, un estado que no está en la leyenda o una
+fila integrada sin tarea. Así un caso de uso nuevo no puede entrar sin decir cuándo entró.
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [05](05-reglas-financieras.md "05 · Reglas financieras y KPIs") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [15](15-glosario.md "15 · Glosario") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-013](adr/ADR-013-cuatro-ambientes.md "ADR-013 · Cuatro ambientes y promoción de migraciones") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8")
+**🔗 Referenciado desde:** [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [05](05-reglas-financieras.md "05 · Reglas financieras y KPIs") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [15](15-glosario.md "15 · Glosario") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-013](adr/ADR-013-cuatro-ambientes.md "ADR-013 · Cuatro ambientes y promoción de migraciones") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [README](../scripts/docs/README.md "Herramienta de documentación")
 <!-- /generado:referenciado-desde -->
 
 ---
