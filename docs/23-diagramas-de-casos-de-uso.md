@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [0.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/23-diagramas-de-casos-de-uso.md "Historial de cambios") | [🔍 En revisión](22-documentacion.md#estados) | 2026-10-04 | 2026-10-06 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [0.5.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/23-diagramas-de-casos-de-uso.md "Historial de cambios") | [🔍 En revisión](22-documentacion.md#estados) | 2026-10-04 | 2026-10-16 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Los 37 casos de uso dibujados, **dos veces cada uno**: una para quien dirige el negocio y una para
 quien programa. Los pasos, los flujos alternativos y las reglas están en
@@ -521,10 +521,11 @@ flowchart TD
     A(["Gerencia u Operación"]) --> B["Marca el pedido como entregado y pone la fecha"]
     B --> C{"¿El pedido ya está entregado o cancelado?"}
     C -- Sí --> C1[/"Se rechaza: entregado es final"/]
-    C -- No --> D{"¿Se cobra el saldo?"}
-    D -- No --> D1["Se causa la venta igual y queda cuenta por cobrar"]
-    D -- Sí --> E["Sube la caja por el saldo cobrado"]
-    D1 --> F
+    C -- No --> D{"¿Queda saldo por pagar?"}
+    D -- No --> F
+    D -- Sí --> D1{"¿Se dijo en qué cuenta entra?"}
+    D1 -- No --> D2[/"Se rechaza: no se entrega sin terminar de pagarse"/]
+    D1 -- Sí --> E["Sube la caja por el saldo cobrado"]
     E --> F["Se causa el ingreso por el valor total, con la fecha de entrega"]
     F --> G["Se libera el pasivo de anticipos por devengar"]
     G --> H[/"La utilidad del mes de entrega refleja el pedido completo"/]
@@ -545,7 +546,7 @@ sequenceDiagram
     D->>D: devenga los anticipos vigentes
     D->>D: INSERT movimientos por el saldo, no por el total
     D-->>A: pedido entregado
-    A-->>F: 20000 · 40931 ya entregado o cancelado · 42234 fecha futura
+    A-->>F: 20000 · 40931 ya entregado o cancelado · 42234 fecha futura · 42236 falta la cuenta
 ```
 
 ### CU-08 · Consultar pedidos por fecha
@@ -1594,8 +1595,8 @@ las de `contrato/openapi.json`, las tablas las del [04 §4](04-modelo-de-datos.m
 | [CU-03](02-casos-de-uso.md#cu-03) | `POST /movimientos/{id}/anulacion` | `movimientos`, `anticipos`, `activos`, `aportes_retiros`, `adelantos` | `fn_anular_movimiento`, `mov_anulacion` | [BDD-03-1](03-requisitos-y-bdd.md#bdd-03-1) a [BDD-03-4](03-requisitos-y-bdd.md#bdd-03-4) |
 | [CU-04](02-casos-de-uso.md#cu-04) | `PUT /movimientos/{id}/correccion/{correccionId}` | `movimientos` | `mov_insercion` sobre `corrige_a_id` | [BDD-04-1](03-requisitos-y-bdd.md#bdd-04-1) |
 | [CU-05](02-casos-de-uso.md#cu-05) | `PUT /pedidos/{id}` · `PUT /clientes/{id}` · `POST /consultas/resumen-de-pedido` | `pedidos`, `pedido_lineas`, `clientes`, `adjuntos` | — | [BDD-06-1](03-requisitos-y-bdd.md#bdd-06-1) |
-| [CU-06](02-casos-de-uso.md#cu-06) | `POST /pedidos/{id}/anticipos` | `anticipos`, `movimientos` | — | [BDD-06-1](03-requisitos-y-bdd.md#bdd-06-1), [BDD-06-2](03-requisitos-y-bdd.md#bdd-06-2) |
-| [CU-07](02-casos-de-uso.md#cu-07) | `POST /pedidos/{id}/entrega` · `POST /pedidos/{id}/cancelacion` | `pedidos`, `anticipos`, `movimientos` | `fn_entregar_pedido` | [BDD-07-1](03-requisitos-y-bdd.md#bdd-07-1), [BDD-07-2](03-requisitos-y-bdd.md#bdd-07-2) |
+| [CU-06](02-casos-de-uso.md#cu-06) | `POST /pedidos/{id}/anticipos` | `anticipos`, `movimientos` | — | [BDD-06-1](03-requisitos-y-bdd.md#bdd-06-1) a [BDD-06-5](03-requisitos-y-bdd.md#bdd-06-5) |
+| [CU-07](02-casos-de-uso.md#cu-07) | `POST /pedidos/{id}/entrega` · `POST /pedidos/{id}/cancelacion` | `pedidos`, `anticipos`, `movimientos` | `fn_entregar_pedido` | [BDD-07-1](03-requisitos-y-bdd.md#bdd-07-1), [BDD-07-3](03-requisitos-y-bdd.md#bdd-07-3) a [BDD-07-5](03-requisitos-y-bdd.md#bdd-07-5) |
 | [CU-08](02-casos-de-uso.md#cu-08) | `POST /consultas/pedidos` | `pedidos`, `pedido_lineas`, `anticipos` | — | [BDD-08-1](03-requisitos-y-bdd.md#bdd-08-1) |
 | [CU-09](02-casos-de-uso.md#cu-09) | `PUT /productos/{id}` · `POST /productos/{id}/edicion` · `POST /consultas/costeo` | `productos`, `costos_producto` | RLS de `costos_producto` | [BDD-02-2](03-requisitos-y-bdd.md#bdd-02-2) |
 | [CU-10](02-casos-de-uso.md#cu-10) | `PUT /productos/{id}` · `POST /consultas/costeo` | `productos`, `costos_producto` | — | [BDD-32-2](03-requisitos-y-bdd.md#bdd-32-2) a [BDD-32-4](03-requisitos-y-bdd.md#bdd-32-4) |

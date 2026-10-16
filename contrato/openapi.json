@@ -1670,7 +1670,7 @@
         "description" : "El formulario «entrega». Es lo que recibe fn_entregar_pedido (04 §10) y nada más: declarar más campos sería invitar a la API a rehacer los pasos de la función",
         "properties" : {
           "cuentaId" : {
-            "description" : "Dónde entra el saldo. Sin ella se entrega igual y el saldo queda por cobrar (CU-07 A1)",
+            "description" : "Dónde entra el saldo que falta. Obligatoria cuando el pedido tiene saldo pendiente, porque no se entrega sin terminar de pagarse (RF-22): sin ella responde 42236. Con el pedido ya pagado no se pide",
             "format" : "uuid",
             "type" : "string"
           },
@@ -3179,6 +3179,11 @@
             "format" : "uuid",
             "type" : "string"
           },
+          "condicionDePago" : {
+            "description" : "Cuánto se ha cobrado de este pedido, que no es lo mismo que su estado: el estado dice en qué punto va el trabajo y esto dice cuánta plata entró (RF-23). Lo calcula la API comparando lo anticipado con el valor total, y no es una columna de la base",
+            "enum" : [ "sin_pagar", "parcial", "pagado" ],
+            "type" : "string"
+          },
           "estado" : {
             "description" : "Los cinco valores del ENUM estado_pedido. entregado y cancelado son finales: lo que haya que corregir después va por contra-asiento (04 §5.3)",
             "enum" : [ "cotizado", "en_proceso", "parcial", "entregado", "cancelado" ],
@@ -3223,13 +3228,25 @@
             "format" : "int64",
             "type" : "integer"
           },
+          "sePuedeCancelar" : {
+            "description" : "Si quien mira puede cancelar este pedido. Es false cuando ya está entregado, cancelado o anulado, con el mismo molde de sePuedeAnular en los movimientos (CU-07 A3)",
+            "type" : "boolean"
+          },
+          "sePuedeCobrar" : {
+            "description" : "Si quien mira puede registrar un pago de este pedido. Es false cuando ya está pagado del todo, cuando es final o cuando está anulado (CU-06)",
+            "type" : "boolean"
+          },
+          "sePuedeEntregar" : {
+            "description" : "Si quien mira puede entregar este pedido. Es false cuando ya es final o está anulado. Con saldo pendiente sigue siendo true: la entrega cobra lo que falta y para eso pide la cuenta (RF-22, CU-07)",
+            "type" : "boolean"
+          },
           "valorTotal" : {
             "description" : "Pesos enteros. Sale de las líneas",
             "format" : "int64",
             "type" : "integer"
           }
         },
-        "required" : [ "adjuntos", "anticipado", "anticipoPct", "clienteId", "estado", "estancado", "fechaPedido", "id", "lineas", "numero", "saldoPendiente", "valorTotal" ],
+        "required" : [ "adjuntos", "anticipado", "anticipoPct", "clienteId", "condicionDePago", "estado", "estancado", "fechaPedido", "id", "lineas", "numero", "saldoPendiente", "sePuedeCancelar", "sePuedeCobrar", "sePuedeEntregar", "valorTotal" ],
         "type" : "object"
       },
       "Pendientes" : {
@@ -3241,7 +3258,7 @@
             "type" : "integer"
           },
           "cuentasPorCobrar" : {
-            "description" : "El saldo pendiente de los pedidos entregados y no cobrados del todo (RF-23)",
+            "description" : "El saldo pendiente de los pedidos vigentes y sin entregar (RF-23). Un pedido entregado no deja saldo, porque no se entrega sin terminar de pagarse (RF-22)",
             "format" : "int64",
             "type" : "integer"
           },
@@ -5382,7 +5399,7 @@
   "info" : {
     "description" : "Toda respuesta llega con el sobre {status, mensaje, data}. El status es de cinco dígitos, HTTP(3) + caso(2), y su catálogo completo está en x-prisma-codigos. Con sesión, cada petición lleva Authorization: Bearer con el token y va firmada con X-Prisma-Nonce, X-Prisma-Timestamp y X-Prisma-Firma (ADR-021, 20 §6). Sin sesión solo responden POST /api/v0/consultas/version, POST /api/v0/sesiones, POST /api/v0/sesiones/renovacion, POST /api/v0/sesiones/administrador y los formularios «acceso» y «primer-administrador». Ninguna operación usa GET: toda lectura viaja por POST bajo /api/v0/consultas y lleva Idempotency-Key como cualquier otra petición (ADR-030).",
     "title" : "PRISMA · prisma_api",
-    "version" : "0.34.0"
+    "version" : "0.35.0"
   },
   "openapi" : "3.1.0",
   "paths" : {
@@ -10686,7 +10703,7 @@
     },
     "/api/v0/pedidos/{id}/entrega" : {
       "post" : {
-        "description" : "Causa la venta por el valor total con la fecha de entrega, causa el costo, devenga los anticipos, sube la caja por el saldo y deja el pedido entregado (RN-06, RF-22, CU-07). Las cinco cosas ocurren en una sola transacción porque las hace fn_entregar_pedido (04 §10), y el cuerpo es exactamente lo que esa función recibe: fecha y cuenta. Se puede entregar sin cobrar el saldo y la venta se causa igual, que es CU-07 A1. Entregado es final: sobre un pedido entregado o cancelado responde 40931. Puede devolver 20000, 40002, 40100, 40101, 40102, 40103, 40302, 40400, 40901, 40902, 40931, 42200 con data.errores, 42233 y 42234.",
+        "description" : "Causa la venta por el valor total con la fecha de entrega, causa el costo, devenga los anticipos, sube la caja por el saldo y deja el pedido entregado (RN-06, RF-22, CU-07). Las cinco cosas ocurren en una sola transacción porque las hace fn_entregar_pedido (04 §10), y el cuerpo es exactamente lo que esa función recibe: fecha y cuenta. Un pedido no se entrega sin terminar de pagarse (RF-22): si le queda saldo, cuentaId es obligatoria y ahí entra lo que falta; si falta, responde 42236. Entregado es final: sobre un pedido entregado o cancelado responde 40931. Puede devolver 20000, 40002, 40100, 40101, 40102, 40103, 40302, 40400, 40901, 40902, 40931, 42200 con data.errores, 42233, 42234 y 42236.",
         "operationId" : "entregarPedido",
         "parameters" : [ {
           "description" : "El id del pedido",
@@ -12757,6 +12774,17 @@
       "sprint" : 4
     },
     "status" : 42235
+  }, {
+    "cuando" : "Se entrega un pedido con saldo pendiente sin decir en qué cuenta entra ese saldo. El error va en data.errores, sobre cuentaId",
+    "http" : 422,
+    "mensaje" : "Di en qué cuenta entra el saldo: un pedido no se entrega sin terminar de pagarse.",
+    "modulo" : "PEDIDOS_Y_CLIENTES",
+    "nombre" : "FALTA_LA_CUENTA_DE_LA_ENTREGA",
+    "pendienteDeEmitir" : {
+      "quien" : "Tarea 10.4: entregar el pedido, y no sin pagarlo",
+      "sprint" : 10
+    },
+    "status" : 42236
   }, {
     "cuando" : "Un retiro por encima de la caja libre que llega sin confirmado. El rango es el de capital porque quien lo emite es el retiro, no el reporte",
     "http" : 409,
