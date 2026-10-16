@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/02-casos-de-uso.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [3.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/02-casos-de-uso.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-16 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Los 37 casos de uso del MVP, **todos con su flujo paso a paso** en el [§2](#2-casos-de-uso-detallados). Cada uno indica el
 **rol autorizado**, y esa autorización se implementa en la base de datos, no en la pantalla.
@@ -29,8 +29,8 @@ Los diagramas de los 37 —uno para negocio y uno técnico por caso— están en
 | [CU-03](#cu-03) | Anular movimiento errado | GER | Movimiento no anulado | Marcado anulado con motivo; **nunca borrado** |
 | [CU-04](#cu-04) | Corregir por contra-asiento | GER | Movimiento existente | Movimiento nuevo que reversa el original; ambos visibles |
 | [CU-05](#cu-05) | Registrar pedido de venta | GER · OPE | Cliente existente o nuevo | Pedido en estado `en_proceso` |
-| [CU-06](#cu-06) | Cobrar anticipo | GER · OPE | Pedido creado | Anticipo registrado **como pasivo**, no como ingreso |
-| [CU-07](#cu-07) | Entregar y cobrar saldo | GER · OPE | Pedido `en_proceso` | Venta causada, anticipo liberado, estado `entregado` |
+| [CU-06](#cu-06) | Registrar un pago del pedido | GER · OPE | Pedido creado | Pago registrado **como pasivo**, no como ingreso; el pedido queda sin pagar, pago parcial o pagado |
+| [CU-07](#cu-07) | Entregar y cobrar saldo | GER · OPE | Pedido `en_proceso` y pagado, o que se termina de pagar con la entrega | Venta causada, pasivo liberado, saldo en cero, estado `entregado` |
 | [CU-08](#cu-08) | Consultar pedidos por fecha | GER · OPE | — | Listado filtrable con pendientes resaltados |
 | [CU-09](#cu-09) | Costear un producto | GER | Producto existente | Costo unitario y los dos márgenes recalculados |
 | [CU-10](#cu-10) | ⛔ Retirado el 2026-10-06 · Costear servicio de bordado | GER | — | Sin tiempo en el catálogo no hay tiempo de máquina que separar |
@@ -299,22 +299,28 @@ y su cliente, listo para cobrar el anticipo ([CU-06](#cu-06)).
 
 ---
 
-### <a id="cu-06"></a>CU-06 · Cobrar anticipo
+### <a id="cu-06"></a>CU-06 · Registrar un pago del pedido
 
 | | |
 |---|---|
 | **Actor** | Gerencia · Operación |
-| **Objetivo** | Registrar el 50% que se cobra al confirmar el pedido |
+| **Objetivo** | Dejar escrito lo que el cliente ya pagó, el día que lo pague |
 
 **Flujo principal**
 
-1. Sobre un pedido en estado `en_proceso`, el actor registra el anticipo recibido.
+1. Sobre un pedido en estado `en_proceso`, el actor registra un pago recibido. Puede ser el mismo
+   día en que se registró el pedido o cualquier día después, **y puede haber más de uno**.
 2. Indica valor, cuenta de destino y fecha del movimiento.
 3. El sistema:
    - **Aumenta la caja** de la cuenta indicada.
    - **Registra un pasivo** `anticipos_por_devengar` por el mismo valor.
    - **No registra ingreso** ni utilidad.
-4. El pedido queda con anticipo cobrado y su saldo pendiente calculado.
+4. El pedido queda con lo pagado, su saldo pendiente y su **condición de pago**, que es una de
+   tres: sin pagar, pago parcial o pagado ([RF-23](03-requisitos-y-bdd.md#rf-23)).
+
+**La condición de pago no es el estado.** El estado dice en qué punto va el trabajo —`en_proceso`,
+`entregado`, `cancelado`— y la condición de pago dice cuánto se ha cobrado. Un pedido sin pagar y
+uno pagado están los dos `en_proceso`, y ninguno ha causado venta todavía.
 
 **Regla de negocio central ([RN-05](03-requisitos-y-bdd.md#rn-05))**
 
@@ -325,9 +331,10 @@ y su cliente, listo para cobrar el anticipo ([CU-06](#cu-06)).
 
 | # | Situación | Comportamiento |
 |---|---|---|
-| A1 | El anticipo supera el valor del pedido | Se rechaza |
+| A1 | El pago, sumado a los anteriores, supera el valor del pedido | Se rechaza: nadie puede haber pagado más de lo que vale |
 | A2 | El anticipo no cubre el costo directo | Se muestra la advertencia de [CU-12](#cu-12) |
-| A3 | El cliente paga todo por adelantado | Se registra el 100% como pasivo hasta la entrega |
+| A3 | El cliente paga todo por adelantado, al registrar el pedido o después | Se registra el 100% como pasivo hasta la entrega, y el pedido queda **pagado** ([BDD-06-4](03-requisitos-y-bdd.md#bdd-06-4)) |
+| A4 | No se cobra nada al registrar el pedido | El pedido queda **sin pagar**, y el pago se registra el día que llegue ([BDD-06-3](03-requisitos-y-bdd.md#bdd-06-3), [BDD-06-5](03-requisitos-y-bdd.md#bdd-06-5)) |
 
 
 ---
@@ -339,26 +346,38 @@ y su cliente, listo para cobrar el anticipo ([CU-06](#cu-06)).
 | **Actor** | Gerencia · Operación |
 | **Objetivo** | Causar la venta en el momento correcto |
 
+**Precondición** — El pedido está pagado, o el pago de lo que falta entra con esta misma entrega.
+
 **Flujo principal**
 
-1. El actor marca el pedido como entregado e indica la fecha de entrega.
-2. Registra el cobro del saldo.
+1. El actor marca el pedido como entregado e indica la fecha de entrega, que puede ser hoy o
+   cualquier día pasado: **es la fecha que causa la venta**, no la del teclado.
+2. Si queda saldo, indica en qué cuenta entra. **Si el pedido ya estaba pagado, no hay nada que
+   indicar**: la entrega no escribe ningún movimiento ([BDD-07-4](03-requisitos-y-bdd.md#bdd-07-4)).
 3. El sistema, **en una sola transacción**:
    - Causa el ingreso por el **valor total del pedido** con fecha de entrega.
    - Causa el costo directo asociado.
    - Libera el pasivo de anticipos por devengar.
-   - Aumenta la caja por el saldo cobrado.
+   - Aumenta la caja por el saldo cobrado, si lo había.
    - Cambia el estado a `entregado`.
+
+**Regla de negocio ([RF-22](03-requisitos-y-bdd.md#rf-22))**
+
+> **Un pedido no se entrega sin terminar de pagarse.** O ya estaba pagado, o el pago de lo que
+> falta va dentro de la misma entrega. Entregar fiado deja al negocio con la plata del material
+> puesta y sin cómo cobrarla, que es justo lo que el anticipo existía para evitar.
 
 **Flujos alternativos**
 
 | # | Situación | Comportamiento |
 |---|---|---|
-| A1 | Se entrega sin cobrar el saldo | Se causa la venta igual y queda cuenta por cobrar |
-| A2 | Entrega parcial | Se causa proporcionalmente y el pedido queda `parcial` |
-| A3 | El pedido se cancela después del anticipo | El anticipo se convierte en ingreso o en devolución, según se indique, con motivo obligatorio |
+| A1 | ⛔ Retirado el 2026-10-16 · Se entrega sin cobrar el saldo | Ya no se puede: se rechaza y se pide la cuenta donde entra lo que falta ([BDD-07-5](03-requisitos-y-bdd.md#bdd-07-5)) |
+| A2 | Entrega parcial | Se causa proporcionalmente y el pedido queda `parcial`. **Todavía no se puede pedir**: no hay forma de decirlo ni en el contrato ni en la base ([RF-25](03-requisitos-y-bdd.md#rf-25)) |
+| A3 | El pedido se cancela, haya pagado o no | Queda `cancelado` con motivo obligatorio, y lo ya pagado se devuelve o se convierte en ingreso, según se indique. Cancelar **no escribe ningún movimiento** |
+| A4 | El pedido ya está entregado o cancelado | Se rechaza: los dos son finales, y lo que haya que corregir va por contra-asiento |
 
-**Postcondición** — La utilidad del mes de entrega refleja el pedido completo.
+**Postcondición** — La utilidad del mes de entrega refleja el pedido completo, el pedido queda
+`entregado` y **su saldo es cero**.
 
 
 ---
@@ -1627,8 +1646,44 @@ de los dos quede mal descrito. Tampoco agrega tablas: reutiliza `exportaciones` 
 `alcance_tipo = 'pantalla'` ([`13-respaldo-y-exportacion.md`](13-respaldo-y-exportacion.md),
 puntos 2.1 y 8).
 
+## 4. Cuándo entró cada caso de uso
+
+Qué hay construido de cada caso de uso, y por dónde se llega a ese código. **Es la respuesta a
+«¿esto ya está?»** sin tener que abrir cuatro repositorios.
+
+**La columna que más sirve es la versión**, y no el commit: la etiqueta `v<versión>` que la
+tubería pone cuando esa versión entra a `develop` ([ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md)) apunta a ese mismo commit, así que
+con ella se llega al código, al release y a lo que entró entre dos entregas. El commit se anota
+igual, porque cada tarea es **uno solo** y su asunto lleva el sprint y el número ([ADR-028](adr/ADR-028-un-commit-por-tarea.md)),
+y la rama es siempre `feature/<id de la tarea>` ([ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md)).
+
+**Quién llena la fila:** el PR de la tarea, igual que marca `[x]` en el tablero. Un caso de uso
+que se declare integrado sin su fila es una promesa sin respaldo.
+
+| Estado | Qué quiere decir |
+|---|---|
+| ✅ | Integrado: está en `develop` y se puede usar |
+| 🚧 | En construcción: tiene tarea y rama, y todavía no se fusiona |
+| ⏭️ | Sin empezar |
+| ⛔ | Retirado |
+
+| Caso de uso | Estado | Tarea | Repositorio · PR | Commit | Rama | Fecha | Versión |
+|---|:---:|---|---|---|---|---|---|
+| [CU-05](#cu-05) · Registrar pedido | ✅ | [4.3](08-plan-de-desarrollo.md#tarea-4-3) | `prisma_api` · `prisma_front` | pendiente de la [10.8](08-plan-de-desarrollo.md#tarea-10-8) | `feature/4.3` | 2026-09 | — |
+| [CU-06](#cu-06) · Registrar un pago | ✅ la API · 🚧 la pantalla | [4.4](08-plan-de-desarrollo.md#tarea-4-4) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_api` · `prisma_front` | pendiente de la [10.8](08-plan-de-desarrollo.md#tarea-10-8) | `feature/4.4` | 2026-09 | — |
+| [CU-07](#cu-07) · Entregar y cobrar saldo | 🚧 | [4.5](08-plan-de-desarrollo.md#tarea-4-5) · [10.4](08-plan-de-desarrollo.md#tarea-10-4) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_db` · PR #37 | `12d3237` | `feature/4.5` | 2026-09-27 | esquema `0.18.0` |
+| [CU-07 A3](#cu-07) · Cancelar el pedido | ✅ la API · 🚧 la pantalla | [4.9](08-plan-de-desarrollo.md#tarea-4-9) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `prisma_api` | pendiente de la [10.8](08-plan-de-desarrollo.md#tarea-10-8) | `feature/4.9` | 2026-09 | — |
+| [CU-08](#cu-08) · Consultar pedidos | ✅ | [4.6](08-plan-de-desarrollo.md#tarea-4-6) | `prisma_front` · PR #44 | `596cb4d` | `feature/4.6` | 2026-09-27 | — |
+
+**Los otros 32 casos de uso entran a esta tabla con la [10.8](08-plan-de-desarrollo.md#tarea-10-8)**, que es un barrido hacia atrás:
+cruzar el [`TODO.md`](../TODO.md), que ya anota la versión de cada tarea, con `git log --grep` en cada
+repositorio. **Se separó a propósito**: es trabajo mecánico y no bloquea nada, y meterlo aquí
+mezclaría dos cosas en un solo PR. Las celdas que esta tabla deja en «pendiente» son las que ese
+barrido llena, y se dejan dichas en vez de adivinadas: un dato inventado en una tabla de
+trazabilidad es peor que un hueco.
+
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [05](05-reglas-financieras.md "05 · Reglas financieras y KPIs") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [15](15-glosario.md "15 · Glosario") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.33.0") · [ADR-013](adr/ADR-013-cuatro-ambientes.md "ADR-013 · Cuatro ambientes y promoción de migraciones") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8")
+**🔗 Referenciado desde:** [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [05](05-reglas-financieras.md "05 · Reglas financieras y KPIs") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [15](15-glosario.md "15 · Glosario") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-013](adr/ADR-013-cuatro-ambientes.md "ADR-013 · Cuatro ambientes y promoción de migraciones") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8")
 <!-- /generado:referenciado-desde -->
 
 ---

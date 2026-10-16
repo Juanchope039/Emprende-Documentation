@@ -2626,6 +2626,13 @@ var fmtFechaHora = function(d){
    solo sitio. Antes aquí había una fecha escrita a mano, «30 sep 2026», que con la fecha del
    prototipo fechaba la acción quince días en el futuro. */
 var fechaSello = function(){ return fmtFechaHora(new Date()).split(',')[0]; };
+/* El dia de hoy como lo quiere un <input type="date">. Se arma con las partes locales y no con
+   toISOString(), que convierte a UTC y en Bogota devuelve el dia anterior toda la tarde. */
+function hoyIso(){
+  var f = new Date();
+  return f.getFullYear() + '-' + String(f.getMonth() + 1).padStart(2, '0') + '-' +
+    String(f.getDate()).padStart(2, '0');
+}
 /* Conecta un campo de monto con su deslizador de porcentaje:
    escribir un valor manda sobre el porcentaje; mover el deslizador vuelve a mandar. */
 function montoEditable(idCampo, alCambiar){
@@ -3309,10 +3316,34 @@ function estaEstancado(p){
   return p.anticipo > 0 && p.estado !== 'entregado' && p.estado !== 'cancelado'
       && diasSinEntregar(p) >= 15;
 }
-function pildoraDePedido(p){
+/* La condicion de pago no es el estado: el estado dice en que punto va el trabajo y esto dice
+   cuanta plata entro (RF-23). En la aplicacion la calcula la API y llega en `condicionDePago`;
+   aqui se cuenta para que el prototipo navegue. */
+function condicionDePago(p){
+  var total = totalPedido(p);
+  if (p.anticipo <= 0) return 'sin_pagar';
+  return p.anticipo >= total ? 'pagado' : 'parcial';
+}
+var PAGOS = {
+  sin_pagar: '<span class="pill">Sin pagar</span>',
+  parcial  : '<span class="pill p-ant">Pago parcial</span>',
+  pagado   : '<span class="pill p-ok">Pagado</span>'
+};
+/* Tres preguntas en orden: esta estancado, ya es final, y si no, cuanto se ha cobrado. La
+   pildora «Anticipo cobrado» se fue: «Pago parcial» dice lo mismo y el saldo dice cuanto falta. */
+function etiquetaDePedido(p){
   if (estaEstancado(p)) return '<span class="pill p-warn">Sin entregar</span>';
-  if (p.anticipo > 0 && p.estado !== 'entregado') return '<span class="pill p-ant">Anticipo cobrado</span>';
-  return ESTADOS[p.estado] || enTexto(p.estado);
+  if (p.estado === 'entregado' || p.estado === 'cancelado'){
+    return ESTADOS[p.estado] || enTexto(p.estado);
+  }
+  return PAGOS[condicionDePago(p)];
+}
+/* La columna Estado es un boton y abre la fila del pedido, que es donde estan cobrar, entregar
+   y cancelar: era lo que no se podia tocar. El estado no se edita a mano en ningun sitio, porque
+   cada paso lo da su operacion (10 4.2). */
+function pildoraDePedido(p){
+  return '<button type="button" class="estado" data-pedido-estado="' + p.id +
+    '" aria-label="Lo que se puede hacer con ' + p.id + '">' + etiquetaDePedido(p) + '</button>';
 }
 
 var MES3 = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -3338,6 +3369,14 @@ function detallePedido(p){
     return l.cant + ' × ' + (d ? d.n : 'producto retirado');
   }).join(' · ');
 }
+/* La muestra traia pedidos entregados con anticipo en cero, que ahora no puede pasar: un pedido
+   no se entrega sin terminar de pagarse (RF-22). Se completan al cargar, y no a mano en los
+   datos, porque el total sale de los renglones. */
+(function pedidosEntregadosEstanPagados(){
+  PEDIDOS.forEach(function(p){
+    if (p.estado === 'entregado') p.anticipo = totalPedido(p);
+  });
+})();
 function vivos(){ return PEDIDOS.filter(function(p){ return !p.baja; }); }
 /* Lo que la pantalla le pide a la API: estado, cliente y rango, y la intersección de los tres
    (tarea 4.6). El orden no se elige: llega por fecha, lo más reciente primero. */
@@ -3413,6 +3452,13 @@ function tablaPedidos(){
       tablaPedidos();
     };
     fila.addEventListener('click', abrir);
+    var pildora = fila.querySelector('[data-pedido-estado]');
+    if (pildora) pildora.addEventListener('click', function(e){
+      e.stopPropagation();
+      var id = pildora.getAttribute('data-pedido-estado');
+      pedidoSeleccionado = (pedidoSeleccionado === id) ? null : id;
+      tablaPedidos();
+    });
     fila.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abrir(e); }
     });
@@ -4456,6 +4502,13 @@ function guardarSobres(){
 /* La fila abierta del pedido. La factura la ve y la sube cualquiera de los dos tipos de usuario
    —el contrato dice que adjuntan los dos—, y por eso la fila se abre para los dos. Modificar,
    entregar y anular siguen siendo de Gerencia, y quien lo impide de verdad es la base. */
+/* Que ofrece la fila lo dice la API en `sePuedeCobrar`, `sePuedeEntregar` y `sePuedeCancelar`,
+   con el molde de `sePuedeAnular` de los movimientos; aqui se cuenta para navegar. Entregado y
+   cancelado son finales y no ofrecen nada: lo que haya que corregir va por contra-asiento. */
+function esFinal(p){ return p.estado === 'entregado' || p.estado === 'cancelado'; }
+function sePuedeCobrar(p){ return !esFinal(p) && !p.baja && condicionDePago(p) !== 'pagado'; }
+function sePuedeEntregar(p){ return !esFinal(p) && !p.baja; }
+
 function filaAcciones(p){
   var ger = (rol === 'gerencia');
   return '<tr class="acciones-pedido"><td colspan="8">' +
@@ -4467,8 +4520,12 @@ function filaAcciones(p){
     '<button type="button" class="ghost" data-adjuntar="' + p.id + '">Adjuntar factura</button>' +
     '<span class="pill p-mut" data-adjuntar-aviso hidden>' +
     'En el prototipo no se adjunta ningún archivo</span>' +
-    (ger && p.estado !== 'entregado'
+    (ger && sePuedeCobrar(p)
+      ? '<button type="button" class="ghost" data-cobrar="' + p.id + '">Registrar un pago</button>' : '') +
+    (ger && sePuedeEntregar(p)
       ? '<button type="button" class="ghost" data-entregar="' + p.id + '">Marcar entregado</button>' : '') +
+    (ger && sePuedeEntregar(p)
+      ? '<button type="button" class="ghost" data-cancelar="' + p.id + '">Cancelar pedido</button>' : '') +
     (ger ? '<button type="button" class="ghost" data-modificar="' + p.id + '">Modificar</button>' : '') +
     (ger ? '<button type="button" class="ghost" data-anular="' + p.id +
            '" style="color:var(--neg)">Anular pedido</button>' : '') +
@@ -4531,17 +4588,152 @@ function conectarAcciones(){
   $$('#tb-pedidos [data-modificar]').forEach(function(b){
     b.addEventListener('click', function(){ abrirFormPedido(b.getAttribute('data-modificar')); });
   });
+  $$('#tb-pedidos [data-cobrar]').forEach(function(b){
+    b.addEventListener('click', function(){ pedirPago(b.getAttribute('data-cobrar'), b); });
+  });
   $$('#tb-pedidos [data-entregar]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var p = pedidoPorId(b.getAttribute('data-entregar'));
-      p.estado = 'entregado';
-      p.anticipo = 0;
-      pedidoSeleccionado = null;
-      tablaPedidos(); kpisPedidos(); pintarCuentas();
-    });
+    b.addEventListener('click', function(){ pedirEntrega(b.getAttribute('data-entregar'), b); });
+  });
+  $$('#tb-pedidos [data-cancelar]').forEach(function(b){
+    b.addEventListener('click', function(){ pedirCancelacion(b.getAttribute('data-cancelar'), b); });
   });
   $$('#tb-pedidos [data-anular]').forEach(function(b){
     b.addEventListener('click', function(){ pedirMotivoAnular(b.getAttribute('data-anular'), b); });
+  });
+}
+
+/* Las cuentas del catalogo, que es el `origen` que trae el descriptor del formulario: la
+   pantalla no escribe ninguna lista de cuentas (ADR-018). */
+function opcionesDeCuenta(){
+  return CUENTAS.map(function(c, i){
+    return '<option value="' + i + '">' + enTexto(c.n) + '</option>';
+  }).join('');
+}
+
+/* «Registrar un pago» es el formulario «anticipo» del contrato: cuanto entra, en que cuenta y
+   que dia. Un pago no es un ingreso hasta la entrega: sube la caja y queda como pasivo (RN-05).
+   Se puede cobrar en varias veces y cualquier dia, que es lo que pidio Gerencia. */
+function pedirPago(id, boton){
+  var p = pedidoPorId(id);
+  var saldo = totalPedido(p) - p.anticipo;
+  var extra = abrirPanelFila(boton,
+    '<div class="confirma"><b>Registrar un pago de ' + p.id + '</b>' +
+    '<p>Falta ' + fmt(saldo) + '. Mientras no se entregue, lo cobrado es deuda con el cliente ' +
+    'y no ingreso.</p>' +
+    '<div class="campo"><label for="pg-valor" class="req">Cuánto entra' +
+    '<span class="solo-lectores">, obligatorio</span></label>' +
+    '<input type="number" id="pg-valor" min="1" max="' + saldo + '" value="' + saldo + '"></div>' +
+    '<div class="campo"><label for="pg-cuenta" class="req">En qué cuenta entra' +
+    '<span class="solo-lectores">, obligatorio</span></label>' +
+    '<select id="pg-cuenta">' + opcionesDeCuenta() + '</select></div>' +
+    '<p class="capa-error" role="alert" aria-live="polite" hidden></p>' +
+    '<div class="botones"><button type="button" class="cta" data-ok>Registrar el pago</button>' +
+    '<button type="button" class="ghost" data-no>Cancelar</button></div></div>');
+  if (!extra) return;
+  var valor = extra.querySelector('#pg-valor');
+  var error = extra.querySelector('.capa-error');
+  valor.focus();
+  extra.querySelector('[data-no]').addEventListener('click', cerrarPanelFila);
+  extra.querySelector('[data-ok]').addEventListener('click', function(){
+    var v = Math.round(+valor.value || 0);
+    /* Que el pago quepa en el pedido mira el pedido entero y no cabe en el descriptor: lo
+       comprueba la API y responde 42230 sobre el valor. */
+    if (v <= 0 || v > saldo){
+      error.textContent = 'Ese pago no cabe en el pedido: falta ' + fmt(saldo) + '.';
+      error.hidden = false;
+      valor.focus();
+      return;
+    }
+    p.anticipo += v;
+    pedidoSeleccionado = null;
+    tablaPedidos(); kpisPedidos(); pintarCuentas();
+  });
+}
+
+/* «Marcar entregado» es el formulario «entrega»: la fecha, que es la que causa la venta (RN-06),
+   y la cuenta, que solo se pide cuando queda saldo. Un pedido no se entrega sin terminar de
+   pagarse (RF-22): sin esa cuenta la API responde 42236 sobre el campo. */
+function pedirEntrega(id, boton){
+  var p = pedidoPorId(id);
+  var saldo = totalPedido(p) - p.anticipo;
+  var extra = abrirPanelFila(boton,
+    '<div class="confirma"><b>¿Entregar ' + p.id + '?</b>' +
+    '<p>La fecha de entrega es la que causa la venta por ' + fmt(totalPedido(p)) + '. ' +
+    'Entregado es final.</p>' +
+    '<div class="campo"><label for="en-fecha">Fecha de entrega</label>' +
+    '<input type="date" id="en-fecha" value="' + hoyIso() + '"></div>' +
+    (saldo > 0
+      ? '<div class="campo"><label for="en-cuenta" class="req">Faltan ' + fmt(saldo) +
+        '. En qué cuenta entran<span class="solo-lectores">, obligatorio</span></label>' +
+        '<select id="en-cuenta"><option value="">Elige una cuenta</option>' +
+        opcionesDeCuenta() + '</select></div>'
+      : '<p>Ya está pagado del todo, así que no hay saldo que cobrar.</p>') +
+    '<p class="capa-error" role="alert" aria-live="polite" hidden></p>' +
+    '<div class="botones"><button type="button" class="cta" data-ok>Sí, entregar</button>' +
+    '<button type="button" class="ghost" data-no>Cancelar</button></div></div>');
+  if (!extra) return;
+  var cuenta = extra.querySelector('#en-cuenta');
+  var fecha  = extra.querySelector('#en-fecha');
+  var error  = extra.querySelector('.capa-error');
+  (cuenta || fecha).focus();
+  extra.querySelector('[data-no]').addEventListener('click', cerrarPanelFila);
+  extra.querySelector('[data-ok]').addEventListener('click', function(){
+    if (saldo > 0 && !(cuenta && cuenta.value)){
+      error.textContent = 'Di en qué cuenta entra el saldo: un pedido no se entrega sin ' +
+        'terminar de pagarse.';
+      error.hidden = false;
+      if (cuenta) cuenta.focus();
+      return;
+    }
+    p.estado  = 'entregado';
+    p.anticipo = totalPedido(p);
+    p.entregaReal = fecha.value || hoyIso();
+    pedidoSeleccionado = null;
+    tablaPedidos(); kpisPedidos(); pintarCuentas();
+  });
+}
+
+/* «Cancelar pedido» es el formulario «cancelacion»: motivo, y si hay plata abonada, que se hace
+   con ella. Cancelar no es anular: cancelar es un paso del pedido y anular es sacar el registro
+   de las cuentas (RN-13), y por eso son dos botones y no uno. */
+function pedirCancelacion(id, boton){
+  var p = pedidoPorId(id);
+  var extra = abrirPanelFila(boton,
+    '<div class="confirma"><b>¿Cancelar ' + p.id + '?</b>' +
+    '<p>El pedido queda cancelado, que es final, y sigue en la lista con su motivo.</p>' +
+    '<div class="campo"><label for="cn-motivo" class="req">Motivo' +
+    '<span class="solo-lectores">, obligatorio</span></label>' +
+    '<input type="text" id="cn-motivo" placeholder="El cliente desistió, no llegó la tela…"></div>' +
+    (p.anticipo
+      ? '<div class="campo"><label for="cn-destino" class="req">Tiene ' + fmt(p.anticipo) +
+        ' abonado. Qué pasa con esa plata<span class="solo-lectores">, obligatorio</span></label>' +
+        '<select id="cn-destino"><option value="devolucion">Se le devuelve al cliente</option>' +
+        '<option value="ingreso">Se convierte en ingreso</option></select></div>' +
+        '<div class="campo"><label for="cn-cuenta">De qué cuenta sale la devolución</label>' +
+        '<select id="cn-cuenta">' + opcionesDeCuenta() + '</select></div>'
+      : '') +
+    '<p class="capa-error" role="alert" aria-live="polite" hidden></p>' +
+    '<div class="botones"><button type="button" class="cta" data-ok>Sí, cancelar</button>' +
+    '<button type="button" class="ghost" data-no>No</button></div></div>');
+  if (!extra) return;
+  var campo = extra.querySelector('#cn-motivo');
+  var error = extra.querySelector('.capa-error');
+  campo.focus();
+  extra.querySelector('[data-no]').addEventListener('click', cerrarPanelFila);
+  extra.querySelector('[data-ok]').addEventListener('click', function(){
+    var motivo = (campo.value || '').trim();
+    /* El minimo de cinco caracteres si cabe en el descriptor, y el mensaje es el que manda la
+       API: aqui se repite solo para que el prototipo ensene el error en su sitio. */
+    if (motivo.length < 5){
+      error.textContent = 'El motivo tiene que explicar algo: escribe al menos 5 caracteres.';
+      error.hidden = false;
+      campo.focus();
+      return;
+    }
+    p.estado = 'cancelado';
+    p.cancelacion = {motivo: motivo, fecha: fechaSello()};
+    pedidoSeleccionado = null;
+    tablaPedidos(); kpisPedidos(); pintarCuentas();
   });
 }
 
@@ -4626,7 +4818,7 @@ function tablaPedidosResumen(){
       '</td><td class="r r-mid">' + fmt(p.anticipo) + '</td><td class="r r-mid">' + fmt(total - p.anticipo) +
       '</td><td>' + (estaEstancado(p)
         ? '<span class="pill p-warn">' + diasSinEntregar(p) + ' días</span>'
-        : '<span class="pill p-ant">Anticipo</span>') + '</td></tr>';
+        : PAGOS[condicionDePago(p)]) + '</td></tr>';
   }).join('');
 }
 
@@ -7011,7 +7203,7 @@ function cerrarPanelFila(){
   filaAbierta = null;
   /* El foco vuelve a la fila que lo abrió; si no, se pierde al final del documento. */
   if (fila){
-    var b = fila.querySelector('[data-u-estado], [data-u-clave], [data-bit-revertir], [data-bit-ver], [data-c-baja], [data-anular], [data-baja], [data-mv-anular], [data-tipo-editar]');
+    var b = fila.querySelector('[data-u-estado], [data-u-clave], [data-bit-revertir], [data-bit-ver], [data-c-baja], [data-anular], [data-cobrar], [data-entregar], [data-cancelar], [data-baja], [data-mv-anular], [data-tipo-editar]');
     if (b) b.focus();
   }
 }

@@ -106,5 +106,5 @@ mismo patrón, y escribirla solo agrega algo que puede quedar mal.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [02](../02-casos-de-uso.md "02 · Casos de uso") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
