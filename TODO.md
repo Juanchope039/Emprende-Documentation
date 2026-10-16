@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.71.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-16 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.72.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-16 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -58,8 +58,8 @@ herramienta compara el tablero con el plan y la verificación falla si alguna no
 | [Sprint 7](#sprint-7) · Capital, retiros y patrimonio | 10 | 10 | 0 | 0 | 0 |
 | [Sprint 8](#sprint-8) · Nómina, cotizador y cierre | 19 | 15 | 0 | 4 | 6,5 |
 | [Sprint 9](#sprint-9) · Promoción, PWA y endurecimiento | 17 | 15 | 0 | 2 | 1 |
-| [Sprint 10](#sprint-10) · La retroalimentación de Gerencia | 8 | 3 | 0 | 5 | 5,5 |
-| **Total** | **174** | **163** | **0** | **11** | **13** |
+| [Sprint 10](#sprint-10) · La retroalimentación de Gerencia | 8 | 8 | 0 | 0 | 0 |
+| **Total** | **174** | **168** | **0** | **6** | **7,5** |
 <!-- /generado:plan-tablero -->
 
 ### 1.2 ✅ Hecho
@@ -242,19 +242,19 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 <!-- generado:plan-listas-ya · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Carril | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |
 |---|---|
-| **API** | [8.15](docs/08-plan-de-desarrollo.md#tarea-8-15) · [10.4](docs/08-plan-de-desarrollo.md#tarea-10-4) |
+| **API** | [8.15](docs/08-plan-de-desarrollo.md#tarea-8-15) |
 | **Decisión** | [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) · [9.13](docs/08-plan-de-desarrollo.md#tarea-9-13) |
 <!-- /generado:plan-listas-ya -->
 
 ### 1.5 Cuánto falta
 
 <!-- generado:plan-restante · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-Quedan **11 tareas y 13 días de trabajo** de 174 tareas del plan.
+Quedan **6 tareas y 7,5 días de trabajo** de 174 tareas del plan.
 
 | Carriles activos | Desarrollo que falta | Con la estabilización |
 |:---:|---:|---:|
-| 1 | 1,8 semanas | **4,8 semanas** |
-| 2 | 1,0 semanas | **4,0 semanas** |
+| 1 | 1,0 semanas | **4,0 semanas** |
+| 2 | 0,9 semanas | **3,9 semanas** |
 | 3 | 1,0 semanas | **4,0 semanas** |
 <!-- /generado:plan-restante -->
 
@@ -1696,20 +1696,20 @@ mockup, porque todas cambian lo acordado.
 - [x] [**10.3**](docs/08-plan-de-desarrollo.md#tarea-10-3) Fuera el tiempo, y el margen por producto · Base, API, Front — el catálogo deja
       de pedir minutos, la mano de obra se escribe en pesos y el margen por hora sale de la pantalla
       y del contrato. Con el tiempo se retiran [RF-31](docs/03-requisitos-y-bdd.md#rf-31), [RF-32](docs/03-requisitos-y-bdd.md#rf-32), [RF-62](docs/03-requisitos-y-bdd.md#rf-62), [CU-10](docs/02-casos-de-uso.md#cu-10) y [CU-27](docs/02-casos-de-uso.md#cu-27)
-- [ ] ⚡ [**10.4**](docs/08-plan-de-desarrollo.md#tarea-10-4) Entregar el pedido, y no sin pagarlo · API — la ruta que el contrato
+- [x] [**10.4**](docs/08-plan-de-desarrollo.md#tarea-10-4) Entregar el pedido, y no sin pagarlo · API — la ruta que el contrato
       acordó y nadie implementó, llamando a `fn_entregar_pedido`. Con ella entra la regla nueva: un
       pedido no se entrega con saldo pendiente, y sin la cuenta donde entra lo que falta responde
       `42236`. La base no cambia
-- [ ] 🔒 [**10.5**](docs/08-plan-de-desarrollo.md#tarea-10-5) La condición de pago, y qué se puede hacer con un pedido · API — cada pedido
+- [x] [**10.5**](docs/08-plan-de-desarrollo.md#tarea-10-5) La condición de pago, y qué se puede hacer con un pedido · API — cada pedido
       viaja diciendo si está sin pagar, pagado a medias o pagado, y si se le puede cobrar, entregar
       o cancelar. Ninguna es columna nueva
-- [ ] 🔒 [**10.6**](docs/08-plan-de-desarrollo.md#tarea-10-6) La fila abierta del pedido: cobrar, entregar y cancelar · Front — las tres
+- [x] [**10.6**](docs/08-plan-de-desarrollo.md#tarea-10-6) La fila abierta del pedido: cobrar, entregar y cancelar · Front — las tres
       acciones que hoy no tienen botón. Es lo que Gerencia reportó: un pedido registrado sin cobrar
       no se puede marcar pagado al día siguiente
-- [ ] 🔒 [**10.7**](docs/08-plan-de-desarrollo.md#tarea-10-7) La columna Estado dice si está pagado · Front — «Sin pagar», «Pago parcial» o
+- [x] [**10.7**](docs/08-plan-de-desarrollo.md#tarea-10-7) La columna Estado dice si está pagado · Front — «Sin pagar», «Pago parcial» o
       «Pagado» mientras el pedido vive, y «Entregado» o «Cancelado» al final. Retira «Anticipo
       cobrado», que decía que había plata pero no cuánta faltaba
-- [ ] 🔒 [**10.8**](docs/08-plan-de-desarrollo.md#tarea-10-8) Cuándo entró cada caso de uso · Contrato — la tabla del [02 §4](docs/02-casos-de-uso.md#4-cuándo-entró-cada-caso-de-uso) llenada hacia
+- [x] [**10.8**](docs/08-plan-de-desarrollo.md#tarea-10-8) Cuándo entró cada caso de uso · Contrato — la tabla del [02 §4](docs/02-casos-de-uso.md#4-cuándo-entró-cada-caso-de-uso) llenada hacia
       atrás para los 32 que faltan, y la comprobación que impide que envejezca
 
 ---
@@ -5240,6 +5240,18 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       no dice cuántas, y el techo del libro no sirve: una fila de auditoría es más ancha y la lista
       crece con cada cambio de cada tabla. Pedir más del máximo se rechaza en vez de recortarse en
       silencio, para que un total no deje de cuadrar sin que nadie sepa por qué
+
+**De la [10.4](docs/08-plan-de-desarrollo.md#tarea-10-4), entregar el pedido:**
+
+- [ ] **«Entregado» quedó queriendo decir «pagado y entregado», y por eso no hay entrega con cuenta
+      por cobrar.** El [CU-07](docs/02-casos-de-uso.md#cu-07) permitía terminar de pagar con la entrega, y la regla que puso quien
+      dirige es que el pedido se paga antes de entregarse. Con eso un pedido entregado nunca deja
+      saldo, y la pantalla no necesita una cifra de «le deben». **Lo que hay que decidir es qué se
+      hace cuando el cliente se lleva el pedido debiendo**: hoy la única salida es no marcarlo
+      entregado hasta que pague
+- [ ] **La descripción que el contrato acordó para la ruta de entrega dice cinco escrituras y son
+      tres.** La API fue con el texto acordado, porque cambiarlo es un PR de la especificación y la
+      ruta no se comporta distinto por eso. Corregirlo es una línea del [20](docs/20-contrato-de-api.md) y su copia fijada
 
 **Del arreglo de la razón de no escribir credenciales en `prisma_db`, que no es una tarea del 08:**
 
