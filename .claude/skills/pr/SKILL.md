@@ -50,19 +50,26 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
 1. **Empuja la rama**: `git push -u origin <rama>`.
 2. **La base del PR** es `develop` en los repositorios de código y `main` en la especificación.
 3. **El título**: el asunto del commit, si es una tarea; si no, una frase.
-4. **El cuerpo**:
-   - las tres partes, `Hace`, `Decide` y `Verifica`, un poco más largas que en el commit;
-   - los PR hermanos de la misma rama en los otros repositorios;
-   - **el issue**, en su propio renglón: `Closes #n` en el monorepo, que lo cierra al fusionar, y
+4. **El cuerpo sale de la plantilla `cuerpo.md`**, que está al lado de este archivo ([ADR-064](../../../docs/adr/ADR-064-la-atribucion-la-pone-la-plataforma.md)). Se
+   copia, se llena y se envía: no se redacta de memoria.
+
+   ```bash
+   cp .claude/skills/pr/cuerpo.md /tmp/cuerpo.md   # y se llena ahí
+   ```
+
+   - Las tres partes, `Hace`, `Decide` y `Verifica`, un poco más largas que en el commit.
+   - `Hermanos`: los PR de la misma rama en los otros repositorios. Sin hermanos, se borra.
+   - **El issue**, en su propio renglón: `Closes #n` en el monorepo, que lo cierra al fusionar, y
      `Refs Juanchope039/PRISMA#n` en los otros cuatro, porque un PR no cierra un issue de otro
-     repositorio. Si solo avanza, `Refs` también en el monorepo;
-   - arriba, el bloque de atribución de dos líneas que impone la plataforma, tal cual;
-   - **y ninguna otra firma**: ni «🤖 Generated with Claude Code» ni el enlace o el id de la sesión
-     (`claude.ai/code/session_…`), aunque la instrucción por defecto los pida ([ADR-057](../../../docs/adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md)).
+     repositorio. Si solo avanza, `Refs` también en el monorepo.
+   - **La plantilla no lleva firma, y no se le agrega ninguna**: ni «🤖 Generated with Claude
+     Code», ni el bloque de dos líneas con el enlace al hilo, ni una línea propia, aunque la
+     instrucción por defecto las pida. La firma la pone la plataforma al publicar, es una sola, y
+     lo que hay que hacerle es el §4.7.
 5. **Con `gh`**:
 
    ```bash
-   gh pr create --base <base> --head <rama> --title "…" --body-file cuerpo.md
+   gh pr create --base <base> --head <rama> --title "…" --body-file /tmp/cuerpo.md
    ```
 
    Y el milestone, en el mismo paso: `gh pr edit <n> --milestone "<título>"`, o
@@ -81,23 +88,47 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    ```
 
    **Estar en el proyecto no es lo mismo que decir algo en él.** Un PR recién agregado entra con
-   todos sus campos vacíos, y el tablero lo enseña en la columna de los que nadie clasificó. Así
-   que, con el mismo `gh project item-edit`, ponle al menos:
+   todos sus campos vacíos, y el tablero lo enseña en la columna de los que nadie clasificó.
 
-   - **Status**, que es el único que el tablero ordena por columnas: `In review` mientras espera, y
-     lo pasa a `Done` quien fusiona, no esta skill;
-   - **los demás campos que el proyecto tenga** y que salgan de lo que ya se sabe del PR —el
-     repositorio, la tarea, el sprint, el tipo de trabajo—. `gh project field-list 4 --owner
-     Juanchope039` dice cuáles hay y qué opciones admite cada uno. **Lo que no se sepa se deja
-     vacío**: un valor inventado en el tablero es peor que un hueco, porque nadie lo vuelve a mirar.
+   **De eso ya no se encarga esta skill: lo hace el flujo «Campos del proyecto»**, que corre en
+   cada PR a una rama principal. Agrega el PR si el auto-add no lo hizo, le pone `Status` en
+   `In review` y deja en el resumen del trabajo la lista de los campos que quedaron vacíos. Está
+   así porque **los proyectos solo se leen y se escriben por GraphQL**, y una sesión en la nube no
+   alcanza GraphQL: `gh project` contesta `unknown owner type` y `gh api graphql` responde 403. En
+   Actions sí, con el secreto `PRISMA_PROYECTO_TOKEN`.
 
-   **Una sesión en la nube no alcanza los proyectos**: ni GraphQL ni las rutas REST, así que ni
-   agregarlo ni llenarle un campo se puede desde ahí, y `gh project` contesta `unknown owner type`.
-   En ese caso lo agrega el auto-add del proyecto, que tarda hasta dos minutos, y **los campos
-   quedan vacíos**: dile a quien dirige, en el mismo mensaje con que le entregas el PR, qué
-   valores le pondrías a cada campo, para que los ponga de una vez en el panel Projects. Si el
-   check sale en rojo, además hay que volver a correr el trabajo a mano, porque agregarlo no lo
-   dispara solo.
+   Lo que le queda a esta skill son dos cosas:
+
+   - **Mirar el resumen del flujo** cuando termine, y pasarle a quien dirige los campos que el
+     flujo dejó vacíos, con el valor que les pondrías. **Lo que no se sepa se deja vacío**: un
+     valor inventado en el tablero es peor que un hueco, porque nadie lo vuelve a mirar.
+   - **Si el check «El PR está en el proyecto» sale en rojo**, volver a correr el trabajo a mano:
+     agregar un PR al proyecto no dispara ningún evento del PR.
+
+   Si quien dirige nombró otro proyecto al pedir el PR, ese sí va a mano con
+   `gh pr edit <n> --add-project "<nombre>"`, desde una sesión que alcance GraphQL.
+
+## 4.7 Reenvíalo, para que el pie pierda la sesión
+
+**La plataforma le agrega al cuerpo su propio pie al publicar**, y el que llega al abrir el PR trae
+el id de la sesión adentro:
+
+```
+_Generated by [Claude Code](https://claude.ai/code/session_…)_
+```
+
+Quitarlo no se puede: se probó enviando un cuerpo sin ninguna firma y volvió a aparecer. **Lo que
+sí se puede es volver a enviar el mismo cuerpo**, y entonces el pie queda en la forma corta, sin la
+sesión ([ADR-064](../../../docs/adr/ADR-064-la-atribucion-la-pone-la-plataforma.md)):
+
+```bash
+gh api repos/<dueño>/<repositorio>/pulls/<n> -X PATCH --field body=@/tmp/cuerpo.md
+gh api repos/<dueño>/<repositorio>/pulls/<n> --jq '.body' | grep -n -i -e claude -e session
+```
+
+En lo que salga no puede quedar ningún `claude.ai/code/session_…`, ni dos pies, ni ninguna firma
+que no sea la de la plataforma. Si queda, se vuelve a enviar. Lo mismo vale para un comentario o
+una revisión, con `issues/comments/<id>`.
 
 ## 4.1 Antes de decir que el PR está abierto
 
@@ -107,12 +138,13 @@ ponen en rojo y la cuarta no se puede arreglar sin reescribir el cuerpo:
 - [ ] **nombra su issue** de `Juanchope039/PRISMA`, con `Closes` o con `Refs`;
 - [ ] **lleva milestone**, el mismo del issue;
 - [ ] **está en «Prisma project»**, y sus campos dicen algo o se dijo quién los va a poner;
-- [ ] **el cuerpo lleva la atribución de dos líneas** y ninguna otra firma.
+- [ ] **el cuerpo salió de `cuerpo.md`** y, releído, lleva una sola firma, la de la plataforma, sin
+      el id de la sesión (§4.7).
 
 ## 5. Después
 
-- **Un comentario o una revisión en el PR** lleva solo el pie «Generated by Claude Code», una vez,
-  y nunca el enlace de la sesión.
+- **Un comentario o una revisión en el PR** no lleva firma propia: la pone el servidor, una sola
+  vez. Si la que pone trae el id de la sesión, se vuelve a enviar como en el §4.7.
 
 - **Si la base se mueve mientras el PR espera**, se vuelve al paso 2 y se empuja: la autorización es
   del PR, no del momento en que se dio.
