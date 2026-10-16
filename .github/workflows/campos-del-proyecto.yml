@@ -23,7 +23,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: campos-del-proyecto-${{ github.event.pull_request.number || inputs.pr }}
+  group: campos-del-proyecto-${{ github.event.pull_request.number || github.event.inputs.pr }}
   cancel-in-progress: true
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
           DUENO: Juanchope039
           NUMERO: '4'
           REPO: ${{ github.repository }}
-          PR: ${{ github.event.pull_request.number || inputs.pr }}
+          PR: ${{ github.event.pull_request.number || github.event.inputs.pr }}
         run: |
           set -o pipefail
           resumen() { echo "$*" >> "$GITHUB_STEP_SUMMARY"; }
