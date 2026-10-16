@@ -1,6 +1,6 @@
 ---
 name: pr
-description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue y en el proyecto del tablero. Se invoca a mano, con /pr.
+description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue y en el proyecto del tablero, con sus campos. Se invoca a mano, con /pr.
 argument-hint: "[repositorio o id de la tarea] [proyecto, si no es Prisma project]"
 disable-model-invocation: true
 model: sonnet
@@ -72,17 +72,42 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    **Con la herramienta de GitHub que tenga la sesión**, lo mismo. **Sin ninguna**, se le deja a
    quien dirige el enlace `https://github.com/<dueño>/<repositorio>/compare/<base>...<rama>?expand=1`
    y el cuerpo en un archivo. Un token no se imprime nunca, ni se escribe en un archivo.
-6. **Agrégalo al proyecto** ([ADR-062](../../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)): por defecto «Prisma project», el 4 de `Juanchope039`, que
-   es el que exige el check «El PR está en el proyecto». Si quien dirige nombró otro al pedir el
-   PR, agrégalo también a ese, sin quitar el 4.
+6. **Agrégalo al proyecto, y llénale los campos** ([ADR-062](../../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)): por defecto «Prisma project»,
+   el 4 de `Juanchope039`, que es el que exige el check «El PR está en el proyecto». Si quien dirige
+   nombró otro al pedir el PR, agrégalo también a ese, sin quitar el 4.
 
    ```bash
    gh pr edit <n> --add-project "Prisma project"   # necesita el alcance: gh auth refresh -s project
    ```
 
-   **Una sesión en la nube no alcanza los proyectos**: ni GraphQL ni las rutas REST. Ahí lo agrega
-   el auto-add del proyecto; si el check sale en rojo, dile a quien dirige que lo agregue en el
-   panel Projects del PR y vuelva a correr el trabajo, porque agregarlo no lo dispara solo.
+   **Estar en el proyecto no es lo mismo que decir algo en él.** Un PR recién agregado entra con
+   todos sus campos vacíos, y el tablero lo enseña en la columna de los que nadie clasificó. Así
+   que, con el mismo `gh project item-edit`, ponle al menos:
+
+   - **Status**, que es el único que el tablero ordena por columnas: `In review` mientras espera, y
+     lo pasa a `Done` quien fusiona, no esta skill;
+   - **los demás campos que el proyecto tenga** y que salgan de lo que ya se sabe del PR —el
+     repositorio, la tarea, el sprint, el tipo de trabajo—. `gh project field-list 4 --owner
+     Juanchope039` dice cuáles hay y qué opciones admite cada uno. **Lo que no se sepa se deja
+     vacío**: un valor inventado en el tablero es peor que un hueco, porque nadie lo vuelve a mirar.
+
+   **Una sesión en la nube no alcanza los proyectos**: ni GraphQL ni las rutas REST, así que ni
+   agregarlo ni llenarle un campo se puede desde ahí, y `gh project` contesta `unknown owner type`.
+   En ese caso lo agrega el auto-add del proyecto, que tarda hasta dos minutos, y **los campos
+   quedan vacíos**: dile a quien dirige, en el mismo mensaje con que le entregas el PR, qué
+   valores le pondrías a cada campo, para que los ponga de una vez en el panel Projects. Si el
+   check sale en rojo, además hay que volver a correr el trabajo a mano, porque agregarlo no lo
+   dispara solo.
+
+## 4.1 Antes de decir que el PR está abierto
+
+Las cuatro cosas que ningún PR puede tener a medias, porque las tres primeras son checks que se
+ponen en rojo y la cuarta no se puede arreglar sin reescribir el cuerpo:
+
+- [ ] **nombra su issue** de `Juanchope039/PRISMA`, con `Closes` o con `Refs`;
+- [ ] **lleva milestone**, el mismo del issue;
+- [ ] **está en «Prisma project»**, y sus campos dicen algo o se dijo quién los va a poner;
+- [ ] **el cuerpo lleva la atribución de dos líneas** y ninguna otra firma.
 
 ## 5. Después
 
