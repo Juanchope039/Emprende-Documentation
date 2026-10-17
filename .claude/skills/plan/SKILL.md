@@ -23,7 +23,7 @@ plan. Aquí va el procedimiento.
 ```markdown
 # NN · El título, en una frase
 
-**AAAA-MM-DD** · Qué tarea hace, o por qué es un arreglo suelto; el carril, los repositorios y las
+**AAAA-MM-DD** · Qué tarea hace, o por qué es un arreglo suelto; los repositorios y las
 ramas que toca, y lo que no toca.
 
 ## Lo que ya existe

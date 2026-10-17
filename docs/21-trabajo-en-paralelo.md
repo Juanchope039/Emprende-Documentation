@@ -1,17 +1,17 @@
-# 21 · Trabajo en paralelo por carriles
+# 21 · Trabajo en paralelo
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-10 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [7.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
 
-Cómo avanza PRISMA en varios carriles a la vez sin que se bloqueen ni se pisen. **Un carril no es
-una persona:** es un frente de trabajo, y puede llevarlo una persona, un equipo o una sesión de
-trabajo. Este documento fija las reglas; qué tarea va en qué carril, de qué depende y cuánto dura el
-desarrollo con 1, 2 o 3 carriles lo calcula el plan ([08-plan-de-desarrollo.md](08-plan-de-desarrollo.md)).
+Cómo avanza PRISMA con varias tareas a la vez sin que se bloqueen ni se pisen. **Lo que avanza en
+paralelo son tareas, no personas:** una tarea la puede llevar una persona, un equipo o una sesión de
+trabajo. Este documento fija las reglas; dónde vive cada tarea, de qué depende y cuánto dura el
+desarrollo con 1, 2 o 3 a la vez lo calcula el plan ([08-plan-de-desarrollo.md](08-plan-de-desarrollo.md)).
 
-> **Hoy: los cuatro repositorios ya existen y el plan ya está repartido en carriles.** Los
+> **Hoy: los cuatro repositorios ya existen y el plan ya dice dónde vive cada tarea.** Los
 > repositorios están en GitHub ([ADR-025](adr/ADR-025-cuatro-repositorios.md) y [ADR-026](adr/ADR-026-railway-al-final.md)). Lo que falta es decidir quién trabaja cada
-> carril ([§8](#8-qué-hay-que-decidir-antes-de-abrir-un-segundo-carril)), y eso conviene hacerlo **antes** de que el segundo carril escriba su primera línea:
+> parte ([§8](#8-qué-hay-que-decidir-antes-de-trabajar-dos-tareas-a-la-vez)), y eso conviene hacerlo **antes** de que la segunda escriba su primera línea:
 > después ya hay código que reorganizar y decisiones tomadas por omisión.
 
 ---
@@ -30,18 +30,18 @@ las partes. Tres decisiones tomadas antes lo permiten:
 Y una que lo haría imposible si se relajara:
 
 > **Si el front empieza a decidir algo —un umbral, un mensaje, qué opción de menú existe— los
-> carriles dejan de tener una frontera y pasan a tener una negociación permanente.** Cada
+> repositorios dejan de tener una frontera y pasan a tener una negociación permanente.** Cada
 > funcionalidad exigiría ponerse de acuerdo sobre dónde vive cada regla. El principio 9 de
 > [`10-ux-y-mockups.md`](10-ux-y-mockups.md) no es una preferencia de estilo: es lo que mantiene independientes a los
-> carriles.
+> repositorios.
 
 ---
 
-## 2. Los carriles
+## 2. <a id="2-los-carriles"></a>Dónde vive cada tarea
 
-Cada tarea del plan vive en uno. La columna **Carril** de las tablas del 08 lo dice.
+Cada tarea del plan vive en un sitio. La columna **Dónde** de las tablas del 08 lo dice.
 
-| Carril | Dónde trabaja | Escribe | Responde por | No toca |
+| Dónde | En qué repositorio | Escribe | Responde por | No toca |
 |---|---|---|---|---|
 | **API** | `prisma_api` | Java 25, Spring Boot | Que la regla se cumpla y el mensaje sea correcto | Widgets ni rutas del front |
 | **Base** | `prisma_db` | SQL: migraciones, funciones, RLS y semilla | Que la base siga siendo el juez de los permisos y no pierda historia | Código de la API ni del front |
@@ -49,27 +49,27 @@ Cada tarea del plan vive en uno. La columna **Carril** de las tablas del 08 lo d
 | **Contrato** | `contrato/` de esta especificación | OpenAPI y el catálogo de códigos | Que los dos lados construyan contra lo mismo | La implementación de ninguno de los dos |
 | **Decisión** | Ningún repositorio | — | Destrabar lo que el código no puede decidir | — |
 
-**La base es un carril, pero no un equipo aparte.** Un equipo de datos se vuelve cuello de botella,
+**La base es un sitio del plan, pero no un equipo aparte.** Un equipo de datos se vuelve cuello de botella,
 porque toda funcionalidad necesita una migración y todas lo esperarían. Por eso las tareas de Base
-las toma quien trabaja la API, y solo se separan en un carril propio cuando hay tres carriles
+las toma quien trabaja la API, y solo se separan en un frente propio cuando hay tres tareas a la vez
 activos y la carga de SQL lo justifica, como en el [Sprint 1](08-plan-de-desarrollo.md#sprint-1).
 
 ### 2.1 Lo que se posee en conjunto
 
-Tres cosas no son de ningún carril en particular y **cambian con revisión de los dos lados**:
+Tres cosas no son de ningún repositorio en particular y **cambian con revisión de los dos lados**:
 
 - El **contrato** (`openapi.json` y el catálogo de códigos).
 - El **mockup**, que sigue siendo el contrato de diseño.
 - Los **documentos** de `docs/`, con las reglas de [`22-documentacion.md`](22-documentacion.md).
 
-Un cambio en cualquiera de las tres afecta a todos, así que un solo carril no puede decidirlo por
+Un cambio en cualquiera de las tres afecta a todos, así que una sola parte no puede decidirlo por
 su cuenta. Es la única coordinación obligatoria que queda, y por eso conviene que sea la única.
 
 ---
 
 ## 3. Cuatro repositorios
 
-| Repositorio | En disco | Qué vive ahí | Carril |
+| Repositorio | En disco | Qué vive ahí | Dónde |
 |---|---|---|---|
 | **`Finanzas-PRISMA`** | `repositories/documentation` | Documentación, ADR, mockup **y el contrato**: `openapi.json` y el catálogo de códigos | Contrato y documentación, con revisión cruzada |
 | **`prisma_api`** | `repositories/backend-api` | Java y Spring Boot | API |
@@ -107,7 +107,7 @@ cada quien copia:
    **Si difieren, la compilación falla.**
 
 Así los cambios coordinados se vuelven uno solo más dos actualizaciones de dependencia, que ocurren
-cuando a cada carril le conviene y no el mismo día.
+cuando a cada lado le conviene y no el mismo día.
 
 ### 3.2 Contrato acordado y contrato generado no se contradicen
 
@@ -130,7 +130,7 @@ implementó algo distinto a lo acordado sin decirlo.
 
 ### 4.1 Por qué no se reparte por capas todo el tiempo
 
-Repartir por capa de principio a fin —un carril siempre en el front, otro siempre en la API— es lo
+Repartir por capa de principio a fin —alguien siempre en el front, otro siempre en la API— es lo
 más fácil de organizar y lo peor de entregar: **ninguna funcionalidad está lista hasta que los
 dos terminan su mitad**, así que nada se entrega hasta que acaba el más lento, y el trabajo
 terminado de uno se queda esperando en una rama.
@@ -145,7 +145,7 @@ Por eso: **cimientos por capa, y a partir de ahí rebanadas completas.**
 ### 4.2 Fase 1 · Cimientos (Sprints 0 a 2)
 
 Aquí el reparto **es por capa**, porque lo que se construye es la capa misma. Las tareas exactas de
-cada carril están en las tablas del plan, y sus oleadas dicen cuáles van a la vez.
+cada parte están en las tablas del plan, y sus oleadas dicen cuáles van a la vez.
 
 | Sprint | API | Base | Front | Contrato |
 |---|---|---|---|---|
@@ -153,7 +153,7 @@ cada carril están en las tablas del plan, y sus oleadas dicen cuáles van a la 
 | **1** | Transacción con identidad, traducción de restricciones, idempotencia | Esquema, auditoría, RLS y semilla | Renderizador del descriptor y cliente HTTP con clave de idempotencia | Cuentas y categorías |
 | **2** | Acceso, usuarios, cargos, canal firmado | Cargos, usuarios y la bitácora | Pantallas de acceso, cambio de clave y gestión de usuarios | Acceso, usuarios y firma |
 
-> **El carril Front no se queda esperando, y ya no depende de acordarse de planificarlo.** Durante
+> **El trabajo del front no se queda esperando, y ya no depende de acordarse de planificarlo.** Durante
 > los Sprints 0 y 1 la API todavía no tiene endpoints de negocio, así que el trabajo del front es
 > traducir el mockup a componentes de Flutter y construir el renderizador del descriptor. Esas
 > tareas están numeradas en el plan y dependen del contrato, no de los endpoints.
@@ -163,7 +163,7 @@ sobre de respuesta y un servidor simulado del que el front puede tirar sin la AP
 
 ### 4.3 Fase 2 · Rebanadas verticales (Sprints 3 a 8)
 
-Cada carril toma funcionalidades **completas**: su SQL, su endpoint y su pantalla. Con dos carriles
+Cada tarea toma funcionalidades **completas**: su SQL, su endpoint y su pantalla. Con dos tareas a la vez
 activos, las dos cadenas se eligieron para que compartan lo mínimo:
 
 | | **Cadena A · el dinero** | **Cadena B · el pedido** |
@@ -175,20 +175,20 @@ activos, las dos cadenas se eligieron para que compartan lo mínimo:
 | Rango de códigos | `20`–`29`, `60`–`69`, `90`–`99` | `30`–`39`, `40`–`49`, `80`–`89` |
 
 **Nómina** queda fuera de las dos cadenas a propósito: es la funcionalidad más independiente del
-sistema y sirve de amortiguador. Con dos carriles la toma el que termine primero su cadena; **con
-tres, es la cadena del tercer carril desde el principio de las rebanadas**, y ese carril pasa
+sistema y sirve de amortiguador. Con dos tareas a la vez la toma el que termine primero su cadena; **con
+tres, es la tercera cadena desde el principio de las rebanadas**, y esa cadena pasa
 después a la PWA y al endurecimiento del [Sprint 9](08-plan-de-desarrollo.md#sprint-9), que ya no esperan a nadie.
 
 > **Los rangos de código ya estaban repartidos por módulo desde [ADR-019](adr/ADR-019-contrato-de-respuesta.md), y eso resulta ser justo
-> lo que hace falta ahora.** Cada carril escribe en su propio rango del catálogo, así que dos
-> carriles agregando códigos a la vez no se pisan ni una sola línea. No estaba pensado para esto;
+> lo que hace falta ahora.** Cada módulo escribe en su propio rango del catálogo, así que dos
+> tareas agregando códigos a la vez no se pisan ni una sola línea. No estaba pensado para esto;
 > conviene notarlo antes de que alguien proponga reorganizar el catálogo.
 >
 > **Nómina no tiene fila en esta tabla porque queda fuera de las dos cadenas, y sí tiene rango:** el
 > `50`–`59`, que estrenó la tarea [8.11](08-plan-de-desarrollo.md#tarea-8-11) junto con el `80`–`89` de cotizaciones —que sí es de la
 > cadena B— y el `70`–`79`, que pasó a llamarse «Exportación, importación y respaldo» ([20 §2.4](20-contrato-de-api.md#24-los-rangos-por-módulo)).
 > El `60`–`69` de reportes, que es de la cadena A, lo estrenó la [6.10](08-plan-de-desarrollo.md#tarea-6-10), **la última tarea del
-> carril Contrato**. Con eso **los diez módulos del plan tienen códigos en su rango**, y ninguna
+> trabajo del contrato**. Con eso **los diez módulos del plan tienen códigos en su rango**, y ninguna
 > funcionalidad queda por acordar.
 >
 > **Capital fue la excepción, y ya no lo es.** [ADR-019](adr/ADR-019-contrato-de-respuesta.md) no le había dado rango, y esta tabla le
@@ -213,8 +213,8 @@ integrar ([ADR-032](adr/ADR-032-railway-en-dev-ahora.md)), así que `develop` ha
 
 ## 5. Cuánto se gana de verdad
 
-El plan lo calcula de las dependencias ([08 §1.1](08-plan-de-desarrollo.md#11-cuánto-dura-con-1-2-o-3-carriles-activos)): con 1, 2 y 3 carriles activos, contando que cada
-carril extra cobra su coordinación y que la estabilización no se parte. Antes de existir ese
+El plan lo calcula de las dependencias ([08 §1.1](08-plan-de-desarrollo.md#11-cuánto-dura-con-1-2-o-3-carriles-activos)): con 1, 2 y 3 tareas a la vez, contando que cada
+tarea simultánea de más cobra su coordinación y que la estabilización no se parte. Antes de existir ese
 cálculo, este documento estimaba a ojo **unas 17 semanas con dos equipos**; el cálculo da
 prácticamente lo mismo, y eso es lo que permite creerle a la cifra de tres.
 
@@ -222,7 +222,7 @@ prácticamente lo mismo, y eso es lo que permite creerle a la cifra de tres.
 > cimientos casi no se parten, porque son una cadena —el esquema antes que la identidad, la
 > identidad antes que el acceso—; la estabilización no se parte en absoluto, porque es integrar y
 > probar lo de todos; y el paralelismo cobra su parte en revisiones cruzadas, acuerdos de contrato
-> y reuniones que con un solo carril no existían. **Un cuarto carril ya casi no suma.**
+> y reuniones que trabajando de una en una no existían. **Una cuarta a la vez ya casi no suma.**
 
 ---
 
@@ -232,25 +232,25 @@ Siete reglas, y cada una evita un choque concreto que si no ocurrirá.
 
 ### 6.1 Migraciones
 
-- **Se nombran por marca de tiempo**, como ya hace `supabase/migrations/`. Dos carriles no pueden
+- **Se nombran por marca de tiempo**, como ya hace `supabase/migrations/`. Dos tareas a la vez no pueden
   chocar de número.
 - **Nunca se edita una aplicada.** Si estaba mal, se escribe otra que corrige. Es el mismo
   principio del contra-asiento de [CU-04](02-casos-de-uso.md#cu-04) y de [ADR-004](adr/ADR-004-base-solo-escritura.md).
-- **Dos carriles no alteran la misma tabla en el mismo sprint.** El reparto de tablas del [§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8)
+- **Dos tareas a la vez no alteran la misma tabla en el mismo sprint.** El reparto de tablas del [§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8)
   está hecho para que no haga falta; cuando haga falta, se habla antes de escribir.
 - **Se publican antes que la API que las necesita, y compatibles con la API que ya corre.** Viven
   en `prisma_db`, así que una columna nueva y el código que la usa son dos commits: primero se
   agrega, y lo viejo se quita en una versión posterior, cuando ya ninguna API desplegada lo use
   ([ADR-025](adr/ADR-025-cuatro-repositorios.md)).
-- Las revisa quien trabaja el carril API, aunque las proponga otro.
+- Las revisa quien trabaja el trabajo de la API, aunque las proponga otro.
 
 ### 6.2 El mockup
 
 Es **un solo archivo HTML de más de 4.700 líneas**, y eso lo vuelve el punto de conflicto más
-probable de todo el proyecto: dos carriles editándolo a la vez producen un conflicto que git no
+probable de todo el proyecto: dos tareas a la vez editándolo a la vez producen un conflicto que git no
 sabe resolver solo.
 
-- **Una pantalla, un carril, a la vez.** Se avisa antes de abrirlo.
+- **Una pantalla, una tarea, a la vez.** Se avisa antes de abrirlo.
 - Los cambios se fusionan el mismo día. Una rama de mockup abierta una semana es un conflicto
   garantizado.
 - **Cuando una pantalla ya está construida en Flutter, el mockup deja de ser el sitio donde se
@@ -266,24 +266,24 @@ sabe resolver solo.
 - Un cambio que rompe el contrato sube la versión **mayor** y obliga a la comprobación de
   compatibilidad de [RF-101](03-requisitos-y-bdd.md#rf-101). No se hacen a la ligera.
 - Mientras el cambio no esté etiquetado, **no se implementa en ninguno de los dos lados**. Es lo
-  que evita que dos carriles construyan contra ideas distintas de lo mismo.
+  que evita que dos tareas a la vez construyan contra ideas distintas de lo mismo.
 
 ### 6.4 Ambientes
 
-- **Cada carril desarrolla contra su propio PostgreSQL**, levantado con Docker (`reset-local.ps1` de
+- **Cada tarea desarrolla contra su propio PostgreSQL**, levantado con Docker (`reset-local.ps1` de
   `prisma_db`). Nadie desarrolla contra una base compartida: una prueba que falla por lo que otro
   guardó hace diez minutos se termina ignorando, y con ella se ignoran las de verdad.
-- **Docker ya arranca**, así que la excepción que mandaba a cada carril a su propio proyecto gratuito
+- **Docker ya arranca**, así que la excepción que mandaba a cada frente a su propio proyecto gratuito
   de Supabase se acabó: no quedan proyectos gratuitos que repartir —dev y qa gastaron los dos
   ([§7.1](../TODO.md#71-el-expediente-de-uat-y-prod) del tablero)— y desarrollar contra la nube era desarrollar contra un ambiente. **Cada
-  carril que toque la base levanta su propio Supabase local**, con otro `project_id` y otros puertos
+  tarea que toque la base levanta su propio Supabase local**, con otro `project_id` y otros puertos
   en una copia de `supabase/config.toml` que no se versiona. Sin eso, API y Base comparten el
   `54321` y el `54322`, y el `reset` de uno rompe las pruebas del otro a mitad de camino —y de paso
   la API de integración contra la que trabaja el Front—.
 - **dev, qa, uat y prod siguen siendo los cuatro de siempre**, y solo dev y prod se despliegan: qa y
-  uat son etapas de la tubería ([ADR-044](adr/ADR-044-dos-ambientes-desplegados.md)). No hay ambiente por carril.
+  uat son etapas de la tubería ([ADR-044](adr/ADR-044-dos-ambientes-desplegados.md)). No hay un ambiente por tarea.
 - **La puerta es `develop` con la integración continua en verde** hasta el [Sprint 9](08-plan-de-desarrollo.md#sprint-9), y **la etapa qa** desde
-  entonces. Lo de todos los carriles tiene que estar verde junto antes de promover.
+  entonces. Lo de todas las tareas tiene que estar verde junto antes de promover.
 
 ### 6.5 Ramas e integración
 
@@ -310,10 +310,10 @@ en revisión y no toca los mismos archivos. Entonces su rama sale de `develop` s
 cualquier otro caso, empezar antes es construir sobre algo que la revisión todavía puede cambiar, y
 rehacerlo cuesta más de lo que ahorró no esperar.
 
-**Y la marca ⚡ se lee por mitades.** Una tarea de dos carriles —«API, Front»— se marca cuando están
+**Y la marca ⚡ se lee por mitades.** Una tarea de dos tareas a la vez —«API, Front»— se marca cuando están
 hechas las dos mitades de todo lo que necesita, y eso hace esperar a la mitad API por una mitad Front
-que va detrás por diseño y que no usa. Así que **la mitad de un carril puede empezar en cuanto están
-fusionadas las mitades de su propio carril —y las tareas de un carril solo— de todo lo que necesita**,
+que va detrás por diseño y que no usa. Así que **la mitad de un repositorio puede empezar en cuanto están
+fusionadas las mitades de su propio repositorio —y las tareas de un solo repositorio— de todo lo que necesita**,
 aunque el tablero todavía no marque la tarea. La tarea se marca hecha cuando aterrizan sus dos
 mitades, no antes. Lo demás del paso 7 no cambia: se espera igual a que acepten el PR.
 
@@ -326,9 +326,9 @@ mitades, no antes. Lo demás del paso 7 no cambia: se espera igual a que acepten
   cuenta propia.
 - **Ramas cortas.** Una rama que vive más de dos o tres días deja de ser una rama y empieza a ser
   otra versión del producto.
-- **Dos carriles en el mismo repositorio nunca comparten copia de trabajo:** cada uno en su rama y,
+- **Dos tareas a la vez en el mismo repositorio nunca comparten copia de trabajo:** cada uno en su rama y,
   si están en la misma máquina, en su propio `git worktree`.
-- Se integra a `develop` al menos una vez al día por carril. El paralelismo se paga integrando
+- Se integra a `develop` al menos una vez al día por tarea. El paralelismo se paga integrando
   seguido, no integrando al final.
 - **Y las cuatro ramas principales las protege GitHub, no la costumbre** ([ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md), [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)): `develop`, `qa`,
   `uat` y `main` no se pueden borrar, y a ninguna se entra sin PR. A `develop` con la
@@ -337,21 +337,21 @@ mitades, no antes. Lo demás del paso 7 no cambia: se espera igual a que acepten
 
 ### 6.6 El ritual mínimo
 
-Con varios carriles hace falta coordinación, y conviene que sea **la mínima y siempre la misma**:
+Con varias tareas a la vez hace falta coordinación, y conviene que sea **la mínima y siempre la misma**:
 
 | Cuándo | Qué | Cuánto |
 |---|---|---|
-| Diario | Cada carril mira en [`TODO.md`](../TODO.md) qué puede empezar hoy | 10 minutos |
-| Lunes | **Acuerdo de contrato**: qué cambia esta semana en `openapi.json` | 30 minutos, todos los carriles |
-| Viernes | **Integración en `develop`** —y en qa desde el [Sprint 9](08-plan-de-desarrollo.md#sprint-9)— y revisión de lo que quedó verde | 30 minutos, todos los carriles |
+| Diario | Quien trabaja cada parte mira en [`TODO.md`](../TODO.md) qué puede empezar hoy | 10 minutos |
+| Lunes | **Acuerdo de contrato**: qué cambia esta semana en `openapi.json` | 30 minutos, todos |
+| Viernes | **Integración en `develop`** —y en qa desde el [Sprint 9](08-plan-de-desarrollo.md#sprint-9)— y revisión de lo que quedó verde | 30 minutos, todos |
 | Fin de sprint | Aprobación de Gerencia | Según el plan |
 
 Una hora a la semana de coordinación obligatoria. Si hace falta más, es señal de que la frontera
-entre los carriles no está donde debería.
+entre los repositorios no está donde debería.
 
 ### 6.7 La documentación
 
-Los documentos se comparten entre todos los carriles, así que siguen las reglas de
+Los documentos se comparten entre todos, así que siguen las reglas de
 [`22-documentacion.md`](22-documentacion.md): cada cambio sube su versión, un documento por PR cuando se pueda, y un
 conflicto en un bloque generado no se resuelve a mano sino volviendo a correr la herramienta.
 
@@ -361,39 +361,39 @@ conflicto en un bloque generado no se resuelve a mano sino volviendo a correr la
 
 | # | Riesgo | Cómo se ataja |
 |---|---|---|
-| 1 | El contrato se acuerda tarde y el carril Front queda bloqueado | Cada funcionalidad tiene su tarea de contrato, y es de las primeras de su sprint. Si algo se retrasa, no puede ser esto |
-| 2 | Dos carriles editan el mockup a la vez | Regla [§6.2](#62-el-mockup): una pantalla, un carril, fusionar el mismo día |
-| 3 | La arquitectura termina copiando la forma de los carriles | Las rebanadas del [§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8) son de negocio, no de tecnología. Revisar en cada sprint que ninguna frontera nueva coincida con la frontera entre carriles sin razón |
-| 4 | Cada carril escribe su versión de lo mismo: formatear dinero, manejar errores | Todo lo compartido del front vive en los widgets de la tarea [0.19](08-plan-de-desarrollo.md#tarea-0-19); todo lo compartido de la API, en `dominio` |
+| 1 | El contrato se acuerda tarde y el trabajo del front queda bloqueado | Cada funcionalidad tiene su tarea de contrato, y es de las primeras de su sprint. Si algo se retrasa, no puede ser esto |
+| 2 | Dos tareas editan el mockup a la vez | Regla [§6.2](#62-el-mockup): una pantalla, una tarea, fusionar el mismo día |
+| 3 | La arquitectura termina copiando la forma del reparto | Las rebanadas del [§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8) son de negocio, no de tecnología. Revisar en cada sprint que ninguna frontera nueva coincida con la frontera entre repositorios sin razón |
+| 4 | Cada tarea escribe su versión de lo mismo: formatear dinero, manejar errores | Todo lo compartido del front vive en los widgets de la tarea [0.19](08-plan-de-desarrollo.md#tarea-0-19); todo lo compartido de la API, en `dominio` |
 | 5 | Ramas largas que chocan al final | [§6.5](#65-ramas-e-integración): integrar a diario |
-| 6 | Un carril termina y espera | [`TODO.md`](../TODO.md) dice qué puede empezar hoy en cada carril; Nómina es el amortiguador ([§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8)), y el trabajo de accesibilidad y de pruebas de widget nunca se acaba |
+| 6 | Una parte termina y espera | [`TODO.md`](../TODO.md) dice qué puede empezar hoy en cada repositorio; Nómina es el amortiguador ([§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8)), y el trabajo de accesibilidad y de pruebas de widget nunca se acaba |
 | 7 | Se relaja el principio 9 «para ir más rápido» y el front empieza a decidir | Es el que sostiene la frontera. Revisarlo explícitamente en cada revisión de código del front |
 | 8 | El calendario calculado se toma como una fecha prometida | Es el calendario del trabajo descrito, sin vacaciones ni imprevistos ([08 §1.1](08-plan-de-desarrollo.md#11-cuánto-dura-con-1-2-o-3-carriles-activos)). Se comunica como estimación, y se recalcula solo cuando cambia una tarea |
 
 > **El riesgo 7 es el que hay que vigilar de verdad**, porque llega disfrazado de sensatez: «esta
 > validación es trivial, la hago aquí y nos ahorramos un viaje». Cada vez que ocurre, la frontera
-> entre los carriles se corre un poco, y el día que hay que cambiar esa regla nadie sabe en cuántos
+> entre los repositorios se corre un poco, y el día que hay que cambiar esa regla nadie sabe en cuántos
 > sitios vive.
 
 ---
 
-## 8. Qué hay que decidir antes de abrir un segundo carril
+## 8. Qué hay que decidir antes de trabajar dos tareas a la vez
 
-1. **Quién trabaja cada carril** —personas, equipos o sesiones—, y quién sabe Flutter y Java a la
+1. **Quién trabaja cada repositorio** —personas, equipos o sesiones—, y quién sabe Flutter y Java a la
    vez: esa persona es la que debe revisar los cambios de contrato.
 2. **Dónde se alojan los cuatro repositorios** y quién tiene permiso de escritura en cada uno.
-   Lo primero ya está decidido: en GitHub ([ADR-026](adr/ADR-026-railway-al-final.md)). Los permisos se reparten cuando existan los
-   carriles.
+   Lo primero ya está decidido: en GitHub ([ADR-026](adr/ADR-026-railway-al-final.md)). Los permisos se reparten cuando haya con
+   quién repartirlos.
 3. **Si el contrato se publica como paquete** (artefacto en un repositorio Maven —que es el
    formato, lo publique Gradle o quien sea— y paquete de Dart) o se consume por etiqueta de git.
    **Decidido: por etiqueta**, `contrato-vX.Y.Z` en cada fusión que cambie `openapi.json` ([TODO §7](../TODO.md#7-decisiones-pendientes),
    fila 8). El paquete pedía un registro y unas credenciales que no existen, para resolver unas
    dependencias que nadie tiene.
-4. **Quién aprueba un cambio de contrato** cuando los carriles no se ponen de acuerdo. **Decidido:
+4. **Quién aprueba un cambio de contrato** cuando los dos lados no se ponen de acuerdo. **Decidido:
    quien dirige**, que además es quien revisa los PR (fila 9).
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-023](adr/ADR-023-tres-repositorios.md "ADR-023 · Tres repositorios y el contrato como artefacto versionado") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-028](adr/ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-035](adr/ADR-035-repositorios-hermanos.md "ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo") · [ADR-037](adr/ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md "ADR-040 · Toda rama empieza por feature/, y el PR se abre solo con autorización expresa, trayendo entonces la base") · [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md "ADR-043 · Una tarea solo depende de tareas anteriores") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-023](adr/ADR-023-tres-repositorios.md "ADR-023 · Tres repositorios y el contrato como artefacto versionado") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-028](adr/ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-035](adr/ADR-035-repositorios-hermanos.md "ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo") · [ADR-037](adr/ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md "ADR-040 · Toda rama empieza por feature/, y el PR se abre solo con autorización expresa, trayendo entonces la base") · [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md "ADR-043 · Una tarea solo depende de tareas anteriores") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-067](adr/ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->
 
 ---

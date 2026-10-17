@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-15 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.0.1](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-17 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de PRISMA.
 
@@ -617,7 +617,7 @@ Para el caso extremo —datos mal escritos que hay que recuperar— el respaldo 
 ### 7.4 El ensayo en dev, con el reloj en la mano
 
 Un procedimiento que nadie ha ejecutado es una intención. El de arriba se ensayó en **dev**, que es
-el único ambiente alojado antes de uat ([ADR-044](adr/ADR-044-dos-ambientes-desplegados.md), [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)), el **2026-10-04**: los dos carriles, de uno en uno
+el único ambiente alojado antes de uat ([ADR-044](adr/ADR-044-dos-ambientes-desplegados.md), [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)), el **2026-10-04**: los dos tareas a la vez, de uno en uno
 y sin tocar la base ([tarea 9.4](08-plan-de-desarrollo.md#tarea-9-4)).
 
 **Cómo se dispara.** En el alojamiento se vuelve a publicar el despliegue anterior. No se recompila:
@@ -629,7 +629,7 @@ resuelve en minutos y a la vista, no a ciegas desde un script.
 que la versión anterior esté contestando: en medio están el arranque, la conexión a la base y el
 chequeo de salud. El reloj que importa es el de la persona del taller.
 
-| Carril | Qué se pregunta | Qué contesta |
+| Dónde | Qué se pregunta | Qué contesta |
 |---|---|---|
 | API | `POST /api/v0/consultas/version` y `/actuator/health/readiness` | La versión que está corriendo, y si está lista |
 | Front | `/version.json`, que la compilación web de Flutter escribe sola | La versión con su número de compilación |
@@ -641,7 +641,7 @@ dice a qué hora llegó, y en el front `confirmar` juzga el commit. Fallan si no
 
 **Lo que se midió.** De la hora del disparo a la hora en que la versión anterior contestó por HTTP:
 
-| Carril | Qué se hizo | Tardó | Sin respuesta en medio |
+| Dónde | Qué se hizo | Tardó | Sin respuesta en medio |
 |---|---|---:|---|
 | API | Volver a la versión anterior | 17 s | ~4 s |
 | API | Volver a la versión al día | 19 s | ~5 s |
