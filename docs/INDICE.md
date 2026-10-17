@@ -180,8 +180,6 @@ Qué significa cada estado y cuándo sube una versión está en
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.9.0 | ✅ Vigente | 2026-10-14 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [Tareas de PRISMA](../TODO.md) | 9.73.0 | 🔄 Vivo | 2026-10-17 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [Índice navegable de la documentación](INDICE.md) | 1.30.0 | 🔄 Vivo | 2026-10-17 | — |
-| [Índice navegable de la documentación](INDICE.md) | 1.30.0 | 🔄 Vivo | 2026-10-17 | — |
-| [Índice navegable de la documentación](INDICE.md) | 1.30.0 | 🔄 Vivo | 2026-10-17 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.0.0 | ✅ Vigente | 2026-09-16 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
 | [02 · Casos de uso](02-casos-de-uso.md) | 3.1.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
