@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-10 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
+| [2.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
 
 > **Construcción: en el [Sprint 8](08-plan-de-desarrollo.md#sprint-8), no después del go-live.** El [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) metió el respaldo al plan,
 > en las tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17), y retiró del 14 la deuda [D-05](14-roadmap-e-ideas.md#d-05) y la idea 01. Lo que este documento
@@ -287,10 +287,27 @@ que no opera aquí en vez de aceptarla.
 del negocio. Mientras nadie elija rige **desactivada**. Si en este ambiente opera no se guarda ahí:
 la base no sabe en cuál está, y lo decide el perfil de la API.
 
-**Quién la ejecuta: la tarea [8.16](08-plan-de-desarrollo.md#tarea-8-16).** La programación corre con
-`pg_cron`, la misma extensión con la que ya se purgan las claves de idempotencia, los nonce vistos y
-las sesiones vencidas; y la tercera opción se engancha al cierre mensual de la tarea [6.8](08-plan-de-desarrollo.md#tarea-6-8), que es lo
-que la vuelve recomendable.
+**Quién la ejecuta, desde la tarea [8.16](08-plan-de-desarrollo.md#tarea-8-16): la base es el reloj y la API la que trabaja.** La
+base marca en `respaldo_pendiente` ([04 §4.15](04-modelo-de-datos.md#415-el-mes-que-toca-respaldar)) el mes que toca —con `pg_cron`, la misma extensión
+con la que ya se purgan las claves de idempotencia, los nonce vistos y las sesiones vencidas, y con
+un disparador del cierre mensual de la [6.8](08-plan-de-desarrollo.md#tarea-6-8) para la tercera opción, que es lo que la vuelve
+recomendable—. El archivo lo arma la API, que es lo único que escribe un ZIP y lo único que habla con
+el bucket.
+
+**La API lo atiende cada día a las 00:10 de Bogotá**, no una vez al mes: el modo «al cerrar el mes»
+marca cualquier día, así que un trabajo diario cumple los dos sin preguntar qué modo rige. Va detrás
+del de la base, que corre a medianoche. Atiende **un mes por transacción**, para que el que falle no
+revierta el que ya quedó, y el formato es el ZIP con CSV, que es el que se vuelve a leer sin nada
+instalado.
+
+**El archivo sube con la clave de servicio** ([ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md)), porque a esa hora no hay sesión de la cual
+tomar un token y las dos políticas del bucket piden uno que Storage pueda verificar. Está acotado a
+subir: la descarga sigue siendo de la sesión que la pide. **A nombre de quién corre** es de la persona
+que eligió la programación, así que el permiso de la fila lo sigue juzgando RLS como en cualquier
+petición.
+
+**Lo que falla se vuelve a intentar al día siguiente, solo.** La fila pendiente sigue sin atender,
+que es la única señal visible de que un mes no se respaldó: nadie recibe un aviso.
 
 > **Una programación que nadie mira genera archivos pesados igual.** La retención de doce del [13 §5](#5-generación-y-descarga)
 > es lo único que la acota, y con los cuatro alcances y los tres formatos del [13 §2](#2-alcance-seleccionable) y [§3](#3-formatos) puede crecer
@@ -379,7 +396,7 @@ lo metió al [Sprint 8](08-plan-de-desarrollo.md#sprint-8). Lo que queda fuera e
 > habilita.
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [01](01-vision-y-alcance.md "01 · Visión y alcance") · [02](02-casos-de-uso.md "02 · Casos de uso") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [11](11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-008](adr/ADR-008-exportacion.md "ADR-008 · Exportación con descarga manual") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8")
+**🔗 Referenciado desde:** [01](01-vision-y-alcance.md "01 · Visión y alcance") · [02](02-casos-de-uso.md "02 · Casos de uso") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [11](11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-008](adr/ADR-008-exportacion.md "ADR-008 · Exportación con descarga manual") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "ADR-066 · La clave de servicio también sube el respaldo que nadie pidió")
 <!-- /generado:referenciado-desde -->
 
 ---
