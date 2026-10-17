@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [15.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -172,8 +172,14 @@ ni referencias de proyectos, ni nombres de clientes.
   [`TODO.md`](TODO.md). 🚧 y ✏️ sí las pone una persona.
 - El paso a paso —la versión, la fecha, `enlazar` y `verificar`— es la skill `documentar`.
 
+**Los sprints del 0 al 10 están cerrados** ([ADR-068](docs/adr/ADR-068-los-sprints-cerrados-no-reciben-tareas.md)).
+- A un sprint cerrado **no se le agrega ninguna tarea**. Lo que haga falta entra en un sprint nuevo,
+  el siguiente al mayor, y abrirlo lo autoriza quien dirige.
+- Corregir una tarea que ya estaba —su texto, sus días, su «Dónde» o sus dependencias— sí se puede.
+- La cuenta con que se cerró cada uno está en `scripts/docs/config.mjs`, y lo comprueba `verificar`.
+
 **El plan de desarrollo manda sobre el tablero.**
-- [`08-plan-de-desarrollo.md`](docs/08-plan-de-desarrollo.md) dice qué hay que hacer, en qué carril y de qué depende. [`TODO.md`](TODO.md) dice
+- [`08-plan-de-desarrollo.md`](docs/08-plan-de-desarrollo.md) dice qué hay que hacer, dónde vive y de qué depende. [`TODO.md`](TODO.md) dice
   en qué va.
 - Los dos enumeran las mismas tareas, y la verificación falla si no coinciden.
 - **Una tarea nueva entra primero al 08**, nunca al tablero.

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-09-16 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
+| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
 
 > Documento de 5 minutos. Si solo vas a leer uno, que sea este.
 
@@ -146,12 +146,12 @@ ver, el cargo dice qué hace en el negocio.
 
 ## 6. Cronograma resumido
 
-El trabajo se reparte en **carriles**: frentes que avanzan a la vez sin esperarse, como la API, la
-base de datos y las pantallas. Con más carriles se termina antes, pero no en la mitad: hay partes
+El trabajo se reparte en **tareas que avanzan a la vez** sin esperarse, cada una en su repositorio:
+la API, la base de datos y las pantallas. Con más a la vez se termina antes, pero no en la mitad: hay partes
 que van en cadena y la puesta en marcha no se parte.
 
 <!-- generado:plan-resumen · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**34,6 semanas con 1 carril**, **20,6 semanas con 2 carriles** y **16,3 semanas con 3 carriles**, contando las 3 de estabilización. El detalle está en el [cronograma por carriles](08-plan-de-desarrollo.md#1-cronograma-por-carriles).
+**34,6 semanas con 1 tarea a la vez**, **20,6 semanas con 2 tareas a la vez** y **16,3 semanas con 3 tareas a la vez**, contando las 3 de estabilización. El detalle está en el [cronograma](08-plan-de-desarrollo.md#1-cronograma).
 <!-- /generado:plan-resumen -->
 
 | Sprint | Entrega |
@@ -168,18 +168,18 @@ que van en cadena y la puesta en marcha no se parte.
 | 9 | Promoción hasta producción, PWA, endurecimiento y la publicación automática |
 | — | Estabilización, aprobación en UAT, migración, capacitación y go-live |
 
-**En qué semana llega cada hito**, según cuántos carriles avancen a la vez:
+**En qué semana llega cada hito**, según cuántas tareas avancen a la vez:
 
 <!-- generado:plan-calendario · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**210 días de trabajo en 174 tareas.** Un carril avanza 6,59 días por semana, el ritmo del plan original; cada carril extra le quita un 10 % a todos por coordinación; y dos tareas del mismo carril y del mismo sprint no van a la vez.
+**210 días de trabajo en 174 tareas.** Una sola tarea a la vez avanza 6,59 días por semana, el ritmo del plan original; cada tarea simultánea de más le quita un 10 % a todas por coordinación; y dos tareas del mismo sitio y del mismo sprint no van a la vez.
 
-| Carriles activos | Desarrollo | Estabilización | Total | Frente a 1 carril |
+| Tareas a la vez | Desarrollo | Estabilización | Total | Frente a 1 tarea |
 |:---:|---:|---:|---:|---:|
 | 1 | 31,6 semanas | 3 semanas | **34,6 semanas** | — |
 | 2 | 17,6 semanas | 3 semanas | **20,6 semanas** | −14,0 semanas |
 | 3 | 13,3 semanas | 3 semanas | **16,3 semanas** | −18,3 semanas |
 
-| Hito | 1 carril | 2 carriles | 3 carriles |
+| Hito | 1 tarea a la vez | 2 tareas a la vez | 3 tareas a la vez |
 |---|:---:|:---:|:---:|
 | [H1](08-plan-de-desarrollo.md#h1) · Sprint 0 | semana 4 | semana 3 | semana 3 |
 | [H2](08-plan-de-desarrollo.md#h2) · Sprint 1 | semana 7 | semana 5 | semana 4 |

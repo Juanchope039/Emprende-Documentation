@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.2.1](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/22-documentacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-04 | [Proceso](INDICE.md#etiqueta-proceso) |
+| [2.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/22-documentacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se escribe, se versiona y se enlaza la documentación de PRISMA: la de este repositorio y los
 README, `CLAUDE.md` y `AGENTS.md` de los tres repositorios de código. La decisión y su porqué están en [ADR-027](adr/ADR-027-documentacion-versionada.md); aquí están las
@@ -122,7 +122,7 @@ además cómo va la construcción, lo dice en su texto, como «Construcción: di
 | Calidad | Pruebas y verificación |
 | Entrega | Ambientes, versiones, integración continua y despliegue |
 | Plan | Calendario, tareas e implantación |
-| Paralelo | Cómo se trabaja en varios carriles a la vez |
+| Paralelo | Cómo se trabaja en varias tareas a la vez |
 | Contrato | El contrato entre front y API |
 | Proceso | Cómo trabaja el proyecto |
 
@@ -180,7 +180,7 @@ rehace entero en cada corrida. **No se edita a mano.**
 |---|---|---|
 | `referenciado-desde` | Pie de cada documento | Quién lo cita |
 | `estado-de-la-documentacion` y `etiquetas` | [Índice](INDICE.md) | Versión y estado de cada documento, y los documentos de cada etiqueta |
-| `plan-calendario`, `plan-camino-critico`, `plan-gantt` y `plan-oleadas-N` | [Plan](08-plan-de-desarrollo.md) | El calendario con 1, 2 y 3 carriles, la cadena que no se parte y qué va a la vez en cada sprint |
+| `plan-calendario`, `plan-camino-critico`, `plan-gantt` y `plan-oleadas-N` | [Plan](08-plan-de-desarrollo.md) | El calendario con 1, 2 y 3 tareas a la vez, la cadena que no se parte y qué va a la vez en cada sprint |
 | `plan-dependencias-hacia-adelante` | [Plan](08-plan-de-desarrollo.md) | La deuda declarada de [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md): qué tarea espera a una posterior, y por qué |
 | `plan-tablero`, `plan-restante` y `plan-listas-ya` | [Tareas](../TODO.md) | El estado de cada sprint, cuánto falta desde hoy y qué se puede empezar ya |
 
@@ -236,7 +236,7 @@ README, sus `CLAUDE.md` y sus `AGENTS.md`, y un enlace relativo que escriban hac
 2. Se sube la versión según el [§3](#3-versiones), y **Actualizado** pasa a la fecha de hoy.
 3. Se corre `node scripts/docs/documentar.mjs enlazar`.
 4. Commit, empuje y PR. La rama se empuja desde su primer commit ([21 §6.5](21-trabajo-en-paralelo.md#65-ramas-e-integración)), también cuando lo
-   único que cambia es un documento. Si el documento es compartido entre carriles, lo revisa el otro
+   único que cambia es un documento. Si el documento es compartido entre repositorios, lo revisa el otro
    ([21 §2.1](21-trabajo-en-paralelo.md#21-lo-que-se-posee-en-conjunto)).
 
 ### En paralelo, sin pisarse
@@ -258,7 +258,7 @@ repositorios, no se versiona y **ningún documento lo cita**, ni por ruta ni por
 que de un plan le importe a la documentación se escribe en el documento que afecta. Cuándo y cómo se
 escribe un plan lo dicen las reglas del proyecto, en [`CLAUDE.md`](../CLAUDE.md).
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo por carriles") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-035](adr/ADR-035-repositorios-hermanos.md "ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo") · [ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-041](adr/ADR-041-cuatro-lineas-por-parrafo.md "ADR-041 · Un párrafo de código o de commit tiene cuatro líneas como máximo") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/docs/README.md "Herramienta de documentación")
+**🔗 Referenciado desde:** [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-035](adr/ADR-035-repositorios-hermanos.md "ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo") · [ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-041](adr/ADR-041-cuatro-lineas-por-parrafo.md "ADR-041 · Un párrafo de código o de commit tiene cuatro líneas como máximo") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/docs/README.md "Herramienta de documentación")
 <!-- /generado:referenciado-desde -->
 
 ---

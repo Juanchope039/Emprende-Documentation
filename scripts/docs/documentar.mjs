@@ -710,6 +710,11 @@ function bloquesDelPlan(ctx, errores) {
   for (const e of forma) errores.push({ ruta: cfg.DOC_PLAN, texto: e });
   const validacion = plan.validarPlan(tareas);
   for (const e of validacion) errores.push({ ruta: cfg.DOC_PLAN, texto: e });
+  // Sin tareas no hay plan que leer, y callar deja los bloques generados con lo de antes: pasa si
+  // una tabla perdió su cabecera «| # | Tarea | Dónde | Depende de | Días |» (ADR-067).
+  if (!tareas.length) {
+    errores.push({ ruta: cfg.DOC_PLAN, texto: 'no se leyó ninguna tarea: revisa la cabecera de las tablas de tareas' });
+  }
   if (!tareas.length || forma.length || validacion.length) return;
 
   const enlaceEn = (desde) => (id) => {
@@ -723,7 +728,7 @@ function bloquesDelPlan(ctx, errores) {
     return n === 11 ? `[H11](${url}) · go-live` : `[H${n}](${url}) · Sprint ${n - 1}`;
   };
   const detalleDesde = (desde) =>
-    `El detalle está en el [cronograma por carriles](${ctx.url(desde, cfg.DOC_PLAN, '1-cronograma-por-carriles')}).`;
+    `El detalle está en el [cronograma](${ctx.url(desde, cfg.DOC_PLAN, '1-cronograma')}).`;
   for (const a of ctx.porRuta.values()) {
     if (!esEspec(a)) continue;
     if (a.contenido.includes('<!-- generado:plan-resumen')) ponerBloque(a, 'plan-resumen', plan.bloqueResumen(tareas, detalleDesde(a)));

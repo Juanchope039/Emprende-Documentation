@@ -118,5 +118,5 @@ aceptar: la oleada es la verdad, pero nadie lee las oleadas antes de leer la tab
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [08](../08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [22](../22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [ADR-044](ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/docs/README.md "Herramienta de documentación")
+**🔗 Referenciado desde:** [08](../08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [22](../22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [ADR-044](ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-067](ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive") · [ADR-068](ADR-068-los-sprints-cerrados-no-reciben-tareas.md "ADR-068 · Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/docs/README.md "Herramienta de documentación")
 <!-- /generado:referenciado-desde -->

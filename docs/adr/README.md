@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.35.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.36.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -75,6 +75,8 @@ consideraron y qué consecuencias tiene.
 | [064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | La atribución la pone la plataforma, y el agente no escribe ninguna | Aceptado |
 | [065](ADR-065-el-check-del-proyecto-avisa.md) | El check del proyecto avisa y no bloquea | Aceptado |
 | [066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | La clave de servicio también sube el respaldo que nadie pidió | Aceptado |
+| [067](ADR-067-el-plan-no-tiene-carriles.md) | El plan no tiene carriles: cada tarea dice dónde vive | Aceptado |
+| [068](ADR-068-los-sprints-cerrados-no-reciben-tareas.md) | Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo | Aceptado |
 
 Son **61 decisiones** registradas: 51 aceptadas y 10 reemplazadas.
 

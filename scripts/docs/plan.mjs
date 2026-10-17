@@ -1,22 +1,23 @@
 // El plan de desarrollo como grafo de dependencias.
 //
-// Las tablas de tareas de docs/08-plan-de-desarrollo.md son la fuente: cada fila dice su carril, de
+// Las tablas de tareas de docs/08-plan-de-desarrollo.md son la fuente: cada fila dice dónde vive, de
 // qué depende y cuántos días lleva. De ahí salen las oleadas de cada sprint, el camino crítico y el
-// calendario con 1, 2 o 3 carriles activos. Nada de eso se escribe a mano.
+// calendario con 1, 2 o 3 tareas a la vez. Nada de eso se escribe a mano.
 
 import {
-  CARRILES_A_SIMULAR,
-  CARRILES_DE_TRABAJO,
-  COSTO_DE_COORDINACION_POR_CARRIL,
+  TAREAS_A_LA_VEZ_A_SIMULAR,
+  DONDE_VIVE_LA_TAREA,
+  COSTO_DE_COORDINACION_POR_TAREA,
   DEPENDENCIAS_HACIA_ADELANTE,
   INICIO_DEL_PLAN,
+  SPRINTS_CERRADOS,
   RITMO_DIAS_POR_SEMANA,
   SEMANAS_DE_ESTABILIZACION,
 } from './config.mjs';
 import { decimal, lineasDeCodigo } from './markdown.mjs';
 
 const EPSILON = 1e-9;
-const CABECERA_TAREAS = /^\|\s*#\s*\|\s*Tarea\s*\|\s*Carril\s*\|\s*Depende de\s*\|\s*Días\s*\|/;
+const CABECERA_TAREAS = /^\|\s*#\s*\|\s*Tarea\s*\|\s*Dónde\s*\|\s*Depende de\s*\|\s*Días\s*\|/;
 
 function celdasDeFila(fila) {
   return fila.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((c) => c.trim());
@@ -53,15 +54,15 @@ export function leerPlan(contenido) {
       return;
     }
     if (/^\|[\s:|-]+\|$/.test(linea)) return;
-    const [idCelda, texto, carrilCelda, dependenciasCelda, diasCelda] = celdasDeFila(linea);
+    const [idCelda, texto, dondeCelda, dependenciasCelda, diasCelda] = celdasDeFila(linea);
     const id = idCelda.replace(/<[^>]*>/g, '').trim();
     if (!/^\d{1,2}\.\d{1,2}$/.test(id)) {
       errores.push(`línea ${i + 1}: «${idCelda}» no es un número de tarea`);
       return;
     }
-    const carriles = carrilCelda.split(',').map((c) => c.trim()).filter(Boolean);
-    for (const c of carriles) {
-      if (!CARRILES_DE_TRABAJO.includes(c)) errores.push(`línea ${i + 1}: la tarea ${id} tiene el carril desconocido «${c}»`);
+    const lugares = dondeCelda.split(',').map((c) => c.trim()).filter(Boolean);
+    for (const c of lugares) {
+      if (!DONDE_VIVE_LA_TAREA.includes(c)) errores.push(`línea ${i + 1}: la tarea ${id} tiene un «Dónde» desconocido «${c}»`);
     }
     const sinEnlaces = dependenciasCelda.replace(/\]\([^)]*\)/g, ']');
     const dependencias = [...sinEnlaces.matchAll(/(?<![\d.])(\d{1,2}\.\d{1,2})(?![\d])|\bH(\d{1,2})\b/g)].map((m) =>
@@ -77,8 +78,8 @@ export function leerPlan(contenido) {
       sprintEfectivo: movida ? Number(movida[1]) : sprint,
       movida: Boolean(movida),
       texto,
-      carriles,
-      carril: carriles[0],
+      lugares,
+      donde: lugares[0],
       dependencias,
       dias,
     });
@@ -120,6 +121,25 @@ export function validarPlan(tareas) {
   };
   if (!errores.length) for (const t of tareas) visitar(t.id, []);
   if (!errores.length) errores.push(...validarDireccion(tareas));
+  errores.push(...validarSprintsCerrados(tareas));
+  return errores;
+}
+
+// Un sprint cerrado no recibe tareas nuevas (ADR-068): la cuenta con que se cerró está en
+// config.mjs, y si la tabla del plan trae más, el PR queda en rojo con el número de las que sobran.
+export function validarSprintsCerrados(tareas) {
+  const errores = [];
+  const cuenta = new Map();
+  for (const t of tareas) cuenta.set(t.sprint, (cuenta.get(t.sprint) ?? 0) + 1);
+  for (const [sprint, cerradas] of Object.entries(SPRINTS_CERRADOS)) {
+    const hay = cuenta.get(Number(sprint)) ?? 0;
+    if (hay > cerradas) {
+      errores.push(
+        `el Sprint ${sprint} está cerrado con ${cerradas} tareas y el plan trae ${hay}: ` +
+          'una tarea nueva va en un sprint nuevo (ADR-068)',
+      );
+    }
+  }
   return errores;
 }
 
@@ -189,7 +209,7 @@ function ordenTopologico(tareas) {
   return orden;
 }
 
-// La cadena más larga de días que no se puede partir: ni con carriles de sobra baja de aquí.
+// La cadena más larga de días que no se puede partir: ni trabajando de tres en tres baja de aquí.
 export function caminoCritico(tareas) {
   const acumulado = new Map();
   const previo = new Map();
@@ -230,19 +250,19 @@ function colas(tareas) {
   return new Map(tareas.map((t) => [t.id, cola(t.id)]));
 }
 
-export function ritmo(carrilesActivos) {
-  return RITMO_DIAS_POR_SEMANA * (1 - COSTO_DE_COORDINACION_POR_CARRIL * (carrilesActivos - 1));
+export function ritmo(tareasALaVez) {
+  return RITMO_DIAS_POR_SEMANA * (1 - COSTO_DE_COORDINACION_POR_TAREA * (tareasALaVez - 1));
 }
 
-// Simula el desarrollo con un número de carriles activos: cuántas tareas avanzan a la vez.
-//   - Dos tareas del mismo carril y del mismo sprint no van a la vez: tocan la misma capa de la
+// Simula el desarrollo con un número de tareas a la vez: cuántas tareas avanzan a la vez.
+//   - Dos tareas del mismo sitio y del mismo sprint no van a la vez: tocan la misma capa de la
 //     misma funcionalidad. De sprints distintos sí, que es el reparto por rebanadas de 21 §4.3.
 //   - Primero las del sprint más temprano, y entre ellas las que más retrasan a otras.
-//   - Las decisiones no ocupan un carril de desarrollo.
-//   - Cada carril extra cobra su coordinación (config.mjs).
+//   - Las decisiones no ocupan un puesto de desarrollo.
+//   - Cada tarea simultánea de más cobra su coordinación (config.mjs).
 // Devuelve semanas de calendario.
-export function simular(tareas, carrilesActivos, hechas = new Set()) {
-  const paso = ritmo(carrilesActivos);
+export function simular(tareas, tareasALaVez, hechas = new Set()) {
+  const paso = ritmo(tareasALaVez);
   const colaDe = colas(tareas);
   const fin = new Map();
   const inicio = new Map();
@@ -268,9 +288,9 @@ export function simular(tareas, carrilesActivos, hechas = new Set()) {
     for (let i = 0; i < pendientes.length; i++) {
       const t = pendientes[i];
       if (!t.dependencias.every((d) => lista(d, ahora))) continue;
-      if (enCurso.some((c) => c.tarea.carril === t.carril && c.tarea.sprintEfectivo === t.sprintEfectivo)) continue;
-      const cuentan = enCurso.filter((c) => c.tarea.carril !== 'Decisión').length;
-      if (t.carril !== 'Decisión' && cuentan >= carrilesActivos) continue;
+      if (enCurso.some((c) => c.tarea.donde === t.donde && c.tarea.sprintEfectivo === t.sprintEfectivo)) continue;
+      const cuentan = enCurso.filter((c) => c.tarea.donde !== 'Decisión').length;
+      if (t.donde !== 'Decisión' && cuentan >= tareasALaVez) continue;
       enCurso.push({ tarea: t, fin: ahora + t.dias / paso });
       inicio.set(t.id, ahora);
       pendientes.splice(i, 1);
@@ -336,9 +356,9 @@ const semanasTexto = (s) => `${decimal(s)} semanas`;
 const numero = (n) => (Number.isInteger(n) ? String(n) : decimal(n));
 
 export function bloqueResumen(tareas, enlaceDetalle) {
-  const partes = CARRILES_A_SIMULAR.map((k) => {
+  const partes = TAREAS_A_LA_VEZ_A_SIMULAR.map((k) => {
     const total = simular(tareas, k).semanas + SEMANAS_DE_ESTABILIZACION;
-    return `**${decimal(total)} semanas con ${k === 1 ? '1 carril' : `${k} carriles`}**`;
+    return `**${decimal(total)} semanas con ${k === 1 ? '1 tarea a la vez' : `${k} tareas a la vez`}**`;
   });
   return `${partes.slice(0, -1).join(', ')} y ${partes[partes.length - 1]}, contando las ${SEMANAS_DE_ESTABILIZACION} de estabilización. ${enlaceDetalle}`;
 }
@@ -430,7 +450,7 @@ export function bloqueGrafoDeSprints(tareas, titulos) {
 
 export function bloqueCalendario(tareas, enlaceHito) {
   const total = tareas.reduce((s, t) => s + t.dias, 0);
-  const corridas = CARRILES_A_SIMULAR.map((k) => ({ k, ...simular(tareas, k) }));
+  const corridas = TAREAS_A_LA_VEZ_A_SIMULAR.map((k) => ({ k, ...simular(tareas, k) }));
   const base = corridas[0].semanas + SEMANAS_DE_ESTABILIZACION;
   const filas = corridas.map(({ k, semanas }) => {
     const totalK = semanas + SEMANAS_DE_ESTABILIZACION;
@@ -445,14 +465,14 @@ export function bloqueCalendario(tareas, enlaceHito) {
     `| ${enlaceHito(11)} | ${corridas.map((c) => `semana ${Math.ceil(c.semanas + SEMANAS_DE_ESTABILIZACION - EPSILON)}`).join(' | ')} |`,
   );
   return [
-    `**${numero(total)} días de trabajo en ${tareas.length} tareas.** Un carril avanza ${decimal(RITMO_DIAS_POR_SEMANA, 2)} días por semana, el ritmo del plan original; cada carril extra le quita un ${Math.round(COSTO_DE_COORDINACION_POR_CARRIL * 100)} % a todos por coordinación; y dos tareas del mismo carril y del mismo sprint no van a la vez.`,
+    `**${numero(total)} días de trabajo en ${tareas.length} tareas.** Una sola tarea a la vez avanza ${decimal(RITMO_DIAS_POR_SEMANA, 2)} días por semana, el ritmo del plan original; cada tarea simultánea de más le quita un ${Math.round(COSTO_DE_COORDINACION_POR_TAREA * 100)} % a todas por coordinación; y dos tareas del mismo sitio y del mismo sprint no van a la vez.`,
     '',
-    '| Carriles activos | Desarrollo | Estabilización | Total | Frente a 1 carril |',
+    '| Tareas a la vez | Desarrollo | Estabilización | Total | Frente a 1 tarea |',
     '|:---:|---:|---:|---:|---:|',
     ...filas,
     '',
-    `| Hito | ${CARRILES_A_SIMULAR.map((k) => (k === 1 ? '1 carril' : `${k} carriles`)).join(' | ')} |`,
-    `|---|${CARRILES_A_SIMULAR.map(() => ':---:').join('|')}|`,
+    `| Hito | ${TAREAS_A_LA_VEZ_A_SIMULAR.map((k) => (k === 1 ? '1 tarea a la vez' : `${k} tareas a la vez`)).join(' | ')} |`,
+    `|---|${TAREAS_A_LA_VEZ_A_SIMULAR.map(() => ':---:').join('|')}|`,
     ...hitos,
   ].join('\n');
 }
@@ -460,7 +480,7 @@ export function bloqueCalendario(tareas, enlaceHito) {
 export function bloqueCaminoCritico(tareas, enlaceTarea) {
   const { dias, cadena } = caminoCritico(tareas);
   return [
-    `**La cadena más larga de dependencias suma ${numero(dias)} días en ${cadena.length} tareas.** Un día de retraso en cualquiera de ellas es un día de retraso del plan entero, tenga los carriles que tenga:`,
+    `**La cadena más larga de dependencias suma ${numero(dias)} días en ${cadena.length} tareas.** Un día de retraso en cualquiera de ellas es un día de retraso del plan entero, se trabaje de una en una o de tres en tres:`,
     '',
     cadena.map(enlaceTarea).join(' → '),
   ].join('\n');
@@ -493,13 +513,13 @@ export function bloqueOleadas(tareas, sprint, enlaceTarea) {
   const movidas = tareas.filter((t) => t.sprint === sprint && t.movida);
   const filas = grupos.map((g, i) => {
     const dias = g.reduce((s, t) => s + t.dias, 0);
-    const carriles = [...new Set(g.map((t) => t.carril))].join(', ');
-    return `| ${i + 1} | ${g.map((t) => enlaceTarea(t.id)).join(' · ')} | ${carriles} | ${numero(dias)} |`;
+    const lugares = [...new Set(g.map((t) => t.donde))].join(', ');
+    return `| ${i + 1} | ${g.map((t) => enlaceTarea(t.id)).join(' · ')} | ${lugares} | ${numero(dias)} |`;
   });
   const lineas = [
     '**Qué puede ir a la vez en este sprint.** Cada oleada espera solo a las anteriores; dentro de una oleada, todo arranca junto.',
     '',
-    '| Oleada | Tareas | Carriles | Días |',
+    '| Oleada | Tareas | Dónde | Días |',
     '|:---:|---|---|---:|',
     ...filas,
   ];
@@ -509,9 +529,9 @@ export function bloqueOleadas(tareas, sprint, enlaceTarea) {
   return lineas.join('\n');
 }
 
-// Un diagrama por carril con 3 carriles activos: cada barra es un sprint en ese carril.
+// Un diagrama por sitio con 3 tareas a la vez: cada barra es un sprint en ese sitio.
 export function bloqueGantt(tareas) {
-  const k = Math.max(...CARRILES_A_SIMULAR);
+  const k = Math.max(...TAREAS_A_LA_VEZ_A_SIMULAR);
   const { inicio, fin, semanas } = simular(tareas, k);
   const fecha = (semana) => {
     const d = new Date(`${INICIO_DEL_PLAN}T12:00:00Z`);
@@ -521,21 +541,21 @@ export function bloqueGantt(tareas) {
   const lineas = [
     '```mermaid',
     'gantt',
-    `    title Desarrollo de PRISMA con ${k} carriles activos`,
+    `    title Desarrollo de PRISMA con ${k} tareas a la vez`,
     '    dateFormat YYYY-MM-DD',
     '    axisFormat %d/%m',
   ];
-  for (const carril of CARRILES_DE_TRABAJO) {
-    const delCarril = tareas.filter((t) => t.carril === carril);
-    if (!delCarril.length) continue;
-    lineas.push('', `    section ${carril}`);
-    const sprints = [...new Set(delCarril.map((t) => t.sprintEfectivo))].sort((a, b) => a - b);
+  for (const lugar of DONDE_VIVE_LA_TAREA) {
+    const delLugar = tareas.filter((t) => t.donde === lugar);
+    if (!delLugar.length) continue;
+    lineas.push('', `    section ${lugar}`);
+    const sprints = [...new Set(delLugar.map((t) => t.sprintEfectivo))].sort((a, b) => a - b);
     for (const s of sprints) {
-      const grupo = delCarril.filter((t) => t.sprintEfectivo === s);
+      const grupo = delLugar.filter((t) => t.sprintEfectivo === s);
       const desde = Math.min(...grupo.map((t) => inicio.get(t.id)));
       const hasta = Math.max(...grupo.map((t) => fin.get(t.id)));
       const fin7 = fecha(hasta) === fecha(desde) ? fecha(desde + 1 / 7) : fecha(hasta);
-      lineas.push(`    S${s} :${carril.toLowerCase().replace(/[^a-z]/g, '')}${s}, ${fecha(desde)}, ${fin7}`);
+      lineas.push(`    S${s} :${lugar.toLowerCase().replace(/[^a-z]/g, '')}${s}, ${fecha(desde)}, ${fin7}`);
     }
   }
   lineas.push(
@@ -553,14 +573,14 @@ export function bloqueGantt(tareas) {
 export function bloqueRestante(tareas, hechas) {
   const pendientes = tareas.filter((t) => !hechas.has(t.id));
   const dias = pendientes.reduce((s, t) => s + t.dias, 0);
-  const filas = CARRILES_A_SIMULAR.map((k) => {
+  const filas = TAREAS_A_LA_VEZ_A_SIMULAR.map((k) => {
     const { semanas } = simular(tareas, k, hechas);
     return `| ${k} | ${semanasTexto(semanas)} | **${semanasTexto(semanas + SEMANAS_DE_ESTABILIZACION)}** |`;
   });
   return [
     `Quedan **${pendientes.length} tareas y ${numero(dias)} días de trabajo** de ${tareas.length} tareas del plan.`,
     '',
-    '| Carriles activos | Desarrollo que falta | Con la estabilización |',
+    '| Tareas a la vez | Desarrollo que falta | Con la estabilización |',
     '|:---:|---:|---:|',
     ...filas,
   ].join('\n');
@@ -602,13 +622,13 @@ export function bloqueTablero(tareas, hechas, enProgreso, titulos, enlaceSprint)
 export function bloqueListasYa(tareas, hechas, enlaceTarea) {
   const listas = listasYa(tareas, hechas);
   if (!listas.length) return 'Nada: todo lo pendiente espera a algo.';
-  const porCarril = new Map();
-  for (const t of listas) (porCarril.get(t.carril) || porCarril.set(t.carril, []).get(t.carril)).push(t);
-  const filas = CARRILES_DE_TRABAJO.filter((c) => porCarril.has(c)).map(
-    (c) => `| **${c}** | ${porCarril.get(c).map((t) => enlaceTarea(t.id)).join(' · ')} |`,
+  const porLugar = new Map();
+  for (const t of listas) (porLugar.get(t.donde) || porLugar.set(t.donde, []).get(t.donde)).push(t);
+  const filas = DONDE_VIVE_LA_TAREA.filter((c) => porLugar.has(c)).map(
+    (c) => `| **${c}** | ${porLugar.get(c).map((t) => enlaceTarea(t.id)).join(' · ')} |`,
   );
   return [
-    '| Carril | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |',
+    '| Dónde | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |',
     '|---|---|',
     ...filas,
   ].join('\n');
