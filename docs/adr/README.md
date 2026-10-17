@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.33.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-16 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.34.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -70,9 +70,10 @@ consideraron y qué consecuencias tiene.
 | [059](ADR-059-etiquetas-con-esquema-y-release-en-main.md) | Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a `main` | Aceptado |
 | [060](ADR-060-todo-pr-se-asocia-a-un-issue.md) | Todo PR se asocia a un issue del monorepo de producto | Aceptado |
 | [061](ADR-061-se-promueve-con-merge-commit.md) | Se promueve con merge commit, y qa no recibe nada que no esté en develop | Aceptado |
-| [062](ADR-062-el-pr-esta-en-el-proyecto.md) | Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige | Aceptado |
+| [062](ADR-062-el-pr-esta-en-el-proyecto.md) | Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige | Reemplazado por [065](ADR-065-el-check-del-proyecto-avisa.md) |
 | [063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md) | Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios | Aceptado |
 | [064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | La atribución la pone la plataforma, y el agente no escribe ninguna | Aceptado |
+| [065](ADR-065-el-check-del-proyecto-avisa.md) | El check del proyecto avisa y no bloquea | Aceptado |
 
 Son **61 decisiones** registradas: 51 aceptadas y 10 reemplazadas.
 

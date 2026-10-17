@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [15.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-16 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [15.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -75,7 +75,9 @@ ni referencias de proyectos, ni nombres de clientes.
   despliega. Lo exigen los checks «Tubería completa» y «Tubería en verde», dos trabajos al final del
   `ci.yml` de cada repositorio.
 - **Todo PR a una de las tres está en «Prisma project»**, el proyecto 4 de `Juanchope039` ([ADR-062](docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)).
-  Lo exige el check «El PR está en el proyecto», en los cuatro repositorios y no en el monorepo.
+  Lo mira el check «El PR está en el proyecto», en los cuatro repositorios y no en el monorepo,
+  **y avisa en vez de fallar** ([ADR-065](docs/adr/ADR-065-el-check-del-proyecto-avisa.md)): estar en el tablero es un clic de quien fusiona, así que
+  un PR no se queda esperándolo. El aviso sale en las anotaciones de la corrida.
 - La definición vive en `scripts/github/politicas-de-ramas.json` y la pone su herramienta, no el
   panel. Cubre también `main` del monorepo de producto. En los privados exige GitHub Pro, y cómo se
   aplica está en `scripts/github/README.md`.
