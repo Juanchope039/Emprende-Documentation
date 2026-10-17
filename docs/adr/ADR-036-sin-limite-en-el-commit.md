@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-036-sin-limite-en-el-commit.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-21 | 2026-09-24 | — |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-036-sin-limite-en-el-commit.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-21 | 2026-09-24 | — |
 
 > **El mensaje sigue sin tope total, pero cada párrafo tiene uno.** El [ADR-041](ADR-041-cuatro-lineas-por-parrafo.md) fijó cuatro líneas
 > de 100 columnas por párrafo, en el commit y en los comentarios del código. Lo que este ADR

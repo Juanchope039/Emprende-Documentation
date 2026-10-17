@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-04 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-04 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo modifica [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md):** pre-prod no corre la imagen de qa: Railway lo construye desde
 > la rama `pre-prod`, como dev desde `develop`, y esa rama es la última etapa de la tubería en lugar

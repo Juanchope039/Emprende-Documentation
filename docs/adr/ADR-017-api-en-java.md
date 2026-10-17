@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-017-api-en-java.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-024](ADR-024-java-25-y-gradle.md) | 2026-09-15 | 2026-09-16 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-017-api-en-java.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-024](ADR-024-java-25-y-gradle.md) | 2026-09-15 | 2026-09-16 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [API](../INDICE.md#etiqueta-api) |
 
 > **Lo reemplaza [ADR-024](ADR-024-java-25-y-gradle.md):** la API sigue siendo Java con Spring
 > Boot y todo lo que este ADR argumenta sigue en pie, pero las versiones cambiaron. Java 21

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-033-service-role-solo-en-auth.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | 2026-09-18 | 2026-10-17 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-033-service-role-solo-en-auth.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | 2026-09-18 | 2026-10-17 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
 
 > **Reemplazado por [ADR-066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md).** Lo que este ADR decide sigue
 > siendo cierto: contra PostgreSQL esa clave no se usa nunca, y contra GoTrue solo en las dos

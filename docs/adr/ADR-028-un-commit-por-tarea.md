@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-028-un-commit-por-tarea.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.4.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-028-un-commit-por-tarea.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **El cuerpo son tres párrafos, de cuatro líneas como máximo.** El [ADR-041](ADR-041-cuatro-lineas-por-parrafo.md) partió en párrafos los
 > tres títulos que la nota de abajo deja en una línea cada uno: `Hace:`, `Decide:` y `Verifica:` van

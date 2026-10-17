@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Seguridad](../INDICE.md#etiqueta-seguridad) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Seguridad](../INDICE.md#etiqueta-seguridad) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** la variable se llama `UAT_GERENCIA_CLAVE`, no `PREPROD_GERENCIA_CLAVE`,
 > porque el ambiente donde Gerencia aprueba es uat. La regla no cambia: sin `DOCS_CLAVE`, Swagger

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-025-cuatro-repositorios.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-21 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
+| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-025-cuatro-repositorios.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-21 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
 
 > **Dónde vive cada repositorio en disco lo reemplaza el [ADR-035](ADR-035-repositorios-hermanos.md).** Los cuatro son ahora hermanos
 > en una carpeta de trabajo, y la especificación es uno más: ya no hay `repositories/` dentro de

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-026-railway-al-final.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-032](ADR-032-railway-en-dev-ahora.md) | 2026-09-16 | 2026-09-17 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-026-railway-al-final.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-032](ADR-032-railway-en-dev-ahora.md) | 2026-09-16 | 2026-09-17 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo reemplaza [ADR-032](ADR-032-railway-en-dev-ahora.md):** el código vive en GitHub y se
 > despliega en Railway, tal como se decide abajo, y **qa, uat y prod siguen esperando al

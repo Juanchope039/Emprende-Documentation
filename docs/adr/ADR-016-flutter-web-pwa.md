@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-016-flutter-web-pwa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-16 | [Front](../INDICE.md#etiqueta-front) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-016-flutter-web-pwa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-16 | [Front](../INDICE.md#etiqueta-front) |
 
 > **Sigue vigente, y [ADR-017](ADR-017-api-en-java.md) la amplía sin contradecirla.** El front es
 > Flutter **multiplataforma** y **web sigue siendo el objetivo por defecto**, que es exactamente

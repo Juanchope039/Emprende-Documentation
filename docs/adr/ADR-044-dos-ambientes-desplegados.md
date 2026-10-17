@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-044-dos-ambientes-desplegados.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-03 | 2026-10-15 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-044-dos-ambientes-desplegados.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-03 | 2026-10-15 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo modifica [ADR-045](ADR-045-pre-prod-y-prod-en-otro-repositorio.md):** el ambiente que este ADR llama prod **se llama pre-prod**, no tiene
 > datos reales y es donde Gerencia aprueba. **prod vive en otro repositorio**, recibe el artefacto
