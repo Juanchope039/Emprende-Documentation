@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-08 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [6.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Base de datos PostgreSQL sobre Supabase. **Solo escritura: nada se elimina jamás.**
 
@@ -99,6 +99,7 @@ erDiagram
 | 30 | `schema_version` | Una fila por versión del esquema publicada: el historial, no un número que se pisa | |
 | 31 | `horas_limite_config` | El límite de horas de una semana que define Gerencia | ✅ |
 | 32 | `respaldo_programacion` | Cada cuánto se genera solo el respaldo: una fila por elección ([13 §6](13-respaldo-y-exportacion.md#6-programación-automática)) | ✅ |
+| 33 | `respaldo_pendiente` | El mes que la programación dice que toca respaldar, y con qué archivo quedó ([13 §6](13-respaldo-y-exportacion.md#6-programación-automática)) | ✅ |
 
 *Sensible = el acceso a la tabla está restringido por Row Level Security ([§7](#7-seguridad-por-tipo-de-usuario-rls)). En la mayoría eso
 significa «solo Gerencia», pero no en todas: en `usuarios`, `empleados`, `nomina_periodos`,
@@ -1394,6 +1395,57 @@ programación corre en este ambiente, y la base no sabe en cuál está. Lo decid
 **No la lee Operación, ni para mirar** ([§7](#7-seguridad-por-tipo-de-usuario-rls)). Es la misma puerta del respaldo: el [13 §7](13-respaldo-y-exportacion.md#7-alcance-por-rol)
 reserva a Gerencia generar, descargar, ver el historial y configurar la programación.
 
+### 4.15 El mes que toca respaldar
+
+```sql
+CREATE TABLE respaldo_pendiente (
+  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  anio         anio NOT NULL,
+  mes          mes_del_anio NOT NULL,
+  motivo       TEXT NOT NULL
+                 CONSTRAINT respaldo_pendiente_motivo_valido
+                   CHECK (motivo IN ('mensual', 'al_cerrar_el_mes')),
+  marcado_en   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  atendido_en  TIMESTAMPTZ,
+  atendido_con UUID
+                 CONSTRAINT respaldo_pendiente_atendido_con_fkey
+                   REFERENCES exportaciones(id),
+  CONSTRAINT respaldo_pendiente_mes_unico UNIQUE (anio, mes),
+  CONSTRAINT respaldo_pendiente_atendido_completo
+    CHECK ((atendido_en IS NULL) = (atendido_con IS NULL))
+);
+
+CREATE INDEX idx_respaldo_pendiente_sin_atender
+  ON respaldo_pendiente (marcado_en) WHERE atendido_en IS NULL;
+
+CREATE TRIGGER tr_auditar_respaldo_pendiente
+  AFTER INSERT OR UPDATE ON respaldo_pendiente
+  FOR EACH ROW EXECUTE FUNCTION fn_auditar();
+```
+
+**La base es el reloj y la API el que trabaja** ([13 §6](13-respaldo-y-exportacion.md#6-programación-automática), tarea [8.16](08-plan-de-desarrollo.md#tarea-8-16)). Aquí queda escrito qué
+mes toca; el archivo lo arma `prisma_api`, que es lo único que escribe un ZIP y lo único que habla
+con el bucket. Esta tabla es la junta entre las dos mitades.
+
+**Dos relojes la escriben, y ninguno de los dos pregunta dos veces.** El trabajo de `pg_cron` del
+día 1 marca el mes anterior completo, con la fecha de Bogotá, y un disparador del cierre mensual
+([§4.8](#48-sobres-y-cierres)) marca el mes que se acaba de cerrar. Cada uno solo si el modo vigente es el suyo, y
+`respaldo_pendiente_mes_unico` impide que el mismo mes se pida dos veces.
+
+**Atender es un `UPDATE`, no un borrado** ([ADR-004](adr/ADR-004-base-solo-escritura.md)): la fila atendida es la constancia de que la
+programación corrió, y con qué archivo. `respaldo_pendiente_atendido_completo` impide dejarla a
+medias, con hora y sin exportación o al contrario.
+
+**El año y el mes van por los dominios `anio` y `mes_del_anio`**, los mismos del cierre mensual
+([§4.1](#41-tipos-y-convenciones-comunes)): la regla de qué es un mes válido se escribe una sola vez.
+
+**Y una función dice a nombre de quién se atiende.** `fn_quien_eligio_la_programacion()` devuelve
+quién eligió la programación vigente, y es `SECURITY DEFINER` porque la fila que lo dice no se puede
+leer sin ser alguien: sin identidad no hay con qué abrir la transacción que la leería
+([ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md)).
+
+**No la lee Operación, ni para mirar** ([§7](#7-seguridad-por-tipo-de-usuario-rls)), por la misma razón que la programación.
+
 ---
 
 ## 5. Diseño de solo escritura
@@ -1544,6 +1596,9 @@ la cambió y cuándo es parte de la historia del negocio.
 Y el decimonoveno es el de `respaldo_programacion` ([§4.14](#414-la-programación-del-respaldo)), que llega con la tarea [8.14](08-plan-de-desarrollo.md#tarea-8-14), en el
 esquema `0.26.0`: cada cuánto sale del sistema el libro entero sería, sin él, el único cambio que
 no deja rastro.
+El vigésimo es el de `respaldo_pendiente` ([§4.15](#415-el-mes-que-toca-respaldar)), que llega con la tarea [8.16](08-plan-de-desarrollo.md#tarea-8-16), en el
+esquema `0.27.0`: de esa tabla cuelga qué libro salió solo y cuándo, y es lo único que escribe un
+reloj y no una persona, así que es donde más importa que quede rastro.
 
 **De dónde salen el dispositivo y la IP lo dicen dos funciones**, y no dos expresiones escritas en
 dos sitios (tarea [2.9](08-plan-de-desarrollo.md#tarea-2-9)):
@@ -2119,6 +2174,7 @@ hay que decidir, tabla por tabla, qué alcanza el tipo Operación.
 | `prolabore_config` | Nada: conjunto vacío | Gerencia |
 | `horas_limite_config` | Nada: conjunto vacío | Gerencia |
 | `respaldo_programacion` | Nada: conjunto vacío | Gerencia |
+| `respaldo_pendiente` | Nada: conjunto vacío | Gerencia |
 | `empleados` | **Su propia ficha**, por `usuario_id = auth.uid()` | Gerencia |
 | `nomina_periodos` | Solo los períodos donde tiene desprendible propio | Gerencia |
 | `adelantos` | **Los suyos**, los que se le descuentan | Gerencia |
@@ -2169,6 +2225,10 @@ CREATE POLICY horas_limite_solo_gerencia ON horas_limite_config FOR ALL
 CREATE POLICY respaldo_programacion_lectura ON respaldo_programacion FOR SELECT
   USING (fn_es_gerencia());
 CREATE POLICY respaldo_programacion_escritura ON respaldo_programacion FOR ALL
+  USING (fn_es_gerencia()) WITH CHECK (fn_es_gerencia());
+CREATE POLICY respaldo_pendiente_lectura ON respaldo_pendiente FOR SELECT
+  USING (fn_es_gerencia());
+CREATE POLICY respaldo_pendiente_escritura ON respaldo_pendiente FOR ALL
   USING (fn_es_gerencia()) WITH CHECK (fn_es_gerencia());
 CREATE POLICY sobres_solo_gerencia ON sobres_config FOR ALL
   USING (fn_es_gerencia()) WITH CHECK (fn_es_gerencia());

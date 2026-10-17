@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.34.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.35.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -41,7 +41,7 @@ consideraron y qué consecuencias tiene.
 | [030](ADR-030-contrato-sin-get.md) | El contrato no usa GET: toda operación viaja por POST bajo `/api/v0` | Aceptado |
 | [031](ADR-031-commit-de-256-caracteres.md) | El mensaje de commit cabe en 256 caracteres | Reemplazado por [036](ADR-036-sin-limite-en-el-commit.md) |
 | [032](ADR-032-railway-en-dev-ahora.md) | Railway aloja dev desde ahora, y los otros tres ambientes siguen al final | Aceptado |
-| [033](ADR-033-service-role-solo-en-auth.md) | La clave de servicio entra, pero solo para crear identidades | Aceptado |
+| [033](ADR-033-service-role-solo-en-auth.md) | La clave de servicio entra, pero solo para crear identidades | Reemplazado por [066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) |
 | [034](ADR-034-la-version-sube-en-cada-pr.md) | La versión sube un paso en cada PR, y la integración continua lo exige | Aceptado |
 | [035](ADR-035-repositorios-hermanos.md) | Los cuatro repositorios, hermanos en una carpeta de trabajo | Aceptado |
 | [036](ADR-036-sin-limite-en-el-commit.md) | El mensaje de commit no tiene limite de longitud | Aceptado |
@@ -74,6 +74,7 @@ consideraron y qué consecuencias tiene.
 | [063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md) | Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios | Aceptado |
 | [064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | La atribución la pone la plataforma, y el agente no escribe ninguna | Aceptado |
 | [065](ADR-065-el-check-del-proyecto-avisa.md) | El check del proyecto avisa y no bloquea | Aceptado |
+| [066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | La clave de servicio también sube el respaldo que nadie pidió | Aceptado |
 
 Son **61 decisiones** registradas: 51 aceptadas y 10 reemplazadas.
 

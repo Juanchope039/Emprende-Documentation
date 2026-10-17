@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.30.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-17 | — |
+| [1.31.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-17 | — |
 
 > Guía para moverte por toda la documentación de PRISMA **sin perderte y sin saber de programación**.
 > Cada documento dice para qué sirve, en lenguaje sencillo, y está marcado si es técnico.
@@ -152,6 +152,7 @@ a una pregunta concreta. Ver el [índice de ADRs](adr/README.md).
 | [063](adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md) | Cada tarea anotada y cada cambio propuesto dicen a qué entrega pertenecen: lo ya construido, o lo siguiente (imágenes publicadas, apps del celular y del computador, y pedidos por WhatsApp) | ¿En qué entrega va esta tarea o este cambio? |
 | [064](adr/ADR-064-la-atribucion-la-pone-la-plataforma.md) | Lo que un asistente automático propone en GitHub se firma una sola vez, con la firma que GitHub pone solo, y el asistente no agrega la suya ni deja a la vista el enlace privado de su conversación | ¿Por qué un cambio hecho por un asistente se firma una sola vez? |
 | [065](adr/ADR-065-el-check-del-proyecto-avisa.md) | Que un cambio aparezca en el tablero se sigue pidiendo, pero ya no frena el cambio: queda una advertencia a la vista en vez de un rechazo | ¿Por qué un cambio que no está en el tablero ya no queda bloqueado? |
+| [066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | La copia de seguridad que el sistema hace solo, de madrugada y sin que nadie la pida, se guarda con la llave maestra, porque a esa hora no hay nadie de quien tomar el permiso | ¿Con qué permiso guarda el sistema la copia que hace solo? |
 
 Del 017 al 026 están las decisiones del modelo de tres partes: el cambio de Dart a Java en la
 API, que el front no decide nada, el contrato de respuesta, la idempotencia, el canal firmado,
@@ -178,13 +179,13 @@ Qué significa cada estado y cuándo sube una versión está en
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.9.0 | ✅ Vigente | 2026-10-14 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
-| [Tareas de PRISMA](../TODO.md) | 9.73.0 | 🔄 Vivo | 2026-10-17 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
-| [Índice navegable de la documentación](INDICE.md) | 1.30.0 | 🔄 Vivo | 2026-10-17 | — |
+| [Tareas de PRISMA](../TODO.md) | 9.74.0 | 🔄 Vivo | 2026-10-17 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [Índice navegable de la documentación](INDICE.md) | 1.31.0 | 🔄 Vivo | 2026-10-17 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.0.0 | ✅ Vigente | 2026-09-16 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
 | [02 · Casos de uso](02-casos-de-uso.md) | 3.1.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
 | [03 · Requisitos, reglas de negocio y escenarios BDD](03-requisitos-y-bdd.md) | 5.0.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Calidad](#etiqueta-calidad) |
-| [04 · Modelo de datos](04-modelo-de-datos.md) | 6.1.0 | ✅ Vigente | 2026-10-08 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
+| [04 · Modelo de datos](04-modelo-de-datos.md) | 6.2.0 | ✅ Vigente | 2026-10-17 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
 | [05 · Reglas financieras y KPIs](05-reglas-financieras.md) | 3.0.0 | ✅ Vigente | 2026-10-06 | [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
 | [06 · Nómina y capacidad de pago](06-nomina-y-capacidad-de-pago.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Nómina](#etiqueta-nomina) · [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
 | [07 · Arquitectura técnica](07-arquitectura.md) | 6.0.0 | ✅ Vigente | 2026-10-04 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) · [Front](#etiqueta-front) · [Base de datos](#etiqueta-base-de-datos) · [Seguridad](#etiqueta-seguridad) |
@@ -193,7 +194,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [10 · Diseño de experiencia y mockups](10-ux-y-mockups.md) | 8.0.0 | ✅ Vigente | 2026-10-16 | [UX](#etiqueta-ux) · [Front](#etiqueta-front) |
 | [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Seguridad](#etiqueta-seguridad) · [Datos personales](#etiqueta-datos-personales) · [Negocio](#etiqueta-negocio) |
 | [12 · Pruebas y calidad](12-pruebas-y-calidad.md) | 4.2.1 | ✅ Vigente | 2026-10-04 | [Calidad](#etiqueta-calidad) |
-| [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.3.0 | ✅ Vigente | 2026-10-10 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
+| [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.4.0 | ✅ Vigente | 2026-10-17 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
 | [14 · Roadmap e ideas de valor](14-roadmap-e-ideas.md) | 2.1.0 | 🔄 Vivo | 2026-10-13 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [15 · Glosario](15-glosario.md) | 2.0.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) |
 | [16 · Base de datos: snapshots y datos de prueba](16-base-de-datos-y-snapshots.md) | 3.4.0 | ✅ Vigente | 2026-09-23 | [Base de datos](#etiqueta-base-de-datos) · [Calidad](#etiqueta-calidad) |
@@ -205,7 +206,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [22 · Documentación: versiones, estados y referencias](22-documentacion.md) | 2.2.1 | ✅ Vigente | 2026-10-04 | [Proceso](#etiqueta-proceso) |
 | [23 · Diagramas de los casos de uso](23-diagramas-de-casos-de-uso.md) | 0.5.0 | 🔍 En revisión | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) · [Arquitectura](#etiqueta-arquitectura) |
 | [Contrato de la API · v0.35.0](../contrato/README.md) | 5.1.0 | ✅ Vigente | 2026-10-17 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
-| [Decisiones de arquitectura (ADR)](adr/README.md) | 1.34.0 | 🔄 Vivo | 2026-10-17 | [Arquitectura](#etiqueta-arquitectura) |
+| [Decisiones de arquitectura (ADR)](adr/README.md) | 1.35.0 | 🔄 Vivo | 2026-10-17 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-001 · Stack tecnológico](adr/ADR-001-stack.md) | 1.0.0 | ⛔ Reemplazado | 2026-09-16 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-002 · Arquitectura hexagonal con regla de dependencias verificada](adr/ADR-002-arquitectura-hexagonal.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) |
 | [ADR-003 · Dinero como entero de pesos](adr/ADR-003-dinero-entero.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Finanzas](#etiqueta-finanzas) · [API](#etiqueta-api) · [Base de datos](#etiqueta-base-de-datos) |
@@ -238,7 +239,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-030 · El contrato no usa GET: toda operación viaja por POST bajo /api/v0](adr/ADR-030-contrato-sin-get.md) | 1.0.0 | ✅ Aceptado | 2026-09-17 | [API](#etiqueta-api) · [Contrato](#etiqueta-contrato) · [Seguridad](#etiqueta-seguridad) |
 | [ADR-031 · El mensaje de commit cabe en 256 caracteres](adr/ADR-031-commit-de-256-caracteres.md) | 1.2.0 | ⛔ Reemplazado | 2026-09-21 | — |
 | [ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final](adr/ADR-032-railway-en-dev-ahora.md) | 1.1.0 | ✅ Aceptado | 2026-10-03 | [Entrega](#etiqueta-entrega) · [Plan](#etiqueta-plan) |
-| [ADR-033 · La clave de servicio entra, pero solo para crear identidades](adr/ADR-033-service-role-solo-en-auth.md) | 1.0.0 | ✅ Aceptado | 2026-09-18 | [Seguridad](#etiqueta-seguridad) · [API](#etiqueta-api) |
+| [ADR-033 · La clave de servicio entra, pero solo para crear identidades](adr/ADR-033-service-role-solo-en-auth.md) | 1.1.0 | ⛔ Reemplazado | 2026-10-17 | [Seguridad](#etiqueta-seguridad) · [API](#etiqueta-api) |
 | [ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige](adr/ADR-034-la-version-sube-en-cada-pr.md) | 1.0.0 | ✅ Aceptado | 2026-09-19 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) · [Calidad](#etiqueta-calidad) |
 | [ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo](adr/ADR-035-repositorios-hermanos.md) | 1.0.0 | ✅ Aceptado | 2026-09-21 | [Proceso](#etiqueta-proceso) · [Paralelo](#etiqueta-paralelo) |
 | [ADR-036 · El mensaje de commit no tiene limite de longitud](adr/ADR-036-sin-limite-en-el-commit.md) | 1.1.0 | ✅ Aceptado | 2026-09-24 | — |
@@ -271,6 +272,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-063 · Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios](adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [ADR-064 · La atribución la pone la plataforma, y el agente no escribe ninguna](adr/ADR-064-la-atribucion-la-pone-la-plataforma.md) | 1.0.0 | ✅ Aceptado | 2026-10-16 | [Proceso](#etiqueta-proceso) |
 | [ADR-065 · El check del proyecto avisa y no bloquea](adr/ADR-065-el-check-del-proyecto-avisa.md) | 1.0.0 | ✅ Aceptado | 2026-10-17 | [Proceso](#etiqueta-proceso) |
+| [ADR-066 · La clave de servicio también sube el respaldo que nadie pidió](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | 1.0.0 | ✅ Aceptado | 2026-10-17 | [Seguridad](#etiqueta-seguridad) · [API](#etiqueta-api) |
 | [AGENTS.md](../AGENTS.md) | 2.4.0 | ✅ Vigente | 2026-10-15 | [Proceso](#etiqueta-proceso) |
 | [CLAUDE.md](../CLAUDE.md) | 15.1.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.3.0 | ✅ Vigente | 2026-10-16 | [Proceso](#etiqueta-proceso) |
@@ -310,7 +312,7 @@ Cada etiqueta del encabezado de un documento lleva aquí.
 
 ### <a id="etiqueta-api"></a>API
 
-[07 · Arquitectura técnica](07-arquitectura.md) · [17 · Resiliencia, trabajo sin conexión y caché](17-resiliencia-offline-y-cache.md) · [20 · Contrato de la API](20-contrato-de-api.md) · [Contrato de la API · v0.35.0](../contrato/README.md) · [ADR-002 · Arquitectura hexagonal con regla de dependencias verificada](adr/ADR-002-arquitectura-hexagonal.md) · [ADR-003 · Dinero como entero de pesos](adr/ADR-003-dinero-entero.md) · [ADR-009 · Acceso con nombre de usuario, no con correo](adr/ADR-009-login-por-usuario.md) · [ADR-011 · Stack: Flutter y Dart con API propia](adr/ADR-011-stack-flutter-dart.md) · [ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando](adr/ADR-012-identidad-a-postgres.md) · [ADR-015 · Validación en tres capas, con la base como juez](adr/ADR-015-validacion-tres-capas.md) · [ADR-017 · Stack: Flutter en el front, Java con Spring Boot en la API](adr/ADR-017-api-en-java.md) · [ADR-019 · Contrato de respuesta y catálogo de códigos de cinco dígitos](adr/ADR-019-contrato-de-respuesta.md) · [ADR-020 · Idempotencia obligatoria en toda escritura](adr/ADR-020-idempotencia.md) · [ADR-021 · Canal firmado contra repetición y manipulación](adr/ADR-021-canal-firmado.md) · [ADR-024 · Java 25, Gradle y Spring Boot 4 en la API](adr/ADR-024-java-25-y-gradle.md) · [ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase](adr/ADR-029-esquema-por-etiqueta.md) · [ADR-030 · El contrato no usa GET: toda operación viaja por POST bajo /api/v0](adr/ADR-030-contrato-sin-get.md) · [ADR-033 · La clave de servicio entra, pero solo para crear identidades](adr/ADR-033-service-role-solo-en-auth.md) · [ADR-042 · El documento OpenAPI declara la versión de la API, y la del contrato viaja en x-prisma-contrato](adr/ADR-042-la-version-del-documento-es-la-de-la-api.md)
+[07 · Arquitectura técnica](07-arquitectura.md) · [17 · Resiliencia, trabajo sin conexión y caché](17-resiliencia-offline-y-cache.md) · [20 · Contrato de la API](20-contrato-de-api.md) · [Contrato de la API · v0.35.0](../contrato/README.md) · [ADR-002 · Arquitectura hexagonal con regla de dependencias verificada](adr/ADR-002-arquitectura-hexagonal.md) · [ADR-003 · Dinero como entero de pesos](adr/ADR-003-dinero-entero.md) · [ADR-009 · Acceso con nombre de usuario, no con correo](adr/ADR-009-login-por-usuario.md) · [ADR-011 · Stack: Flutter y Dart con API propia](adr/ADR-011-stack-flutter-dart.md) · [ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando](adr/ADR-012-identidad-a-postgres.md) · [ADR-015 · Validación en tres capas, con la base como juez](adr/ADR-015-validacion-tres-capas.md) · [ADR-017 · Stack: Flutter en el front, Java con Spring Boot en la API](adr/ADR-017-api-en-java.md) · [ADR-019 · Contrato de respuesta y catálogo de códigos de cinco dígitos](adr/ADR-019-contrato-de-respuesta.md) · [ADR-020 · Idempotencia obligatoria en toda escritura](adr/ADR-020-idempotencia.md) · [ADR-021 · Canal firmado contra repetición y manipulación](adr/ADR-021-canal-firmado.md) · [ADR-024 · Java 25, Gradle y Spring Boot 4 en la API](adr/ADR-024-java-25-y-gradle.md) · [ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase](adr/ADR-029-esquema-por-etiqueta.md) · [ADR-030 · El contrato no usa GET: toda operación viaja por POST bajo /api/v0](adr/ADR-030-contrato-sin-get.md) · [ADR-033 · La clave de servicio entra, pero solo para crear identidades](adr/ADR-033-service-role-solo-en-auth.md) · [ADR-042 · El documento OpenAPI declara la versión de la API, y la del contrato viaja en x-prisma-contrato](adr/ADR-042-la-version-del-documento-es-la-de-la-api.md) · [ADR-066 · La clave de servicio también sube el respaldo que nadie pidió](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md)
 
 ### <a id="etiqueta-front"></a>Front
 
@@ -322,7 +324,7 @@ Cada etiqueta del encabezado de un documento lleva aquí.
 
 ### <a id="etiqueta-seguridad"></a>Seguridad
 
-[07 · Arquitectura técnica](07-arquitectura.md) · [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) · [ADR-005 · Auditoría por triggers, no por la aplicación](adr/ADR-005-auditoria-por-triggers.md) · [ADR-006 · Permisos con Row Level Security](adr/ADR-006-rls-por-rol.md) · [ADR-009 · Acceso con nombre de usuario, no con correo](adr/ADR-009-login-por-usuario.md) · [ADR-010 · Almacenamiento de contraseñas: hashing delegado con salt por usuario](adr/ADR-010-almacenamiento-contrasenas.md) · [ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando](adr/ADR-012-identidad-a-postgres.md) · [ADR-021 · Canal firmado contra repetición y manipulación](adr/ADR-021-canal-firmado.md) · [ADR-030 · El contrato no usa GET: toda operación viaja por POST bajo /api/v0](adr/ADR-030-contrato-sin-get.md) · [ADR-033 · La clave de servicio entra, pero solo para crear identidades](adr/ADR-033-service-role-solo-en-auth.md) · [ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) · [ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md)
+[07 · Arquitectura técnica](07-arquitectura.md) · [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) · [ADR-005 · Auditoría por triggers, no por la aplicación](adr/ADR-005-auditoria-por-triggers.md) · [ADR-006 · Permisos con Row Level Security](adr/ADR-006-rls-por-rol.md) · [ADR-009 · Acceso con nombre de usuario, no con correo](adr/ADR-009-login-por-usuario.md) · [ADR-010 · Almacenamiento de contraseñas: hashing delegado con salt por usuario](adr/ADR-010-almacenamiento-contrasenas.md) · [ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando](adr/ADR-012-identidad-a-postgres.md) · [ADR-021 · Canal firmado contra repetición y manipulación](adr/ADR-021-canal-firmado.md) · [ADR-030 · El contrato no usa GET: toda operación viaja por POST bajo /api/v0](adr/ADR-030-contrato-sin-get.md) · [ADR-033 · La clave de servicio entra, pero solo para crear identidades](adr/ADR-033-service-role-solo-en-auth.md) · [ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) · [ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md) · [ADR-066 · La clave de servicio también sube el respaldo que nadie pidió](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md)
 
 ### <a id="etiqueta-datos-personales"></a>Datos personales
 

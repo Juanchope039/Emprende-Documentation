@@ -2,7 +2,13 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-033-service-role-solo-en-auth.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-18 | 2026-09-18 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
+| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-033-service-role-solo-en-auth.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | 2026-09-18 | 2026-10-17 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
+
+> **Reemplazado por [ADR-066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md).** Lo que este ADR decide sigue
+> siendo cierto: contra PostgreSQL esa clave no se usa nunca, y contra GoTrue solo en las dos
+> llamadas de abajo. Lo que ya no es cierto es que esas dos sean la lista completa: el respaldo que
+> la programación dispara no tiene sesión con la que subir al bucket, y sube con ella. El cuerpo de
+> abajo se conserva tal como se escribió.
 
 ## Contexto
 
@@ -109,5 +115,5 @@ compensa con nada: se acota, se aísla y se rota.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [04](../04-modelo-de-datos.md "04 · Modelo de datos") · [07](../07-arquitectura.md "07 · Arquitectura técnica") · [09](../09-plan-de-implantacion.md "09 · Plan de implantación") · [11](../11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-012](ADR-012-identidad-a-postgres.md "ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando")
+**🔗 Referenciado desde:** [04](../04-modelo-de-datos.md "04 · Modelo de datos") · [07](../07-arquitectura.md "07 · Arquitectura técnica") · [09](../09-plan-de-implantacion.md "09 · Plan de implantación") · [11](../11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-012](ADR-012-identidad-a-postgres.md "ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando") · [ADR-066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "ADR-066 · La clave de servicio también sube el respaldo que nadie pidió")
 <!-- /generado:referenciado-desde -->
