@@ -2,7 +2,12 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-15 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md) | 2026-10-15 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Reemplazado por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md).** La regla sigue en pie —todo PR a una rama
+> principal va en «Prisma project»—, pero el check ya no la bloquea: avisa. Lo que este ADR daba por
+> bueno era que bloquear no costaba nada, y cuesta el PR entero esperando un clic que no es suyo. El
+> cuerpo de abajo se conserva tal como se escribió.
 
 > **Nota del 2026-10-15:** las consecuencias negativas hablan de «un token personal con `repo`»,
 > y eso quedó de un borrador. El token es el de la decisión (punto 3): uno fino, limitado a los cuatro
@@ -75,5 +80,5 @@ nada: el check solo falla cuando el auto-add no hizo su trabajo, que es justo lo
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [ADR-063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md "ADR-063 · Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md "ADR-063 · Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios") · [ADR-065](ADR-065-el-check-del-proyecto-avisa.md "ADR-065 · El check del proyecto avisa y no bloquea") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->

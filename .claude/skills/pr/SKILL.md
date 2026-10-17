@@ -102,8 +102,9 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    - **Mirar el resumen del flujo** cuando termine, y pasarle a quien dirige los campos que el
      flujo dejó vacíos, con el valor que les pondrías. **Lo que no se sepa se deja vacío**: un
      valor inventado en el tablero es peor que un hueco, porque nadie lo vuelve a mirar.
-   - **Si el check «El PR está en el proyecto» sale en rojo**, volver a correr el trabajo a mano:
-     agregar un PR al proyecto no dispara ningún evento del PR.
+   - **Si el check «El PR está en el proyecto» avisa**, pasarle el aviso a quien dirige: desde el
+     [ADR-065](../../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md) ese trabajo no falla, así que el PR no se detiene, pero el aviso dice que el
+     tablero todavía no lo cuenta. Agregarlo no dispara ningún evento del PR.
 
    Si quien dirige nombró otro proyecto al pedir el PR, ese sí va a mano con
    `gh pr edit <n> --add-project "<nombre>"`, desde una sesión que alcance GraphQL.
@@ -137,7 +138,8 @@ ponen en rojo y la cuarta no se puede arreglar sin reescribir el cuerpo:
 
 - [ ] **nombra su issue** de `Juanchope039/PRISMA`, con `Closes` o con `Refs`;
 - [ ] **lleva milestone**, el mismo del issue;
-- [ ] **está en «Prisma project»**, y sus campos dicen algo o se dijo quién los va a poner;
+- [ ] **está en «Prisma project»**, y sus campos dicen algo o se dijo quién los va a poner —el
+      check solo avisa ([ADR-065](../../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)), así que esto no lo atrapa nadie más;
 - [ ] **el cuerpo salió de `cuerpo.md`** y, releído, lleva una sola firma, la de la plataforma, sin
       el id de la sesión (§4.7).
 

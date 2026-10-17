@@ -1,5 +1,5 @@
 {
-  "reglas": "Las de ADR-048, ADR-062 y ADR-063. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
+  "reglas": "Las de ADR-048, ADR-062 (el check solo avisa desde ADR-065) y ADR-063. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
   "puertas": {
     "completa": "Tubería completa",
     "en-verde": "Tubería en verde",
