@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Contrato | Etiquetas |
 |---|---|---|---|---|---|
-| [5.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/contrato/README.md "Historial de cambios") | [✅ Vigente](../docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-16 | [0.35.0](openapi.json) | [Contrato](../docs/INDICE.md#etiqueta-contrato) · [API](../docs/INDICE.md#etiqueta-api) · [Front](../docs/INDICE.md#etiqueta-front) |
+| [5.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/contrato/README.md "Historial de cambios") | [✅ Vigente](../docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [0.35.0](openapi.json) | [Contrato](../docs/INDICE.md#etiqueta-contrato) · [API](../docs/INDICE.md#etiqueta-api) · [Front](../docs/INDICE.md#etiqueta-front) |
 
 Este es **el contrato entre `prisma_front` y `prisma_api`**: lo que viaja por el cable, dicho en
 un solo archivo. Vive aquí, y no en ninguno de los repositorios de código, porque no le pertenece
@@ -553,10 +553,12 @@ con su `ayuda` diciendo cuándo valen: el descriptor solo sabe decir `obligatori
 la primera después de la segunda, una tabla sin decir cuál— lo comprueba la API y responde `42272`,
 con el aviso en `data.errores` sobre el campo que corresponde.
 
-**Las 27 tablas de `tabla` son las del negocio**: todas las de la base menos cuatro que son de
-funcionamiento y no historia de nadie —`nonces_vistos`, `peticiones_idempotentes`, `sesiones` y
-`schema_version`—. El total las deja fuera por la misma razón. El archivo es **siempre un ZIP**, sea
-cual sea el formato: el manifiesto es un archivo aparte ([13 §4](../docs/13-respaldo-y-exportacion.md#4-manifiesto-de-integridad)) y un Excel o un JSON suelto no
+**Las 27 tablas de `tabla` son las del negocio**: todas las de la base menos cinco que son de
+funcionamiento y no historia de nadie —`nonces_vistos`, `peticiones_idempotentes`, `sesiones`,
+`schema_version` y `respaldo_programacion`—. El total las deja fuera por la misma razón. La
+última no estaba cuando se acordó este contrato: la creó la tarea [8.14](../docs/08-plan-de-desarrollo.md#tarea-8-14), y la cuenta de 27 no
+cambia, porque con ella la base pasó a tener 32 tablas. El archivo es **siempre un ZIP**, sea cual
+sea el formato: el manifiesto es un archivo aparte ([13 §4](../docs/13-respaldo-y-exportacion.md#4-manifiesto-de-integridad)) y un Excel o un JSON suelto no
 podría llevarlo.
 
 ### `programacion-de-respaldo` · cuándo se genera solo

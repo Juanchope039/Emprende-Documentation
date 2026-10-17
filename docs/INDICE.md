@@ -177,7 +177,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.9.0 | ✅ Vigente | 2026-10-14 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
-| [Tareas de PRISMA](../TODO.md) | 9.72.0 | 🔄 Vivo | 2026-10-16 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [Tareas de PRISMA](../TODO.md) | 9.73.0 | 🔄 Vivo | 2026-10-17 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [Índice navegable de la documentación](INDICE.md) | 1.29.0 | 🔄 Vivo | 2026-10-16 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.0.0 | ✅ Vigente | 2026-09-16 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
@@ -203,7 +203,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [21 · Trabajo en paralelo por carriles](21-trabajo-en-paralelo.md) | 6.3.0 | ✅ Vigente | 2026-10-10 | [Paralelo](#etiqueta-paralelo) · [Proceso](#etiqueta-proceso) |
 | [22 · Documentación: versiones, estados y referencias](22-documentacion.md) | 2.2.1 | ✅ Vigente | 2026-10-04 | [Proceso](#etiqueta-proceso) |
 | [23 · Diagramas de los casos de uso](23-diagramas-de-casos-de-uso.md) | 0.5.0 | 🔍 En revisión | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) · [Arquitectura](#etiqueta-arquitectura) |
-| [Contrato de la API · v0.35.0](../contrato/README.md) | 5.0.0 | ✅ Vigente | 2026-10-16 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
+| [Contrato de la API · v0.35.0](../contrato/README.md) | 5.1.0 | ✅ Vigente | 2026-10-17 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
 | [Decisiones de arquitectura (ADR)](adr/README.md) | 1.33.0 | 🔄 Vivo | 2026-10-16 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-001 · Stack tecnológico](adr/ADR-001-stack.md) | 1.0.0 | ⛔ Reemplazado | 2026-09-16 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-002 · Arquitectura hexagonal con regla de dependencias verificada](adr/ADR-002-arquitectura-hexagonal.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) |
