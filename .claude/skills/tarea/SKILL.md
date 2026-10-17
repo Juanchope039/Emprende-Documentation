@@ -1,6 +1,6 @@
 ---
 name: tarea
-description: Prepara una tarea del plan de desarrollo de PRISMA. Lee su fila del 08, comprueba que se pueda empezar, deja cada repositorio del carril en su base al día y con el árbol limpio, abre ahí la rama y deja escrito el plan. Se invoca a mano con el id de la tarea.
+description: Prepara una tarea del plan de desarrollo de PRISMA. Lee su fila del 08, comprueba que se pueda empezar, deja cada repositorio que toca en su base al día y con el árbol limpio, abre ahí la rama y deja escrito el plan. Se invoca a mano con el id de la tarea.
 argument-hint: "[id de la tarea, p. ej. 3.4]"
 model: opus
 ---
@@ -13,7 +13,7 @@ aplica están en el `CLAUDE.md` de la especificación (§2).
 ## 1. Qué es y si se puede empezar
 
 1. **Busca la tarea en `repositories/documentation/docs/08-plan-de-desarrollo.md`.** Su fila dice
-   qué es, el carril, de qué depende y cuántos días lleva. El carril es API, Base, Front, Contrato o
+   qué es, dónde vive, de qué depende y cuántos días lleva. El «Dónde» es API, Base, Front, Contrato o
    Decisión; si tiene varios, el primero es el que la lleva.
 2. **Busca su línea en `repositories/documentation/TODO.md`:**
    - `[x]`: ya está hecha, así que para.
@@ -33,7 +33,7 @@ aplica están en el `CLAUDE.md` de la especificación (§2).
 ## 2. Las ramas: lo primero es la base al día, en una copia limpia
 
 **Es el primer paso que toca disco, y va antes que leer una sola línea de código.** En cada
-repositorio que toca el carril, **y en este orden**:
+repositorio que toca, **y en este orden**:
 
 ```bash
 git -C repositories/<repo> status --short                  # vacío, o no se sigue

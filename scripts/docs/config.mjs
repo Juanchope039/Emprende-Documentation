@@ -197,16 +197,22 @@ export const DEPENDENCIAS_HACIA_ADELANTE = [
   { de: '9.10', a: '9.11', motivo: 'etiquetar 1.0.0 espera a todo el sprint, Swagger en prod incluido' },
 ];
 
-// El calendario del plan. Un carril avanza al ritmo del plan original: 151,5 días de trabajo en 23
+// El calendario del plan. Una sola tarea a la vez avanza al ritmo del plan original: 151,5 días de trabajo en 23
 // semanas de desarrollo. La estabilización no se parte: son 3 semanas con cualquier número de
-// carriles (21-trabajo-en-paralelo.md §5).
+// tareas a la vez (21-trabajo-en-paralelo.md §5).
 export const RITMO_DIAS_POR_SEMANA = 151.5 / 23;
-// Cada carril activo de más le quita un 10 % de ritmo a todos: revisiones cruzadas, acuerdos de
-// contrato e integración. Con 2 carriles el calendario da ≈17,7 semanas, lo mismo que 21 §5
+// Cada tarea a la vez de más le quita un 10 % de ritmo a todos: revisiones cruzadas, acuerdos de
+// contrato e integración. Con 2 a la vez el calendario da ≈17,7 semanas, lo mismo que 21 §5
 // estimaba a ojo antes de que existiera este cálculo.
-export const COSTO_DE_COORDINACION_POR_CARRIL = 0.1;
+export const COSTO_DE_COORDINACION_POR_TAREA = 0.1;
 // Fecha en que arrancó el desarrollo; solo sirve para dibujar el diagrama de Gantt.
 export const INICIO_DEL_PLAN = '2026-09-15';
 export const SEMANAS_DE_ESTABILIZACION = 3;
-export const CARRILES_A_SIMULAR = [1, 2, 3];
-export const CARRILES_DE_TRABAJO = ['API', 'Base', 'Front', 'Contrato', 'Decisión'];
+export const TAREAS_A_LA_VEZ_A_SIMULAR = [1, 2, 3];
+export const DONDE_VIVE_LA_TAREA = ['API', 'Base', 'Front', 'Contrato', 'Decisión'];
+
+// Los sprints cerrados, con el número de tareas con que se cerró cada uno (ADR-068). A un sprint
+// cerrado no se le agregan tareas: lo que haga falta entra en un sprint nuevo. `verificar` compara
+// esta tabla con las del plan, así que agregar una fila a un sprint cerrado pone el PR en rojo.
+// Abrir un sprint nuevo lo autoriza quien dirige, y entonces el anterior se cierra con su cuenta.
+export const SPRINTS_CERRADOS = { 0: 19, 1: 21, 2: 22, 3: 25, 4: 11, 5: 11, 6: 11, 7: 10, 8: 19, 9: 17, 10: 8 };

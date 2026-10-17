@@ -110,5 +110,5 @@ variables hacen falta sin llevar el valor de nadie.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [09](../09-plan-de-implantacion.md "09 · Plan de implantación") · [ADR-052](ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada")
+**🔗 Referenciado desde:** [09](../09-plan-de-implantacion.md "09 · Plan de implantación") · [ADR-052](ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-067](ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive")
 <!-- /generado:referenciado-desde -->

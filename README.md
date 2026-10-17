@@ -3,7 +3,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.9.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-14 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
+| [1.10.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
 
 > **PRISMA** = **P**lataforma de **R**egistro, **I**nversión, **S**eguimiento, **M**árgenes y **A**dministración.
 > Un solo lugar para saber cuánto entra, cuánto sale, cuánto queda y cuánto se puede pagar.
@@ -51,7 +51,7 @@ PRISMA existe para responder esas tres preguntas con números, no con intuición
 | 05 | [Reglas financieras](docs/05-reglas-financieras.md) | **Las fórmulas exactas. El corazón del sistema.** |
 | 06 | [Nómina y capacidad de pago](docs/06-nomina-y-capacidad-de-pago.md) | Cuánto se puede pagar y cómo se liquida |
 | 07 | [Arquitectura](docs/07-arquitectura.md) | Hexagonal, SOLID, stack, seguridad |
-| 08 | [Plan de desarrollo](docs/08-plan-de-desarrollo.md) | 10 sprints por carriles paralelos, con su calendario calculado para 1, 2 y 3 carriles |
+| 08 | [Plan de desarrollo](docs/08-plan-de-desarrollo.md) | 10 sprints por tareas en paralelo, con su calendario calculado para 1, 2 y 3 tareas a la vez |
 | 09 | [Plan de implantación](docs/09-plan-de-implantacion.md) | Migración, capacitación, go-live, soporte |
 | 10 | [UX y mockups](docs/10-ux-y-mockups.md) | Pantallas, navegación, sistema de diseño |
 | 11 | [Riesgos y protección de datos](docs/11-riesgos-y-proteccion-de-datos.md) | Matriz de riesgos, respaldos, Ley 1581 |
@@ -64,7 +64,7 @@ PRISMA existe para responder esas tres preguntas con números, no con intuición
 | 18 | [Distribución y pipelines](docs/18-distribucion-y-pipelines.md) | Descargas web/Android/iPhone/Windows y automatización (idea) |
 | 19 | [Ambientes, versionado y entrega](docs/19-ambientes-y-entrega.md) | Los 4 ambientes, promoción de migraciones, SemVer y publicación |
 | 20 | [Contrato de API](docs/20-contrato-de-api.md) | El sobre `{status, mensaje, data}`, los códigos de 5 dígitos, la idempotencia y el canal firmado |
-| 21 | [Trabajo en paralelo](docs/21-trabajo-en-paralelo.md) | Cómo avanzan varios carriles a la vez sin bloquearse: repartos, repositorios y reglas de convivencia |
+| 21 | [Trabajo en paralelo](docs/21-trabajo-en-paralelo.md) | Cómo avanzan varias tareas a la vez sin bloquearse: repartos, repositorios y reglas de convivencia |
 | 22 | [Documentación](docs/22-documentacion.md) | Versiones, estados, fechas, etiquetas y referencias enlazadas de todos los documentos |
 | — | [ADRs](docs/adr/) | Las decisiones de arquitectura registradas, con su porqué |
 | — | [Contrato de la API](contrato/) | El `openapi.json` acordado entre front y API, con el catálogo de códigos dentro |

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-15 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [2.5.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Guía para los agentes de código que trabajan en la especificación de PRISMA. **Las reglas están en
 [`CLAUDE.md`](CLAUDE.md)**, tanto las del proceso como las de la arquitectura y las de este
@@ -95,7 +95,7 @@ Cada uno es una skill, en `.claude/skills/<nombre>/SKILL.md`:
 
 ## 5. El tablero
 
-- **Una tarea nueva se escribe en el 08**, con su carril y lo que la bloquea. Después el tablero la
+- **Una tarea nueva se escribe en el 08**, con su «Dónde» y lo que la bloquea. Después el tablero la
   lista en su sprint.
 - **Al terminar una tarea** se marca `[x]` en [`TODO.md`](TODO.md) y se corre `enlazar`, que rehace las marcas
   ⚡ y 🔒, lo que puede empezar hoy y cuánto falta. Va en el PR de la tarea.
