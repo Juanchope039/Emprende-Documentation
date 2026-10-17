@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
+| [2.4.1](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
 
 > **Construcción: en el [Sprint 8](08-plan-de-desarrollo.md#sprint-8), no después del go-live.** El [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) metió el respaldo al plan,
 > en las tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17), y retiró del 14 la deuda [D-05](14-roadmap-e-ideas.md#d-05) y la idea 01. Lo que este documento
@@ -133,13 +133,15 @@ promesa obligó a ampliar los dos `CHECK` de esa tabla; el punto 8 explica por q
 
 **Los tres bajan dentro de un ZIP**, junto al `manifiesto.json` del punto 4. El manifiesto es un
 archivo aparte, y un libro de Excel o un JSON suelto no podría llevarlo. Qué tablas entran en el
-total y en «una tabla»: las 27 del negocio, no las cinco de funcionamiento —`nonces_vistos`,
-`peticiones_idempotentes`, `sesiones`, `schema_version` y `respaldo_programacion`—.
+total y en «una tabla»: las 27 del negocio, no las seis de funcionamiento —`nonces_vistos`,
+`peticiones_idempotentes`, `sesiones`, `schema_version`, `respaldo_programacion` y
+`respaldo_pendiente`—.
 
-`respaldo_programacion` ([04 §4.14](04-modelo-de-datos.md#414-la-programación-del-respaldo)) es la quinta desde la tarea [8.14](08-plan-de-desarrollo.md#tarea-8-14), y por la misma razón que las
-otras cuatro: no es historia de nadie. Y por una propia: un respaldo que al restaurarse devolviera
-la programación vieja encendería solo un trabajo que nadie pidió. Así las que se respaldan siguen
-siendo 27.
+`respaldo_programacion` ([04 §4.14](04-modelo-de-datos.md#414-la-programación-del-respaldo)) es la quinta desde la tarea [8.14](08-plan-de-desarrollo.md#tarea-8-14), y `respaldo_pendiente`
+([04 §4.15](04-modelo-de-datos.md#415-el-mes-que-toca-respaldar)) la sexta desde la [8.16](08-plan-de-desarrollo.md#tarea-8-16), por la misma razón que las otras cuatro: no son
+historia de nadie. Y por una propia: un respaldo que al restaurarse devolviera la programación vieja
+—o un mes marcado como pendiente— encendería solo un trabajo que nadie pidió. Así las que se
+respaldan siguen siendo 27.
 
 ### 3.1 Los datos anulados también se exportan
 
