@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.3.1](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-15 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [3.4.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-17 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -43,6 +43,10 @@ Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempr
 **Y el check «El PR está en el proyecto»**, junto a la tubería en los dos conjuntos de los cuatro
 repositorios, no en el monorepo ([ADR-062](../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)). Es el trabajo de `proyecto-del-pr.yml`, el mismo en los
 cuatro, y mira que el PR esté en «Prisma project», el proyecto 4 de `Juanchope039`.
+
+**Ese trabajo avisa y no falla** ([ADR-065](../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)): cuando el PR no está en el tablero, o cuando no se
+puede saber, escribe un `::warning::` y termina en verde. Se sigue exigiendo por su nombre a
+propósito, para que el día que vuelva a bloquear la definición ya esté puesta.
 
 **Y el check «El PR tiene milestone»**, en los cinco, también en el monorepo ([ADR-063](../../docs/adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md)). Es el
 trabajo de `milestone-del-pr.yml`, que solo lee el evento del PR y no necesita ningún secreto.
