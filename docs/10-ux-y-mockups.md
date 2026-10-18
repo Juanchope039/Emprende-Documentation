@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [8.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-16 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
+| [9.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-18 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
 
 Prototipo navegable: [`../mockup/prisma-mockup.html`](../mockup/prisma-mockup.html)
 
@@ -784,8 +784,20 @@ que de verdad salió del sistema, y por eso se enseña.
 **Panel «Auditoría»** ([CU-23](02-casos-de-uso.md#cu-23), tarea [8.19](08-plan-de-desarrollo.md#tarea-8-19))
 
 La tabla de toda la auditoría, lo más reciente primero, con cuatro filtros: **fecha**, **persona**,
-**qué se tocó** y **qué pasó**. Cada fila dice quién, cuándo, desde qué dispositivo, desde qué IP y
-qué cambió, con el antes y el después; y se abre para ver el detalle completo.
+**qué se tocó** y **qué pasó**. Cada fila dice cuándo, quién, qué pasó, **sobre qué**, desde qué
+dispositivo, desde qué IP y el **detalle** de lo que cambió.
+
+**«Qué pasó» son tres clases, no diecinueve acciones**: accesos, cambios sobre usuarios y cargos, y
+cambios sobre el resto del libro. A cuál pertenece una entrada lo decide la API por su acción y su
+tabla, y no es una columna que alguien escriba. «Qué se tocó» son las tablas que llevan trigger de
+auditoría. Las dos listas, con las etiquetas de cada opción, las dicta el formulario
+`filtro-de-auditoria`, así que la pantalla no escribe ninguna.
+
+**«Sobre qué» y «Detalle» llegan redactados del servidor**, decidido el 2026-10-18. No se lee un
+JSON de antes y después, sino «Nombre completo: Marcela Rivera → Marcela Rivera Ospina», con el
+nombre de la tabla y el de la columna en palabras. Los dos mapas siguen viajando en la respuesta
+para quien revise a fondo, pero la pantalla no los interpreta: redactar es una decisión, y las
+decisiones son de la API ([ADR-018](adr/ADR-018-front-sin-decisiones.md)).
 
 Trae lo que la «Bitácora de cambios» del [§5.5](#55-bitácora-de-cambios) no trae: **los inicios de sesión, los cierres y los
 intentos fallidos**, y los cambios sobre el resto de las tablas. De un intento fallido se ve el
@@ -1078,7 +1090,7 @@ El checklist de aprobación pantalla por pantalla está en
 [`09-plan-de-implantacion.md`](09-plan-de-implantacion.md) [§1](09-plan-de-implantacion.md#1-checklist-de-aprobación-del-mockup).
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
 
 ---

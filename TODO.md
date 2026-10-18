@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.76.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-18 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.77.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-18 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -5215,11 +5215,11 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       [13 §1.1](docs/13-respaldo-y-exportacion.md#11-el-respaldo-es-por-ambiente-y-solo-uno-importa) dice que solo opera en prod y que en los demás ambientes «no se programa». No dice si
       la pantalla de un ambiente de pruebas debe ofrecerla: el contrato `0.32.0` trae `opera` y la
       pantalla no pinta el bloque con `false`, para no decidir el ambiente en el front
-- [ ] **La auditoría devuelve el antes y el después tal como la base los guarda.** Los nombres de
-      columna salen sin traducir, porque traducir las 19 tablas es un catálogo que nadie pidió. La
-      [8.19](docs/08-plan-de-desarrollo.md#tarea-8-19) los va a mostrar así. La [8.18](docs/08-plan-de-desarrollo.md#tarea-8-18) los dejó sin traducir, así que
-      **si Gerencia debe leer «Cargo: Domiciliaria → Asistente» y no un JSON, hay que decidirlo
-      antes de la 8.19**
+- [x] **La auditoría la redacta la API, no la pantalla: decidido el 2026-10-18.** La [8.18](docs/08-plan-de-desarrollo.md#tarea-8-18) devolvía
+      el antes y el después con los nombres de columna de la base, y quedaba por decidir si Gerencia
+      debía leer «Cargo: Domiciliaria → Asistente» y no un JSON. Quien dirige decidió que sí, así que
+      la [8.19](docs/08-plan-de-desarrollo.md#tarea-8-19) cambió el contrato: cada entrada trae «sobre qué» y «qué cambió» ya
+      redactados, y los dos mapas siguen viajando para quien revise a fondo
 - [ ] **El filtro por persona de la auditoría trae también los intentos fallidos que tecleó su
       usuario.** Un intento fallido no tiene persona, porque nadie entró; el [BDD-23-2](docs/03-requisitos-y-bdd.md#bdd-23-2) los espera
       al filtrar por persona, así que la API los cruza con el usuario tecleado. Lo escribió la

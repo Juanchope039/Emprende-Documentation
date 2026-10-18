@@ -607,6 +607,11 @@
             "enum" : [ "INSERT", "UPDATE", "ANULAR", "inicio_sesion", "cierre_sesion", "inicio_sesion_fallido", "usuario_creado", "usuario_desactivado", "clave_restablecida", "clave_cambiada", "cargo_creado", "cargo_desactivado", "usuario_reactivado", "cambio_revertido", "nombre_cambiado", "cargo_cambiado", "tipo_cambiado", "cargo_renombrado", "cargo_reactivado" ],
             "type" : "string"
           },
+          "clase" : {
+            "description" : "Solo esa clase de entradas, que es como el panel pregunta «qué pasó»: accesos, cambios sobre usuarios y cargos, o cambios sobre el resto del libro. Sin ella, todo. Puesta junto a accion, lo que se pide es la intersección",
+            "enum" : [ "acceso", "usuarios", "negocio" ],
+            "type" : "string"
+          },
           "desde" : {
             "description" : "Por la fecha de la entrada, en hora de Bogotá (RNF-08), incluida. Va con hasta o no va: una sin la otra, o desde después de hasta, responde 42215",
             "format" : "date",
@@ -1563,6 +1568,10 @@
             "description" : "La fila como quedó, con los nombres de columna de la base. En un intento fallido trae solo el usuario que se tecleó, y nunca la contraseña, ni completa ni parcial (RNF-18)",
             "type" : "object"
           },
+          "detalle" : {
+            "description" : "Qué cambió, ya redactado, con los nombres de columna en español: «Motivo: se registró dos veces · Cargo: Domiciliaria → Asistente». Ausente cuando la etiqueta y el sobre qué ya lo cuentan todo, como en una creación",
+            "type" : "string"
+          },
           "dispositivo" : {
             "description" : "El navegador y el sistema desde donde llegó la petición, tal como los dijo la cabecera. Ausente si no se pudo leer",
             "type" : "string"
@@ -1602,6 +1611,10 @@
             "format" : "int64",
             "type" : "integer"
           },
+          "sobre" : {
+            "description" : "Sobre qué fue, ya redactado: el nombre de la persona en un acceso o en un cambio de su ficha, «usuario tecleado: marcela» en un intento fallido, y qué fila era en lo demás",
+            "type" : "string"
+          },
           "tabla" : {
             "description" : "Qué se tocó, con el nombre que le da la base",
             "type" : "string"
@@ -1612,7 +1625,7 @@
             "type" : "string"
           }
         },
-        "required" : [ "accion", "en", "etiqueta", "id", "tabla" ],
+        "required" : [ "accion", "en", "etiqueta", "id", "sobre", "tabla" ],
         "type" : "object"
       },
       "EntradaDeBitacora" : {
@@ -5399,7 +5412,7 @@
   "info" : {
     "description" : "Toda respuesta llega con el sobre {status, mensaje, data}. El status es de cinco dígitos, HTTP(3) + caso(2), y su catálogo completo está en x-prisma-codigos. Con sesión, cada petición lleva Authorization: Bearer con el token y va firmada con X-Prisma-Nonce, X-Prisma-Timestamp y X-Prisma-Firma (ADR-021, 20 §6). Sin sesión solo responden POST /api/v0/consultas/version, POST /api/v0/sesiones, POST /api/v0/sesiones/renovacion, POST /api/v0/sesiones/administrador y los formularios «acceso» y «primer-administrador». Ninguna operación usa GET: toda lectura viaja por POST bajo /api/v0/consultas y lleva Idempotency-Key como cualquier otra petición (ADR-030).",
     "title" : "PRISMA · prisma_api",
-    "version" : "0.35.0"
+    "version" : "0.36.0"
   },
   "openapi" : "3.1.0",
   "paths" : {
