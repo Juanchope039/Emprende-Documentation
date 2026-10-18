@@ -2533,6 +2533,15 @@ tbody tr.fila-detalle:hover{background:none}
               <input type="date" id="au-hasta" value="2026-09-30"></div>
             <div class="campo"><label for="au-quien">Persona</label>
               <select id="au-quien"><option value="">Cualquiera</option></select></div>
+            <div class="campo"><label for="au-tabla">Qué se tocó</label>
+              <select id="au-tabla">
+                <option value="">Cualquier tabla</option>
+                <option value="movimientos">Movimientos</option>
+                <option value="pedidos">Pedidos</option>
+                <option value="usuarios">Usuarios</option>
+                <option value="cargos">Cargos</option>
+                <option value="exportaciones">Exportaciones</option>
+              </select></div>
             <div class="campo"><label for="au-que">Qué pasó</label>
               <select id="au-que">
                 <option value="">Todo</option>
@@ -2551,6 +2560,20 @@ tbody tr.fila-detalle:hover{background:none}
           </table></div>
 
           <div class="bit-pie"><button class="ghost" type="button" id="au-mas" hidden></button></div>
+
+          <p class="nota-mock">
+            Las dos listas —«Qué se tocó» y «Qué pasó»— y las etiquetas de sus opciones las dicta
+            la API en el formulario «filtro-de-auditoria»: la pantalla no escribe ni una. Las de
+            aquí son una muestra; las de verdad son las tablas auditadas y las tres clases.
+          </p>
+
+          <p class="nota-mock">
+            «Sobre qué» y «Detalle» llegan ya redactados del servidor: no son el JSON de antes y
+            después, sino «Nombre completo: Marcela Rivera → Marcela Rivera Ospina». Los dos mapas
+            siguen viajando en la respuesta para quien revise a fondo, pero la pantalla no los
+            interpreta: pintar en palabras lo que guardó un trigger es una decisión, y las
+            decisiones son de la API (ADR-018).
+          </p>
 
           <p class="nota-mock">
             Aquí no hay un solo botón que cambie nada, y es a propósito: la auditoría la escriben
@@ -7911,28 +7934,28 @@ var RESPALDOS = [
    todas las tablas. Estas filas son una muestra de las tres clases que la pantalla distingue. */
 var AUDITORIA = [
   {cuando:new Date(2026, 8, 30, 18, 42), quien:'yuliana', clase:'negocio',
-   que:'Respaldo generado', sobre:'Septiembre 2026, ZIP con CSV',
+   que:'Respaldo generado', sobre:'Septiembre 2026, ZIP con CSV', tabla:'exportaciones',
    disp:'Chrome · Windows', ip:'186.154.22.8', detalle:'18.420 registros · sha256 verificado'},
   {cuando:new Date(2026, 8, 30,  8,  2), quien:'marcela', clase:'acceso',
-   que:'Inicio de sesión', sobre:'Marcela Ospina Vélez',
+   que:'Inicio de sesión', sobre:'Marcela Ospina Vélez', tabla:'',
    disp:'Chrome · Android', ip:'190.85.14.212', detalle:'—'},
   {cuando:new Date(2026, 8, 30,  7, 58), quien:'marcela', clase:'acceso',
-   que:'Intento fallido', sobre:'usuario tecleado: marcela',
+   que:'Intento fallido', sobre:'usuario tecleado: marcela', tabla:'',
    disp:'Chrome · Android', ip:'190.85.14.212', detalle:'Contraseña incorrecta'},
   {cuando:new Date(2026, 8, 29, 17, 20), quien:'yuliana', clase:'usuarios',
-   que:'Cargo cambiado', sobre:'Daniela Cortés Ramírez',
+   que:'Cargo cambiado', sobre:'Daniela Cortés Ramírez', tabla:'usuarios',
    disp:'Chrome · Windows', ip:'186.154.22.8', detalle:'Domiciliaria → Empleada de producción'},
   {cuando:new Date(2026, 8, 29, 12,  6), quien:'daniela', clase:'negocio',
-   que:'Movimiento anulado', sobre:'Gasto de $184.000 del 27 sep',
+   que:'Movimiento anulado', sobre:'Gasto de $184.000 del 27 sep', tabla:'movimientos',
    disp:'Safari · iPhone', ip:'191.102.8.44', detalle:'Motivo: se registró dos veces'},
   {cuando:new Date(2026, 8, 29,  9, 41), quien:'daniela', clase:'acceso',
-   que:'Cierre de sesión', sobre:'Daniela Cortés Ramírez',
+   que:'Cierre de sesión', sobre:'Daniela Cortés Ramírez', tabla:'',
    disp:'Safari · iPhone', ip:'191.102.8.44', detalle:'—'},
   {cuando:new Date(2026, 8, 28, 15, 12), quien:'', clase:'acceso',
-   que:'Intento fallido', sobre:'usuario tecleado: admin',
+   que:'Intento fallido', sobre:'usuario tecleado: admin', tabla:'',
    disp:'Firefox · Linux', ip:'45.231.90.7', detalle:'El usuario no existe'},
   {cuando:new Date(2026, 8, 28, 10, 33), quien:'yuliana', clase:'usuarios',
-   que:'Clave restablecida', sobre:'Marcela Ospina Vélez',
+   que:'Clave restablecida', sobre:'Marcela Ospina Vélez', tabla:'usuarios',
    disp:'Chrome · Windows', ip:'186.154.22.8', detalle:'Clave temporal entregada en persona'}
 ];
 
@@ -8019,11 +8042,13 @@ function opcionesPersona(){
 function auditoriaFiltrada(){
   var quien = (document.getElementById('au-quien')  || {}).value || '';
   var clase = (document.getElementById('au-que')    || {}).value || '';
+  var tabla = (document.getElementById('au-tabla')  || {}).value || '';
   var desde = (document.getElementById('au-desde')  || {}).value || '';
   var hasta = (document.getElementById('au-hasta')  || {}).value || '';
   return AUDITORIA.filter(function(e){
     if (quien && e.quien !== quien) return false;
     if (clase && e.clase !== clase) return false;
+    if (tabla && e.tabla !== tabla) return false;
     /* La comparación va por el día, que es como se piden las dos fechas del filtro. */
     var dia = e.cuando.getFullYear() + '-' +
       String(e.cuando.getMonth() + 1).padStart(2, '0') + '-' +
@@ -8092,7 +8117,7 @@ if (gen) gen.addEventListener('click', function(){
   tablaRespaldos();
   /* Generar un respaldo también se audita: sacar información del sistema siempre deja rastro. */
   AUDITORIA.unshift({
-    cuando: r.cuando, quien: 'yuliana', clase: 'negocio',
+    cuando: r.cuando, quien: 'yuliana', clase: 'negocio', tabla: 'exportaciones',
     que: 'Respaldo generado', sobre: alcanceTexto(r) + ', ' + FORMATOS[r.formato],
     disp: 'Chrome · Windows', ip: '186.154.22.8',
     detalle: r.registros.toLocaleString('es-CO') + ' registros · con manifiesto'
@@ -8100,7 +8125,7 @@ if (gen) gen.addEventListener('click', function(){
   tablaAuditoria();
 });
 
-['au-quien', 'au-que', 'au-desde', 'au-hasta'].forEach(function(id){
+['au-quien', 'au-tabla', 'au-que', 'au-desde', 'au-hasta'].forEach(function(id){
   var el = document.getElementById(id);
   if (el) el.addEventListener('change', function(){ auditoriaTodas = false; tablaAuditoria(); });
 });
