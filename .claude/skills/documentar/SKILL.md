@@ -26,7 +26,7 @@ especificación. Se corre desde cualquier carpeta y revisa también los `.md` de
 - **Un `§N` suelto, después de un punto, se toma como sección del propio archivo.** Pon el documento
   justo antes: «22 §3» o «`TODO.md` §10».
 - **Desde un repositorio de código, la especificación se enlaza en absoluto**
-  (`https://github.com/Juanchope039/Finanzas-PRISMA/blob/main/…`). Un `../documentation/…` también
+  (`https://github.com/Juanchope039/Emprende-Documentation/blob/main/…`). Un `../documentation/…` también
   sirve: la herramienta lo reescribe.
 - **Las anclas `<a id="…">` las pone la herramienta**: no se escriben a mano.
 - **La nota de un ADR aceptado va debajo del encabezado**, con la forma `> **…**`.

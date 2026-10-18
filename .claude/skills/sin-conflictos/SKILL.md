@@ -58,7 +58,7 @@ quería. Si de verdad una sobra, se dice por qué en el commit de fusión.
 | **Un bloque `<!-- generado:… -->`** | Se toma cualquiera de los dos lados, se resuelve el archivo y se corre `node scripts/docs/documentar.mjs enlazar`, que lo reescribe con los números buenos |
 | **La versión del proyecto** (`build.gradle.kts`, `pubspec.yaml`, `schema_version`) | **Nunca se queda la de la rama.** Se lee la de la base ya fusionada y se sube **un paso desde ahí**. Si la otra rama se llevó el número que tenías, el tuyo es el siguiente. En `prisma_db`, la migración que publica la versión todavía no salió: se renombra, o se escribe otra |
 | **La versión de un `.md`** | Igual: la de la base más un paso, y la fecha de hoy |
-| **`contrato/openapi.json`** (la copia fijada) | Se resuelve el resto, se corre `./gradlew build` y se copia `build/contrato/openapi.json` encima. [C-04](https://github.com/Juanchope039/Finanzas-PRISMA/blob/main/docs/12-pruebas-y-calidad.md#c-04) es quien dice si quedó bien |
+| **`contrato/openapi.json`** (la copia fijada) | Se resuelve el resto, se corre `./gradlew build` y se copia `build/contrato/openapi.json` encima. [C-04](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/12-pruebas-y-calidad.md#c-04) es quien dice si quedó bien |
 | **Un contador de pruebas o de rutas** en un README | Se vuelve a contar con la base adentro. Un número heredado de antes de la fusión es falso |
 | **Un modelo compartido** que las dos ramas ampliaron | Se queda con **los campos de las dos**, y el javadoc de las dos. Es el caso más común y el que más fácil se resuelve mal |
 | **Una firma de constructor o de puerto** | Se juntan los dos cambios y se compila. Que compile no alcanza: mira si el método nuevo de la otra rama tiene que usarse también en tu camino |
@@ -80,7 +80,7 @@ git -C repositories/<repo> status --short | grep -E '^(UU|AA|DD|AU|UA|DU|UD)' ||
 
 **Y después las puertas de cada repositorio, ya con la base adentro**, que es lo que de verdad se
 está comprobando: están en su `AGENTS.md`, en la sección «Las puertas del PR». Hay conflictos que
-git no ve: dos versiones al mismo número fusionan limpio y dejan [C-05](https://github.com/Juanchope039/Finanzas-PRISMA/blob/main/docs/12-pruebas-y-calidad.md#c-05) en rojo.
+git no ve: dos versiones al mismo número fusionan limpio y dejan [C-05](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/12-pruebas-y-calidad.md#c-05) en rojo.
 
 Si algo no se puede correr en esta máquina —sin Docker no hay `integracion` ni base local—, **se dice
 cuál y por qué**, y no se da por pasado.
