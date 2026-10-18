@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) |
+| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) |
 
 > **Lo modifica [ADR-050](ADR-050-main-vuelve-a-ser-la-ultima-etapa.md):** `main` vuelve a ser la última etapa. La cadena es develop → qa → uat →
 > pre-prod → main, y en `main` la CI comprueba el árbol igual que en `pre-prod`. Lo demás sigue en

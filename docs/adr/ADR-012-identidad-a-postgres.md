@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-012-identidad-a-postgres.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-18 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
+| [2.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-012-identidad-a-postgres.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-18 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
 
 > **La decisión sigue vigente; cambió cómo se piden esas rutas.** La prueba de RLS que el cuerpo
 > describe con `GET /nomina`, `GET /usuarios` y `GET /patrimonio` se pide hoy por `POST` bajo

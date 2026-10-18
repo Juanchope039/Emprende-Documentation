@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-014-semver.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-01 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-014-semver.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-01 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **La decisión sigue vigente; un dato del cuerpo dejó de serlo.** Cuando se escribió, la API
 > estaba en Dart y su versión vivía en un `pubspec.yaml`. [ADR-017](ADR-017-api-en-java.md) la

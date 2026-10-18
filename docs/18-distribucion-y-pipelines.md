@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [0.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/18-distribucion-y-pipelines.md "Historial de cambios") | [💡 Propuesta](22-documentacion.md#estados) | 2026-09-15 | 2026-09-16 | [Entrega](INDICE.md#etiqueta-entrega) · [Front](INDICE.md#etiqueta-front) |
+| [0.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/18-distribucion-y-pipelines.md "Historial de cambios") | [💡 Propuesta](22-documentacion.md#estados) | 2026-09-15 | 2026-09-16 | [Entrega](INDICE.md#etiqueta-entrega) · [Front](INDICE.md#etiqueta-front) |
 
 > **Todavía es una idea, no una decisión.** Este documento recoge la intención de distribuir la aplicación
 > en **web, Android, iPhone y escritorio Windows**, y de automatizar pruebas y publicación.

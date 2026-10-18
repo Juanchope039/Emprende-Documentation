@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | 2026-10-14 | 2026-10-16 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | 2026-10-14 | 2026-10-16 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Reemplazado por [ADR-064](ADR-064-la-atribucion-la-pone-la-plataforma.md).** Lo que este ADR daba por impuesto estaba al revés: el
 > bloque de dos líneas del cuerpo no lo impone nadie, y el pie sí, en cada escritura y con el id de

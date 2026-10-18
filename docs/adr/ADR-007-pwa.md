@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-007-pwa.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-016](ADR-016-flutter-web-pwa.md) | 2026-09-13 | 2026-09-16 | [Front](../INDICE.md#etiqueta-front) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-007-pwa.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-016](ADR-016-flutter-web-pwa.md) | 2026-09-13 | 2026-09-16 | [Front](../INDICE.md#etiqueta-front) |
 
 > **Lo reemplaza [ADR-016](ADR-016-flutter-web-pwa.md):** sigue siendo una PWA, pero construida
 > con Flutter Web y no con `vite-plugin-pwa`, que ya no aplica sin Vite. El cuerpo de abajo

@@ -1,4 +1,4 @@
-// Configuración de la documentación de PRISMA.
+// Configuración de la documentación de Emprende.
 //
 // Qué documentos se cubren, qué estados y etiquetas existen y dónde se define cada familia de
 // identificadores. Las reglas que esto sostiene están escritas en docs/22-documentacion.md: si
@@ -7,8 +7,8 @@
 export const GITHUB = 'https://github.com/Juanchope039';
 
 export const ESPECIFICACION = {
-  nombre: 'Finanzas-PRISMA',
-  github: `${GITHUB}/Finanzas-PRISMA`,
+  nombre: 'Emprende-Documentation',
+  github: `${GITHUB}/Emprende-Documentation`,
   rama: 'main',
 };
 
@@ -19,19 +19,19 @@ export const REPOS_DE_CODIGO = [
   {
     carpeta: '../backend-api',
     nombre: 'prisma_api',
-    github: `${GITHUB}/Finanzas-PRISMA-API`,
+    github: `${GITHUB}/Emprende-API`,
     version: { archivo: 'build.gradle.kts', patron: /^version = "([^"]+)"/m },
   },
   {
     carpeta: '../backend-db',
     nombre: 'prisma_db',
-    github: `${GITHUB}/Finanzas-PRISMA-DB`,
+    github: `${GITHUB}/Emprende-DataBase`,
     version: null,
   },
   {
     carpeta: '../frontend-flutter',
     nombre: 'prisma_front',
-    github: `${GITHUB}/Finanzas-PRISMA-Front`,
+    github: `${GITHUB}/Emprende-Front`,
     version: { archivo: 'pubspec.yaml', patron: /^version: ([0-9][^+\s]*)/m },
   },
 ];

@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
-Las reglas de PRISMA, para cualquier sesión en cualquiera de los cuatro repositorios.
+Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
 **Este archivo no se toca al cerrar una tarea, un commit o un plan.** Cambia solo cuando cambia una
 regla, y entonces con su ADR. El estado del proyecto vive en [`TODO.md`](TODO.md) [§1](TODO.md#1-hecho-en-progreso-y-pendiente). La guía de este
@@ -18,14 +18,15 @@ mensajes de commit y las pruebas. `Movimiento`, `aporteAUtilidad`, `esRegistroTa
 ## 1. Los cuatro repositorios
 
 Son hermanos dentro de una carpeta de trabajo que no es un repositorio ([ADR-035](docs/adr/ADR-035-repositorios-hermanos.md)). Cada uno tiene su
-propia historia, sus reglas en su `CLAUDE.md` y su guía en su `AGENTS.md`.
+propia historia, sus reglas en su `CLAUDE.md` y su guía en su `AGENTS.md`. **El proyecto se llama
+Emprende** ([ADR-069](docs/adr/ADR-069-el-proyecto-se-llama-emprende.md)), y así se llaman los cinco repositorios en GitHub.
 
 | Carpeta | Proyecto | En GitHub | Rama base | Qué es |
 |---|---|---|---|---|
-| `documentation` | La especificación | `Finanzas-PRISMA`, **público** | `main` | Documentación, ADR, mockup, contrato y la herramienta que los verifica |
-| `backend-api` | `prisma_api` | `Finanzas-PRISMA-API` | `develop` | Java y Spring Boot. Es lo único que habla con la base |
-| `backend-db` | `prisma_db` | `Finanzas-PRISMA-DB` | `develop` | Migraciones de PostgreSQL, semilla y scripts. No es un servicio |
-| `frontend-flutter` | `prisma_front` | `Finanzas-PRISMA-Front` | `develop` | Flutter, web por defecto. No decide nada |
+| `documentation` | La especificación | `Emprende-Documentation`, **público** | `main` | Documentación, ADR, mockup, contrato y la herramienta que los verifica |
+| `backend-api` | `prisma_api` | `Emprende-API` | `develop` | Java y Spring Boot. Es lo único que habla con la base |
+| `backend-db` | `prisma_db` | `Emprende-DataBase` | `develop` | Migraciones de PostgreSQL, semilla y scripts. No es un servicio |
+| `frontend-flutter` | `prisma_front` | `Emprende-Front` | `develop` | Flutter, web por defecto. No decide nada |
 
 **La especificación es pública.** No lleva datos internos: ni cuentas, ni claves, ni URL privadas,
 ni referencias de proyectos, ni nombres de clientes.
@@ -91,9 +92,9 @@ ni referencias de proyectos, ni nombres de clientes.
 - Si algún día hiciera falta, lo decide quien dirige y se escribe el ADR que reemplace al [ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md).
 
 **El monorepo de producto nunca va adelante de desarrollo** ([ADR-058](docs/adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md)).
-- Cada subárbol de `main` en `Juanchope039/PRISMA` es el árbol de algún commit de la base de su
-  repositorio: `develop` en los de código y `main` en la especificación. La base sí puede ir
-  adelante.
+- Cada subárbol de `main` en el monorepo de producto, `Juanchope039/Emprende-MiniApp-MonoRepo`, es
+  el árbol de algún commit de la base de su repositorio: `develop` en los de código y `main` en la
+  especificación. La base sí puede ir adelante.
 - **Un subárbol no se edita en el monorepo**: el cambio entra por PR a su base y llega con el
   siguiente subárbol que se traiga. Lo de fuera de las cuatro carpetas es del producto.
 - Lo exige el flujo «Sincronia» del monorepo, en cada PR y cada empuje a `main`.
@@ -111,8 +112,9 @@ ni referencias de proyectos, ni nombres de clientes.
   se abre el PR contra esa base. Antes, la base no se fusiona en la rama.
 - **No basta con que no queden marcas `<<<<<<<`.** Dos ramas que suben la versión al mismo número, o
   que agregan una ruta a la copia fijada del contrato, fusionan limpio y dejan [C-04](docs/12-pruebas-y-calidad.md#c-04) y [C-05](docs/12-pruebas-y-calidad.md#c-05) en rojo.
-- **Todo PR nombra su issue de `Juanchope039/PRISMA`** ([ADR-060](docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md)): `Closes #n` en el monorepo y
-  `Refs Juanchope039/PRISMA#n` en los otros cuatro. Sin issue no se abre el PR.
+- **Todo PR nombra su issue del monorepo de producto** ([ADR-060](docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md)): `Closes #n` en el monorepo y
+  `Refs Juanchope039/Emprende-MiniApp-MonoRepo#n` en los otros cuatro. Sin issue no se abre el
+  PR.
 - **Todo issue y todo PR lleva milestone** ([ADR-063](docs/adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md)): el PR, el de su issue. Los cinco repositorios
   tienen los mismos milestones, y el check «El PR tiene milestone» lo exige.
 - El paso a paso es la skill `pr`. Quien dirige la invoca con `/pr`; si lo pide en palabras, se

@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.5.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [2.6.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
-Guía para los agentes de código que trabajan en la especificación de PRISMA. **Las reglas están en
+Guía para los agentes de código que trabajan en la especificación de Emprende. **Las reglas están en
 [`CLAUDE.md`](CLAUDE.md)**, tanto las del proceso como las de la arquitectura y las de este
 repositorio: léelas antes de tocar nada. Aquí se explica cómo se hace cada cosa, y el paso a paso de
 lo que se repite está en las skills del [§3](#3-los-procedimientos).
@@ -68,7 +68,7 @@ Cada uno es una skill, en `.claude/skills/<nombre>/SKILL.md`:
 | `contrato` | Cambiar `contrato/openapi.json` byte a byte, y lo que sigue en la API |
 | `commit` | Hacer el commit con el formato del proyecto, y empujar |
 | `sin-conflictos` | Traer la base a la rama y resolver cada clase de choque, dentro del PR |
-| `pr` | Abrir el PR, cuando quien dirige lo autoriza, asociado a su issue de PRISMA y a su milestone |
+| `pr` | Abrir el PR, cuando quien dirige lo autoriza, asociado a su issue del monorepo y a su milestone |
 | `limpiar` | Dejar las cuatro copias en su base, al día y con el árbol limpio, sin perder nada |
 | `etiqueta` | Revisar las etiquetas de git contra su esquema y contar qué entró entre dos |
 | `release` | Preparar el release de lo que llega a `main` o de una entrega, y revisar lo que salió |

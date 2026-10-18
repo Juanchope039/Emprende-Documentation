@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-043-dependencias-solo-hacia-atras.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-27 | 2026-09-27 | [Plan](../INDICE.md#etiqueta-plan) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-043-dependencias-solo-hacia-atras.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-27 | 2026-09-27 | [Plan](../INDICE.md#etiqueta-plan) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 

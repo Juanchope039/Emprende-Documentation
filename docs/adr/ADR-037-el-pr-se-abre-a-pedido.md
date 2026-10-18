@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-037-el-pr-se-abre-a-pedido.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-040](ADR-040-rama-feature-y-pr-autorizado.md) | 2026-09-22 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-037-el-pr-se-abre-a-pedido.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-040](ADR-040-rama-feature-y-pr-autorizado.md) | 2026-09-22 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
 
 > **Lo reemplaza [ADR-040](ADR-040-rama-feature-y-pr-autorizado.md):** la rama sigue saliendo de la base al día y de una copia
 > limpia, y el PR sigue sin abrirse por cuenta propia, tal como se argumenta abajo. Cambia la

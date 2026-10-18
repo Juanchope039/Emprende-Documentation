@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-031-commit-de-256-caracteres.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-036](ADR-036-sin-limite-en-el-commit.md) | 2026-09-17 | 2026-09-21 | — |
+| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-031-commit-de-256-caracteres.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-036](ADR-036-sin-limite-en-el-commit.md) | 2026-09-17 | 2026-09-21 | — |
 
 > **Reemplazado por [ADR-036](ADR-036-sin-limite-en-el-commit.md).** El proyecto ya no usa trailers, lo que
 > elimina la justificacion numerica del tope. [ADR-036](ADR-036-sin-limite-en-el-commit.md) retira la regla y la verificacion del CI.
