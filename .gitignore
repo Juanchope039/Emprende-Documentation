@@ -1,5 +1,8 @@
-# La configuración local de los agentes no se versiona; las skills del proyecto, sí (ADR-035).
+# De `.claude` se versiona la configuración del proyecto —agentes, skills y reglas— y nada más
+# (ADR-070). Lo local de cada máquina, como `settings.local.json`, no se sube (ADR-035).
 .claude/*
+!.claude/agents/
+!.claude/rules/
 !.claude/skills/
 
 # Los planes de trabajo viven fuera de los repositorios (ADR-035): si alguien crea uno aquí por

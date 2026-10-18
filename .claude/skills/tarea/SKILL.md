@@ -7,6 +7,9 @@ model: opus
 
 # Empezar la tarea $ARGUMENTS
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 Las rutas son relativas a la carpeta de trabajo, la que contiene `repositories/`. Las reglas que
 aplica están en el `CLAUDE.md` de la especificación (§2).
 
