@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.34.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-17 | — |
+| [1.35.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-18 | — |
 
 > Guía para moverte por toda la documentación de PRISMA **sin perderte y sin saber de programación**.
 > Cada documento dice para qué sirve, en lenguaje sencillo, y está marcado si es técnico.
@@ -182,8 +182,8 @@ Qué significa cada estado y cuándo sube una versión está en
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.10.0 | ✅ Vigente | 2026-10-17 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
-| [Tareas de PRISMA](../TODO.md) | 9.75.0 | 🔄 Vivo | 2026-10-17 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
-| [Índice navegable de la documentación](INDICE.md) | 1.34.0 | 🔄 Vivo | 2026-10-17 | — |
+| [Tareas de PRISMA](../TODO.md) | 9.76.0 | 🔄 Vivo | 2026-10-18 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [Índice navegable de la documentación](INDICE.md) | 1.35.0 | 🔄 Vivo | 2026-10-18 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.1.0 | ✅ Vigente | 2026-10-17 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
 | [02 · Casos de uso](02-casos-de-uso.md) | 3.1.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
@@ -197,7 +197,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [10 · Diseño de experiencia y mockups](10-ux-y-mockups.md) | 8.0.0 | ✅ Vigente | 2026-10-16 | [UX](#etiqueta-ux) · [Front](#etiqueta-front) |
 | [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Seguridad](#etiqueta-seguridad) · [Datos personales](#etiqueta-datos-personales) · [Negocio](#etiqueta-negocio) |
 | [12 · Pruebas y calidad](12-pruebas-y-calidad.md) | 4.2.1 | ✅ Vigente | 2026-10-04 | [Calidad](#etiqueta-calidad) |
-| [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.4.0 | ✅ Vigente | 2026-10-17 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
+| [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.4.1 | ✅ Vigente | 2026-10-17 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
 | [14 · Roadmap e ideas de valor](14-roadmap-e-ideas.md) | 2.1.0 | 🔄 Vivo | 2026-10-13 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [15 · Glosario](15-glosario.md) | 2.0.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) |
 | [16 · Base de datos: snapshots y datos de prueba](16-base-de-datos-y-snapshots.md) | 3.4.0 | ✅ Vigente | 2026-09-23 | [Base de datos](#etiqueta-base-de-datos) · [Calidad](#etiqueta-calidad) |
