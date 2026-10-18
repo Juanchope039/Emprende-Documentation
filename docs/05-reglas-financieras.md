@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/05-reglas-financieras.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Finanzas](INDICE.md#etiqueta-finanzas) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [3.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/05-reglas-financieras.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Finanzas](INDICE.md#etiqueta-finanzas) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 > **El documento más importante del proyecto.** Aquí viven las fórmulas exactas que el sistema
 > debe implementar. Si algo en el código contradice este documento, el código está mal.

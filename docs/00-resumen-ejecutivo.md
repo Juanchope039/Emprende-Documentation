@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
 
 > Documento de 5 minutos. Si solo vas a leer uno, que sea este.
 

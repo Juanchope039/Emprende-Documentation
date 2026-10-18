@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-022-openapi-generado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-16 | [Contrato](../INDICE.md#etiqueta-contrato) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-022-openapi-generado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-16 | [Contrato](../INDICE.md#etiqueta-contrato) · [Calidad](../INDICE.md#etiqueta-calidad) |
 
 ## Contexto
 

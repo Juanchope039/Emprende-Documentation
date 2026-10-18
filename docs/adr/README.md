@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.36.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.37.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -77,8 +77,9 @@ consideraron y qué consecuencias tiene.
 | [066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | La clave de servicio también sube el respaldo que nadie pidió | Aceptado |
 | [067](ADR-067-el-plan-no-tiene-carriles.md) | El plan no tiene carriles: cada tarea dice dónde vive | Aceptado |
 | [068](ADR-068-los-sprints-cerrados-no-reciben-tareas.md) | Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo | Aceptado |
+| [069](ADR-069-el-proyecto-se-llama-emprende.md) | El proyecto se llama Emprende, y el nombre viejo se va por donde se toca | Aceptado |
 
-Son **61 decisiones** registradas: 51 aceptadas y 10 reemplazadas.
+Son **69 decisiones** registradas: 56 aceptadas y 13 reemplazadas.
 
 > **Sobre la numeración.** El cambio de stack se planeó como [ADR-010](ADR-010-almacenamiento-contrasenas.md) y [ADR-011](ADR-011-stack-flutter-dart.md), pero el 010 ya
 > estaba ocupado por la decisión de contraseñas. Un número asignado no se reutiliza, así que el

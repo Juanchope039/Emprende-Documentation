@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.3.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/22-documentacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](INDICE.md#etiqueta-proceso) |
+| [2.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/22-documentacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se escribe, se versiona y se enlaza la documentación de PRISMA: la de este repositorio y los
 README, `CLAUDE.md` y `AGENTS.md` de los tres repositorios de código. La decisión y su porqué están en [ADR-027](adr/ADR-027-documentacion-versionada.md); aquí están las

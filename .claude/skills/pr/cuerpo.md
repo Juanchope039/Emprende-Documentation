@@ -1,5 +1,5 @@
 <!--
-La plantilla del cuerpo de un PR de PRISMA (ADR-064). Se copia, se llena y se envía con
+La plantilla del cuerpo de un PR de Emprende (ADR-064). Se copia, se llena y se envía con
 `--body-file`. **No lleva firma y no se le agrega ninguna**: la pone la plataforma al publicar, y
 es la única que va.
 
@@ -26,4 +26,4 @@ fallar. Si una no pasó, no se abre el PR.
 
 <!-- Los PR de la misma rama en los otros repositorios, uno por renglón. Sin hermanos, se borra. -->
 
-Refs Juanchope039/PRISMA#<n>
+Refs Juanchope039/Emprende-MiniApp-MonoRepo#<n>

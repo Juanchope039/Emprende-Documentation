@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md) | 2026-10-15 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md) | 2026-10-15 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Reemplazado por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md).** La regla sigue en pie —todo PR a una rama
 > principal va en «Prisma project»—, pero el check ya no la bloquea: avisa. Lo que este ADR daba por

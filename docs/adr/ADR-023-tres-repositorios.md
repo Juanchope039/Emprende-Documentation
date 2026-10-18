@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-023-tres-repositorios.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-025](ADR-025-cuatro-repositorios.md) | 2026-09-16 | 2026-09-16 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-023-tres-repositorios.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-025](ADR-025-cuatro-repositorios.md) | 2026-09-16 | 2026-09-16 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
 
 > **Lo reemplaza [ADR-025](ADR-025-cuatro-repositorios.md):** la separación del código en
 > repositorios y el contrato como artefacto con versión propia siguen en pie, tal como se

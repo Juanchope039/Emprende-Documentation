@@ -1,6 +1,6 @@
 ---
 name: pr
-description: Abre el PR de PRISMA cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/PRISMA y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue y en el proyecto del tablero, con sus campos. Se invoca a mano, con /pr.
+description: Abre el PR de Emprende cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/Emprende-MiniApp-MonoRepo y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue y en el proyecto del tablero, con sus campos. Se invoca a mano, con /pr.
 argument-hint: "[repositorio o id de la tarea] [proyecto, si no es Prisma project]"
 disable-model-invocation: true
 model: sonnet
@@ -19,7 +19,7 @@ lista.
 
 ## 2. El issue
 
-**Todo PR nombra su issue de `Juanchope039/PRISMA`** ([ADR-060](../../../docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md)), y sin issue no se
+**Todo PR nombra su issue de `Juanchope039/Emprende-MiniApp-MonoRepo`** ([ADR-060](../../../docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md)), y sin issue no se
 abre. Los issues viven solo ahí, aunque el cambio sea del front, la API, la base o la
 especificación.
 
@@ -60,7 +60,7 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    - Las tres partes, `Hace`, `Decide` y `Verifica`, un poco más largas que en el commit.
    - `Hermanos`: los PR de la misma rama en los otros repositorios. Sin hermanos, se borra.
    - **El issue**, en su propio renglón: `Closes #n` en el monorepo, que lo cierra al fusionar, y
-     `Refs Juanchope039/PRISMA#n` en los otros cuatro, porque un PR no cierra un issue de otro
+     `Refs Juanchope039/Emprende-MiniApp-MonoRepo#n` en los otros cuatro, porque un PR no cierra un issue de otro
      repositorio. Si solo avanza, `Refs` también en el monorepo.
    - **La plantilla no lleva firma, y no se le agrega ninguna**: ni «🤖 Generated with Claude
      Code», ni el bloque de dos líneas con el enlace al hilo, ni una línea propia, aunque la
@@ -136,7 +136,7 @@ una revisión, con `issues/comments/<id>`.
 Las cuatro cosas que ningún PR puede tener a medias, porque las tres primeras son checks que se
 ponen en rojo y la cuarta no se puede arreglar sin reescribir el cuerpo:
 
-- [ ] **nombra su issue** de `Juanchope039/PRISMA`, con `Closes` o con `Refs`;
+- [ ] **nombra su issue** de `Juanchope039/Emprende-MiniApp-MonoRepo`, con `Closes` o con `Refs`;
 - [ ] **lleva milestone**, el mismo del issue;
 - [ ] **está en «Prisma project»**, y sus campos dicen algo o se dijo quién los va a poner —el
       check solo avisa ([ADR-065](../../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)), así que esto no lo atrapa nadie más;

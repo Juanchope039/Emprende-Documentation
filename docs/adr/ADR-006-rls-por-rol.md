@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-006-rls-por-rol.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-13 | 2026-09-16 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-006-rls-por-rol.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-13 | 2026-09-16 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
 
 ## Contexto
 

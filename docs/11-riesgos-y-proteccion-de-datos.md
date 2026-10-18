@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/11-riesgos-y-proteccion-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Seguridad](INDICE.md#etiqueta-seguridad) · [Datos personales](INDICE.md#etiqueta-datos-personales) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [2.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/11-riesgos-y-proteccion-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Seguridad](INDICE.md#etiqueta-seguridad) · [Datos personales](INDICE.md#etiqueta-datos-personales) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 > Este documento **no trata temas tributarios ni de facturación electrónica**, que están fuera
 > del alcance de esta versión. Ver [`14-roadmap-e-ideas.md`](14-roadmap-e-ideas.md).

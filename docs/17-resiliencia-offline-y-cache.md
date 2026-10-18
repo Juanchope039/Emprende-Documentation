@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/17-resiliencia-offline-y-cache.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-09-22 | [Front](INDICE.md#etiqueta-front) · [API](INDICE.md#etiqueta-api) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/17-resiliencia-offline-y-cache.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-09-22 | [Front](INDICE.md#etiqueta-front) · [API](INDICE.md#etiqueta-api) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 > **Construcción: diseñado, no construido.** Este documento define cómo la aplicación tolerará los
 > cortes de red y trabajará sin conexión. Se escribe antes de programar para que la arquitectura

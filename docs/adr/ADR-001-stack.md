@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-001-stack.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-011](ADR-011-stack-flutter-dart.md) | 2026-09-13 | 2026-09-16 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-001-stack.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-011](ADR-011-stack-flutter-dart.md) | 2026-09-13 | 2026-09-16 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 > **Lo reemplaza [ADR-011](ADR-011-stack-flutter-dart.md):** el front pasa a Flutter Web y se
 > agrega `prisma_api` en Dart, porque el navegador no debe hablar directo con la base ni cargar

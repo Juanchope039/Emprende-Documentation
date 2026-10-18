@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/adr/ADR-013-cuatro-ambientes.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-03 | [Entrega](../INDICE.md#etiqueta-entrega) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-013-cuatro-ambientes.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-03 | [Entrega](../INDICE.md#etiqueta-entrega) |
 
 > **Lo modifica [ADR-044](ADR-044-dos-ambientes-desplegados.md):** los cuatro ambientes y su orden de
 > promoción siguen, pero **solo dev y prod se despliegan**. qa y uat son etapas de la tubería, cada

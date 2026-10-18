@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.1.0](https://github.com/Juanchope039/Finanzas-PRISMA/commits/main/docs/14-roadmap-e-ideas.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-13 | 2026-10-13 | [Negocio](INDICE.md#etiqueta-negocio) · [Plan](INDICE.md#etiqueta-plan) |
+| [2.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/14-roadmap-e-ideas.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-13 | 2026-10-13 | [Negocio](INDICE.md#etiqueta-negocio) · [Plan](INDICE.md#etiqueta-plan) |
 
 Todo lo que quedó fuera del MVP, más 30 ideas para después. Priorizado por **impacto sobre
 esfuerzo**, no por qué tan llamativo suena.
