@@ -53,6 +53,9 @@ if (url) {
     }
     comparar(pieza.destino, path.join(raizDestino, pieza.destino), contenidoDe(pieza, texto));
   }
+} else if (!MANIFIESTO) {
+  console.error(`\u2717 no hay ${MANIFIESTO_RUTA} al lado: desde un repositorio de código, corre con \`--fuente\`.`);
+  process.exit(1);
 } else {
   // Desde la especificación: los repositorios que estén en disco. Los que no, se saltan con aviso.
   for (const pieza of MANIFIESTO.piezas) {

@@ -11,7 +11,12 @@ import { fileURLToPath } from 'node:url';
 export const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const MANIFIESTO_RUTA = 'scripts/agentes/compartido.json';
 
-export const MANIFIESTO = JSON.parse(fs.readFileSync(path.join(RAIZ, MANIFIESTO_RUTA), 'utf8'));
+// El manifiesto de esta copia, cuando hay una. En la tubería de un repositorio de código este
+// archivo llega descargado y al lado no hay especificación: ahí el manifiesto se baja, y leerlo del
+// disco al importar dejaría la puerta sin poder correr.
+export const MANIFIESTO = fs.existsSync(path.join(RAIZ, MANIFIESTO_RUTA))
+  ? JSON.parse(fs.readFileSync(path.join(RAIZ, MANIFIESTO_RUTA), 'utf8'))
+  : null;
 
 // El aviso que lleva una copia que no es idéntica a su fuente, porque la fuente no es un archivo de
 // `.claude/`. Una copia que no dice que es una copia se edita, y entonces la puerta se pone roja sin
