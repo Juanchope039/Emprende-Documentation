@@ -7,6 +7,9 @@ model: sonnet
 
 # Dejar un documento al día
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 Las reglas están en `22-documentacion.md` y en el `CLAUDE.md` de la especificación. La herramienta
 está en `repositories/documentation/scripts/docs/`, con sus comandos en el §2 del `AGENTS.md` de la
 especificación. Se corre desde cualquier carpeta y revisa también los `.md` de los hermanos.

@@ -6,6 +6,9 @@ model: opus
 
 # Escribir el plan de trabajo
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 La regla está en el `CLAUDE.md` de la especificación (§2): antes de escribir código se escribe el
 plan. Aquí va el procedimiento.
 

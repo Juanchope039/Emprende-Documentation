@@ -34,13 +34,30 @@ jobs:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: node scripts/docs/documentar.mjs verificar --base "$BASE"
 
+  compartido:
+    name: Lo compartido está al día
+    # La puerta de ADR-070, del lado de la fuente: que el manifiesto no nombre una skill, una regla
+    # o un agente que ya no existe. Las copias las compara cada repositorio de código en su propia
+    # tubería, contra esta fuente: aquí los hermanos no están en disco y se saltan con aviso.
+    runs-on: ${{ vars.ETIQUETA_DEL_RUNNER || 'ubuntu-latest' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Verificar lo compartido
+        run: node scripts/agentes/verificar.mjs
+
   tuberia-completa:
     name: Tubería completa
     # La puerta que pide `develop` en los repositorios de código: que la tubería haya llegado al
     # final, sin juzgar el resultado (ADR-048). Aquí no hay `develop` y nadie la exige: existe
     # para que las ramas de los cuatro repositorios se pidan con los mismos dos nombres.
     runs-on: ${{ vars.ETIQUETA_DEL_RUNNER || 'ubuntu-latest' }}
-    needs: [verificar]
+    needs: [verificar, compartido]
     if: always()
 
     steps:
@@ -54,7 +71,7 @@ jobs:
     # Lo que `main` exige para recibir un PR: ningún trabajo en rojo ni cancelado (ADR-048). Un
     # trabajo saltado no la rompe, porque GitHub lo reporta como `skipped` y eso no es un fallo.
     runs-on: ${{ vars.ETIQUETA_DEL_RUNNER || 'ubuntu-latest' }}
-    needs: [verificar]
+    needs: [verificar, compartido]
     if: always()
 
     steps:

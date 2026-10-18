@@ -8,6 +8,9 @@ model: sonnet
 
 # Traer la base y dejar la rama sin conflictos
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 Las rutas son relativas a la carpeta de trabajo, la que contiene `repositories/`. **Es el paso 2 de
 la skill `pr`**: corre cuando quien dirige autorizó el PR, y otra vez si la base se mueve mientras
 el PR espera. Antes, no.
