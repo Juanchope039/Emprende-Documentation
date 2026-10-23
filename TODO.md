@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.77.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-18 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.78.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-23 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -59,7 +59,8 @@ herramienta compara el tablero con el plan y la verificación falla si alguna no
 | [Sprint 8](#sprint-8) · Nómina, cotizador y cierre | 19 | 18 | 0 | 1 | 1 |
 | [Sprint 9](#sprint-9) · Promoción, PWA y endurecimiento | 17 | 15 | 0 | 2 | 1 |
 | [Sprint 10](#sprint-10) · La retroalimentación de Gerencia | 8 | 8 | 0 | 0 | 0 |
-| **Total** | **174** | **171** | **0** | **3** | **2** |
+| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 0 | 0 | 5 | 9 |
+| **Total** | **179** | **171** | **0** | **8** | **11** |
 <!-- /generado:plan-tablero -->
 
 ### 1.2 ✅ Hecho
@@ -242,6 +243,7 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 <!-- generado:plan-listas-ya · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Dónde | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |
 |---|---|
+| **Base** | [11.1](docs/08-plan-de-desarrollo.md#tarea-11-1) |
 | **Front** | [8.19](docs/08-plan-de-desarrollo.md#tarea-8-19) |
 | **Decisión** | [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) · [9.13](docs/08-plan-de-desarrollo.md#tarea-9-13) |
 <!-- /generado:plan-listas-ya -->
@@ -249,13 +251,13 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 ### 1.5 Cuánto falta
 
 <!-- generado:plan-restante · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-Quedan **3 tareas y 2 días de trabajo** de 174 tareas del plan.
+Quedan **8 tareas y 11 días de trabajo** de 179 tareas del plan.
 
 | Tareas a la vez | Desarrollo que falta | Con la estabilización |
 |:---:|---:|---:|
-| 1 | 0,2 semanas | **3,2 semanas** |
-| 2 | 0,2 semanas | **3,2 semanas** |
-| 3 | 0,2 semanas | **3,2 semanas** |
+| 1 | 1,5 semanas | **4,5 semanas** |
+| 2 | 1,5 semanas | **4,5 semanas** |
+| 3 | 1,7 semanas | **4,7 semanas** |
 <!-- /generado:plan-restante -->
 
 ### 1.6 Para destrabar, en orden de lo que más libera
@@ -1711,6 +1713,29 @@ mockup, porque todas cambian lo acordado.
       cobrado», que decía que había plata pero no cuánta faltaba
 - [x] [**10.8**](docs/08-plan-de-desarrollo.md#tarea-10-8) Cuándo entró cada caso de uso · Contrato — la tabla del [02 §4](docs/02-casos-de-uso.md#4-cuándo-entró-cada-caso-de-uso) llenada hacia
       atrás para los 32 que faltan, y la comprobación que impide que envejezca
+
+**<a id="sprint-11"></a>[Sprint 11](docs/08-plan-de-desarrollo.md#sprint-11) · el privilegio mínimo de la API**
+
+**Sale de una decisión de seguridad**, no de una queja de uso: quien dirige pidió el 2026-10-23
+bajar el riesgo al mínimo y aprobó el nivel 7 de la escala, que es privilegios explícitos sobre
+migraciones aplicadas por tubería. El proyecto está hoy en el nivel 5. Cerrar el esquema detrás de
+un catálogo de funciones, que sería el 8, queda para después y no está descartado.
+
+- [ ] ⚡ [**11.1**](docs/08-plan-de-desarrollo.md#tarea-11-1) Los guiones de la base corren en Linux · Base — `la-version-subio`,
+      `promover` y `sembrar` pasan a `sh`, con el `.ps1` como envoltorio de una línea. El `ci.yml`
+      deja de descargar PowerShell 7.4.6 en cada PR ([ADR-070](docs/adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md))
+- [ ] [**11.2**](docs/08-plan-de-desarrollo.md#tarea-11-2) El PR dice qué va a aplicar · Base — el `db push` en seco contra el ambiente
+      de la etapa, en el resumen de la corrida, y falla si lo que aplicaría no es lo que el PR
+      declara en `schema_version`
+- [ ] [**11.3**](docs/08-plan-de-desarrollo.md#tarea-11-3) La tubería aplica las migraciones · Base — `migrar.yml` con GitHub
+      Environments, con aprobación obligatoria en uat, en `ubuntu-latest` porque lleva llaves. Y la
+      contraseña del rol `prisma_api` la fija el flujo desde su secreto
+- [ ] [**11.4**](docs/08-plan-de-desarrollo.md#tarea-11-4) El privilegio de `prisma_api` es del tamaño de su uso · Base — el
+      `GRANT … ON ALL TABLES` se reemplaza por la lista explícita por tabla y por columna, y
+      `ALTER DEFAULT PRIVILEGES` deja de concederle nada. RLS no se toca ([ADR-071](docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md))
+- [ ] [**11.5**](docs/08-plan-de-desarrollo.md#tarea-11-5) [C-06](docs/12-pruebas-y-calidad.md#c-06), la puerta que cruza el uso con la concesión · API — los adaptadores
+      contra `information_schema.column_privileges`, en los dos sentidos: una concesión que nadie
+      usa también falla
 
 ---
 

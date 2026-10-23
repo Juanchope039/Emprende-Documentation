@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [11.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/08-plan-de-desarrollo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Plan](INDICE.md#etiqueta-plan) · [Paralelo](INDICE.md#etiqueta-paralelo) |
+| [11.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/08-plan-de-desarrollo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Plan](INDICE.md#etiqueta-plan) · [Paralelo](INDICE.md#etiqueta-paralelo) |
 
 **El plan se organiza por repositorios y dependencias, no por personas.** Cada tarea dice dónde
 vive —API, Base, Front, Contrato o Decisión— y de qué depende. De esas dos columnas sale lo demás,
@@ -11,7 +11,7 @@ cuánto dura el desarrollo según cuántas tareas avancen a la vez. Una tarea la
 persona, un equipo o una sesión de trabajo; al plan le da igual.
 
 <!-- generado:plan-resumen · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**34,6 semanas con 1 tarea a la vez**, **20,6 semanas con 2 tareas a la vez** y **16,3 semanas con 3 tareas a la vez**, contando las 3 de estabilización. El detalle está en el [cronograma](#1-cronograma).
+**35,9 semanas con 1 tarea a la vez**, **22,0 semanas con 2 tareas a la vez** y **17,8 semanas con 3 tareas a la vez**, contando las 3 de estabilización. El detalle está en el [cronograma](#1-cronograma).
 <!-- /generado:plan-resumen -->
 
 > **El plan de 7 sprints daba por hecho que no había backend.**
@@ -119,13 +119,13 @@ presupuestado. En dos o tres tareas a la vez, estas tareas son justamente lo que
 ### 1.1 <a id="11-cuánto-dura-con-1-2-o-3-carriles-activos"></a>Cuánto dura con 1, 2 o 3 tareas a la vez
 
 <!-- generado:plan-calendario · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**210 días de trabajo en 174 tareas.** Una sola tarea a la vez avanza 6,59 días por semana, el ritmo del plan original; cada tarea simultánea de más le quita un 10 % a todas por coordinación; y dos tareas del mismo sitio y del mismo sprint no van a la vez.
+**219 días de trabajo en 179 tareas.** Una sola tarea a la vez avanza 6,59 días por semana, el ritmo del plan original; cada tarea simultánea de más le quita un 10 % a todas por coordinación; y dos tareas del mismo sitio y del mismo sprint no van a la vez.
 
 | Tareas a la vez | Desarrollo | Estabilización | Total | Frente a 1 tarea |
 |:---:|---:|---:|---:|---:|
-| 1 | 31,6 semanas | 3 semanas | **34,6 semanas** | — |
-| 2 | 17,6 semanas | 3 semanas | **20,6 semanas** | −14,0 semanas |
-| 3 | 13,3 semanas | 3 semanas | **16,3 semanas** | −18,3 semanas |
+| 1 | 32,9 semanas | 3 semanas | **35,9 semanas** | — |
+| 2 | 19,0 semanas | 3 semanas | **22,0 semanas** | −14,0 semanas |
+| 3 | 14,8 semanas | 3 semanas | **17,8 semanas** | −18,1 semanas |
 
 | Hito | 1 tarea a la vez | 2 tareas a la vez | 3 tareas a la vez |
 |---|:---:|:---:|:---:|
@@ -139,7 +139,7 @@ presupuestado. En dos o tres tareas a la vez, estas tareas son justamente lo que
 | [H8](#h8) · Sprint 7 | semana 24 | semana 14 | semana 10 |
 | [H9](#h9) · Sprint 8 | semana 28 | semana 17 | semana 14 |
 | [H10](#h10) · Sprint 9 | semana 30 | semana 17 | semana 13 |
-| [H11](#h11) · go-live | semana 35 | semana 21 | semana 17 |
+| [H11](#h11) · go-live | semana 36 | semana 22 | semana 18 |
 <!-- /generado:plan-calendario -->
 
 **Cómo se calcula.** Se reparten las tareas en el tiempo respetando sus dependencias, siempre
@@ -256,6 +256,7 @@ gantt
     S8 :api8, 2026-11-23, 2026-12-17
     S9 :api9, 2026-11-24, 2026-12-09
     S10 :api10, 2026-12-09, 2026-12-15
+    S11 :api11, 2026-12-25, 2026-12-28
 
     section Base
     S0 :base0, 2026-09-16, 2026-09-18
@@ -269,10 +270,11 @@ gantt
     S8 :base8, 2026-11-04, 2026-12-04
     S9 :base9, 2026-11-24, 2026-12-09
     S10 :base10, 2026-12-09, 2026-12-13
+    S11 :base11, 2026-12-16, 2026-12-25
 
     section Front
     S0 :front0, 2026-09-15, 2026-10-03
-    S1 :front1, 2026-09-26, 2026-09-30
+    S1 :front1, 2026-09-27, 2026-10-01
     S2 :front2, 2026-10-06, 2026-10-16
     S3 :front3, 2026-10-12, 2026-10-25
     S5 :front5, 2026-11-06, 2026-11-08
@@ -299,9 +301,9 @@ gantt
     S9 :decisin9, 2026-09-16, 2026-10-04
 
     section Implantación
-    Estabilización y aprobación en UAT :est, 2026-12-17, 2026-12-31
-    Migración y capacitación :mig, 2026-12-31, 2027-01-07
-    Go-live :milestone, 2027-01-07, 0d
+    Estabilización y aprobación en UAT :est, 2026-12-28, 2027-01-11
+    Migración y capacitación :mig, 2027-01-11, 2027-01-18
+    Go-live :milestone, 2027-01-18, 0d
 ```
 <!-- /generado:plan-gantt -->
 
@@ -920,6 +922,52 @@ pagado.
 
 ---
 
+### <a id="sprint-11"></a>Sprint 11 · El privilegio mínimo de la API
+
+| | |
+|---|---|
+| **Objetivo** | Que la base no le conceda a la API más de lo que la API usa, y que las migraciones las aplique la tubería y no una persona |
+| **Requisitos** | [RNF-06](03-requisitos-y-bdd.md#rnf-06), [RNF-09](03-requisitos-y-bdd.md#rnf-09), [RNF-24](03-requisitos-y-bdd.md#rnf-24) |
+| **Riesgo** | Medio. Nada de esto cambia una pantalla ni una ruta, pero la [11.4](#tarea-11-4) toca los privilegios de todas las tablas, y una concesión que falte se ve en caliente |
+
+Quien dirige lo pidió el 2026-10-23: bajar el riesgo de seguridad al mínimo, con la base como un
+servicio de la API, el privilegio más pequeño posible y las migraciones por tubería. Se compararon
+tres caminos contra una escala de 0 a 10, y **aprobó el nivel 7**: privilegios explícitos sobre las
+migraciones ya automatizadas, sin cambios de arquitectura. El proyecto está hoy en el nivel 5.
+
+**Cerrar el esquema detrás de un catálogo de funciones —el nivel 8— no entra en este sprint, y no
+está descartado.** Este es su primer paso: la lista explícita de concesiones de la [11.4](#tarea-11-4) es la
+lista de lo que cada función tendría que cubrir. **Y un servicio de datos aparte se descartó**, no
+por el costo, sino porque partiría la transacción única de la petición, de la que dependen la
+idempotencia ([ADR-020](adr/ADR-020-idempotencia.md)) y los siete pasos del pedido.
+
+| # | Tarea | Dónde | Depende de | Días |
+|---|---|---|---|---:|
+| <a id="tarea-11-1"></a>11.1 | **Los guiones de la base corren en Linux** ([ADR-070](adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md)): `la-version-subio`, `promover` y `sembrar` pasan a `sh`, y el `.ps1` de cada uno queda como un envoltorio de una línea que llama al `.sh`, para que haya una sola implementación. Con eso el `ci.yml` deja de descargar PowerShell 7.4.6 de GitHub en cada PR, y [C-05](12-pruebas-y-calidad.md#c-05) se puede correr en cualquier máquina. Los cuatro `.ps1` de uso local no entran | Base | [9.2](#tarea-9-2) | 1,5 |
+| <a id="tarea-11-2"></a>11.2 | **El PR dice qué va a aplicar** ([ADR-070](adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md)): en cada PR, el `db push` en seco contra el ambiente de la etapa, con lo que aplicaría en el resumen de la corrida. Y no es un paso que nadie lea: falla si lo que va a aplicar no es lo que el PR declara en `schema_version` | Base | [11.1](#tarea-11-1) | 1 |
+| <a id="tarea-11-3"></a>11.3 | **La tubería aplica las migraciones** ([ADR-070](adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md)): `migrar.yml` con GitHub Environments, a dev al entrar a `develop`, a qa al entrar a `qa` y a uat al entrar a `main` **con aprobación obligatoria**. Va en `ubuntu-latest` y no en el runner propio, porque lleva llaves. Y la contraseña del rol `prisma_api` la fija ese mismo flujo desde su secreto, con lo que deja de estar en manos de una persona y se puede rotar | Base | [11.2](#tarea-11-2) | 2 |
+| <a id="tarea-11-4"></a>11.4 | **El privilegio de `prisma_api` es del tamaño de su uso** ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)): el `GRANT SELECT, INSERT, UPDATE ON ALL TABLES` se reemplaza por la lista explícita, tabla por tabla y columna por columna; las tablas que la API solo lee pierden `INSERT` y `UPDATE`; y `ALTER DEFAULT PRIVILEGES` deja de concederle nada, así que una tabla nueva nace fuera de su alcance hasta que su migración se lo dé. RLS no se toca: siguen siendo dos jueces con oficios distintos. Con su bloque en `verificar-base.sql` y la prueba en negativo | Base | [0.5](#tarea-0-5), [11.3](#tarea-11-3) | 2,5 |
+| <a id="tarea-11-5"></a>11.5 | **[C-06](12-pruebas-y-calidad.md#c-06), la puerta que cruza el uso con la concesión** ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)): cruza lo que los adaptadores de `infraestructura/postgres` usan contra `information_schema.column_privileges`, **en los dos sentidos**. Un `INSERT` a una columna sin concesión falla, y una concesión que ningún adaptador usa también, que es la mitad que se olvida. El uso se lee del código y la concesión se le pregunta a la base | API | [11.4](#tarea-11-4) | 2 |
+
+<!-- generado:plan-oleadas-11 · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
+**Qué puede ir a la vez en este sprint.** Cada oleada espera solo a las anteriores; dentro de una oleada, todo arranca junto.
+
+| Oleada | Tareas | Dónde | Días |
+|:---:|---|---|---:|
+| 1 | [11.1](#tarea-11-1) | Base | 1,5 |
+| 2 | [11.2](#tarea-11-2) | Base | 1 |
+| 3 | [11.3](#tarea-11-3) | Base | 2 |
+| 4 | [11.4](#tarea-11-4) | Base | 2,5 |
+| 5 | [11.5](#tarea-11-5) | API | 2 |
+<!-- /generado:plan-oleadas-11 -->
+
+**Terminado cuando** — ninguna persona aplica una migración a mano, cada PR dice qué va a aplicar
+antes de fusionarse, la contraseña del rol vive en un secreto que se puede rotar, y `prisma_api` no
+puede preguntarle a la base por ninguna columna que ningún adaptador use, con una puerta que lo
+mantiene así.
+
+---
+
 ## 4. Definición de terminado
 
 Una tarea no está terminada hasta que cumple **todo** lo siguiente:
@@ -1062,6 +1110,7 @@ graph LR
   S8["S8 · Nómina, cotizador y cierre"]
   S9["S9 · Promoción, PWA y endurecimiento"]
   S10["S10 · La retroalimentación de Gerencia"]
+  S11["S11 · El privilegio mínimo de la API"]
   S0 --> S1
   S1 --> S2
   S2 --> S3
@@ -1072,6 +1121,7 @@ graph LR
   S4 --> S10
   S5 --> S4
   G67 --> S8
+  S9 --> S11
 ```
 <!-- /generado:plan-grafo -->
 
@@ -1107,7 +1157,7 @@ El [Sprint 9](#sprint-9) va de último porque endurece lo que ya existe. No es r
 «funciona en mi computador» de «Gerencia lo aprobó y el taller lo tiene».
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [00](00-resumen-ejecutivo.md "00 · Resumen ejecutivo") · [01](01-vision-y-alcance.md "01 · Visión y alcance") · [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [11](11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [14](14-roadmap-e-ideas.md "14 · Roadmap e ideas de valor") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-011](adr/ADR-011-stack-flutter-dart.md "ADR-011 · Stack: Flutter y Dart con API propia") · [ADR-012](adr/ADR-012-identidad-a-postgres.md "ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando") · [ADR-017](adr/ADR-017-api-en-java.md "ADR-017 · Stack: Flutter en el front, Java con Spring Boot en la API") · [ADR-024](adr/ADR-024-java-25-y-gradle.md "ADR-024 · Java 25, Gradle y Spring Boot 4 en la API") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-028](adr/ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md "ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige") · [ADR-037](adr/ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md "ADR-040 · Toda rama empieza por feature/, y el PR se abre solo con autorización expresa, trayendo entonces la base") · [ADR-041](adr/ADR-041-cuatro-lineas-por-parrafo.md "ADR-041 · Un párrafo de código o de commit tiene cuatro líneas como máximo") · [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md "ADR-043 · Una tarea solo depende de tareas anteriores") · [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio") · [ADR-046](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [ADR-049](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE") · [ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia") · [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "ADR-066 · La clave de servicio también sube el respaldo que nadie pidió") · [ADR-067](adr/ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive") · [ADR-068](adr/ADR-068-los-sprints-cerrados-no-reciben-tareas.md "ADR-068 · Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/docs/README.md "Herramienta de documentación")
+**🔗 Referenciado desde:** [00](00-resumen-ejecutivo.md "00 · Resumen ejecutivo") · [01](01-vision-y-alcance.md "01 · Visión y alcance") · [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [11](11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [14](14-roadmap-e-ideas.md "14 · Roadmap e ideas de valor") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-011](adr/ADR-011-stack-flutter-dart.md "ADR-011 · Stack: Flutter y Dart con API propia") · [ADR-012](adr/ADR-012-identidad-a-postgres.md "ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando") · [ADR-017](adr/ADR-017-api-en-java.md "ADR-017 · Stack: Flutter en el front, Java con Spring Boot en la API") · [ADR-024](adr/ADR-024-java-25-y-gradle.md "ADR-024 · Java 25, Gradle y Spring Boot 4 en la API") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-028](adr/ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md "ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige") · [ADR-037](adr/ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md "ADR-040 · Toda rama empieza por feature/, y el PR se abre solo con autorización expresa, trayendo entonces la base") · [ADR-041](adr/ADR-041-cuatro-lineas-por-parrafo.md "ADR-041 · Un párrafo de código o de commit tiene cuatro líneas como máximo") · [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md "ADR-043 · Una tarea solo depende de tareas anteriores") · [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio") · [ADR-046](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [ADR-049](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE") · [ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia") · [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "ADR-066 · La clave de servicio también sube el respaldo que nadie pidió") · [ADR-067](adr/ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive") · [ADR-068](adr/ADR-068-los-sprints-cerrados-no-reciben-tareas.md "ADR-068 · Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo") · [ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md "ADR-071 · El privilegio que la base le concede a la API es del tamaño de su uso") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/docs/README.md "Herramienta de documentación")
 <!-- /generado:referenciado-desde -->
 
 ---

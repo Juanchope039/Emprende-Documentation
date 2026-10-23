@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.37.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.38.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -78,6 +78,8 @@ consideraron y qué consecuencias tiene.
 | [067](ADR-067-el-plan-no-tiene-carriles.md) | El plan no tiene carriles: cada tarea dice dónde vive | Aceptado |
 | [068](ADR-068-los-sprints-cerrados-no-reciben-tareas.md) | Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo | Aceptado |
 | [069](ADR-069-el-proyecto-se-llama-emprende.md) | El proyecto se llama Emprende, y el nombre viejo se va por donde se toca | Aceptado |
+| [070](ADR-070-las-migraciones-las-aplica-la-tuberia.md) | Las migraciones las aplica la tubería, no una persona | Aceptado |
+| [071](ADR-071-el-privilegio-es-del-tamano-del-uso.md) | El privilegio que la base le concede a la API es del tamaño de su uso | Aceptado |
 
 Son **69 decisiones** registradas: 56 aceptadas y 13 reemplazadas.
 
