@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.80.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-23 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.81.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-23 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -59,8 +59,8 @@ herramienta compara el tablero con el plan y la verificación falla si alguna no
 | [Sprint 8](#sprint-8) · Nómina, cotizador y cierre | 19 | 18 | 0 | 1 | 1 |
 | [Sprint 9](#sprint-9) · Promoción, PWA y endurecimiento | 17 | 15 | 0 | 2 | 1 |
 | [Sprint 10](#sprint-10) · La retroalimentación de Gerencia | 8 | 8 | 0 | 0 | 0 |
-| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 2 | 0 | 3 | 6,5 |
-| **Total** | **179** | **173** | **0** | **6** | **8,5** |
+| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 3 | 0 | 2 | 4,5 |
+| **Total** | **179** | **174** | **0** | **5** | **6,5** |
 <!-- /generado:plan-tablero -->
 
 ### 1.2 ✅ Hecho
@@ -243,7 +243,7 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 <!-- generado:plan-listas-ya · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Dónde | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |
 |---|---|
-| **Base** | [11.3](docs/08-plan-de-desarrollo.md#tarea-11-3) |
+| **Base** | [11.4](docs/08-plan-de-desarrollo.md#tarea-11-4) |
 | **Front** | [8.19](docs/08-plan-de-desarrollo.md#tarea-8-19) |
 | **Decisión** | [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) · [9.13](docs/08-plan-de-desarrollo.md#tarea-9-13) |
 <!-- /generado:plan-listas-ya -->
@@ -251,13 +251,13 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 ### 1.5 Cuánto falta
 
 <!-- generado:plan-restante · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-Quedan **6 tareas y 8,5 días de trabajo** de 179 tareas del plan.
+Quedan **5 tareas y 6,5 días de trabajo** de 179 tareas del plan.
 
 | Tareas a la vez | Desarrollo que falta | Con la estabilización |
 |:---:|---:|---:|
-| 1 | 1,1 semanas | **4,1 semanas** |
-| 2 | 1,1 semanas | **4,1 semanas** |
-| 3 | 1,2 semanas | **4,2 semanas** |
+| 1 | 0,8 semanas | **3,8 semanas** |
+| 2 | 0,8 semanas | **3,8 semanas** |
+| 3 | 0,9 semanas | **3,9 semanas** |
 <!-- /generado:plan-restante -->
 
 ### 1.6 Para destrabar, en orden de lo que más libera
@@ -1730,9 +1730,12 @@ un catálogo de funciones, que sería el 8, queda para después y no está desca
       migración del PR, porque entonces alguien la aplicó por fuera de la tubería, y avisa sin
       bloquear si el ambiente está atrasado. El juicio vive en `el-ensayo-en-seco.sh`, con sus 11
       pruebas sin base y sin red ([ADR-070](docs/adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md))
-- [ ] [**11.3**](docs/08-plan-de-desarrollo.md#tarea-11-3) La tubería aplica las migraciones · Base — `migrar.yml` con GitHub
-      Environments, con aprobación obligatoria en uat, en `ubuntu-latest` porque lleva llaves. Y la
-      contraseña del rol `prisma_api` la fija el flujo desde su secreto
+- [x] [**11.3**](docs/08-plan-de-desarrollo.md#tarea-11-3) La tubería aplica las migraciones · Base — `migrar.yml` aplica al
+      fusionar: a dev, a qa y a uat, cada ambiente un GitHub Environment, así que quién aprueba uat
+      se configura en *Settings → Environments* y no en el archivo. Corre en seco primero y deja en
+      el resumen qué aplicó y qué versión quedó. La clave del rol la pone el flujo desde el secreto
+      de su ambiente, con `fijar-clave-del-rol.sh` y sus 11 pruebas. **Falta poner los cuatro
+      secretos por ambiente** ([ADR-070](docs/adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md))
 - [ ] [**11.4**](docs/08-plan-de-desarrollo.md#tarea-11-4) El privilegio de `prisma_api` es del tamaño de su uso · Base — el
       `GRANT … ON ALL TABLES` se reemplaza por la lista explícita por tabla y por columna, y
       `ALTER DEFAULT PRIVILEGES` deja de concederle nada. RLS no se toca ([ADR-071](docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md))
