@@ -184,17 +184,17 @@ Qué significa cada estado y cuándo sube una versión está en
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
 | [PRISMA — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.10.0 | ✅ Vigente | 2026-10-17 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
-| [Tareas de PRISMA](../TODO.md) | 9.81.0 | 🔄 Vivo | 2026-10-23 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [Tareas de PRISMA](../TODO.md) | 9.83.0 | 🔄 Vivo | 2026-10-25 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [Índice navegable de la documentación](INDICE.md) | 1.36.0 | 🔄 Vivo | 2026-10-23 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.1.0 | ✅ Vigente | 2026-10-17 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
 | [02 · Casos de uso](02-casos-de-uso.md) | 3.2.0 | ✅ Vigente | 2026-10-18 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
 | [03 · Requisitos, reglas de negocio y escenarios BDD](03-requisitos-y-bdd.md) | 5.0.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Calidad](#etiqueta-calidad) |
-| [04 · Modelo de datos](04-modelo-de-datos.md) | 6.2.0 | ✅ Vigente | 2026-10-17 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
+| [04 · Modelo de datos](04-modelo-de-datos.md) | 7.0.0 | ✅ Vigente | 2026-10-23 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
 | [05 · Reglas financieras y KPIs](05-reglas-financieras.md) | 3.0.0 | ✅ Vigente | 2026-10-06 | [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
 | [06 · Nómina y capacidad de pago](06-nomina-y-capacidad-de-pago.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Nómina](#etiqueta-nomina) · [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
 | [07 · Arquitectura técnica](07-arquitectura.md) | 6.0.1 | ✅ Vigente | 2026-10-17 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) · [Front](#etiqueta-front) · [Base de datos](#etiqueta-base-de-datos) · [Seguridad](#etiqueta-seguridad) |
-| [08 · Plan de desarrollo](08-plan-de-desarrollo.md) | 11.2.0 | ✅ Vigente | 2026-10-23 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [08 · Plan de desarrollo](08-plan-de-desarrollo.md) | 11.3.0 | ✅ Vigente | 2026-10-23 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [09 · Plan de implantación](09-plan-de-implantacion.md) | 7.3.0 | ✅ Vigente | 2026-10-15 | [Plan](#etiqueta-plan) · [Entrega](#etiqueta-entrega) · [Negocio](#etiqueta-negocio) |
 | [10 · Diseño de experiencia y mockups](10-ux-y-mockups.md) | 9.0.0 | ✅ Vigente | 2026-10-18 | [UX](#etiqueta-ux) · [Front](#etiqueta-front) |
 | [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Seguridad](#etiqueta-seguridad) · [Datos personales](#etiqueta-datos-personales) · [Negocio](#etiqueta-negocio) |
@@ -282,7 +282,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-068 · Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo](adr/ADR-068-los-sprints-cerrados-no-reciben-tareas.md) | 1.0.0 | ✅ Aceptado | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [ADR-069 · El proyecto se llama Emprende, y el nombre viejo se va por donde se toca](adr/ADR-069-el-proyecto-se-llama-emprende.md) | 1.0.0 | ✅ Aceptado | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [ADR-070 · Las migraciones las aplica la tubería, no una persona](adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md) | 1.0.0 | ✅ Aceptado | 2026-10-23 | [Base de datos](#etiqueta-base-de-datos) · [Proceso](#etiqueta-proceso) |
-| [ADR-071 · El privilegio que la base le concede a la API es del tamaño de su uso](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md) | 1.0.0 | ✅ Aceptado | 2026-10-23 | [Base de datos](#etiqueta-base-de-datos) · [API](#etiqueta-api) |
+| [ADR-071 · El privilegio que la base le concede a la API es del tamaño de su uso](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md) | 1.1.0 | ✅ Aceptado | 2026-10-23 | [Base de datos](#etiqueta-base-de-datos) · [API](#etiqueta-api) |
 | [AGENTS.md](../AGENTS.md) | 2.6.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [CLAUDE.md](../CLAUDE.md) | 16.1.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.4.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |

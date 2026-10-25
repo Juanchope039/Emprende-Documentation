@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.81.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-23 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.83.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-25 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -59,8 +59,8 @@ herramienta compara el tablero con el plan y la verificación falla si alguna no
 | [Sprint 8](#sprint-8) · Nómina, cotizador y cierre | 19 | 18 | 0 | 1 | 1 |
 | [Sprint 9](#sprint-9) · Promoción, PWA y endurecimiento | 17 | 15 | 0 | 2 | 1 |
 | [Sprint 10](#sprint-10) · La retroalimentación de Gerencia | 8 | 8 | 0 | 0 | 0 |
-| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 3 | 0 | 2 | 4,5 |
-| **Total** | **179** | **174** | **0** | **5** | **6,5** |
+| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 4 | 0 | 1 | 2 |
+| **Total** | **179** | **175** | **0** | **4** | **4** |
 <!-- /generado:plan-tablero -->
 
 ### 1.2 ✅ Hecho
@@ -243,7 +243,7 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 <!-- generado:plan-listas-ya · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Dónde | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |
 |---|---|
-| **Base** | [11.4](docs/08-plan-de-desarrollo.md#tarea-11-4) |
+| **API** | [11.5](docs/08-plan-de-desarrollo.md#tarea-11-5) |
 | **Front** | [8.19](docs/08-plan-de-desarrollo.md#tarea-8-19) |
 | **Decisión** | [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) · [9.13](docs/08-plan-de-desarrollo.md#tarea-9-13) |
 <!-- /generado:plan-listas-ya -->
@@ -251,13 +251,13 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 ### 1.5 Cuánto falta
 
 <!-- generado:plan-restante · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-Quedan **5 tareas y 6,5 días de trabajo** de 179 tareas del plan.
+Quedan **4 tareas y 4 días de trabajo** de 179 tareas del plan.
 
 | Tareas a la vez | Desarrollo que falta | Con la estabilización |
 |:---:|---:|---:|
-| 1 | 0,8 semanas | **3,8 semanas** |
-| 2 | 0,8 semanas | **3,8 semanas** |
-| 3 | 0,9 semanas | **3,9 semanas** |
+| 1 | 0,5 semanas | **3,5 semanas** |
+| 2 | 0,3 semanas | **3,3 semanas** |
+| 3 | 0,4 semanas | **3,4 semanas** |
 <!-- /generado:plan-restante -->
 
 ### 1.6 Para destrabar, en orden de lo que más libera
@@ -1736,9 +1736,12 @@ un catálogo de funciones, que sería el 8, queda para después y no está desca
       el resumen qué aplicó y qué versión quedó. La clave del rol la pone el flujo desde el secreto
       de su ambiente, con `fijar-clave-del-rol.sh` y sus 11 pruebas. **Falta poner los cuatro
       secretos por ambiente** ([ADR-070](docs/adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md))
-- [ ] [**11.4**](docs/08-plan-de-desarrollo.md#tarea-11-4) El privilegio de `prisma_api` es del tamaño de su uso · Base — el
-      `GRANT … ON ALL TABLES` se reemplaza por la lista explícita por tabla y por columna, y
-      `ALTER DEFAULT PRIVILEGES` deja de concederle nada. RLS no se toca ([ADR-071](docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md))
+- [x] [**11.4**](docs/08-plan-de-desarrollo.md#tarea-11-4) El privilegio de `prisma_api` es del tamaño de su uso · Base — el
+      `GRANT … ON ALL TABLES` se reemplazó por la lista explícita por tabla y por columna, y
+      `ALTER DEFAULT PRIVILEGES` dejó de conceder. Como toda consulta corre con
+      `SET LOCAL ROLE authenticated`, la lista es de ese rol y `prisma_api` quedó **sin ninguna
+      tabla**: lo que acota una clave robada conectada directo. Esquema 0.28.0, con sus ocho filas
+      en `verificar-base.sql` y las dos roturas vistas fallar. RLS no se tocó ([ADR-071](docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md))
 - [ ] [**11.5**](docs/08-plan-de-desarrollo.md#tarea-11-5) [C-06](docs/12-pruebas-y-calidad.md#c-06), la puerta que cruza el uso con la concesión · API — los adaptadores
       contra `information_schema.column_privileges`, en los dos sentidos: una concesión que nadie
       usa también falla
@@ -2114,6 +2117,14 @@ a `anon`.
 
 Las tomó quien construyó, no quien dirige el proyecto. Ninguna contradice a los documentos: son
 huecos que los documentos no cubrían y que el código tuvo que llenar para poder existir.
+
+**De la 11.4, el privilegio del tamaño del uso:**
+
+- [ ] **La política de `UPDATE` de `cuentas` quedó sin quien la use.** Al medir qué escribe cada
+      adaptador para armar la lista de concesiones, `cuentas` resultó una tabla que la API solo
+      lee: ninguna ruta del contrato edita una cuenta. La política sigue ahí, intacta, y la
+      concesión de `UPDATE` no se dio. **O falta esa operación** —editar el nombre o el tipo de una
+      cuenta, que nadie pidió— **o la política es código muerto** y lo que corresponde es decirlo
 
 **De la 8.2, la liquidación de nómina en la base:**
 

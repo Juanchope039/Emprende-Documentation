@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [7.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Base de datos PostgreSQL sobre Supabase. **Solo escritura: nada se elimina jamás.**
 
@@ -2584,7 +2584,7 @@ segunda de las cuatro condiciones de **[ADR-012](adr/ADR-012-identidad-a-postgre
 | `CREATEDB` / `CREATEROLE` | ❌ | La API no crea bases ni reparte permisos |
 | Dueño de las tablas | ❌ | El dueño se salta RLS salvo `FORCE`, y no queremos depender solo de eso |
 | `INHERIT` | ❌ | Los permisos de `authenticated` solo llegan cuando la API los pide con `SET LOCAL ROLE` |
-| Permisos sobre tablas | `SELECT`, `INSERT`, `UPDATE` | Lo mínimo para operar. `DELETE` y `TRUNCATE` revocados, igual que para `authenticated` ([§5.1](#51-revocación-real-del-borrado)) |
+| Permisos sobre tablas | **ninguno** | Toda consulta de la API corre como `authenticated`, así que este rol no necesita ni una tabla ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)) |
 
 ```sql
 -- El rol con el que prisma_api abre cada conexión. La clave llega del gestor de secretos
@@ -2597,16 +2597,11 @@ CREATE ROLE prisma_api LOGIN
 GRANT USAGE ON SCHEMA public TO prisma_api;
 REVOKE CREATE ON SCHEMA public FROM prisma_api;
 
--- Lo mínimo para operar. Nada de borrar.
-GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO prisma_api;
-REVOKE DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public FROM prisma_api;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO prisma_api;
-
--- Y lo mismo para lo que se cree después, sin tener que acordarse en cada migración.
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  GRANT SELECT, INSERT, UPDATE ON TABLES TO prisma_api;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  REVOKE DELETE, TRUNCATE ON TABLES FROM prisma_api;
+-- Ninguna tabla, ni ahora ni en lo que se cree después: lo que la API toca lo toca como
+-- `authenticated`, con la lista explícita del §9.2 (ADR-071).
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM prisma_api;
+REVOKE USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public FROM prisma_api;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM prisma_api;
 
 -- Puede asumir `authenticated`, que es el rol que evalúan las políticas del §7, pero tiene
 -- que pedirlo: NOINHERIT obliga al SET LOCAL ROLE explícito de cada transacción.
@@ -2657,13 +2652,48 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM anon;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON SEQUENCES FROM anon;
 ```
 
-**`authenticated` no se toca.** Es el rol que la API asume con `SET LOCAL ROLE` en cada
-transacción, y es el que evalúan las políticas del [§7](#7-seguridad-por-tipo-de-usuario-rls): quitarle sus permisos apagaría el
-producto entero.
+**`authenticated` es el rol que de verdad opera.** Es el que la API asume con `SET LOCAL ROLE` en
+cada transacción y el que evalúan las políticas del [§7](#7-seguridad-por-tipo-de-usuario-rls), así que **sus permisos no se quitan: se
+dimensionan**, y eso es el [§9.2](#92-el-privilegio-es-del-tamaño-del-uso).
 
 > **Apagar la Data API en la consola no sustituye a esto.** Cierra el agujero en el proyecto donde
 > se apaga y en ninguno más: una casilla de consola no viaja con el esquema, así que uat y prod
 > nacerían abiertos. La casilla y la revocación resuelven cosas distintas y van las dos.
+
+### 9.2 El privilegio es del tamaño del uso
+
+Las dos revocaciones de arriba dejan a `prisma_api` sin tablas, pero el producto sigue necesitando
+leer y escribir: lo hace como `authenticated`. A ese rol **no se le concede `ON ALL TABLES`**, sino
+una lista explícita, del tamaño de lo que los adaptadores usan de verdad ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)).
+
+```sql
+-- Se parte de cero, porque una lista encima de un GRANT general no acota nada.
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM authenticated;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM authenticated;
+
+-- Lo que se lee va por tabla: RLS ya filtra las filas, y las vistas proyectan columnas.
+GRANT SELECT ON movimientos, pedidos, … TO authenticated;
+
+-- Lo que se escribe va por columna, que es donde está la diferencia: de `movimientos` la
+-- API inserta el apunte y solo puede actualizar sus columnas de anulación.
+GRANT INSERT (cuenta_id, descripcion, fecha_movimiento, tipo, valor, …),
+      UPDATE (anulado_dispositivo, anulado_en, anulado_ip, anulado_motivo, anulado_por)
+  ON movimientos TO authenticated;
+```
+
+- **Una tabla nueva nace fuera del alcance de los dos roles** hasta que su migración se lo dé, que
+  es donde se puede pensar si hacía falta.
+- **`auditoria` solo se lee.** La escriben los triggers, que corren como el dueño y no necesitan
+  concesión de nadie; lo mismo vale para las funciones `SECURITY DEFINER`.
+- **Las funciones `SECURITY INVOKER` sí cuentan**: escriben con los privilegios de quien llama, así
+  que lo que escriben entra en la lista como si fuera del adaptador.
+- **Un `SELECT … FOR UPDATE` cuesta `UPDATE`**, aunque no escriba nada. Por eso
+  `nomina_periodos`, que la API no edita, lleva el `UPDATE` de las columnas con que se bloquea.
+- **La lista no envejece sola:** [C-06](12-pruebas-y-calidad.md#c-06) la cruza con `information_schema.column_privileges` en los dos
+  sentidos, y una concesión que ningún adaptador usa falla igual que una que falta.
+
+Y RLS no se toca. Son dos jueces con oficios distintos: la concesión decide a qué se puede
+preguntar, y la política decide qué filas contesta.
 
 ---
 
