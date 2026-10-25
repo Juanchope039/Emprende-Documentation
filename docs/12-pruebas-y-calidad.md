@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [4.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Calidad](INDICE.md#etiqueta-calidad) |
+| [5.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-25 | [Calidad](INDICE.md#etiqueta-calidad) |
 
 ---
 
@@ -549,7 +549,12 @@ repositorio, y la tercera se vio fallar contra cinco ramas rotas a propósito an
 [C-01](#c-01) cruza la tabla de traducciones con `pg_constraint` en los dos sentidos, para que ninguna
 restricción se quede sin mensaje y ninguna traducción sobreviva a su restricción. [C-06](#c-06) hace lo
 mismo con los privilegios: cruza **lo que los adaptadores de `infraestructura/postgres` usan de
-verdad** con lo que la base le concede al rol `prisma_api` ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)).
+verdad** con lo que la base le concede al rol **`authenticated`** ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)).
+
+**El rol que se mide es `authenticated`, y no `prisma_api`.** `ConIdentidad` abre cada petición con
+`SET LOCAL ROLE authenticated`, y el rol de la conexión es `NOINHERIT` ([ADR-012](adr/ADR-012-identidad-a-postgres.md)): toda consulta de
+la API corre con los privilegios del otro. La concesión de `prisma_api` se mide contra cero, que es
+la otra mitad del [ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md) y va en su propia afirmación.
 
 Corre contra la base, en el trabajo «Probar contra la base» de la integración continua de
 `prisma_api`, y falla en los dos sentidos:
@@ -564,8 +569,18 @@ Corre contra la base, en el trabajo «Probar contra la base» de la integración
 - **La concesión se le pregunta a la base**, con `information_schema.column_privileges`, y no se lee
   de la migración. Una migración se ve cerrada cuando no lo está: el `ALTER DEFAULT PRIVILEGES` que
   Supabase deja puesto concede por su cuenta, y solo preguntando aparece.
-- **Lo que el rol asume con `SET LOCAL ROLE authenticated` se cuenta aparte.** La concesión que
-  importa es la de `prisma_api`; la de `authenticated` la juzga RLS, y son dos preguntas distintas.
+- **Lo que escribe una función `SECURITY INVOKER` cuenta como uso de quien la llama**, y su cuerpo
+  se le pregunta a la base por `pg_proc`, en cierre transitivo. Con una `SECURITY DEFINER` el camino
+  se corta: corre como el dueño y no cuesta ninguna concesión, que es por qué `auditoria` solo se
+  lee.
+- **Un `SELECT … FOR UPDATE` cuesta `UPDATE`** aunque no escriba nada, y a PostgreSQL le basta el
+  privilegio en alguna columna, así que el bloqueo excusa la tabla y no una columna suya.
+- **Lo que el lector del uso no sabe leer revienta la puerta**, en vez de quedarse callado: un
+  `DO UPDATE SET`, un `INSERT` sin lista de columnas, un `DELETE`. Una forma que no se lee esconde
+  una escritura, y su concesión aparecería como concesión sin uso.
+- **Una concesión que hoy no tiene quien la use se declara con su razón**, y la declaración se
+  comprueba en los dos sentidos: si la concesión desaparece, o si alguien empieza a usarla, la fila
+  sobra y la puerta lo denuncia. Así la lista solo se encoge.
 
 ---
 

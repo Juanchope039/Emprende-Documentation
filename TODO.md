@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.83.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-25 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.84.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-25 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -59,8 +59,8 @@ herramienta compara el tablero con el plan y la verificación falla si alguna no
 | [Sprint 8](#sprint-8) · Nómina, cotizador y cierre | 19 | 18 | 0 | 1 | 1 |
 | [Sprint 9](#sprint-9) · Promoción, PWA y endurecimiento | 17 | 15 | 0 | 2 | 1 |
 | [Sprint 10](#sprint-10) · La retroalimentación de Gerencia | 8 | 8 | 0 | 0 | 0 |
-| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 4 | 0 | 1 | 2 |
-| **Total** | **179** | **175** | **0** | **4** | **4** |
+| [Sprint 11](#sprint-11) · El privilegio mínimo de la API | 5 | 5 | 0 | 0 | 0 |
+| **Total** | **179** | **176** | **0** | **3** | **2** |
 <!-- /generado:plan-tablero -->
 
 ### 1.2 ✅ Hecho
@@ -243,7 +243,6 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 <!-- generado:plan-listas-ya · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Dónde | Pueden empezar hoy, porque todo lo que necesitan ya está hecho |
 |---|---|
-| **API** | [11.5](docs/08-plan-de-desarrollo.md#tarea-11-5) |
 | **Front** | [8.19](docs/08-plan-de-desarrollo.md#tarea-8-19) |
 | **Decisión** | [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) · [9.13](docs/08-plan-de-desarrollo.md#tarea-9-13) |
 <!-- /generado:plan-listas-ya -->
@@ -251,13 +250,13 @@ de una misma fila se puede trabajar a la vez que lo de las demás.**
 ### 1.5 Cuánto falta
 
 <!-- generado:plan-restante · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-Quedan **4 tareas y 4 días de trabajo** de 179 tareas del plan.
+Quedan **3 tareas y 2 días de trabajo** de 179 tareas del plan.
 
 | Tareas a la vez | Desarrollo que falta | Con la estabilización |
 |:---:|---:|---:|
-| 1 | 0,5 semanas | **3,5 semanas** |
-| 2 | 0,3 semanas | **3,3 semanas** |
-| 3 | 0,4 semanas | **3,4 semanas** |
+| 1 | 0,2 semanas | **3,2 semanas** |
+| 2 | 0,2 semanas | **3,2 semanas** |
+| 3 | 0,2 semanas | **3,2 semanas** |
 <!-- /generado:plan-restante -->
 
 ### 1.6 Para destrabar, en orden de lo que más libera
@@ -1742,9 +1741,12 @@ un catálogo de funciones, que sería el 8, queda para después y no está desca
       `SET LOCAL ROLE authenticated`, la lista es de ese rol y `prisma_api` quedó **sin ninguna
       tabla**: lo que acota una clave robada conectada directo. Esquema 0.28.0, con sus ocho filas
       en `verificar-base.sql` y las dos roturas vistas fallar. RLS no se tocó ([ADR-071](docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md))
-- [ ] [**11.5**](docs/08-plan-de-desarrollo.md#tarea-11-5) [C-06](docs/12-pruebas-y-calidad.md#c-06), la puerta que cruza el uso con la concesión · API — los adaptadores
+- [x] [**11.5**](docs/08-plan-de-desarrollo.md#tarea-11-5) [C-06](docs/12-pruebas-y-calidad.md#c-06), la puerta que cruza el uso con la concesión · API — los adaptadores
       contra `information_schema.column_privileges`, en los dos sentidos: una concesión que nadie
-      usa también falla
+      usa también falla. El rol que se mide es `authenticated`, lo que escribe una función
+      `SECURITY INVOKER` cuenta como uso de quien la llama, y lo que el lector no sabe leer
+      revienta la puerta en vez de callarse. Cinco pruebas contra la base y trece del lector sin
+      ella, con cuatro roturas vistas fallar ([ADR-071](docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md))
 
 ---
 
