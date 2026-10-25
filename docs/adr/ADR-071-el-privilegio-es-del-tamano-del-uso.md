@@ -2,7 +2,19 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-23 | 2026-10-23 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-23 | 2026-10-23 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) |
+
+> **Nota del 2026-10-23:** al implementar la [11.4](../08-plan-de-desarrollo.md#tarea-11-4) se midió quién usa de verdad cada
+> privilegio, y el reparto quedó al revés de lo que el cuerpo de abajo da por supuesto.
+> `ConIdentidad` abre cada petición con `SET LOCAL ROLE authenticated` y `prisma_api` es
+> `NOINHERIT` ([ADR-012](ADR-012-identidad-a-postgres.md)), así que **toda consulta de la API corre con los privilegios de
+> `authenticated`, no con los de `prisma_api`**.
+>
+> Por eso la lista explícita —punto 1 de la decisión— se le concede a `authenticated`, que es lo
+> que acota a la aplicación, y **`prisma_api` queda sin ningún privilegio de tabla**, que es lo que
+> acota a una clave robada conectada directo: esa sesión no hace el `SET ROLE` y se queda en
+> «permission denied for table …». El punto 2 vale para los dos roles. La decisión no cambia; lo
+> que cambia es a quién se le concede.
 
 ## Contexto
 
@@ -106,5 +118,5 @@ leen y se escriben a medias: de `usuarios` la API escribe la ficha y no el tipo 
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [08](../08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [12](../12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [ADR-070](ADR-070-las-migraciones-las-aplica-la-tuberia.md "ADR-070 · Las migraciones las aplica la tubería, no una persona")
+**🔗 Referenciado desde:** [04](../04-modelo-de-datos.md "04 · Modelo de datos") · [08](../08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [12](../12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [ADR-070](ADR-070-las-migraciones-las-aplica-la-tuberia.md "ADR-070 · Las migraciones las aplica la tubería, no una persona")
 <!-- /generado:referenciado-desde -->
