@@ -9,7 +9,11 @@ hermanos no deja el renglón vacío.
 
 ## Hace
 
-<!-- Qué cambia, en prosa y por repositorio o por documento, un poco más largo que en el commit. -->
+<!--
+Qué cambia, en prosa y por repositorio o por documento, un poco más largo que en el commit. Si se
+enseña el antes y el después, los dos renglones van como «Antes:» y «Después:», en español como
+todo el cuerpo: ni «Before:», ni «After:», ni ninguna otra etiqueta en inglés.
+-->
 
 ## Decide
 
