@@ -8,6 +8,9 @@ model: sonnet
 
 # Abrir el PR
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 Rutas relativas a la carpeta de trabajo, la que contiene `repositories/`. La regla está en el
 `CLAUDE.md` de la especificación (§2): el PR se abre solo con autorización expresa de quien dirige.
 

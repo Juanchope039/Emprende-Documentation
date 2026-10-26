@@ -7,6 +7,9 @@ model: sonnet
 
 # Cambiar el contrato
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 El contrato es el acuerdo entre el front y la API, y su cambio es un solo PR en la especificación
 que revisan los dos lados. Las reglas están en el `CLAUDE.md` de la especificación (§3 y §4). Rutas
 relativas a `repositories/documentation`.

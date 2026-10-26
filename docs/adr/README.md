@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.38.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.39.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-26 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -80,8 +80,9 @@ consideraron y qué consecuencias tiene.
 | [069](ADR-069-el-proyecto-se-llama-emprende.md) | El proyecto se llama Emprende, y el nombre viejo se va por donde se toca | Aceptado |
 | [070](ADR-070-las-migraciones-las-aplica-la-tuberia.md) | Las migraciones las aplica la tubería, no una persona | Aceptado |
 | [071](ADR-071-el-privilegio-es-del-tamano-del-uso.md) | El privilegio que la base le concede a la API es del tamaño de su uso | Aceptado |
+| [072](ADR-072-las-reglas-con-alcance-y-lo-compartido.md) | Una regla puede vivir en `.claude/rules/` con su alcance, y lo compartido tiene una fuente y copias verificadas | Aceptado |
 
-Son **69 decisiones** registradas: 56 aceptadas y 13 reemplazadas.
+Son **72 decisiones** registradas: 59 aceptadas y 13 reemplazadas.
 
 > **Sobre la numeración.** El cambio de stack se planeó como [ADR-010](ADR-010-almacenamiento-contrasenas.md) y [ADR-011](ADR-011-stack-flutter-dart.md), pero el 010 ya
 > estaba ocupado por la decisión de contraseñas. Un número asignado no se reutiliza, así que el

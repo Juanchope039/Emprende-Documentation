@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.6.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [2.7.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Guía para los agentes de código que trabajan en la especificación de Emprende. **Las reglas están en
 [`CLAUDE.md`](CLAUDE.md)**, tanto las del proceso como las de la arquitectura y las de este
@@ -22,6 +22,9 @@ lo que se repite está en las skills del [§3](#3-los-procedimientos).
 | [`TODO.md`](TODO.md) | El tablero: en qué va cada tarea y qué decisiones tiene que revisar quien dirige |
 | `scripts/docs/` | La herramienta que pone y verifica encabezados, enlaces y bloques generados |
 | `.claude/skills/` | Los procedimientos paso a paso del [§3](#3-los-procedimientos). Son Markdown: cualquier agente los puede leer |
+| `.claude/rules/` | Una regla por tema, con su `paths:`: se carga sola al abrir un archivo que calza ([ADR-072](docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)) |
+| `.claude/agents/` | Los agentes que revisan: `revisor-de-proceso` y `documentalista`. Informan, y solo el segundo escribe |
+| `scripts/agentes/` | La herramienta que reparte y verifica lo compartido con los otros tres repositorios |
 | `scripts/github/` | La herramienta que pone en GitHub las protecciones de las ramas principales ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md)) |
 
 Los repositorios de código están al lado, en `../backend-api`, `../backend-db` y
@@ -54,6 +57,18 @@ node scripts/github/politicas-de-ramas.mjs aplicar     # las pone; necesita un t
   los privados para tener reglas de rama. Lo que falta es aplicarlas, y `verificar` dice cuánto. La
   regla y el porqué están en el [`CLAUDE.md`](CLAUDE.md) y en [ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md).
 
+**Y lo compartido**, que es lo que tiene que ser igual en los cuatro ([ADR-072](docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)):
+
+```bash
+node scripts/agentes/repartir.mjs --en-seco   # qué copias cambiarían en los otros tres
+node scripts/agentes/repartir.mjs             # las escribe
+node scripts/agentes/verificar.mjs            # la puerta: una copia que no es la fuente pone el PR en rojo
+```
+
+- **La fuente es este repositorio**, y las copias son generadas: una copia no se edita nunca. Qué
+  lleva cada una está en `scripts/agentes/compartido.json`, y los mensajes, en
+  `scripts/agentes/README.md`.
+
 ---
 
 ## 3. Los procedimientos
@@ -72,6 +87,10 @@ Cada uno es una skill, en `.claude/skills/<nombre>/SKILL.md`:
 | `limpiar` | Dejar las cuatro copias en su base, al día y con el árbol limpio, sin perder nada |
 | `etiqueta` | Revisar las etiquetas de git contra su esquema y contar qué entró entre dos |
 | `release` | Preparar el release de lo que llega a `main` o de una entrega, y revisar lo que salió |
+| `probar` | Correr las puertas del repositorio en que estás, y contar qué pasó y qué no |
+| `revisar` | Revisar el diff contra las reglas antes de pedir el PR, con los agentes que lo tocan |
+| `arquitectura` | Contestar de qué capa es algo y qué puede conocer |
+| `donde-estoy` | Decir en qué repositorio corre la sesión y cómo llegar a los otros tres |
 
 ---
 
@@ -107,5 +126,7 @@ Cada uno es una skill, en `.claude/skills/<nombre>/SKILL.md`:
 - **`verificar --base origin/main` en verde, con `main` ya traído a la rama.** Sin él adentro, salen
   falsos positivos cuando `main` ya subió un documento.
 - **Si es una tarea, va marcada `[x]` en el tablero**, como dice el [§5](#5-el-tablero).
+- **`node scripts/agentes/verificar.mjs` en verde**, si el PR tocó algo de lo compartido. Con los
+  otros tres en disco comprueba también sus copias, y entonces lo que falte se reparte.
 - **Si al traer `main` chocan [`TODO.md`](TODO.md) o [`docs/INDICE.md`](docs/INDICE.md)**, la receta cierra la skill
   `documentar`. Cualquier otra clase de choque, la skill `sin-conflictos`.

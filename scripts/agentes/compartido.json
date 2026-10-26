@@ -1,0 +1,90 @@
+{
+  "comentario": [
+    "Lo que tiene que ser igual en los cuatro repositorios: las reglas del proyecto, las skills del",
+    "proceso y los agentes que no son de un repositorio (ADR-072). La fuente es esta especificacion;",
+    "las copias las escribe repartir.mjs y las compara verificar.mjs, byte a byte.",
+    "Cada pieza es un archivo, no una carpeta: asi la puerta comprueba lo mismo con la fuente en disco",
+    "y con la fuente descargada de GitHub. Agregar algo aqui es agregarlo a los cuatro."
+  ],
+  "destinos": [
+    "../backend-api",
+    "../backend-db",
+    "../frontend-flutter"
+  ],
+  "piezas": [
+    {
+      "fuente": "CLAUDE.md",
+      "destino": ".claude/rules/proceso.md",
+      "encabezado": true,
+      "porque": "Las reglas del proyecto, para que una sesion las tenga sin la especificacion en disco"
+    },
+    {
+      "fuente": ".claude/skills/tarea/SKILL.md",
+      "destino": ".claude/skills/tarea/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/plan/SKILL.md",
+      "destino": ".claude/skills/plan/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/commit/SKILL.md",
+      "destino": ".claude/skills/commit/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/documentar/SKILL.md",
+      "destino": ".claude/skills/documentar/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/sin-conflictos/SKILL.md",
+      "destino": ".claude/skills/sin-conflictos/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/pr/SKILL.md",
+      "destino": ".claude/skills/pr/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/limpiar/SKILL.md",
+      "destino": ".claude/skills/limpiar/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/etiqueta/SKILL.md",
+      "destino": ".claude/skills/etiqueta/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/release/SKILL.md",
+      "destino": ".claude/skills/release/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/contrato/SKILL.md",
+      "destino": ".claude/skills/contrato/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/probar/SKILL.md",
+      "destino": ".claude/skills/probar/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/revisar/SKILL.md",
+      "destino": ".claude/skills/revisar/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/arquitectura/SKILL.md",
+      "destino": ".claude/skills/arquitectura/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/donde-estoy/SKILL.md",
+      "destino": ".claude/skills/donde-estoy/SKILL.md"
+    },
+    {
+      "fuente": ".claude/skills/pr/cuerpo.md",
+      "destino": ".claude/skills/pr/cuerpo.md"
+    },
+    {
+      "fuente": ".claude/agents/revisor-de-proceso.md",
+      "destino": ".claude/agents/revisor-de-proceso.md"
+    },
+    {
+      "fuente": ".claude/agents/documentalista.md",
+      "destino": ".claude/agents/documentalista.md"
+    }
+  ]
+}

@@ -7,10 +7,13 @@ model: sonnet
 
 # Limpiar la carpeta de trabajo
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 Las rutas son relativas a la carpeta de trabajo, la que contiene `repositories/`.
 
 De aquí sale la tarea siguiente: su primer paso es la base al día en una copia limpia
-([ADR-040](https://github.com/Juanchope039/Finanzas-PRISMA/blob/main/docs/adr/ADR-040-rama-feature-y-pr-autorizado.md)). Esta skill es ese paso hecho aparte, en las cuatro copias y sin
+([ADR-040](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/adr/ADR-040-rama-feature-y-pr-autorizado.md)). Esta skill es ese paso hecho aparte, en las cuatro copias y sin
 abrir ninguna tarea.
 
 **Todo pasa en las copias de `repositories/`.** Ni worktrees, ni clones, ni carpetas temporales: si
@@ -125,4 +128,4 @@ Y debajo, lo que no se tocó y alguien tiene que ver:
 - **No commitea ni empuja**: eso es la skill `commit`.
 - **No abre ramas**: eso es la skill `tarea`, que empieza donde esta termina.
 - **No trae la base a una rama ni resuelve conflictos**: eso es la skill `sin-conflictos`.
-- **No corre las puertas del [08 §4](https://github.com/Juanchope039/Finanzas-PRISMA/blob/main/docs/08-plan-de-desarrollo.md#4-definición-de-terminado)**: aquí no se está terminando nada.
+- **No corre las puertas del [08 §4](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/08-plan-de-desarrollo.md#4-definición-de-terminado)**: aquí no se está terminando nada.

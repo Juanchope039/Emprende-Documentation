@@ -7,6 +7,9 @@ model: sonnet
 
 # Dejar un documento al día
 
+**Las rutas de este archivo suponen la carpeta de trabajo**, la que tiene los cuatro
+repositorios. Si una no existe en tu sesión, la skill `donde-estoy` dice cómo llegar.
+
 Las reglas están en `22-documentacion.md` y en el `CLAUDE.md` de la especificación. La herramienta
 está en `repositories/documentation/scripts/docs/`, con sus comandos en el §2 del `AGENTS.md` de la
 especificación. Se corre desde cualquier carpeta y revisa también los `.md` de los hermanos.
@@ -23,7 +26,7 @@ especificación. Se corre desde cualquier carpeta y revisa también los `.md` de
 - **Un `§N` suelto, después de un punto, se toma como sección del propio archivo.** Pon el documento
   justo antes: «22 §3» o «`TODO.md` §10».
 - **Desde un repositorio de código, la especificación se enlaza en absoluto**
-  (`https://github.com/Juanchope039/Finanzas-PRISMA/blob/main/…`). Un `../documentation/…` también
+  (`https://github.com/Juanchope039/Emprende-Documentation/blob/main/…`). Un `../documentation/…` también
   sirve: la herramienta lo reescribe.
 - **Las anclas `<a id="…">` las pone la herramienta**: no se escriben a mano.
 - **La nota de un ADR aceptado va debajo del encabezado**, con la forma `> **…**`.
