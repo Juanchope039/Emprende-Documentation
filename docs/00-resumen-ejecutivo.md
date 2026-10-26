@@ -151,7 +151,7 @@ la API, la base de datos y las pantallas. Con más a la vez se termina antes, pe
 que van en cadena y la puesta en marcha no se parte.
 
 <!-- generado:plan-resumen · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**34,6 semanas con 1 tarea a la vez**, **20,6 semanas con 2 tareas a la vez** y **16,3 semanas con 3 tareas a la vez**, contando las 3 de estabilización. El detalle está en el [cronograma](08-plan-de-desarrollo.md#1-cronograma).
+**35,9 semanas con 1 tarea a la vez**, **22,0 semanas con 2 tareas a la vez** y **17,8 semanas con 3 tareas a la vez**, contando las 3 de estabilización. El detalle está en el [cronograma](08-plan-de-desarrollo.md#1-cronograma).
 <!-- /generado:plan-resumen -->
 
 | Sprint | Entrega |
@@ -171,13 +171,13 @@ que van en cadena y la puesta en marcha no se parte.
 **En qué semana llega cada hito**, según cuántas tareas avancen a la vez:
 
 <!-- generado:plan-calendario · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**210 días de trabajo en 174 tareas.** Una sola tarea a la vez avanza 6,59 días por semana, el ritmo del plan original; cada tarea simultánea de más le quita un 10 % a todas por coordinación; y dos tareas del mismo sitio y del mismo sprint no van a la vez.
+**219 días de trabajo en 179 tareas.** Una sola tarea a la vez avanza 6,59 días por semana, el ritmo del plan original; cada tarea simultánea de más le quita un 10 % a todas por coordinación; y dos tareas del mismo sitio y del mismo sprint no van a la vez.
 
 | Tareas a la vez | Desarrollo | Estabilización | Total | Frente a 1 tarea |
 |:---:|---:|---:|---:|---:|
-| 1 | 31,6 semanas | 3 semanas | **34,6 semanas** | — |
-| 2 | 17,6 semanas | 3 semanas | **20,6 semanas** | −14,0 semanas |
-| 3 | 13,3 semanas | 3 semanas | **16,3 semanas** | −18,3 semanas |
+| 1 | 32,9 semanas | 3 semanas | **35,9 semanas** | — |
+| 2 | 19,0 semanas | 3 semanas | **22,0 semanas** | −14,0 semanas |
+| 3 | 14,8 semanas | 3 semanas | **17,8 semanas** | −18,1 semanas |
 
 | Hito | 1 tarea a la vez | 2 tareas a la vez | 3 tareas a la vez |
 |---|:---:|:---:|:---:|
@@ -191,7 +191,7 @@ que van en cadena y la puesta en marcha no se parte.
 | [H8](08-plan-de-desarrollo.md#h8) · Sprint 7 | semana 24 | semana 14 | semana 10 |
 | [H9](08-plan-de-desarrollo.md#h9) · Sprint 8 | semana 28 | semana 17 | semana 14 |
 | [H10](08-plan-de-desarrollo.md#h10) · Sprint 9 | semana 30 | semana 17 | semana 13 |
-| [H11](08-plan-de-desarrollo.md#h11) · go-live | semana 35 | semana 21 | semana 17 |
+| [H11](08-plan-de-desarrollo.md#h11) · go-live | semana 36 | semana 22 | semana 18 |
 <!-- /generado:plan-calendario -->
 
 > **Son más de 16 semanas porque el backend volvió al proyecto.** Construir, probar y desplegar la

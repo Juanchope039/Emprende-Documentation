@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [7.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Base de datos PostgreSQL sobre Supabase. **Solo escritura: nada se elimina jamás.**
 
@@ -2584,7 +2584,7 @@ segunda de las cuatro condiciones de **[ADR-012](adr/ADR-012-identidad-a-postgre
 | `CREATEDB` / `CREATEROLE` | ❌ | La API no crea bases ni reparte permisos |
 | Dueño de las tablas | ❌ | El dueño se salta RLS salvo `FORCE`, y no queremos depender solo de eso |
 | `INHERIT` | ❌ | Los permisos de `authenticated` solo llegan cuando la API los pide con `SET LOCAL ROLE` |
-| Permisos sobre tablas | `SELECT`, `INSERT`, `UPDATE` | Lo mínimo para operar. `DELETE` y `TRUNCATE` revocados, igual que para `authenticated` ([§5.1](#51-revocación-real-del-borrado)) |
+| Permisos sobre tablas | **ninguno** | Toda consulta de la API corre como `authenticated`, así que este rol no necesita ni una tabla ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)) |
 
 ```sql
 -- El rol con el que prisma_api abre cada conexión. La clave llega del gestor de secretos
@@ -2597,16 +2597,11 @@ CREATE ROLE prisma_api LOGIN
 GRANT USAGE ON SCHEMA public TO prisma_api;
 REVOKE CREATE ON SCHEMA public FROM prisma_api;
 
--- Lo mínimo para operar. Nada de borrar.
-GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO prisma_api;
-REVOKE DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public FROM prisma_api;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO prisma_api;
-
--- Y lo mismo para lo que se cree después, sin tener que acordarse en cada migración.
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  GRANT SELECT, INSERT, UPDATE ON TABLES TO prisma_api;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  REVOKE DELETE, TRUNCATE ON TABLES FROM prisma_api;
+-- Ninguna tabla, ni ahora ni en lo que se cree después: lo que la API toca lo toca como
+-- `authenticated`, con la lista explícita del §9.2 (ADR-071).
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM prisma_api;
+REVOKE USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public FROM prisma_api;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM prisma_api;
 
 -- Puede asumir `authenticated`, que es el rol que evalúan las políticas del §7, pero tiene
 -- que pedirlo: NOINHERIT obliga al SET LOCAL ROLE explícito de cada transacción.
@@ -2657,13 +2652,48 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM anon;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON SEQUENCES FROM anon;
 ```
 
-**`authenticated` no se toca.** Es el rol que la API asume con `SET LOCAL ROLE` en cada
-transacción, y es el que evalúan las políticas del [§7](#7-seguridad-por-tipo-de-usuario-rls): quitarle sus permisos apagaría el
-producto entero.
+**`authenticated` es el rol que de verdad opera.** Es el que la API asume con `SET LOCAL ROLE` en
+cada transacción y el que evalúan las políticas del [§7](#7-seguridad-por-tipo-de-usuario-rls), así que **sus permisos no se quitan: se
+dimensionan**, y eso es el [§9.2](#92-el-privilegio-es-del-tamaño-del-uso).
 
 > **Apagar la Data API en la consola no sustituye a esto.** Cierra el agujero en el proyecto donde
 > se apaga y en ninguno más: una casilla de consola no viaja con el esquema, así que uat y prod
 > nacerían abiertos. La casilla y la revocación resuelven cosas distintas y van las dos.
+
+### 9.2 El privilegio es del tamaño del uso
+
+Las dos revocaciones de arriba dejan a `prisma_api` sin tablas, pero el producto sigue necesitando
+leer y escribir: lo hace como `authenticated`. A ese rol **no se le concede `ON ALL TABLES`**, sino
+una lista explícita, del tamaño de lo que los adaptadores usan de verdad ([ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md)).
+
+```sql
+-- Se parte de cero, porque una lista encima de un GRANT general no acota nada.
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM authenticated;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM authenticated;
+
+-- Lo que se lee va por tabla: RLS ya filtra las filas, y las vistas proyectan columnas.
+GRANT SELECT ON movimientos, pedidos, … TO authenticated;
+
+-- Lo que se escribe va por columna, que es donde está la diferencia: de `movimientos` la
+-- API inserta el apunte y solo puede actualizar sus columnas de anulación.
+GRANT INSERT (cuenta_id, descripcion, fecha_movimiento, tipo, valor, …),
+      UPDATE (anulado_dispositivo, anulado_en, anulado_ip, anulado_motivo, anulado_por)
+  ON movimientos TO authenticated;
+```
+
+- **Una tabla nueva nace fuera del alcance de los dos roles** hasta que su migración se lo dé, que
+  es donde se puede pensar si hacía falta.
+- **`auditoria` solo se lee.** La escriben los triggers, que corren como el dueño y no necesitan
+  concesión de nadie; lo mismo vale para las funciones `SECURITY DEFINER`.
+- **Las funciones `SECURITY INVOKER` sí cuentan**: escriben con los privilegios de quien llama, así
+  que lo que escriben entra en la lista como si fuera del adaptador.
+- **Un `SELECT … FOR UPDATE` cuesta `UPDATE`**, aunque no escriba nada. Por eso
+  `nomina_periodos`, que la API no edita, lleva el `UPDATE` de las columnas con que se bloquea.
+- **La lista no envejece sola:** [C-06](12-pruebas-y-calidad.md#c-06) la cruza con `information_schema.column_privileges` en los dos
+  sentidos, y una concesión que ningún adaptador usa falla igual que una que falta.
+
+Y RLS no se toca. Son dos jueces con oficios distintos: la concesión decide a qué se puede
+preguntar, y la política decide qué filas contesta.
 
 ---
 
@@ -2881,7 +2911,7 @@ mismas reglas que la base— solo aguanta si esta prueba corre en cada despliegu
 capas que deciden se separan y ninguna avisa.
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [06](06-nomina-y-capacidad-de-pago.md "06 · Nómina y capacidad de pago") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [17](17-resiliencia-offline-y-cache.md "17 · Resiliencia, trabajo sin conexión y caché") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-010](adr/ADR-010-almacenamiento-contrasenas.md "ADR-010 · Almacenamiento de contraseñas: hashing delegado con salt por usuario") · [ADR-012](adr/ADR-012-identidad-a-postgres.md "ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando") · [ADR-020](adr/ADR-020-idempotencia.md "ADR-020 · Idempotencia obligatoria en toda escritura") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [02](02-casos-de-uso.md "02 · Casos de uso") · [03](03-requisitos-y-bdd.md "03 · Requisitos, reglas de negocio y escenarios BDD") · [06](06-nomina-y-capacidad-de-pago.md "06 · Nómina y capacidad de pago") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [13](13-respaldo-y-exportacion.md "13 · Respaldo y exportación") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [17](17-resiliencia-offline-y-cache.md "17 · Resiliencia, trabajo sin conexión y caché") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [21](21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-010](adr/ADR-010-almacenamiento-contrasenas.md "ADR-010 · Almacenamiento de contraseñas: hashing delegado con salt por usuario") · [ADR-012](adr/ADR-012-identidad-a-postgres.md "ADR-012 · La API propaga la identidad a PostgreSQL para que RLS siga juzgando") · [ADR-020](adr/ADR-020-idempotencia.md "ADR-020 · Idempotencia obligatoria en toda escritura") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-033](adr/ADR-033-service-role-solo-en-auth.md "ADR-033 · La clave de servicio entra, pero solo para crear identidades") · [ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md "ADR-071 · El privilegio que la base le concede a la API es del tamaño de su uso") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
 
 ---

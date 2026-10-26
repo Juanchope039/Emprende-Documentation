@@ -1,8 +1,8 @@
-# Contrato de la API · v0.35.0
+# Contrato de la API · v0.36.0
 
 | Versión | Estado | Creado | Actualizado | Contrato | Etiquetas |
 |---|---|---|---|---|---|
-| [5.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/contrato/README.md "Historial de cambios") | [✅ Vigente](../docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [0.35.0](openapi.json) | [Contrato](../docs/INDICE.md#etiqueta-contrato) · [API](../docs/INDICE.md#etiqueta-api) · [Front](../docs/INDICE.md#etiqueta-front) |
+| [5.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/contrato/README.md "Historial de cambios") | [✅ Vigente](../docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-18 | [0.36.0](openapi.json) | [Contrato](../docs/INDICE.md#etiqueta-contrato) · [API](../docs/INDICE.md#etiqueta-api) · [Front](../docs/INDICE.md#etiqueta-front) |
 
 Este es **el contrato entre `prisma_front` y `prisma_api`**: lo que viaja por el cable, dicho en
 un solo archivo. Vive aquí, y no en ninguno de los repositorios de código, porque no le pertenece
@@ -579,12 +579,25 @@ la API responde `40971` y no cambia nada. Todo lo demás cabe en el descriptor y
 | `hasta` | Hasta | `fecha` | — | — | `ayuda`: «Va con «Desde».» |
 | `personaId` | Persona | `lista` | — | — | `origen`: `/api/v0/consultas/usuarios` · `ayuda`: «También salen los intentos fallidos que tecleó su usuario.» |
 | `tabla` | Qué se tocó | `lista` | — | — | `opciones`: `activos` «Activos» · `adelantos` «Adelantos» · `adjuntos` «Soportes y facturas» · `anticipos` «Anticipos» · `aportes_retiros` «Aportes y retiros» · `cargos` «Cargos» · `cierres_mensuales` «Cierres mensuales» · `costos_producto` «Costos de producto» · `cotizaciones` «Cotizaciones» · `empleados` «Empleadas» · `horas_limite_config` «Límite de horas» · `movimientos` «Movimientos» · `nomina_detalle` «Liquidaciones de nómina» · `pedidos` «Pedidos» · `presentacion_tipos` «Cómo se ve cada tipo» · `productos` «Productos» · `prolabore_config` «Pro-labore» · `sobres_config` «Sobres» · `usuarios` «Usuarios y accesos» |
-| `accion` | Qué pasó | `lista` | — | — | `opciones`: `INSERT` «Creado» · `UPDATE` «Modificado» · `ANULAR` «Anulado» · `inicio_sesion` «Inicio de sesión» · `cierre_sesion` «Cierre de sesión» · `inicio_sesion_fallido` «Intento fallido de ingreso» · `usuario_creado` «Usuario creado» · `usuario_desactivado` «Usuario desactivado» · `usuario_reactivado` «Usuario reactivado» · `clave_restablecida` «Contraseña restablecida» · `clave_cambiada` «Contraseña cambiada» · `cargo_creado` «Cargo creado» · `cargo_desactivado` «Cargo desactivado» · `cargo_reactivado` «Cargo reactivado» · `cargo_renombrado` «Cargo renombrado» · `nombre_cambiado` «Nombre cambiado» · `cargo_cambiado` «Cargo cambiado» · `tipo_cambiado` «Tipo cambiado» · `cambio_revertido` «Cambio revertido» |
 
 Es el formulario de una consulta, como `simulacion`, y **ningún campo es obligatorio**: sin nada,
 sale la primera página de toda la auditoría. Las dos fechas van juntas o no van, y la API lo juzga
 con `42215`. Las 19 tablas son las que llevan el trigger de auditoría, y las 19 acciones son las que
 admite `auditoria_accion_valida` en la base.
+
+Desde el `0.36.0` **«Qué pasó» es `clase`**, de tipo `lista` y con tres opciones: `acceso`
+«Accesos: ingresos, cierres e intentos fallidos», `usuarios` «Cambios sobre usuarios y cargos» y
+`negocio` «Cambios sobre el resto del libro». Es como lo pregunta el mockup, y **a qué clase
+pertenece una entrada lo decide la API**, por su acción y su tabla: no es una lista de acciones
+escrita en la pantalla.
+
+**`accion` sale del descriptor y no del contrato.** Sigue viajando en la consulta, con sus
+diecinueve valores, para quien busque exactamente una; puesta junto a `clase`, lo que se pide es la
+intersección. Pero no es una casilla del panel: el mockup no la dibuja, y las diecinueve en un
+selector al lado de las tres clases preguntan dos veces lo mismo.
+
+Las tablas que ofrece son **21**: las 19 de antes más `respaldo_programacion` y
+`respaldo_pendiente`, que llevan trigger de auditoría desde el esquema `0.26.0` y el `0.27.0`.
 
 ### Los once formularios de motivo
 
@@ -643,6 +656,7 @@ controladores. Si difieren, la compilación falla y dice en qué línea
 
 | Versión | Qué cambió | Por qué |
 |---|---|---|
+| `0.36.0` | **La auditoría se lee en palabras, y «Qué pasó» son tres clases.** `EntradaDeAuditoria` gana `sobre`, obligatorio, y `detalle`: sobre qué fue y qué cambió, ya redactados y con los nombres de columna en español. `ConsultaDeAuditoria` gana `clase` —`acceso`, `usuarios` o `negocio`—, y el formulario `filtro-de-auditoria` la lleva con la etiqueta «Qué pasó», mientras `accion` sale del descriptor sin dejar de viajar en la consulta; la lista de tablas del formulario sube a 21 con las dos del respaldo | Decisión de quien dirige del 2026-10-18, que es la que el [`TODO.md`](../TODO.md) [§10](../TODO.md#10-decisiones-de-construcción-que-conviene-revisar) dejó abierta para antes de la [8.19](../docs/08-plan-de-desarrollo.md#tarea-8-19): Gerencia lee «Cargo: Domiciliaria → Asistente» y no un JSON, y quien redacta es la API ([ADR-018](../docs/adr/ADR-018-front-sin-decisiones.md)). Con eso el panel «Auditoría» queda como está dibujado en el mockup, cuyo selector pregunta por las tres clases y no por una de las diecinueve acciones. **Adición compatible**: ninguna de las 100 operaciones cambia de forma, `antes` y `despues` siguen viajando —quien revisa a fondo los necesita— y un campo nuevo obligatorio en una respuesta no rompe a nadie. Se descartó que el front compusiera las frases, que es el front decidiendo, y guardar la clase en una columna, que podría contradecir a la acción y a la tabla |
 | `0.35.0` | **Un pedido enseña si está pagado, y no se entrega sin terminar de pagarse.** `Pedido` gana `condicionDePago` —`sin_pagar`, `parcial` o `pagado`— y las banderas `sePuedeCobrar`, `sePuedeEntregar` y `sePuedeCancelar`, las cuatro obligatorias. En `/pedidos/{id}/entrega`, `cuentaId` pasa a ser obligatoria cuando queda saldo, y el catálogo estrena el `42236` sobre ese campo. `Pendientes.cuentasPorCobrar` pasa a contar los pedidos sin entregar | Retroalimentación de Gerencia del 2026-10-16: la columna Estado no se podía tocar y no decía si el pedido estaba pagado, y entregar y cancelar no tenían por dónde. La condición de pago va **aparte del estado** porque responden preguntas distintas —el estado dice en qué punto va el trabajo— y así ningún valor del ENUM `estado_pedido` cambia de significado. Las tres banderas siguen el molde de `sePuedeAnular` ([CU-03](../docs/02-casos-de-uso.md#cu-03)): quién puede qué lo decide la API, no la pantalla ([ADR-018](../docs/adr/ADR-018-front-sin-decisiones.md)). **Rompe**, y en una versión `0.x` eso sube la MINOR: un pedido que antes se entregaba con saldo pendiente ahora se rechaza, lo que retira el [CU-07](../docs/02-casos-de-uso.md#cu-07) A1 y el `BDD-07-2`, así que el front y la API se publican juntos. Se descartó que la base impusiera la regla, que necesita otra tabla y dejaría dos versiones de una sola regla ([04 §10](../docs/04-modelo-de-datos.md#10-funciones-de-negocio-atómicas)), y que el front mirara `estado` para decidir qué ofrece, que es el front decidiendo |
 | `0.34.0` | **Se quita `pre-prod` del enum `ambiente`**, en `Version`, que queda `dev`, `qa`, `uat` y `prod` | El ambiente pre-prod se quitó y uat pasa a ser el que se despliega y en el que Gerencia aprueba ([ADR-053](../docs/adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)), así que ningún despliegue puede responder `pre-prod`. **Adición compatible aunque quite un valor**: es un enum de respuesta, no de petición, así que nada que un cliente mande deja de servir, y un front ya publicado que tenga la rama de `pre-prod` simplemente no la toma nunca. Se descartó dejarlo muerto en el contrato, que invita a configurarlo en un ambiente donde ya no significa nada |
 | `0.33.0` | **Lo que el `0.30.0` dejó a medias fuera del catálogo.** `VentaAdicional` pierde `horas` y `SimulacionDeContratacion` pierde `horasRequeridas`, y el orden `margen_por_hora` del cuadro de productos pasa a llamarse `margen_en_pesos` | Las dos cifras de horas salían de los minutos por unidad del costeo, que el `0.30.0` dejó de pedir: sin ese dato no hay de dónde calcularlas, y una que ningún producto nuevo puede llenar se leería como que esas ventas no cuestan trabajo ([06 §4.2](../docs/06-nomina-y-capacidad-de-pago.md#42-resultado-para-el-faltante-de-556000)). Con ellas se retira la regla de que una meta por debajo del 20% de la jornada evaluada significaba que la restricción era la demanda. **Rompe**, y en una versión `0.x` eso sube la MINOR: dos esquemas cambian de forma y un valor de enumeración se renombra, así que el front y la API se publican juntos. Se descartó dejar `horas` en cero, que es una cifra inventada, y conservar el nombre `margen_por_hora` para un orden que ya ordena por pesos |

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.4.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
+| [2.4.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
 
 > **Construcción: en el [Sprint 8](08-plan-de-desarrollo.md#sprint-8), no después del go-live.** El [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) metió el respaldo al plan,
 > en las tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17), y retiró del 14 la deuda [D-05](14-roadmap-e-ideas.md#d-05) y la idea 01. Lo que este documento
@@ -133,13 +133,15 @@ promesa obligó a ampliar los dos `CHECK` de esa tabla; el punto 8 explica por q
 
 **Los tres bajan dentro de un ZIP**, junto al `manifiesto.json` del punto 4. El manifiesto es un
 archivo aparte, y un libro de Excel o un JSON suelto no podría llevarlo. Qué tablas entran en el
-total y en «una tabla»: las 27 del negocio, no las cinco de funcionamiento —`nonces_vistos`,
-`peticiones_idempotentes`, `sesiones`, `schema_version` y `respaldo_programacion`—.
+total y en «una tabla»: las 27 del negocio, no las seis de funcionamiento —`nonces_vistos`,
+`peticiones_idempotentes`, `sesiones`, `schema_version`, `respaldo_programacion` y
+`respaldo_pendiente`—.
 
-`respaldo_programacion` ([04 §4.14](04-modelo-de-datos.md#414-la-programación-del-respaldo)) es la quinta desde la tarea [8.14](08-plan-de-desarrollo.md#tarea-8-14), y por la misma razón que las
-otras cuatro: no es historia de nadie. Y por una propia: un respaldo que al restaurarse devolviera
-la programación vieja encendería solo un trabajo que nadie pidió. Así las que se respaldan siguen
-siendo 27.
+`respaldo_programacion` ([04 §4.14](04-modelo-de-datos.md#414-la-programación-del-respaldo)) es la quinta desde la tarea [8.14](08-plan-de-desarrollo.md#tarea-8-14), y `respaldo_pendiente`
+([04 §4.15](04-modelo-de-datos.md#415-el-mes-que-toca-respaldar)) la sexta desde la [8.16](08-plan-de-desarrollo.md#tarea-8-16), por la misma razón que las otras cuatro: no son
+historia de nadie. Y por una propia: un respaldo que al restaurarse devolviera la programación vieja
+—o un mes marcado como pendiente— encendería solo un trabajo que nadie pidió. Así las que se
+respaldan siguen siendo 27.
 
 ### 3.1 Los datos anulados también se exportan
 
@@ -396,7 +398,7 @@ lo metió al [Sprint 8](08-plan-de-desarrollo.md#sprint-8). Lo que queda fuera e
 > habilita.
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [01](01-vision-y-alcance.md "01 · Visión y alcance") · [02](02-casos-de-uso.md "02 · Casos de uso") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [11](11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.35.0") · [ADR-008](adr/ADR-008-exportacion.md "ADR-008 · Exportación con descarga manual") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "ADR-066 · La clave de servicio también sube el respaldo que nadie pidió")
+**🔗 Referenciado desde:** [01](01-vision-y-alcance.md "01 · Visión y alcance") · [02](02-casos-de-uso.md "02 · Casos de uso") · [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [11](11-riesgos-y-proteccion-de-datos.md "11 · Riesgos y protección de datos") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [19](19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [23](23-diagramas-de-casos-de-uso.md "23 · Diagramas de los casos de uso") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-008](adr/ADR-008-exportacion.md "ADR-008 · Exportación con descarga manual") · [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md "ADR-047 · El respaldo con manifiesto y la auditoría completa entran al Sprint 8") · [ADR-066](adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "ADR-066 · La clave de servicio también sube el respaldo que nadie pidió")
 <!-- /generado:referenciado-desde -->
 
 ---
