@@ -61,6 +61,8 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    ```
 
    - Las tres partes, `Hace`, `Decide` y `Verifica`, un poco más largas que en el commit.
+   - **El cuerpo va entero en español**, también sus etiquetas: el antes y el después se
+     escriben «Antes:» y «Después:», nunca «Before:» ni «After:».
    - `Hermanos`: los PR de la misma rama en los otros repositorios. Sin hermanos, se borra.
    - **El issue**, en su propio renglón: `Closes #n` en el monorepo, que lo cierra al fusionar, y
      `Refs Juanchope039/Emprende-MiniApp-MonoRepo#n` en los otros cuatro, porque un PR no cierra un issue de otro
