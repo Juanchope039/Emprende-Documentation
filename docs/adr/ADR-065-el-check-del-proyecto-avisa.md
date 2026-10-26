@@ -2,7 +2,12 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-065-el-check-del-proyecto-avisa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-065-el-check-del-proyecto-avisa.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md) | 2026-10-17 | 2026-10-26 | [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Reemplazado por [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md).** Este ADR dejó el check en advertencia pero mantuvo la
+> regla en pie y el check exigido por su nombre (punto 3). Desde el 073 estar en el tablero es
+> recomendado, se agrega con el engranaje de *Projects* del PR, y el check sale de las reglas de
+> rama. El cuerpo de abajo se conserva tal como se escribió.
 
 ## Contexto
 
@@ -65,5 +70,5 @@ la vez. El aviso conserva lo único que el [ADR-062](ADR-062-el-pr-esta-en-el-pr
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md "ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md "ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige") · [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md "ADR-073 · Estar en el proyecto del tablero es recomendado, y se agrega a mano con el engranaje") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->
