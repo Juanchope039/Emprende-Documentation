@@ -1,8 +1,8 @@
-# ADR-070 · Una regla puede vivir en `.claude/rules/` con su alcance, y lo compartido tiene una fuente y copias verificadas
+# ADR-072 · Una regla puede vivir en `.claude/rules/` con su alcance, y lo compartido tiene una fuente y copias verificadas
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 

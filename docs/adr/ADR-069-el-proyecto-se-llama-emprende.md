@@ -81,5 +81,5 @@ migración, una compilación o una entrega.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [ADR-070](ADR-070-las-reglas-con-alcance-y-lo-compartido.md "ADR-070 · Una regla puede vivir en .claude/rules/ con su alcance, y lo compartido tiene una fuente y copias verificadas") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [ADR-072](ADR-072-las-reglas-con-alcance-y-lo-compartido.md "ADR-072 · Una regla puede vivir en .claude/rules/ con su alcance, y lo compartido tiene una fuente y copias verificadas") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->

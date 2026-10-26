@@ -1,4 +1,4 @@
-// Reparte lo compartido a los otros tres repositorios (ADR-070).
+// Reparte lo compartido a los otros tres repositorios (ADR-072).
 //
 //   node scripts/agentes/repartir.mjs            # escribe las copias que faltan o cambiaron
 //   node scripts/agentes/repartir.mjs --en-seco  # dice qué cambiaría, sin escribir

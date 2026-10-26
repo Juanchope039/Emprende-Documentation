@@ -22,7 +22,7 @@ lo que se repite está en las skills del [§3](#3-los-procedimientos).
 | [`TODO.md`](TODO.md) | El tablero: en qué va cada tarea y qué decisiones tiene que revisar quien dirige |
 | `scripts/docs/` | La herramienta que pone y verifica encabezados, enlaces y bloques generados |
 | `.claude/skills/` | Los procedimientos paso a paso del [§3](#3-los-procedimientos). Son Markdown: cualquier agente los puede leer |
-| `.claude/rules/` | Una regla por tema, con su `paths:`: se carga sola al abrir un archivo que calza ([ADR-070](docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md)) |
+| `.claude/rules/` | Una regla por tema, con su `paths:`: se carga sola al abrir un archivo que calza ([ADR-072](docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)) |
 | `.claude/agents/` | Los agentes que revisan: `revisor-de-proceso` y `documentalista`. Informan, y solo el segundo escribe |
 | `scripts/agentes/` | La herramienta que reparte y verifica lo compartido con los otros tres repositorios |
 | `scripts/github/` | La herramienta que pone en GitHub las protecciones de las ramas principales ([ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md)) |
@@ -57,7 +57,7 @@ node scripts/github/politicas-de-ramas.mjs aplicar     # las pone; necesita un t
   los privados para tener reglas de rama. Lo que falta es aplicarlas, y `verificar` dice cuánto. La
   regla y el porqué están en el [`CLAUDE.md`](CLAUDE.md) y en [ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md).
 
-**Y lo compartido**, que es lo que tiene que ser igual en los cuatro ([ADR-070](docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md)):
+**Y lo compartido**, que es lo que tiene que ser igual en los cuatro ([ADR-072](docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)):
 
 ```bash
 node scripts/agentes/repartir.mjs --en-seco   # qué copias cambiarían en los otros tres

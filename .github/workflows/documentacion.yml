@@ -36,7 +36,7 @@ jobs:
 
   compartido:
     name: Lo compartido está al día
-    # La puerta de ADR-070, del lado de la fuente: que el manifiesto no nombre una skill, una regla
+    # La puerta de ADR-072, del lado de la fuente: que el manifiesto no nombre una skill, una regla
     # o un agente que ya no existe. Las copias las compara cada repositorio de código en su propia
     # tubería, contra esta fuente: aquí los hermanos no están en disco y se saltan con aviso.
     runs-on: ${{ vars.ETIQUETA_DEL_RUNNER || 'ubuntu-latest' }}

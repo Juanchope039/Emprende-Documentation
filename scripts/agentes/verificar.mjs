@@ -1,4 +1,4 @@
-// La puerta de lo compartido (ADR-070): una copia que no es byte a byte la fuente pone el PR en rojo.
+// La puerta de lo compartido (ADR-072): una copia que no es byte a byte la fuente pone el PR en rojo.
 //
 //   node scripts/agentes/verificar.mjs                 # desde la especificación, contra los que haya en disco
 //   node scripts/agentes/verificar.mjs --fuente        # desde un repositorio de código, contra la fuente en GitHub

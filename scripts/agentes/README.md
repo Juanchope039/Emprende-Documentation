@@ -5,7 +5,7 @@
 | [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/agentes/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-17 | 2026-10-17 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Reparte y verifica lo que tiene que ser igual en los cuatro repositorios: las reglas del proyecto,
-las skills del proceso y los agentes que no son de un repositorio ([ADR-070](../../docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md)). **Hay una fuente, esta
+las skills del proceso y los agentes que no son de un repositorio ([ADR-072](../../docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)). **Hay una fuente, esta
 especificación, y las copias son generadas**: es lo mismo que hace [C-04](../../docs/12-pruebas-y-calidad.md#c-04) con el contrato.
 
 ```bash

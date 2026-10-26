@@ -1,4 +1,4 @@
-// Lo que comparten los cuatro repositorios: reglas, skills y agentes (ADR-070).
+// Lo que comparten los cuatro repositorios: reglas, skills y agentes (ADR-072).
 //
 // La fuente es esta especificación y las copias son generadas: `repartir.mjs` las escribe y
 // `verificar.mjs` las compara byte a byte. Aquí vive lo que las dos necesitan saber, para que la

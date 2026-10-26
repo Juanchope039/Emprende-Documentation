@@ -1,7 +1,7 @@
 {
   "comentario": [
     "Lo que tiene que ser igual en los cuatro repositorios: las reglas del proyecto, las skills del",
-    "proceso y los agentes que no son de un repositorio (ADR-070). La fuente es esta especificacion;",
+    "proceso y los agentes que no son de un repositorio (ADR-072). La fuente es esta especificacion;",
     "las copias las escribe repartir.mjs y las compara verificar.mjs, byte a byte.",
     "Cada pieza es un archivo, no una carpeta: asi la puerta comprueba lo mismo con la fuente en disco",
     "y con la fuente descargada de GitHub. Agregar algo aqui es agregarlo a los cuatro."

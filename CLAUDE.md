@@ -41,14 +41,14 @@ ni referencias de proyectos, ni nombres de clientes.
 - Cómo se hace algo en un repositorio —comandos, estructura, dónde vive cada cosa—, en su
   `AGENTS.md`, que cambia cuando cambia la forma del repositorio.
 - El paso a paso de lo que se repite, en su skill de `.claude/skills/`.
-- **Una regla puede además tener su archivo en `.claude/rules/`, con su `paths:`** ([ADR-070](docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md)), que
+- **Una regla puede además tener su archivo en `.claude/rules/`, con su `paths:`** ([ADR-072](docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)), que
   se carga solo al abrir un archivo que calza. Ese archivo no es otra fuente: nombra la regla, la
   enlaza y agrega las trampas de esa carpeta.
 - Los demás sitios lo nombran y lo enlazan, pero no lo repiten. Solo se repiten la `description` de
   cada skill y el comando que corre uno de sus pasos.
 - **Lo que tiene que ser igual en los cuatro** —las reglas del proyecto, las skills del proceso y los
   agentes que no son de un repositorio— tiene una sola fuente, la especificación, y copias
-  generadas que una puerta compara byte a byte ([ADR-070](docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md)). Una copia no se edita.
+  generadas que una puerta compara byte a byte ([ADR-072](docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)). Una copia no se edita.
 - Ni este `CLAUDE.md` ni los `AGENTS.md` llevan estado, conteos o versiones ([ADR-035](docs/adr/ADR-035-repositorios-hermanos.md)), y cerrar una
   tarea no toca ninguno de los dos.
 

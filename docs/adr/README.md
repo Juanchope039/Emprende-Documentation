@@ -78,7 +78,7 @@ consideraron y qué consecuencias tiene.
 | [067](ADR-067-el-plan-no-tiene-carriles.md) | El plan no tiene carriles: cada tarea dice dónde vive | Aceptado |
 | [068](ADR-068-los-sprints-cerrados-no-reciben-tareas.md) | Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo | Aceptado |
 | [069](ADR-069-el-proyecto-se-llama-emprende.md) | El proyecto se llama Emprende, y el nombre viejo se va por donde se toca | Aceptado |
-| [070](ADR-070-las-reglas-con-alcance-y-lo-compartido.md) | Una regla puede vivir en `.claude/rules/` con su alcance, y lo compartido tiene una fuente y copias verificadas | Aceptado |
+| [072](ADR-072-las-reglas-con-alcance-y-lo-compartido.md) | Una regla puede vivir en `.claude/rules/` con su alcance, y lo compartido tiene una fuente y copias verificadas | Aceptado |
 
 Son **70 decisiones** registradas: 57 aceptadas y 13 reemplazadas.
 

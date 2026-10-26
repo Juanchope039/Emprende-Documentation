@@ -48,4 +48,4 @@ for c in ../backend-api ../Emprende-API repositories/backend-api; do [ -d "$c/.g
 - **Decirlo**, si lo que se pidió necesita ese repositorio: una tarea de dos repositorios no se
   termina a medias en silencio.
 - Las reglas del proyecto no hacen falta buscarlas allá: cada repositorio tiene su copia en
-  `.claude/rules/proceso.md`, que se reparte y se verifica ([ADR-070](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/adr/ADR-070-las-reglas-con-alcance-y-lo-compartido.md)).
+  `.claude/rules/proceso.md`, que se reparte y se verifica ([ADR-072](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/adr/ADR-072-las-reglas-con-alcance-y-lo-compartido.md)).
