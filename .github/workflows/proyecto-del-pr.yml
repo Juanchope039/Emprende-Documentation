@@ -1,10 +1,13 @@
-# El PR está en el proyecto: todo PR a una rama principal tiene que estar en «Prisma project», el
-# proyecto 4 de Juanchope039, que es el tablero (ADR-062 de la especificación).
+# El PR está en el proyecto: mira si el PR está en «Prisma project», el proyecto 4 de Juanchope039,
+# que es el tablero.
 #
-# ESTE TRABAJO AVISA Y NO FALLA. Lo pidió quien dirige: agregar el PR al tablero es cosa suya, no
-# del código que entra, y un check en rojo por eso dejaba el PR sin salida esperando un clic. Así
-# que cuando el PR no está —o no se puede saber— sale una advertencia y el trabajo queda en verde.
-# El mismo archivo vive en los cuatro repositorios, y el monorepo no lo lleva.
+# ESTAR EN EL TABLERO ES RECOMENDADO, NO OBLIGATORIO (ADR-073). Se agrega a mano, con el engranaje
+# de Projects en la barra del PR, eligiendo «Prisma project». Ninguna regla de rama pide este check.
+#
+# ESTE TRABAJO AVISA Y NO FALLA, y se queda porque una puerta que no se quiere bloqueante se vuelve
+# advertencia y no se borra (ADR-065). Cuando el PR no está —o no se puede saber— sale una
+# advertencia y el trabajo queda en verde. El mismo archivo vive en los cuatro repositorios, y el
+# monorepo no lo lleva.
 #
 # Los proyectos de un usuario no los lee GITHUB_TOKEN: hace falta el secreto PRISMA_PROYECTO_TOKEN,
 # un token fino del dueño con Pull requests y Projects en lectura. Sin él, el trabajo solo avisa.
@@ -73,6 +76,8 @@ jobs:
           done
 
           echo "::warning::El PR #$PR no está en el proyecto $NUMERO de $DUENO («Prisma project»)."
-          echo "Agrégalo en el panel Projects del PR, o con gh pr edit $PR --add-project 'Prisma project'."
-          echo "Esto es una advertencia: el trabajo queda en verde igual."
+          echo "Si lo quieres en el tablero, dale al engranaje de Projects en la barra del PR y elige"
+          echo "«Prisma project»; desde una sesión con GraphQL también sirve"
+          echo "gh pr edit $PR --add-project 'Prisma project'."
+          echo "Estar en el tablero es recomendado, no obligatorio (ADR-073): el trabajo queda en verde."
           exit 0
