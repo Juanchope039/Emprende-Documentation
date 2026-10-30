@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
@@ -37,7 +37,7 @@ traigan exactamente el mismo contenido.
 ## Decisión
 
 1. **Cada subárbol del monorepo tiene exactamente el árbol de algún commit de `develop` y de
-   `main` de su repositorio**, en `prisma_api`, `emprende_db` y `emprende_front`, y de `main` en la
+   `main` de su repositorio**, en `emprende_api`, `emprende_db` y `emprende_front`, y de `main` en la
    especificación, que no tiene `develop`. Es el último paso de develop → qa → main → `main` del
    monorepo: las bases pueden ir adelante; el monorepo, nunca.
 2. **Lo de fuera de las cuatro carpetas es del producto y queda fuera de la regla**: `.github/`,

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.4.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
+| [2.4.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
 
 > **Construcción: en el [Sprint 8](08-plan-de-desarrollo.md#sprint-8), no después del go-live.** El [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) metió el respaldo al plan,
 > en las tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17), y retiró del 14 la deuda [D-05](14-roadmap-e-ideas.md#d-05) y la idea 01. Lo que este documento
@@ -20,7 +20,7 @@
 |---|---|---|---|---|
 | 1 · Proveedor | Toda la base de datos de prod | Diaria automática | Supabase | ✅ Desde el día 1 |
 | 2 · Exportación | Base completa, un mes, un rango o una tabla | A demanda o programada | Gerencia | ⬜ [Sprint 8](08-plan-de-desarrollo.md#sprint-8), tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17) |
-| 3 · Código | Los dos proyectos, `emprende_front` y `prisma_api` | Cada cambio | Control de versiones | ✅ Desde el día 1 |
+| 3 · Código | Los dos proyectos, `emprende_front` y `emprende_api` | Cada cambio | Control de versiones | ✅ Desde el día 1 |
 
 El nivel 1 protege contra fallas técnicas. **El nivel 2 protege contra algo distinto:** la
 dependencia de un proveedor. Un archivo propio, en un disco propio, es lo que garantiza que la
@@ -185,7 +185,7 @@ Todo archivo de exportación incluye un `manifiesto.json`:
 | `sha256` por archivo | Detecta si un archivo se corrompió o fue alterado |
 | `registros` por archivo | Detecta una exportación truncada |
 | `version_esquema` | Permite saber si el respaldo corresponde a una estructura anterior |
-| `version_api` | Dice qué versión de `prisma_api` armó el archivo. Es la que genera, así que es la que responde |
+| `version_api` | Dice qué versión de `emprende_api` armó el archivo. Es la que genera, así que es la que responde |
 | `ambiente` | Dice de qué ambiente salió: `dev`, `qa`, `uat` o `prod` |
 | `totales_control` | Permite verificar el respaldo **sin abrirlo**: si los totales no coinciden con los del sistema, algo falló |
 | `zona_horaria` | Evita que las fechas se reinterpreten mal al abrir el archivo en otro lugar |
@@ -240,13 +240,13 @@ fila no alcanza a tapar.
 El diseño de la exportación no cambia; cambia quién lo ejecuta. Antes el cliente consultaba
 Supabase y armaba el archivo en el navegador. Ahora **el front no habla con Supabase nunca**
 ([`ADR-018`](adr/ADR-018-front-sin-decisiones.md)), así que el trabajo queda entero del lado de
-`prisma_api`.
+`emprende_api`.
 
 | Paso | Quién | Qué pasa |
 |---|---|---|
 | 1 | `emprende_front` | Pide la exportación con su alcance y su formato |
 | 2 | `prisma_api` | Abre la transacción con la identidad de quien pidió y lee lo que RLS le permita |
-| 3 | `prisma_api` | Arma los archivos, calcula los `sha256`, escribe el `manifiesto.json` y la fila de `exportaciones` |
+| 3 | `emprende_api` | Arma los archivos, calcula los `sha256`, escribe el `manifiesto.json` y la fila de `exportaciones` |
 | 4 | `emprende_front` | Baja el archivo por la API, con una acción explícita de la usuaria |
 
 Tres cosas mejoran con el cambio, y por eso vale la pena dejarlas escritas:
@@ -327,7 +327,7 @@ que es la única señal visible de que un mes no se respaldó: nadie recibe un a
 | Ver historial de exportaciones | ✅ | ❌ |
 | Configurar la programación | ✅ | ❌ |
 
-Restricción aplicada por Row Level Security, igual que el resto de datos sensibles. `prisma_api`
+Restricción aplicada por Row Level Security, igual que el resto de datos sensibles. `emprende_api`
 no la vuelve a implementar: la hereda, porque consulta con la identidad de quien pidió (5.1).
 
 ---

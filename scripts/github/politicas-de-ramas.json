@@ -52,7 +52,7 @@
     },
     {
       "nombre": "Emprende-API",
-      "proyecto": "prisma_api",
+      "proyecto": "emprende_api",
       "visibilidad": "privado",
       "pr-en-el-proyecto": false,
       "pr-con-milestone": true,

@@ -1,3 +1,3 @@
 # Solo el contrato: tiene que ser identico byte a byte en cualquier maquina, porque
-# prisma_api guarda una copia fijada de el. El resto de la documentacion no se toca.
+# emprende_api guarda una copia fijada de el. El resto de la documentacion no se toca.
 contrato/*.json text eol=lf

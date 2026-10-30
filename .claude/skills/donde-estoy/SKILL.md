@@ -16,7 +16,7 @@ Se decide por lo que hay en la raíz, no por el nombre de la carpeta:
 
 | Si existe | Es |
 |---|---|
-| `settings.gradle.kts` con `prisma_api` | la API |
+| `settings.gradle.kts` con `emprende_api` | la API |
 | `supabase/config.toml` | la base |
 | `pubspec.yaml` con `emprende_front` | el front |
 | `docs/INDICE.md` | la especificación |

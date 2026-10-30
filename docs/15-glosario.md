@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/15-glosario.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) |
+| [2.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/15-glosario.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) |
 
 Vocabulario compartido entre el negocio, la contabilidad y el sistema. Cuando haya duda sobre
 qué significa algo, este documento manda.
@@ -240,7 +240,7 @@ Volver a compilarlo para producción sería aprobar una cosa y publicar otra.
 
 **BFF**
 *Backend for frontend*: una capa de servidor hecha a la medida de una pantalla, que le entrega
-los datos ya armados como los necesita. En Emprende no es un proyecto aparte: `prisma_api` hace de
+los datos ya armados como los necesita. En Emprende no es un proyecto aparte: `emprende_api` hace de
 API y de BFF al mismo tiempo, porque hoy hay un solo cliente.
 
 **Caso de uso**

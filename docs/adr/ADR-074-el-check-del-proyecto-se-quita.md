@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-074-el-check-del-proyecto-se-quita.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-29 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-074-el-check-del-proyecto-se-quita.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-29 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
@@ -25,7 +25,7 @@ que renovar, y un check más en cada PR que no dice nada del código. Quien diri
 ## Decisión
 
 1. **El trabajo «El PR está en el proyecto» se quita** de los cuatro repositorios: de
-   `reglas-del-pr.yml` en `prisma_api`, `emprende_db` y `emprende_front`, y de esta especificación,
+   `reglas-del-pr.yml` en `emprende_api`, `emprende_db` y `emprende_front`, y de esta especificación,
    donde se borra `proyecto-del-pr.yml`.
 2. **Estar en el tablero sigue siendo recomendado**, como dice el [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md): se agrega a mano con el
    engranaje de *Projects* del PR. Ninguna puerta ni ningún aviso lo mira.

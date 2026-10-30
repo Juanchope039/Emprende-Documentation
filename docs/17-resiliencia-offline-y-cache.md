@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/17-resiliencia-offline-y-cache.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-09-22 | [Front](INDICE.md#etiqueta-front) · [API](INDICE.md#etiqueta-api) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/17-resiliencia-offline-y-cache.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Front](INDICE.md#etiqueta-front) · [API](INDICE.md#etiqueta-api) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 > **Construcción: diseñado, no construido.** Este documento define cómo la aplicación tolerará los
 > cortes de red y trabajará sin conexión. Se escribe antes de programar para que la arquitectura
@@ -107,7 +107,7 @@ cambian**: lo que cambia es dónde se guarda, no qué se garantiza.
 
 ## 4. Lecturas sin conexión
 
-- **Con red:** la app pide a `prisma_api` y, de paso, **guarda una copia** en la caché de datos
+- **Con red:** la app pide a `emprende_api` y, de paso, **guarda una copia** en la caché de datos
   (estrategia *stale-while-revalidate*: muestra lo cacheado al instante y refresca por detrás).
 - **Sin red:** la app lee directamente de la caché y marca la pantalla con un aviso visible
   (**"Sin conexión — mostrando datos guardados"**) para que nadie confunda una cifra vieja con la
@@ -194,7 +194,7 @@ la segunda queda rechazada con ese mismo motivo, guardada y a la vista ([§8](#8
 
 | Estado | Cómo se detecta | Qué hace la app |
 |---|---|---|
-| **En línea** | `navigator.onLine` + un *ping* liviano a `prisma_api` | Lee en vivo; vacía la cola pendiente |
+| **En línea** | `navigator.onLine` + un *ping* liviano a `emprende_api` | Lee en vivo; vacía la cola pendiente |
 | **Sin conexión** | Falla el *ping* o `offline` | Lee de la caché; encola escrituras; muestra el aviso |
 | **Reconectando** | Vuelve `online` | Reintenta la cola con espera exponencial y variación ([§5.2](#52-cuánto-se-espera-entre-reintentos)); al terminar, quita el aviso |
 
