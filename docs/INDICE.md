@@ -210,7 +210,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [16 · Base de datos: snapshots y datos de prueba](16-base-de-datos-y-snapshots.md) | 3.4.0 | ✅ Vigente | 2026-09-23 | [Base de datos](#etiqueta-base-de-datos) · [Calidad](#etiqueta-calidad) |
 | [17 · Resiliencia, trabajo sin conexión y caché](17-resiliencia-offline-y-cache.md) | 1.1.0 | ✅ Vigente | 2026-09-22 | [Front](#etiqueta-front) · [API](#etiqueta-api) · [Arquitectura](#etiqueta-arquitectura) |
 | [18 · Distribución multiplataforma y automatización (pipelines)](18-distribucion-y-pipelines.md) | 0.1.0 | 💡 Propuesta | 2026-09-16 | [Entrega](#etiqueta-entrega) · [Front](#etiqueta-front) |
-| [19 · Ambientes, versionado y entrega](19-ambientes-y-entrega.md) | 13.1.0 | ✅ Vigente | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
+| [19 · Ambientes, versionado y entrega](19-ambientes-y-entrega.md) | 13.2.0 | ✅ Vigente | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [20 · Contrato de la API](20-contrato-de-api.md) | 3.1.1 | ✅ Vigente | 2026-10-17 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
 | [21 · Trabajo en paralelo](21-trabajo-en-paralelo.md) | 7.0.0 | ✅ Vigente | 2026-10-17 | [Paralelo](#etiqueta-paralelo) · [Proceso](#etiqueta-proceso) |
 | [22 · Documentación: versiones, estados y referencias](22-documentacion.md) | 2.3.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
@@ -245,7 +245,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo](adr/ADR-026-railway-al-final.md) | 1.1.0 | ⛔ Reemplazado | 2026-09-17 | [Entrega](#etiqueta-entrega) · [Plan](#etiqueta-plan) |
 | [ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica](adr/ADR-027-documentacion-versionada.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Proceso](#etiqueta-proceso) |
 | [ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué](adr/ADR-028-un-commit-por-tarea.md) | 1.4.0 | ✅ Aceptado | 2026-09-24 | [Proceso](#etiqueta-proceso) · [Plan](#etiqueta-plan) |
-| [ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase](adr/ADR-029-esquema-por-etiqueta.md) | 1.0.0 | ✅ Aceptado | 2026-09-16 | [Base de datos](#etiqueta-base-de-datos) · [API](#etiqueta-api) · [Entrega](#etiqueta-entrega) · [Calidad](#etiqueta-calidad) |
+| [ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase](adr/ADR-029-esquema-por-etiqueta.md) | 1.1.0 | ✅ Aceptado | 2026-10-30 | [Base de datos](#etiqueta-base-de-datos) · [API](#etiqueta-api) · [Entrega](#etiqueta-entrega) · [Calidad](#etiqueta-calidad) |
 | [ADR-030 · El contrato no usa GET: toda operación viaja por POST bajo /api/v0](adr/ADR-030-contrato-sin-get.md) | 1.0.0 | ✅ Aceptado | 2026-09-17 | [API](#etiqueta-api) · [Contrato](#etiqueta-contrato) · [Seguridad](#etiqueta-seguridad) |
 | [ADR-031 · El mensaje de commit cabe en 256 caracteres](adr/ADR-031-commit-de-256-caracteres.md) | 1.2.0 | ⛔ Reemplazado | 2026-09-21 | — |
 | [ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final](adr/ADR-032-railway-en-dev-ahora.md) | 1.1.0 | ✅ Aceptado | 2026-10-03 | [Entrega](#etiqueta-entrega) · [Plan](#etiqueta-plan) |
@@ -275,7 +275,7 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-056 · qa también se aloja en Railway, construido desde la rama qa](adr/ADR-056-qa-se-aloja-desde-su-rama.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-057 · La atribución de un agente va una sola vez, y sin el enlace ni el id de su sesión](adr/ADR-057-la-atribucion-va-una-vez-y-sin-la-sesion.md) | 1.1.0 | ⛔ Reemplazado | 2026-10-16 | [Proceso](#etiqueta-proceso) |
 | [ADR-058 · El monorepo de producto nunca lleva en sus subárboles algo que no esté en develop](adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md) | 1.0.0 | ✅ Aceptado | 2026-10-14 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
-| [ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) | 1.1.0 | ✅ Aceptado | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
+| [ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) | 1.2.0 | ✅ Aceptado | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-060 · Todo PR se asocia a un issue del monorepo de producto](adr/ADR-060-todo-pr-se-asocia-a-un-issue.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | — |
 | [ADR-061 · Se promueve con merge commit, y qa no recibe nada que no esté en develop](adr/ADR-061-se-promueve-con-merge-commit.md) | 1.0.0 | ✅ Aceptado | 2026-10-15 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige](adr/ADR-062-el-pr-esta-en-el-proyecto.md) | 1.2.0 | ⛔ Reemplazado | 2026-10-17 | [Proceso](#etiqueta-proceso) |
@@ -293,9 +293,9 @@ Qué significa cada estado y cuándo sube una versión está en
 | [ADR-074 · El check del proyecto se quita de los cuatro repositorios](adr/ADR-074-el-check-del-proyecto-se-quita.md) | 1.0.0 | ✅ Aceptado | 2026-10-29 | [Proceso](#etiqueta-proceso) |
 | [ADR-075 · Solo quien dirige fusiona los PR](adr/ADR-075-solo-quien-dirige-fusiona.md) | 1.0.0 | ✅ Aceptado | 2026-10-29 | [Proceso](#etiqueta-proceso) |
 | [ADR-076 · La tubería de cada repositorio de código va en dos flujos](adr/ADR-076-la-tuberia-en-dos-flujos.md) | 1.0.0 | ✅ Aceptado | 2026-10-29 | [Proceso](#etiqueta-proceso) |
-| [ADR-077 · La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z](adr/ADR-077-snapshot-hasta-la-release.md) | 1.0.0 | ✅ Aceptado | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
+| [ADR-077 · La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z](adr/ADR-077-snapshot-hasta-la-release.md) | 1.1.0 | ✅ Aceptado | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [AGENTS.md](../AGENTS.md) | 2.7.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
-| [CLAUDE.md](../CLAUDE.md) | 16.5.0 | ✅ Vigente | 2026-10-30 | [Proceso](#etiqueta-proceso) |
+| [CLAUDE.md](../CLAUDE.md) | 16.6.0 | ✅ Vigente | 2026-10-30 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de lo compartido](../scripts/agentes/README.md) | 1.0.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [Herramienta de documentación](../scripts/docs/README.md) | 2.4.0 | ✅ Vigente | 2026-10-17 | [Proceso](#etiqueta-proceso) |
 | [Políticas de rama](../scripts/github/README.md) | 4.1.0 | ✅ Vigente | 2026-10-29 | [Proceso](#etiqueta-proceso) |

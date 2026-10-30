@@ -2,7 +2,13 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-029-esquema-por-etiqueta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-16 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-029-esquema-por-etiqueta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) · [Calidad](../INDICE.md#etiqueta-calidad) |
+
+> **Lo modifica [ADR-077](ADR-077-snapshot-hasta-la-release.md):** desde el 2026-10-30 la base se etiqueta `vX.Y.Z`, solo en su
+> `release/X.Y.Z`, y `esquema-vX.Y.Z` queda en desuso. La tubería de la API trae el esquema por su
+> `vX.Y.Z`, por la `esquema-vX.Y.Z` vieja o por el commit de `develop` que agregó la migración que
+> publica esa versión, y `prisma.esquema` sube cuando esa migración ya está en `develop`. El cuerpo
+> de abajo se conserva tal como se escribió.
 
 ## Contexto
 

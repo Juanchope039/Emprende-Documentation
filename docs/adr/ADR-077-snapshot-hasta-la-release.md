@@ -2,7 +2,14 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-077-snapshot-hasta-la-release.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-30 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-077-snapshot-hasta-la-release.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-30 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Nota del 2026-10-30:** quien dirige decidió que `esquema-vX.Y.Z` queda en desuso. La base usa
+> `vX.Y.Z`, como la API y el front, y solo se pone en `release/X.Y.Z`; las `esquema-v` que existen
+> se quedan donde están. La tubería de la API ya no la necesita: trae la versión que pide por su
+> `vX.Y.Z`, por la `esquema-vX.Y.Z` vieja o por el commit de `develop` que agregó la migración que
+> la publica, que es el mismo que antes recibía la etiqueta. El punto 4 de abajo se conserva tal
+> como se escribió.
 
 ## Contexto
 
@@ -74,5 +81,5 @@ otro: dice qué migraciones existen, y eso no espera a la entrega.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [12](../12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-059](ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [12](../12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-029](ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-059](ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->

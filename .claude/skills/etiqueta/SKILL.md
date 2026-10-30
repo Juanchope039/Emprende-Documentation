@@ -17,13 +17,13 @@ En el repositorio de código, con las etiquetas al día:
 
 ```bash
 git fetch --tags origin main develop 'refs/heads/release/*:refs/remotes/origin/release/*'
-bash .github/scripts/verificar-etiquetas.sh origin/release/<X.Y.Z>   # en la API y el front
-bash .github/scripts/verificar-etiquetas.sh origin/develop           # en la base
+bash .github/scripts/verificar-etiquetas.sh origin/release/<X.Y.Z>
 ```
 
 - En verde, cada etiqueta cumple el patrón, es anotada, sube y trae su mensaje; o está en la lista
-  de excepciones. La del esquema está en la primera línea de `develop` y sube un solo paso; la de
-  una release, sobre el commit que pasó la versión a `-RELEASE`, y puede juntar varios pasos.
+  de excepciones. Está sobre el commit de la release que pasó la versión a `-RELEASE`, y puede
+  juntar varios pasos. En la base es `vX.Y.Z`: las `esquema-vX.Y.Z` quedan en desuso y no se
+  revisan.
 - En el monorepo la base es `origin/main` y el patrón `entrega-vN`.
 
 ## 2. Contar el tramo de una etiqueta
@@ -43,7 +43,7 @@ bash .github/scripts/verificar-etiquetas.sh --tramo <etiqueta>
 
 | Lo que dice | Qué se hace |
 |---|---|
-| Falta la etiqueta de una versión entregada | Volver a correr «Crear la release» con el commit de `main` que se entregó; en la base, el trabajo de las etiquetas del esquema. Nunca crearla a mano. Una `-SNAPSHOT` todavía no la tiene, y está bien |
+| Falta la etiqueta de una versión entregada | Volver a correr «Crear la release» con el commit de `main` que se entregó. Nunca crearla a mano. Una `-SNAPSHOT` todavía no la tiene, y está bien |
 | Saltó un paso o repitió una versión | Lo arrastró C-05 sin verlo: avisar a quien dirige con las dos versiones. No se renumera nada |
 | Una etiqueta está mal (ligera, otro commit, mensaje viejo) | No se rehace. La siguiente lo declara con un renglón `Corrige: <etiqueta>: lo que estaba mal`, y la mala entra a la lista de excepciones en el mismo PR |
 | El mensaje nombra otra etiqueta | Solo vale en un renglón `Corrige:`. Se arregla en el guion que lo escribió |
