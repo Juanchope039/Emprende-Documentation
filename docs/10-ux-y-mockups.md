@@ -1007,7 +1007,7 @@ navegación, pequeña y sin competir con nada:
 
 ```
 ┌──────────────┐
-│  Emprende M&Y  │
+│  PRISMA M&Y  │
 │              │
 │  • Inicio    │
 │  • Pedidos   │
