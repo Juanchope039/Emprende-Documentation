@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.41.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-29 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.42.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -85,6 +85,7 @@ consideraron y qué consecuencias tiene.
 | [074](ADR-074-el-check-del-proyecto-se-quita.md) | El check del proyecto se quita de los cuatro repositorios | Aceptado |
 | [075](ADR-075-solo-quien-dirige-fusiona.md) | Solo quien dirige fusiona los PR | Aceptado |
 | [076](ADR-076-la-tuberia-en-dos-flujos.md) | La tubería de cada repositorio de código va en dos flujos | Aceptado |
+| [077](ADR-077-snapshot-hasta-la-release.md) | La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z | Aceptado |
 
 Son **76 decisiones** registradas: 61 aceptadas y 15 reemplazadas.
 

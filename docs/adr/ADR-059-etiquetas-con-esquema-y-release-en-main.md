@@ -2,7 +2,12 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-15 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Lo modifica [ADR-077](ADR-077-snapshot-hasta-la-release.md):** la etiqueta `v<versión>` de la API y el front, y el release de
+> las tres piezas, ya no nacen en `develop` ni en el empuje a `main`: los pone la entrega, en la
+> rama `release/X.Y.Z`. Entre dos releases la etiqueta puede subir más de un paso. El esquema de
+> las etiquetas, su mensaje y `esquema-vX.Y.Z` en `develop` siguen como aquí.
 
 ## Contexto
 
@@ -106,5 +111,5 @@ mismo patrón, y escribirla solo agrega algo que puede quedar mal.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [02](../02-casos-de-uso.md "02 · Casos de uso") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [02](../02-casos-de-uso.md "02 · Casos de uso") · [19](../19-ambientes-y-entrega.md "19 · Ambientes, versionado y entrega") · [ADR-077](ADR-077-snapshot-hasta-la-release.md "ADR-077 · La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z") · [CLAUDE](../../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
