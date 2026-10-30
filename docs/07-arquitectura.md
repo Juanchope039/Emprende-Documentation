@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/07-arquitectura.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Arquitectura](INDICE.md#etiqueta-arquitectura) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) · [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Seguridad](INDICE.md#etiqueta-seguridad) |
+| [6.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/07-arquitectura.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](INDICE.md#etiqueta-arquitectura) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) · [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Seguridad](INDICE.md#etiqueta-seguridad) |
 
 Tres partes —un front en Flutter multiplataforma, una API en Java 25 con Spring Boot y una capa
 de datos PostgreSQL siempre en línea—. Arquitectura hexagonal (puertos y adaptadores) sobre Clean
@@ -15,7 +15,7 @@ Architecture, con principios SOLID.
 | Capa | Elección | Razón |
 |---|---|---|
 | Lenguajes | **Dart en el front, Java 25 en la API** | Son dos, y es un costo que se asume a conciencia. El porqué está en [§1.5](#15-qué-se-pierde-y-qué-se-gana-al-pasar-la-api-a-java) |
-| Front | **Flutter multiplataforma**, objetivo por defecto **web**, instalable como PWA (`prisma_front`) | Una sola base de código para el navegador del taller y, sin reescribir nada, para Android, iOS y escritorio |
+| Front | **Flutter multiplataforma**, objetivo por defecto **web**, instalable como PWA (`emprende_front`) | Una sola base de código para el navegador del taller y, sin reescribir nada, para Android, iOS y escritorio |
 | API | **Java 25 con Spring Boot**, a la vez API y BFF (`prisma_api`) | Único punto que habla con la base. Ahí viven el dominio y los casos de uso |
 | Framework HTTP | **Spring Web** sobre el arranque de Spring Boot ([ADR-017](adr/ADR-017-api-en-java.md)) | Enrutado por anotaciones, inyección de dependencias y transacciones declarativas en la misma caja. Nada de esto hay que construirlo |
 | Acceso a datos | **JDBC con `JdbcTemplate`**, sin ORM | El SQL queda a la vista y la transacción con identidad ([§7.2](#72-la-solución-obligatoria)) se controla a mano. Un ORM que abre conexiones por su cuenta es justo lo que rompe esa transacción |
@@ -41,7 +41,7 @@ Architecture, con principios SOLID.
 
 ```mermaid
 graph LR
-    FRONT[prisma_front · Flutter multiplataforma · web por defecto] -->|HTTPS · JSON firmado| API[prisma_api · Java 25 · Spring Boot]
+    FRONT[emprende_front · Flutter multiplataforma · web por defecto] -->|HTTPS · JSON firmado| API[prisma_api · Java 25 · Spring Boot]
     API -->|JDBC| DB[(Capa de datos · PostgreSQL · Supabase · siempre en línea)]
     API -->|HTTPS| AUTH[Supabase Auth y Storage]
     FRONT -. nunca · prohibido .-> DB
@@ -50,7 +50,7 @@ graph LR
 
 | Parte | Qué es | Qué hace | Qué NO hace |
 |---|---|---|---|
-| **prisma_front** | Flutter, un solo código; objetivo por defecto **web**, y el mismo código compila a Android, iOS y escritorio | Pide, recibe y muestra. Pinta lo que la API le dicta | **No decide nada.** Ni reglas, ni permisos, ni mensajes, ni cálculos de negocio |
+| **emprende_front** | Flutter, un solo código; objetivo por defecto **web**, y el mismo código compila a Android, iOS y escritorio | Pide, recibe y muestra. Pinta lo que la API le dicta | **No decide nada.** Ni reglas, ni permisos, ni mensajes, ni cálculos de negocio |
 | **prisma_api** | Java 25 con Spring Boot | Toda la lógica. Toma todas las decisiones. Dicta qué mensaje se muestra y cuándo | No confía en el front. No decide los permisos que le tocan a la base |
 | **Capa de datos** | PostgreSQL en Supabase, más migraciones, funciones de negocio, índices, particiones y el pool de conexiones | Garantiza lo que no se puede romper: restricciones, RLS, atomicidad, durabilidad | No es un servicio desplegable. La API le habla directo |
 
@@ -132,9 +132,9 @@ plan de desarrollo tiene que reflejarlo.
 
 Dos proyectos, cada uno con su repositorio y su versión: la API con `build.gradle.kts`, el front con
 `pubspec.yaml`. **Son dos árboles distintos y dos lenguajes distintos:** Java en `prisma_api`,
-Dart en `prisma_front`.
+Dart en `emprende_front`.
 
-La base de datos tiene un tercer repositorio, `prisma_db`, con las migraciones, la semilla y sus
+La base de datos tiene un tercer repositorio, `emprende_db`, con las migraciones, la semilla y sus
 scripts. No es una aplicación sino la receta del esquema, y la escribe el trabajo de la API
 ([ADR-025](adr/ADR-025-cuatro-repositorios.md)). En disco, los cuatro repositorios son hermanos dentro de una
 carpeta de trabajo: `documentation` —esta especificación—, `backend-api`, `backend-db` y
@@ -150,7 +150,7 @@ prisma_api/
 └── src/
     ├── main/
     │   ├── java/com/prismamy/api/
-    │   │   ├── PrismaApiApplication.java
+    │   │   ├── EmprendeApiApplication.java
     │   │   │
     │   │   ├── dominio/                   # EL NÚCLEO — no conoce HTTP, ni SQL, ni Spring
     │   │   │   ├── modelo/
@@ -232,7 +232,7 @@ prisma_api/
 ```
 
 ```
-prisma_front/
+emprende_front/
 ├── pubspec.yaml
 ├── lib/
 │   ├── ui/                        # FLUTTER — solo presenta. Nunca calcula plata.
@@ -264,11 +264,11 @@ graph RL
     INFRA[infraestructura · PostgreSQL, Supabase, PDF] --> APP
     APP --> DOM[dominio · Modelo, reglas, puertos]
     INFRA -.implementa.-> DOM
-    FRONT[prisma_front · Flutter] -.HTTPS.-> INT
+    FRONT[emprende_front · Flutter] -.HTTPS.-> INT
 ```
 
 **Las flechas apuntan siempre hacia adentro.** `dominio` no importa nada de `infraestructura` ni
-de `interfaz`. Y `prisma_front` entra por la puerta de HTTP como cualquier otro cliente: no tiene
+de `interfaz`. Y `emprende_front` entra por la puerta de HTTP como cualquier otro cliente: no tiene
 acceso privilegiado a nada.
 
 **Consecuencia práctica:** si mañana Supabase deja de servir o cambia de precio, se escribe un
@@ -304,7 +304,7 @@ class ReglaDeDependenciasTest {
 En el front, la misma idea con el análisis estático de Dart:
 
 ```yaml
-# prisma_front/analysis_options.yaml — la frontera del front
+# emprende_front/analysis_options.yaml — la frontera del front
 dart_code_metrics:
   rules:
     - avoid-banned-imports:
@@ -676,7 +676,7 @@ Lo que sí hace el front: rutas, estado de pantalla, animaciones, formato de pre
 |---|---|---|---|
 | **PostgreSQL** | **Decide.** `NOT NULL`, `CHECK`, `FOREIGN KEY`, `UNIQUE`, `EXCLUDE`, dominios, triggers, RLS, `REVOKE DELETE` | Error del motor con nombre de restricción, que la API traduce ([§8.5](#85-el-contrato-de-errores-lo-que-mantiene-honesta-la-redundancia)) | **No** |
 | **`prisma_api`** | **Decide.** Las reglas que la base no puede expresar, los permisos que sí puede adelantar, los cálculos y **el mensaje exacto que se va a mostrar** | Sobre de respuesta con su código de cinco dígitos y su mensaje en español ([§9.1](#91-el-sobre-de-respuesta)) | Sí, si alguien llamara a la base por fuera. Por eso la base sigue siendo el juez |
-| **`prisma_front`** | **Pinta.** Aplica el descriptor que la API le envió ([§8.4](#84-el-descriptor-de-formulario)) y muestra los mensajes que la API redactó | Aviso inmediato en pantalla, con el texto que vino de la API, sin viaje a la red | Sí, con las herramientas del navegador. **Y no importa**: no autoriza nada |
+| **`emprende_front`** | **Pinta.** Aplica el descriptor que la API le envió ([§8.4](#84-el-descriptor-de-formulario)) y muestra los mensajes que la API redactó | Aviso inmediato en pantalla, con el texto que vino de la API, sin viaje a la red | Sí, con las herramientas del navegador. **Y no importa**: no autoriza nada |
 
 La diferencia con el modelo anterior es de fondo. Antes el front tenía su copia de las reglas
 para poder responder rápido, y esa copia se separaba de la original con el tiempo. Ahora el front

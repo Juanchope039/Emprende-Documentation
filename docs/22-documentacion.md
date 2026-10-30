@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/22-documentacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](INDICE.md#etiqueta-proceso) |
+| [2.3.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/22-documentacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](INDICE.md#etiqueta-proceso) |
 
-Cómo se escribe, se versiona y se enlaza la documentación de PRISMA: la de este repositorio y los
+Cómo se escribe, se versiona y se enlaza la documentación de Emprende: la de este repositorio y los
 README, `CLAUDE.md` y `AGENTS.md` de los tres repositorios de código. La decisión y su porqué están en [ADR-027](adr/ADR-027-documentacion-versionada.md); aquí están las
 reglas.
 
@@ -18,7 +18,7 @@ reglas.
 
 - **Todo archivo Markdown de este repositorio:** `README.md`, [`TODO.md`](../TODO.md), `docs/`, `docs/adr/`,
   `contrato/README.md` y `scripts/docs/README.md`.
-- **Los README, los `CLAUDE.md` y los `AGENTS.md` de `prisma_api`, `prisma_db` y `prisma_front`**, y
+- **Los README, los `CLAUDE.md` y los `AGENTS.md` de `prisma_api`, `emprende_db` y `emprende_front`**, y
   el README de la copia fijada del contrato dentro de `prisma_api`. La herramienta los encuentra al
   lado de esta especificación, en la carpeta de trabajo ([ADR-035](adr/ADR-035-repositorios-hermanos.md)).
 - **Fuera quedan las plantillas de terceros**, como el README que Flutter pone dentro de
@@ -47,7 +47,7 @@ Dos columnas más, donde corresponde:
 
 - **Código**, solo en los README de código: la versión SemVer del proyecto, leída de
   `build.gradle.kts` o de `pubspec.yaml`. Los `CLAUDE.md` y los `AGENTS.md` no la llevan: cambiarían
-  con cada subida de versión aunque su texto siguiera igual ([ADR-035](adr/ADR-035-repositorios-hermanos.md)). `prisma_db` no tiene todavía dónde guardarla (tarea [0.10](08-plan-de-desarrollo.md#tarea-0-10)) y lleva «—».
+  con cada subida de versión aunque su texto siguiera igual ([ADR-035](adr/ADR-035-repositorios-hermanos.md)). `emprende_db` no tiene todavía dónde guardarla (tarea [0.10](08-plan-de-desarrollo.md#tarea-0-10)) y lleva «—».
 - **Contrato**, en `contrato/README.md`: la versión de `contrato/openapi.json`.
 
 > **La versión del documento y la del código son dos números distintos, y la columna lo dice.** El
@@ -115,8 +115,8 @@ además cómo va la construcción, lo dice en su texto, como «Construcción: di
 | UX | Pantallas, mockup y sistema de diseño |
 | Arquitectura | La estructura del sistema y sus fronteras |
 | API | `prisma_api` |
-| Front | `prisma_front` |
-| Base de datos | `prisma_db`: esquema, RLS, migraciones y respaldos |
+| Front | `emprende_front` |
+| Base de datos | `emprende_db`: esquema, RLS, migraciones y respaldos |
 | Seguridad | Acceso, permisos, secretos y canal firmado |
 | Datos personales | Ley 1581 y lo que se guarda de las personas |
 | Calidad | Pruebas y verificación |

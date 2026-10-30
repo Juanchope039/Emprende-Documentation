@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-077-snapshot-hasta-la-release.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-30 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-077-snapshot-hasta-la-release.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-30 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Nota del 2026-10-30:** quien dirige decidió que `esquema-vX.Y.Z` queda en desuso. La base usa
 > `vX.Y.Z`, como la API y el front, y solo se pone en `release/X.Y.Z`; las `esquema-v` que existen
@@ -13,7 +13,7 @@
 
 ## Contexto
 
-La versión de `prisma_api` y `prisma_front` no distinguía lo que está en curso de lo entregado: la
+La versión de `prisma_api` y `emprende_front` no distinguía lo que está en curso de lo entregado: la
 `2.13.2` de `develop` y la `2.8.0` de `main` se escribían igual, y la etiqueta `v<versión>` nacía al
 fusionar a `develop` ([ADR-059](ADR-059-etiquetas-con-esquema-y-release-en-main.md)), antes de que la versión llegara a `qa` o a `main`. El release salía en
 el empuje a `main`, y la entrega a prod no dejaba rastro en los repositorios de código.
@@ -34,7 +34,7 @@ cambiar el número, y al generar la entrega se crea `release/X.Y.Z` con `X.Y.Z-R
 ## Decisión
 
 1. **La versión lleva `-SNAPSHOT` en `develop`, `qa` y `main`**: `2.13.3-SNAPSHOT` en la API y
-   `2.4.2+62-SNAPSHOT` en el front, con el sufijo detrás del `+BUILD`: la insignia muestra lo de antes del `+`, y así no crece. En `prisma_db` el sufijo va
+   `2.4.2+62-SNAPSHOT` en el front, con el sufijo detrás del `+BUILD`: la insignia muestra lo de antes del `+`, y así no crece. En `emprende_db` el sufijo va
    en el archivo `VERSION`, que dice la versión del esquema en curso; `schema_version` no lo lleva,
    porque es el número que la API compara y una migración aplicada no cambia.
 2. **[C-05](../12-pruebas-y-calidad.md#c-05) exige el sufijo y cuenta los pasos solo con `X.Y.Z`** (y el `+BUILD`). SemVer
@@ -51,7 +51,7 @@ cambiar el número, y al generar la entrega se crea `release/X.Y.Z` con `X.Y.Z-R
 5. **El release se titula `X.Y.Z-RELEASE · AAAA-MM-DD`** y lo publica `crear-release.yml`, con las
    notas del `CHANGELOG.md` y, en la API y el front, la imagen que compiló qa con su digest. La
    imagen no se recompila: conserva el número `-SNAPSHOT` con que la compiló qa. El de la entrega
-   del monorepo se titula `PRISMA N · AAAA-MM-DD`.
+   del monorepo se titula `Emprende N · AAAA-MM-DD`.
 6. **`develop` arranca la siguiente `-SNAPSHOT` por PR**: el primer PR que cambia lo publicado la
    sube, y [C-05](../12-pruebas-y-calidad.md#c-05) lo exige. Ningún flujo empuja a `develop`, `qa` ni `main`.
 7. **`release/X.Y.Z` no se borra ni se reescribe**, y `crear-release.yml` no rehace lo que ya

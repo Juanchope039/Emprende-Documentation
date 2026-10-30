@@ -2,10 +2,10 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md) | 2026-10-15 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md) | 2026-10-15 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Reemplazado por [ADR-065](ADR-065-el-check-del-proyecto-avisa.md).** La regla sigue en pie —todo PR a una rama
-> principal va en «Prisma project»—, pero el check ya no la bloquea: avisa. Lo que este ADR daba por
+> principal va en «Emprende project»—, pero el check ya no la bloquea: avisa. Lo que este ADR daba por
 > bueno era que bloquear no costaba nada, y cuesta el PR entero esperando un clic que no es suyo. El
 > cuerpo de abajo se conserva tal como se escribió.
 
@@ -15,7 +15,7 @@
 
 ## Contexto
 
-El tablero de PRISMA es «Prisma project», el proyecto 4 de la cuenta `Juanchope039`. Los issues
+El tablero de Emprende es «Emprende project», el proyecto 4 de la cuenta `Juanchope039`. Los issues
 están ahí, pero los PR entraban o no según alguien se acordara de agregarlos. Quien dirige pidió el
 2026-10-15 que los PR a `develop`, `qa` y `main` exijan estar en ese proyecto, y que la skill `pr`
 los agregue: a ese por defecto, o al que él indique.
@@ -43,7 +43,7 @@ Cuatro hechos limitan cómo se hace:
 ## Decisión
 
 1. **Todo PR a `develop`, `qa` o `main` de la especificación, la API, el front y la base tiene que
-   estar en «Prisma project»**, el proyecto 4 de `Juanchope039`.
+   estar en «Emprende project»**, el proyecto 4 de `Juanchope039`.
 2. **Lo comprueba el trabajo «El PR está en el proyecto»**, del flujo `proyecto-del-pr.yml` de cada
    uno de los cuatro, y los rulesets de [ADR-048](ADR-048-las-ramas-principales-las-protege-github.md) lo exigen junto a la tubería. Espera hasta dos
    minutos a que el PR aparezca, y si no, falla diciendo qué hacer.

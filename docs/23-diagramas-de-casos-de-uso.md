@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [0.5.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/23-diagramas-de-casos-de-uso.md "Historial de cambios") | [🔍 En revisión](22-documentacion.md#estados) | 2026-10-04 | 2026-10-16 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [0.5.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/23-diagramas-de-casos-de-uso.md "Historial de cambios") | [🔍 En revisión](22-documentacion.md#estados) | 2026-10-04 | 2026-10-30 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Los 37 casos de uso dibujados, **dos veces cada uno**: una para quien dirige el negocio y una para
 quien programa. Los pasos, los flujos alternativos y las reglas están en
@@ -22,7 +22,7 @@ cada caso con su operación del contrato.
 | Diagrama | Para quién | Qué muestra |
 |---|---|---|
 | **Negocio** | Quien dirige y quien trabaja en el taller | Qué hace la persona, qué decide el sistema y en qué termina cada camino. Sin una sola palabra de tecnología |
-| **Técnico** | Quien programa | El viaje de la petición: `prisma_front` → `prisma_api` → PostgreSQL, con la ruta del contrato, la función de negocio, el trigger y el código de respuesta |
+| **Técnico** | Quien programa | El viaje de la petición: `emprende_front` → `prisma_api` → PostgreSQL, con la ruta del contrato, la función de negocio, el trigger y el código de respuesta |
 
 **La notación del diagrama de negocio**, que es siempre la misma:
 
@@ -316,7 +316,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/movimientos/{id} · Idempotency-Key
@@ -354,7 +354,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     participant S as Storage privado
@@ -395,7 +395,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/movimientos/{id}/anulacion · motivo
@@ -429,7 +429,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/movimientos/{id}/correccion/{correccionId}
@@ -466,7 +466,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/resumen-de-pedido
@@ -500,7 +500,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/pedidos/{id}/anticipos · Idempotency-Key
@@ -535,7 +535,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/pedidos/{id}/entrega · fecha y cuenta
@@ -569,7 +569,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/pedidos · filtros
@@ -600,7 +600,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/costeo · vista previa, no escribe
@@ -637,7 +637,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/costeo · tiempoTrabajo y tiempoMaquina
@@ -672,7 +672,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/cotizaciones/{id} · Idempotency-Key
@@ -706,7 +706,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/anticipo-minimo · líneas y anticipoPct
@@ -741,7 +741,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/tablero · año y mes
@@ -777,7 +777,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/reporte · año
@@ -809,7 +809,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/activos/{id} · Idempotency-Key
@@ -848,7 +848,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/division-de-retiro
@@ -881,7 +881,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/sobres/{id} · Idempotency-Key
@@ -914,7 +914,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/simulacion-de-contratacion
@@ -952,7 +952,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/empleados/{id} · si no tiene ficha
@@ -988,7 +988,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/periodos-de-nomina
@@ -1025,7 +1025,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/importacion · multipart: archivo y mapeo
@@ -1058,7 +1058,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/respaldos · alcance y formato · Idempotency-Key
@@ -1097,7 +1097,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/auditoria · fecha, persona, tabla y acción
@@ -1129,7 +1129,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/patrimonio
@@ -1161,7 +1161,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/limite-de-horas · el máximo vigente
@@ -1196,7 +1196,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: PUT /api/v0/adelantos/{id} · Idempotency-Key
@@ -1230,7 +1230,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/productividad · año y mes
@@ -1262,7 +1262,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant P as Proveedor de identidad
     participant D as PostgreSQL
@@ -1297,7 +1297,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant P as Proveedor de identidad
     participant D as PostgreSQL
@@ -1331,7 +1331,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/usuarios/{id}/desactivacion · motivo
@@ -1363,7 +1363,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant P as Proveedor de identidad
     participant D as PostgreSQL
@@ -1398,7 +1398,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant P as Proveedor de identidad
     participant D as PostgreSQL
@@ -1436,7 +1436,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/cargos · crear
@@ -1470,7 +1470,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/usuarios/{id}/reactivacion · motivo
@@ -1504,7 +1504,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/bitacora/{id}/reversion · motivo
@@ -1535,7 +1535,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/navegacion · vista=operacion
@@ -1566,7 +1566,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    participant F as prisma_front
+    participant F as emprende_front
     participant A as prisma_api
     participant D as PostgreSQL
     F->>A: POST /api/v0/consultas/descarga · zonas y mes

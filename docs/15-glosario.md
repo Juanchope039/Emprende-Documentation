@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/15-glosario.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Negocio](INDICE.md#etiqueta-negocio) |
+| [2.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/15-glosario.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) |
 
 Vocabulario compartido entre el negocio, la contabilidad y el sistema. Cuando haya duda sobre
 qué significa algo, este documento manda.
@@ -34,7 +34,7 @@ Saldo total menos anticipos de pedidos no entregados menos gastos fijos comprome
 
 **Causación**
 Registrar un ingreso o un gasto cuando ocurre el hecho económico, independientemente de cuándo
-se mueve la plata. En PRISMA, la venta se causa **al entregar el pedido**.
+se mueve la plata. En Emprende, la venta se causa **al entregar el pedido**.
 
 **Contra-asiento**
 Movimiento nuevo que reversa uno anterior sin modificarlo. Es la forma de corregir un error
@@ -240,7 +240,7 @@ Volver a compilarlo para producción sería aprobar una cosa y publicar otra.
 
 **BFF**
 *Backend for frontend*: una capa de servidor hecha a la medida de una pantalla, que le entrega
-los datos ya armados como los necesita. En PRISMA no es un proyecto aparte: `prisma_api` hace de
+los datos ya armados como los necesita. En Emprende no es un proyecto aparte: `prisma_api` hace de
 API y de BFF al mismo tiempo, porque hoy hay un solo cliente.
 
 **Caso de uso**
@@ -308,7 +308,7 @@ la rechaza. Se pronuncia «nons» y no tiene traducción cómoda al español.
 
 **OpenAPI**
 Formato estándar para describir todo lo que una API sabe hacer: qué operaciones tiene, qué recibe
-y qué devuelve. Es un archivo, no una pantalla. En PRISMA se genera solo, a partir del código, y
+y qué devuelve. Es un archivo, no una pantalla. En Emprende se genera solo, a partir del código, y
 así nunca puede decir una cosa distinta de la que el sistema hace de verdad.
 
 **Promoción**
@@ -357,7 +357,7 @@ auditoría, para que sea imposible evitarla desde la aplicación.
 
 ## Equivalencias con el lenguaje contable
 
-| En PRISMA se dice | Un contador diría |
+| En Emprende se dice | Un contador diría |
 |---|---|
 | Utilidad causada | Utilidad del ejercicio |
 | Caja | Flujo de efectivo |

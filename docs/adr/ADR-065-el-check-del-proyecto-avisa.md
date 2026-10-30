@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-065-el-check-del-proyecto-avisa.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md) | 2026-10-17 | 2026-10-26 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-065-el-check-del-proyecto-avisa.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md) | 2026-10-17 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Reemplazado por [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md).** Este ADR dejó el check en advertencia pero mantuvo la
 > regla en pie y el check exigido por su nombre (punto 3). Desde el 073 estar en el tablero es
@@ -12,7 +12,7 @@
 ## Contexto
 
 El [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md) puso el check «El PR está en el proyecto» y lo hizo bloqueante: un PR que no estuviera en
-«Prisma project» no entraba. Dos días de uso enseñaron el precio.
+«Emprende project» no entraba. Dos días de uso enseñaron el precio.
 
 - **Lo que el check juzga no está en el PR.** Estar en el tablero no dice nada del código que entra:
   es un clic en el panel del proyecto, y lo da quien dirige.
@@ -36,7 +36,7 @@ Quien dirige lo pidió el 2026-10-17: que el trabajo avise y no falle.
 ## Decisión
 
 1. **La regla del [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md) sigue en pie**: todo PR a `develop`, `qa` o `main` de los cuatro
-   repositorios va en «Prisma project», el proyecto 4 de `Juanchope039`.
+   repositorios va en «Emprende project», el proyecto 4 de `Juanchope039`.
 2. **Pero el trabajo «El PR está en el proyecto» ya no falla.** Cuando el PR no está, cuando falta
    el secreto, cuando GitHub rechaza la consulta o cuando al runner le falta `gh`, escribe un
    `::warning::` y termina en verde.

@@ -1,6 +1,6 @@
 ---
 name: sin-conflictos
-description: Trae la base a una rama de PRISMA —develop en los repositorios de código, main en la especificación— y la deja sin un solo conflicto, con las puertas en verde y la base adentro. Es el paso 2 de la skill pr, así que solo corre con el PR autorizado. Se invoca a mano.
+description: Trae la base a una rama de Emprende —develop en los repositorios de código, main en la especificación— y la deja sin un solo conflicto, con las puertas en verde y la base adentro. Es el paso 2 de la skill pr, así que solo corre con el PR autorizado. Se invoca a mano.
 argument-hint: "[repositorio, o id de la tarea para hacerlo en todos los que toca]"
 disable-model-invocation: true
 model: sonnet
@@ -56,7 +56,7 @@ quería. Si de verdad una sobra, se dice por qué en el commit de fusión.
 | Qué chocó | Qué se hace |
 |---|---|
 | **Un bloque `<!-- generado:… -->`** | Se toma cualquiera de los dos lados, se resuelve el archivo y se corre `node scripts/docs/documentar.mjs enlazar`, que lo reescribe con los números buenos |
-| **La versión del proyecto** (`build.gradle.kts`, `pubspec.yaml`, `schema_version`) | **Nunca se queda la de la rama.** Se lee la de la base ya fusionada y se sube **un paso desde ahí**. Si la otra rama se llevó el número que tenías, el tuyo es el siguiente. En `prisma_db`, la migración que publica la versión todavía no salió: se renombra, o se escribe otra |
+| **La versión del proyecto** (`build.gradle.kts`, `pubspec.yaml`, `schema_version`) | **Nunca se queda la de la rama.** Se lee la de la base ya fusionada y se sube **un paso desde ahí**. Si la otra rama se llevó el número que tenías, el tuyo es el siguiente. En `emprende_db`, la migración que publica la versión todavía no salió: se renombra, o se escribe otra |
 | **La versión de un `.md`** | Igual: la de la base más un paso, y la fecha de hoy |
 | **`contrato/openapi.json`** (la copia fijada) | Se resuelve el resto, se corre `./gradlew build` y se copia `build/contrato/openapi.json` encima. [C-04](https://github.com/Juanchope039/Emprende-Documentation/blob/main/docs/12-pruebas-y-calidad.md#c-04) es quien dice si quedó bien |
 | **Un contador de pruebas o de rutas** en un README | Se vuelve a contar con la base adentro. Un número heredado de antes de la fusión es falso |

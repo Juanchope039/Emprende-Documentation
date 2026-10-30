@@ -541,7 +541,7 @@ export function bloqueGantt(tareas) {
   const lineas = [
     '```mermaid',
     'gantt',
-    `    title Desarrollo de PRISMA con ${k} tareas a la vez`,
+    `    title Desarrollo de Emprende con ${k} tareas a la vez`,
     '    dateFormat YYYY-MM-DD',
     '    axisFormat %d/%m',
   ];

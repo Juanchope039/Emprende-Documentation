@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.42.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.42.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -46,7 +46,7 @@ consideraron y qué consecuencias tiene.
 | [035](ADR-035-repositorios-hermanos.md) | Los cuatro repositorios, hermanos en una carpeta de trabajo | Aceptado |
 | [036](ADR-036-sin-limite-en-el-commit.md) | El mensaje de commit no tiene limite de longitud | Aceptado |
 | [037](ADR-037-el-pr-se-abre-a-pedido.md) | La rama sale de la base al día, y el PR se abre a pedido y sin conflictos | Reemplazado por [040](ADR-040-rama-feature-y-pr-autorizado.md) |
-| [038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md) | La pila local se orquesta desde `prisma_db`, y cada receta se apunta desde su `.env` | Aceptado |
+| [038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md) | La pila local se orquesta desde `emprende_db`, y cada receta se apunta desde su `.env` | Aceptado |
 | [039](ADR-039-cada-regla-en-un-solo-sitio.md) | Cada regla vive en un solo sitio: `CLAUDE.md`, `AGENTS.md` o una skill | Aceptado |
 | [040](ADR-040-rama-feature-y-pr-autorizado.md) | Toda rama empieza por `feature/`, y el PR se abre solo con autorización expresa, trayendo entonces la base | Aceptado |
 | [041](ADR-041-cuatro-lineas-por-parrafo.md) | Un párrafo de código o de commit tiene cuatro líneas como máximo | Aceptado |

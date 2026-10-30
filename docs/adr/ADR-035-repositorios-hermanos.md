@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-035-repositorios-hermanos.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-21 | 2026-09-21 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-035-repositorios-hermanos.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-21 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
 
 ## Contexto
 
@@ -42,8 +42,8 @@ más.**
 |---|---|---|
 | `documentation` | `Finanzas-PRISMA` | Esta especificación: documentación, ADR, mockup, contrato y la herramienta que los verifica |
 | `backend-api` | `prisma_api` | La API |
-| `backend-db` | `prisma_db` | Las migraciones, la semilla y los scripts de la base |
-| `frontend-flutter` | `prisma_front` | El front |
+| `backend-db` | `emprende_db` | Las migraciones, la semilla y los scripts de la base |
+| `frontend-flutter` | `emprende_front` | El front |
 
 1. **La carpeta de trabajo no es un repositorio.** Guarda solo dos cosas: los planes de trabajo y
    un `CLAUDE.md` de una línea que importa el de la especificación. Así Claude carga las reglas del
@@ -117,5 +117,5 @@ el estado.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [07](../07-arquitectura.md "07 · Arquitectura técnica") · [21](../21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [22](../22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [ADR-025](ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-028](ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-031](ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-037](ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-039](ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-069](ADR-069-el-proyecto-se-llama-emprende.md "ADR-069 · El proyecto se llama Emprende, y el nombre viejo se va por donde se toca") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/docs/README.md "Herramienta de documentación")
+**🔗 Referenciado desde:** [07](../07-arquitectura.md "07 · Arquitectura técnica") · [21](../21-trabajo-en-paralelo.md "21 · Trabajo en paralelo") · [22](../22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [ADR-025](ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-028](ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-031](ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-037](ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde emprende_db, y cada receta se apunta desde su .env") · [ADR-039](ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-069](ADR-069-el-proyecto-se-llama-emprende.md "ADR-069 · El proyecto se llama Emprende, y el nombre viejo se va por donde se toca") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/docs/README.md "Herramienta de documentación")
 <!-- /generado:referenciado-desde -->

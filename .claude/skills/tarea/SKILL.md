@@ -1,6 +1,6 @@
 ---
 name: tarea
-description: Prepara una tarea del plan de desarrollo de PRISMA. Lee su fila del 08, comprueba que se pueda empezar, deja cada repositorio que toca en su base al día y con el árbol limpio, abre ahí la rama y deja escrito el plan. Se invoca a mano con el id de la tarea.
+description: Prepara una tarea del plan de desarrollo de Emprende. Lee su fila del 08, comprueba que se pueda empezar, deja cada repositorio que toca en su base al día y con el árbol limpio, abre ahí la rama y deja escrito el plan. Se invoca a mano con el id de la tarea.
 argument-hint: "[id de la tarea, p. ej. 3.4]"
 model: opus
 ---

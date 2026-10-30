@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-15 | — |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-30 | — |
 
 ## Contexto
 
@@ -18,7 +18,7 @@ Quien dirige pidió el 2026-10-15 que cada PR se asocie a su issue.
 |---|---|---|
 | Seguir como estaba | Nada nuevo que hacer | El tablero y los PR cuentan historias distintas |
 | Issues en cada repositorio | `Closes #n` cierra solo en todos | Cuatro tableros, y quien dirige decidió que los de desarrollo no reciben issues |
-| **Todo PR nombra su issue de PRISMA** | Un solo tablero, y cada PR dice qué trabajo cierra | Fuera del monorepo el issue se cierra a mano |
+| **Todo PR nombra su issue de Emprende** | Un solo tablero, y cada PR dice qué trabajo cierra | Fuera del monorepo el issue se cierra a mano |
 
 ## Decisión
 

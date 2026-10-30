@@ -2,13 +2,13 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [5.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Calidad](INDICE.md#etiqueta-calidad) |
+| [5.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Calidad](INDICE.md#etiqueta-calidad) |
 
 ---
 
 ## 1. Estrategia
 
-Ahora hay **dos bases de código** —`prisma_front` en Flutter y `prisma_api` en Java 25 con Spring
+Ahora hay **dos bases de código** —`emprende_front` en Flutter y `prisma_api` en Java 25 con Spring
 Boot— y **cuatro ambientes** —dev, qa, uat y prod—. La estrategia cambia de forma, no de fondo: la
 arquitectura hexagonal sigue permitiendo invertir el esfuerzo donde más importa, **los cálculos de
 plata y los permisos**.
@@ -28,8 +28,8 @@ plata y los permisos**.
 | Nivel | Dónde vive | Qué prueba | Herramienta | Meta |
 |---|---|---|---|---|
 | Unitario de dominio | `prisma_api` | Servicios de dominio: fórmulas financieras | **JUnit 5** | **≥ 90% de cobertura** |
-| Unitario de presentación | `prisma_front` | Formato de cifras y fechas, estado, y que el formulario aplique el descriptor que la API le dictó | `flutter test` | Cada regla del descriptor |
-| Widget | `prisma_front` | Que cada pantalla pinte lo que debe y reaccione a lo que recibe | `flutter test` | Las 12 pantallas |
+| Unitario de presentación | `emprende_front` | Formato de cifras y fechas, estado, y que el formulario aplique el descriptor que la API le dictó | `flutter test` | Cada regla del descriptor |
+| Widget | `emprende_front` | Que cada pantalla pinte lo que debe y reaccione a lo que recibe | `flutter test` | Las 12 pantallas |
 | Integración | `prisma_api` + base | Repositorios, transacciones, políticas RLS, contrato de errores | **JUnit 5 con contenedores de prueba** (`Testcontainers`): un PostgreSQL real y desechable | Casos críticos |
 | Manual | Las dos | Recorridos completos en celular real | Lista de verificación | Antes de cada entrega |
 
@@ -392,7 +392,7 @@ Gerencia pueda salir; ninguna verifica un permiso.
 
 ## 8. Calidad del código
 
-| Control | En `prisma_front` (Flutter) | En `prisma_api` (Java) | Cuándo |
+| Control | En `emprende_front` (Flutter) | En `prisma_api` (Java) | Cuándo |
 |---|---|---|---|
 | Formato consistente | `dart format` | `Spotless` | Al guardar |
 | Tipado estricto y avisos | `dart analyze` con `strict-casts` y `strict-raw-types` | Compilación con `-Xlint:all -Werror` | Cada compilación |
@@ -451,7 +451,7 @@ Tres detalles deciden si la prueba sirve de algo:
 
 **Corre con `./gradlew integracion`, no en cada empuje.** Necesita las restricciones *aplicadas* y
 no el archivo `.sql` ([ADR-029](adr/ADR-029-esquema-por-etiqueta.md)), así que hoy queda fuera de la compilación de siempre; quien la
-mete adentro es la tarea [1.7](08-plan-de-desarrollo.md#tarea-1-7), que descarga `prisma_db` por etiqueta y levanta Supabase. A cambio
+mete adentro es la tarea [1.7](08-plan-de-desarrollo.md#tarea-1-7), que descarga `emprende_db` por etiqueta y levanta Supabase. A cambio
 es la más barata de las de integración: se conecta como el dueño y **solo lee** el catálogo de
 PostgreSQL, sin RLS, sin identidad y sin semilla.
 
@@ -509,7 +509,7 @@ Ninguno de los dos se compara con la copia fijada, y no porque se excluyan: ante
 documento generado se lleva a la forma que se fija —la versión del contrato de vuelta en
 `info.version`, sin la extensión—, y cada número se afirma aparte contra su fuente.
 
-Así **subir `prisma.contrato.version` sin traer el documento nuevo sigue dejando la prueba en
+Así **subir `emprende.contrato.version` sin traer el documento nuevo sigue dejando la prueba en
 rojo**, que es la garantía que antes daba comparar `info.version`, y además falla diciendo cuál de
 las dos versiones se movió.
 
@@ -527,9 +527,9 @@ es que la versión siga en `-SNAPSHOT`. Una versión sin sufijo, o en `-RELEASE`
 
 | Repositorio | Qué exige | Cómo se corre en una máquina |
 |---|---|---|
-| `prisma_front` | Si el PR cambia lo que se publica, el `pubspec.yaml` sube un paso y el número de compilación, uno | `dart run tool/la_version_subio.dart origin/develop` |
+| `emprende_front` | Si el PR cambia lo que se publica, el `pubspec.yaml` sube un paso y el número de compilación, uno | `dart run tool/la_version_subio.dart origin/develop` |
 | `prisma_api` | Si el PR cambia lo que se publica, el `build.gradle.kts` sube un paso | `./gradlew laVersionSubio --args=origin/develop` |
-| `prisma_db` | Ninguna migración que ya estaba cambia; si el PR agrega migraciones, la última publica en `schema_version` la versión siguiente; `verificar-base.sql` la espera; y `VERSION` la dice con `-SNAPSHOT` | `./scripts/db/la-version-subio.ps1 -Base origin/develop` |
+| `emprende_db` | Ninguna migración que ya estaba cambia; si el PR agrega migraciones, la última publica en `schema_version` la versión siguiente; `verificar-base.sql` la espera; y `VERSION` la dice con `-SNAPSHOT` | `./scripts/db/la-version-subio.ps1 -Base origin/develop` |
 
 Tres detalles deciden si sirve de algo:
 

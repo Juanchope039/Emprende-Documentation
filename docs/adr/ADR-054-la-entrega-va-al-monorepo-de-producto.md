@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-13 | 2026-10-13 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-13 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 ## Contexto
 
@@ -10,7 +10,7 @@ El [ADR-052](ADR-052-la-entrega-del-release-a-prod.md) escribió la entrega para
 al que llegan el árbol de `main` y las dos imágenes que compiló qa, copiadas a su registro. La 9.15
 lo dejó construido y sin correr nunca.
 
-Quien dirige precisó el 2026-10-13 que PRISMA no es para un solo taller. Hay **dos proyectos**:
+Quien dirige precisó el 2026-10-13 que Emprende no es para un solo taller. Hay **dos proyectos**:
 
 - **el de desarrollo**, que son los cuatro repositorios de siempre, con sus etapas develop → qa →
   uat → main;
@@ -19,7 +19,7 @@ Quien dirige precisó el 2026-10-13 que PRISMA no es para un solo taller. Hay **
   infraestructura y con su propio dominio, y lo ajusta a sus fines.
 
 Con eso el diseño del [ADR-052](ADR-052-la-entrega-del-release-a-prod.md) no escala. Cada emprendimiento nuevo pediría una llave de despliegue
-y una credencial de publicación más, guardadas en `prisma_db`, y una corrida de entrega por cliente.
+y una credencial de publicación más, guardadas en `emprende_db`, y una corrida de entrega por cliente.
 Y quedaba sin decir lo más delicado: **qué puede ajustar un emprendimiento sin que la siguiente
 versión le choque**.
 
@@ -28,7 +28,7 @@ versión le choque**.
 | Opción | A favor | En contra |
 |---|---|---|
 | **Entregar una vez al monorepo, y que cada emprendimiento adopte desde su copia** | Una corrida y un juego de credenciales, crezca lo que crezca la lista. Cada emprendimiento decide cuándo actualiza su prod. Los clientes no se nombran en ningún sitio de este proyecto | Cada emprendimiento necesita un flujo propio para adoptar, y lectura de los dos paquetes del registro |
-| Empujar desde `prisma_db` a N espejos, con una matriz de destinos | Nadie del otro lado tiene que hacer nada | N llaves y N credenciales de publicación en `prisma_db`. La lista de clientes tiene que vivir en algún sitio, y la especificación es pública. Un cliente caído deja la corrida a medias |
+| Empujar desde `emprende_db` a N espejos, con una matriz de destinos | Nadie del otro lado tiene que hacer nada | N llaves y N credenciales de publicación en `emprende_db`. La lista de clientes tiene que vivir en algún sitio, y la especificación es pública. Un cliente caído deja la corrida a medias |
 | Copiar las imágenes al registro de cada emprendimiento | Cada uno es dueño de su imagen | Una credencial de publicación por cliente. Y no agrega garantía: `prisma.arbol` se comprueba igual leyendo la imagen de origen |
 | Que cada emprendimiento compile su imagen | No hace falta compartir el registro | Una compilación por cliente del mismo árbol, otro día y con otras dependencias. Rompe la regla 4 del [19 §1.1](../19-ambientes-y-entrega.md#11-las-seis-reglas) justo donde hay datos reales |
 | Dejar que cada emprendimiento cambie el código del monorepo | Máxima libertad | Ya no puede correr la imagen aprobada, y cada versión nueva le llega como un merge con conflictos. Tarde o temprano deja de actualizar |
@@ -36,7 +36,7 @@ versión le choque**.
 ## Decisión
 
 **La entrega del [ADR-052](ADR-052-la-entrega-del-release-a-prod.md) cambia de destino, no de forma.** `entregar-release.yml` sigue en
-`prisma_db`, se dispara a mano con las mismas llaves y las mismas seis puertas, y sale de `main`.
+`emprende_db`, se dispara a mano con las mismas llaves y las mismas seis puertas, y sale de `main`.
 Lo que cambia es adónde va y qué hace cada emprendimiento con ella.
 
 | Qué | Cómo queda |
@@ -74,7 +74,7 @@ ninguna la escriben los dos lados:
 
 ### Desplegar cuesta lo mínimo
 
-Quien dirige lo pidió el 2026-10-13: **instalar PRISMA en un emprendimiento nuevo tiene que costar
+Quien dirige lo pidió el 2026-10-13: **instalar Emprende en un emprendimiento nuevo tiene que costar
 el mínimo esfuerzo.** Por eso hay un solo camino soportado, automatizado de punta a punta:
 
 1. **Copiar el monorepo** a su cuenta.
@@ -110,7 +110,7 @@ golpe.
 **Positivas**
 
 - Una entrega por versión, sin importar cuántos emprendimientos haya.
-- `prisma_db` deja de necesitar la credencial de publicación de una cuenta ajena.
+- `emprende_db` deja de necesitar la credencial de publicación de una cuenta ajena.
 - Cada emprendimiento actualiza cuando quiere, y la actualización es una fusión limpia.
 - Instalar es copiar el monorepo, cargar tres secretos y correr un flujo.
 

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/14-roadmap-e-ideas.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-13 | 2026-10-13 | [Negocio](INDICE.md#etiqueta-negocio) · [Plan](INDICE.md#etiqueta-plan) |
+| [2.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/14-roadmap-e-ideas.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) · [Plan](INDICE.md#etiqueta-plan) |
 
 Todo lo que quedó fuera del MVP, más 30 ideas para después. Priorizado por **impacto sobre
 esfuerzo**, no por qué tan llamativo suena.
@@ -31,7 +31,7 @@ esfuerzo**, no por qué tan llamativo suena.
 > no la habilita.
 
 > **Sobre [D-07](#d-07), en borrador.** La URL de la API entra al front al compilar, con
-> `--dart-define=PRISMA_API_URL`, así que la imagen que construye qa le habla a **una** API. El
+> `--dart-define=EMPRENDE_API_URL`, así que la imagen que construye qa le habla a **una** API. El
 > [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md) pide que cada emprendimiento corra esa misma imagen con su propio dominio, y eso solo cierra
 > si el front encuentra su API al arrancar. La salida propuesta es que nginx del front reenvíe
 > `/api/` al servicio de la API de cada emprendimiento, con la dirección tomada de una variable, y que

@@ -1,6 +1,6 @@
 ---
 name: etiqueta
-description: Revisa las etiquetas de git de un repositorio de PRISMA contra su esquema y explica qué entró entre dos de ellas. Úsala cuando haya que saber qué trae una versión, cuando falte una etiqueta o cuando el verificador de etiquetas esté en rojo. No crea etiquetas.
+description: Revisa las etiquetas de git de un repositorio de Emprende contra su esquema y explica qué entró entre dos de ellas. Úsala cuando haya que saber qué trae una versión, cuando falte una etiqueta o cuando el verificador de etiquetas esté en rojo. No crea etiquetas.
 argument-hint: "[repositorio] [etiqueta]"
 model: sonnet
 ---

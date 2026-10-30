@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/01-vision-y-alcance.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Negocio](INDICE.md#etiqueta-negocio) · [Requisitos](INDICE.md#etiqueta-requisitos) |
+| [2.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/01-vision-y-alcance.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) · [Requisitos](INDICE.md#etiqueta-requisitos) |
 
 ---
 
@@ -10,11 +10,11 @@
 
 > Para **quien dirige Prisma M&Y Estampados**,
 > que hoy administra el negocio con Excel, un cuaderno y fotos en el celular,
-> **PRISMA** es una aplicación web de gestión administrativa y financiera
+> **Emprende** es una aplicación web de gestión administrativa y financiera
 > que muestra en todo momento cuánto se ganó, cuánta plata está realmente disponible y
 > cuánto se puede pagar a una empleada sin poner en riesgo el negocio.
 >
-> A diferencia de una hoja de cálculo, PRISMA separa la plata del negocio de la personal,
+> A diferencia de una hoja de cálculo, Emprende separa la plata del negocio de la personal,
 > trata los anticipos como lo que son —una deuda con el cliente— y nunca pierde información.
 
 ---

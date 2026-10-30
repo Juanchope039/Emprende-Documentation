@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Seguridad](../INDICE.md#etiqueta-seguridad) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Seguridad](../INDICE.md#etiqueta-seguridad) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** la variable se llama `UAT_GERENCIA_CLAVE`, no `PREPROD_GERENCIA_CLAVE`,
 > porque el ambiente donde Gerencia aprueba es uat. La regla no cambia: sin `DOCS_CLAVE`, Swagger
@@ -26,7 +26,7 @@ que vive en el gestor de secretos con el nombre `PREPROD_GERENCIA_CLAVE`. Quien 
 |---|---|---|
 | **Sin `DOCS_CLAVE`, la API toma `PREPROD_GERENCIA_CLAVE`** (la decisión) | Un secreto menos que llevar a mano cuando se aloja un ambiente. Donde ya hay `DOCS_CLAVE`, no cambia nada | La clave de Swagger queda igual a la clave inicial de una persona. prod lee una variable con «PREPROD» en el nombre |
 | **Dejar `DOCS_CLAVE` obligatoria y aparte**, como estaba | La credencial de Swagger y la de una persona no se tocan nunca | Es lo que se pidió cambiar |
-| **Reusar `PRISMA_ADMIN_TEMPORAL_CLAVE` de la [9.16](../08-plan-de-desarrollo.md#tarea-9-16)** | Ya es una variable por ambiente | Esa credencial deja de servir en cuanto existe la primera Gerencia, y Swagger tiene que seguir abriendo después |
+| **Reusar `EMPRENDE_ADMIN_TEMPORAL_CLAVE` de la [9.16](../08-plan-de-desarrollo.md#tarea-9-16)** | Ya es una variable por ambiente | Esa credencial deja de servir en cuanto existe la primera Gerencia, y Swagger tiene que seguir abriendo después |
 | **Darle también un valor por defecto a `DOCS_USUARIO`** | Ningún secreto que configurar para abrir Swagger | Nadie lo pidió, y un usuario por defecto sería una regla inventada |
 
 ## Decisión

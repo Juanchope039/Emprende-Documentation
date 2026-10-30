@@ -2,19 +2,19 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-023-tres-repositorios.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-025](ADR-025-cuatro-repositorios.md) | 2026-09-16 | 2026-09-16 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-023-tres-repositorios.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-025](ADR-025-cuatro-repositorios.md) | 2026-09-16 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
 
 > **Lo reemplaza [ADR-025](ADR-025-cuatro-repositorios.md):** la separación del código en
 > repositorios y el contrato como artefacto con versión propia siguen en pie, tal como se
 > argumentan abajo. Cambian dos cosas: **la base de datos sale de `prisma_api`** a su propio
-> repositorio, `prisma_db`, y los repositorios de código pasan a vivir dentro de
+> repositorio, `emprende_db`, y los repositorios de código pasan a vivir dentro de
 > `Finanzas-PRISMA/repositories/`. Y donde abajo dice «Java 21», la API ya es **Java 25**
 > ([ADR-024](ADR-024-java-25-y-gradle.md)). El cuerpo de abajo se conserva tal como se escribió.
 
 ## Contexto
 
 El desarrollo pasa a hacerse con **dos equipos en simultáneo**: uno en `prisma_api` y otro en
-`prisma_front`, con la capa de datos compartida. El detalle de cómo se reparte el trabajo está en
+`emprende_front`, con la capa de datos compartida. El detalle de cómo se reparte el trabajo está en
 [`21-trabajo-en-paralelo.md`](../21-trabajo-en-paralelo.md); aquí se decide **dónde vive el
 código**.
 
@@ -41,7 +41,7 @@ debilidad de tenerlos separados.
 |---|---|---|
 | `Finanzas-PRISMA` | Documentación, ADR, mockup, y el **contrato**: `openapi.json` y el catálogo de códigos | Los dos equipos, con revisión cruzada |
 | `prisma_api` | Java 21, Spring Boot y `supabase/migrations/` | Equipo API |
-| `prisma_front` | Flutter | Equipo Front |
+| `emprende_front` | Flutter | Equipo Front |
 
 Dos consecuencias del reparto que merecen decirse:
 

@@ -13,7 +13,7 @@ sale de las reglas de la arquitectura del `CLAUDE.md` del proyecto, y aquí est�
 ## 1. En qué repositorio
 
 ```
-prisma_front  ──HTTP──▶  prisma_api  ──SQL──▶  prisma_db
+emprende_front  ──HTTP──▶  prisma_api  ──SQL──▶  emprende_db
   pinta                   decide todo           impone lo que no se puede romper
 ```
 

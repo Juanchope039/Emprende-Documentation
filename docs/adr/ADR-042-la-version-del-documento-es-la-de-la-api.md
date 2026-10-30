@@ -2,11 +2,11 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-042-la-version-del-documento-es-la-de-la-api.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-26 | 2026-09-26 | [API](../INDICE.md#etiqueta-api) · [Contrato](../INDICE.md#etiqueta-contrato) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-042-la-version-del-documento-es-la-de-la-api.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-26 | 2026-10-30 | [API](../INDICE.md#etiqueta-api) · [Contrato](../INDICE.md#etiqueta-contrato) · [Calidad](../INDICE.md#etiqueta-calidad) |
 
 ## Contexto
 
-PRISMA maneja cuatro SemVer independientes ([ADR-014](ADR-014-semver.md)), y dos de ellos hablan de la API: la versión del
+Emprende maneja cuatro SemVer independientes ([ADR-014](ADR-014-semver.md)), y dos de ellos hablan de la API: la versión del
 artefacto, que sube en cada PR que cambia lo publicado ([ADR-034](ADR-034-la-version-sube-en-cada-pr.md)), y la del contrato acordado, que
 sube solo cuando el contrato cambia ([ADR-023](ADR-023-tres-repositorios.md)).
 
@@ -25,9 +25,9 @@ versión de la API deja [C-04](../12-pruebas-y-calidad.md#c-04) en rojo en cada 
 
 | Opción | A favor | En contra |
 |---|---|---|
-| **`info.version` es la de la API, y la del contrato se muda a `x-prisma-contrato`** | Una sola versión a la vista, la que se pidió. El dato del contrato no se pierde: sigue en el documento, sigue saliendo de `prisma.contrato.version` y sigue comparándose contra la copia fijada | Un cliente generado de la API en vivo lee en `info.version` algo que no es la versión del contrato. Hay que mirar una clave de extensión para saber contra qué contrato está escrita |
+| **`info.version` es la de la API, y la del contrato se muda a `x-prisma-contrato`** | Una sola versión a la vista, la que se pidió. El dato del contrato no se pierde: sigue en el documento, sigue saliendo de `emprende.contrato.version` y sigue comparándose contra la copia fijada | Un cliente generado de la API en vivo lee en `info.version` algo que no es la versión del contrato. Hay que mirar una clave de extensión para saber contra qué contrato está escrita |
 | Dejar `info.version` como estaba y pintar la versión del artefacto en la etiqueta del servidor | Más barata: no toca la identidad del documento ni lo que [C-04](../12-pruebas-y-calidad.md#c-04) compara de `info` | **Deja los dos números en la pantalla**, que es justo lo que había que quitar. Y la etiqueta del servidor sí es texto del contrato acordado |
-| `info.version` es la de la API, y la del contrato deja de viajar en el documento | Lo más simple de escribir | La API en vivo deja de decir contra qué contrato está escrita. Y `prisma.contrato.version` se queda sin nadie que lo mire: se desactualiza sin avisar, como pasó con «Acerca de» en el `0.2.0` |
+| `info.version` es la de la API, y la del contrato deja de viajar en el documento | Lo más simple de escribir | La API en vivo deja de decir contra qué contrato está escrita. Y `emprende.contrato.version` se queda sin nadie que lo mire: se desactualiza sin avisar, como pasó con «Acerca de» en el `0.2.0` |
 | Editar la copia fijada en cada PR para que siga a la versión de la API | Ninguna, salvo no tocar la prueba | Lo prohíbe el `CLAUDE.md` de la API, y con razón: una copia que se retoca a mano deja de ser la copia de nada. Convierte cada PR en una oportunidad de romper el contrato sin querer |
 
 ## Decisión
@@ -42,7 +42,7 @@ badge de Swagger.
 **[C-04](../12-pruebas-y-calidad.md#c-04) no compara ninguna de las dos contra la copia fijada: las afirma contra su fuente.** Antes de
 comparar, lleva el documento generado a la forma que se fija —la versión del contrato en
 `info.version`, sin la extensión—, y aparte exige que el documento sirva exactamente
-`prisma.version` y `prisma.contrato.version`.
+`emprende.version` y `emprende.contrato.version`.
 
 ## Justificación
 
@@ -68,7 +68,7 @@ autoridad de un documento oficial.
 - **Positivas:** el badge de `/docs` y «Acerca de» dicen lo mismo, y lo que dicen es qué artefacto
   está corriendo. El documento sigue declarando el contrato que implementa, ahora en una clave que
   no se confunde con nada. Y [C-04](../12-pruebas-y-calidad.md#c-04) pasa a afirmar tres igualdades que antes no estaban escritas,
-  entre ellas que la copia fijada corresponde a `prisma.contrato.version`.
+  entre ellas que la copia fijada corresponde a `emprende.contrato.version`.
 
 - **Negativas:** quien genere un cliente del documento en vivo leerá en `info.version` la versión
   del artefacto, no la del contrato, y tiene que mirar `x-prisma-contrato` para saber contra qué

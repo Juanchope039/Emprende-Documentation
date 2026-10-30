@@ -1,11 +1,11 @@
-# PRISMA — Sistema de Gestión Administrativa y Financiera
+# Emprende — Sistema de Gestión Administrativa y Financiera
 ### Prisma M&Y Estampados · Cali, Valle del Cauca, Colombia
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.10.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
+| [1.10.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
 
-> **PRISMA** = **P**lataforma de **R**egistro, **I**nversión, **S**eguimiento, **M**árgenes y **A**dministración.
+> **Emprende** = **P**lataforma de **R**egistro, **I**nversión, **S**eguimiento, **M**árgenes y **A**dministración.
 > Un solo lugar para saber cuánto entra, cuánto sale, cuánto queda y cuánto se puede pagar.
 
 ---
@@ -30,7 +30,7 @@ y en un cuaderno, y no hay forma confiable de responder tres preguntas críticas
 2. **¿Cuánto de eso es mío y cuánto tiene que quedarse en el negocio?**
 3. **¿Puedo pagarle a una empleada sin quebrar?**
 
-PRISMA existe para responder esas tres preguntas con números, no con intuición.
+Emprende existe para responder esas tres preguntas con números, no con intuición.
 
 ---
 
@@ -108,7 +108,7 @@ El mockup es un archivo HTML suelto y se abre con doble clic. El sistema de verd
 
 | Pieza | Qué es | Qué hace |
 |---|---|---|
-| `prisma_front` | Flutter, un solo código: el objetivo por defecto es **web**, instalable como PWA, y el mismo código compila a Android, iOS y escritorio | Pide, recibe y muestra. Nada más |
+| `emprende_front` | Flutter, un solo código: el objetivo por defecto es **web**, instalable como PWA, y el mismo código compila a Android, iOS y escritorio | Pide, recibe y muestra. Nada más |
 | `prisma_api` | API propia en **Java 25 con Spring Boot**. Hace de API y de BFF a la vez, y es la única que habla con la base | Toda la lógica. Toma las decisiones y dicta los mensajes que se ven |
 | Capa de datos | PostgreSQL en Supabase, siempre en línea | Garantiza lo que no se puede romper: restricciones, permisos y durabilidad |
 
@@ -122,15 +122,15 @@ El mockup es un archivo HTML suelto y se abre con doble clic. El sistema de verd
 
 **Cada pieza vive en su propio repositorio** ([ADR-025](docs/adr/ADR-025-cuatro-repositorios.md)), y los cuatro son hermanos dentro de una
 carpeta de trabajo ([ADR-035](docs/adr/ADR-035-repositorios-hermanos.md)): este repositorio guarda la documentación, el mockup y el contrato;
-`prisma_api` guarda la API; `prisma_db`, las migraciones y la semilla de la base; `prisma_front`,
+`prisma_api` guarda la API; `emprende_db`, las migraciones y la semilla de la base; `emprende_front`,
 el front.
 
 | Repositorio | En disco, dentro de la carpeta de trabajo |
 |---|---|
 | `Finanzas-PRISMA`, este | `repositories/documentation` |
 | `prisma_api` | `repositories/backend-api` |
-| `prisma_db` | `repositories/backend-db` |
-| `prisma_front` | `repositories/frontend-flutter` |
+| `emprende_db` | `repositories/backend-db` |
+| `emprende_front` | `repositories/frontend-flutter` |
 
 Ninguno contiene a otro: cada carpeta es un repositorio git con su propia historia, y la carpeta de
 trabajo que los junta no es un repositorio.

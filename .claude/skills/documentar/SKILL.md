@@ -1,6 +1,6 @@
 ---
 name: documentar
-description: Deja al día un documento Markdown de PRISMA. Sube su versión según 22 §3, pone la fecha, respeta los bloques generados y corre enlazar, verificar y verificar --base. Úsala cada vez que cambie un .md de cualquiera de los cuatro repositorios.
+description: Deja al día un documento Markdown de Emprende. Sube su versión según 22 §3, pone la fecha, respeta los bloques generados y corre enlazar, verificar y verificar --base. Úsala cada vez que cambie un .md de cualquiera de los cuatro repositorios.
 paths: "**/*.md"
 model: sonnet
 ---

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-14 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-058-el-monorepo-no-va-adelante-de-develop.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
@@ -31,13 +31,13 @@ traigan exactamente el mismo contenido.
 | **El árbol de cada subárbol es el de algún commit de la base, y la CI del monorepo lo exige** (la decisión) | Permite que la base vaya adelante. Compara contenido, así que no se confunde con los merges de las etapas. Bloquea el PR antes de fusionar | Necesita un token de lectura de los tres repositorios privados |
 | Igual a la punta de `develop` y de `main` | Más simple de comprobar | Prohíbe lo que se permite: cada empuje a `develop` pondría el monorepo en rojo |
 | El commit del subárbol es ancestro de `develop` | Usa la marca `git-subtree-split` | Falla hoy con los cuatro sincronizados, porque esos commits son merges de `main` |
-| Vigilarlo desde `prisma_db` | Ya tiene un token de lectura de la API y del front | Solo lo ve después de fusionar: no bloquea nada |
+| Vigilarlo desde `emprende_db` | Ya tiene un token de lectura de la API y del front | Solo lo ve después de fusionar: no bloquea nada |
 | Solo la regla escrita, sin comprobación | Nada que mantener | La primera vez que se olvide nadie lo nota |
 
 ## Decisión
 
 1. **Cada subárbol del monorepo tiene exactamente el árbol de algún commit de `develop` y de
-   `main` de su repositorio**, en `prisma_api`, `prisma_db` y `prisma_front`, y de `main` en la
+   `main` de su repositorio**, en `prisma_api`, `emprende_db` y `emprende_front`, y de `main` en la
    especificación, que no tiene `develop`. Es el último paso de develop → qa → main → `main` del
    monorepo: las bases pueden ir adelante; el monorepo, nunca.
 2. **Lo de fuera de las cuatro carpetas es del producto y queda fuera de la regla**: `.github/`,

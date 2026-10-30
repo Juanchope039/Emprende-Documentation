@@ -2,11 +2,11 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-23 | 2026-10-23 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-23 | 2026-10-30 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
-`prisma_db` prueba sus migraciones muy bien y no las aplica en ninguna parte. El trabajo «El informe
+`emprende_db` prueba sus migraciones muy bien y no las aplica en ninguna parte. El trabajo «El informe
 de la base» del `ci.yml` levanta un Supabase nuevo en cada PR a `qa` y a `main`, le aplica las 62
 migraciones y la semilla, y exige el informe entero en `OK`. Pero **ninguno de los seis flujos de
 `.github/workflows/` aplica una migración a un ambiente**: eso lo hace una persona, desde su
@@ -52,7 +52,7 @@ GitHub y lo desempaca, solo para poder correr `la-version-subio.ps1`.
    `sh`, y el `.ps1` de cada uno queda como un envoltorio de una línea que llama al `.sh`: una sola
    implementación, y quien escribe el `.ps1` en PowerShell sigue encontrando lo que busca. Con eso
    el `ci.yml` deja de descargar PowerShell.
-6. **El orden con la API no cambia y no se reinventa**: `prisma.esquema` solo sube cuando ya existe
+6. **El orden con la API no cambia y no se reinventa**: `emprende.esquema` solo sube cuando ya existe
    la etiqueta `esquema-vX.Y.Z` ([ADR-025](ADR-025-cuatro-repositorios.md), [ADR-029](ADR-029-esquema-por-etiqueta.md)), así que la migración llega al ambiente antes
    que la API que la usa. Lo único nuevo es que quien la lleva sea un flujo.
 

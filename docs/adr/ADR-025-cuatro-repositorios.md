@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-025-cuatro-repositorios.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-21 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
+| [1.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-025-cuatro-repositorios.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
 
 > **Dónde vive cada repositorio en disco lo reemplaza el [ADR-035](ADR-035-repositorios-hermanos.md).** Los cuatro son ahora hermanos
 > en una carpeta de trabajo, y la especificación es uno más: ya no hay `repositories/` dentro de
@@ -48,14 +48,14 @@ Hay un antecedente que lo vuelve menos brusco de lo que parece: [ADR-014](ADR-01
 |---|---|---|---|
 | `Finanzas-PRISMA` | — | Documentación, ADR, mockup y el **contrato**: `openapi.json` y el catálogo de códigos | Los dos equipos, con revisión cruzada |
 | `prisma_api` | `repositories/backend-api` | Java 25 y Spring Boot | Equipo API |
-| `prisma_db` | `repositories/backend-db` | `supabase/` y `scripts/db/` | Equipo API |
-| `prisma_front` | `repositories/frontend-flutter` | Flutter | Equipo Front |
+| `emprende_db` | `repositories/backend-db` | `supabase/` y `scripts/db/` | Equipo API |
+| `emprende_front` | `repositories/frontend-flutter` | Flutter | Equipo Front |
 
 Lo demás de [ADR-023](ADR-023-tres-repositorios.md) **sigue en pie tal cual**: el contrato vive en la especificación, se versiona
 con SemVer, se cambia con un solo PR revisado por los dos equipos, y la prueba `C-04` detiene la
 compilación si la API se desvía de él.
 
-**`prisma_db` lo escribe el equipo API.** La base sigue sin equipo propio por la misma razón de
+**`emprende_db` lo escribe el equipo API.** La base sigue sin equipo propio por la misma razón de
 [`21-trabajo-en-paralelo.md`](../21-trabajo-en-paralelo.md) [§2](../21-trabajo-en-paralelo.md#2-los-carriles): un equipo de datos se vuelve el
 cuello de botella de todo, porque toda funcionalidad necesita una migración.
 
@@ -66,7 +66,7 @@ juntan.
 
 1. **El esquema lleva su propio SemVer** en la tabla `schema_version`
    ([ADR-014](ADR-014-semver.md); tarea [0.10](../08-plan-de-desarrollo.md#tarea-0-10) del [Sprint 0](../08-plan-de-desarrollo.md#sprint-0)).
-2. **Cada versión de la API declara el esquema que necesita**, en `prisma.esquema`, y su sonda de
+2. **Cada versión de la API declara el esquema que necesita**, en `emprende.esquema`, y su sonda de
    disponibilidad **no deja entrar tráfico si la base es más vieja**
    ([`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md) [§2.4](../19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro)). El desajuste se descubre al
    desplegar, no a mitad de un registro de venta.
@@ -121,7 +121,7 @@ este ADR cambia un fallo imposible por uno silencioso.
 - [ADR-013](ADR-013-cuatro-ambientes.md) — la promoción de migraciones por los cuatro ambientes
 - [ADR-012](ADR-012-identidad-a-postgres.md) — por qué la `service_role` no puede tocar el camino de una petición
 - [`21-trabajo-en-paralelo.md`](../21-trabajo-en-paralelo.md) — el reparto entre equipos y las reglas de las migraciones
-- [`16-base-de-datos-y-snapshots.md`](../16-base-de-datos-y-snapshots.md) — qué hay en `prisma_db` y cómo se usa
+- [`16-base-de-datos-y-snapshots.md`](../16-base-de-datos-y-snapshots.md) — qué hay en `emprende_db` y cómo se usa
 
 ---
 

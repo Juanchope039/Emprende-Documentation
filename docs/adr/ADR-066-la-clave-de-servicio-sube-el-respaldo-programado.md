@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-17 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-30 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
 
 ## Contexto
 
@@ -29,7 +29,7 @@ O sea: la programación que el [13 §6](../13-respaldo-y-exportacion.md#6-progra
 | Alternativa | A favor | En contra |
 |---|---|---|
 | **El respaldo programado se queda sin archivo**: la fila y el manifiesto, y el ZIP se arma cuando alguien lo baje | Ningún secreto nuevo. La programación opera sin credencial | Cambia lo que el [13 §5](../13-respaldo-y-exportacion.md#5-generación-y-descarga) promete —doce archivos retenidos— y convierte la retención en otra cosa. Un respaldo que solo existe si alguien lo pide no es un respaldo automático |
-| **`pg_cron` llama a la API** con una credencial guardada en la base | El disparo se queda entero en la base | Pide escribir una credencial en la base, que es justo lo que el `CLAUDE.md` de `prisma_db` prohíbe. Y seguiría sin resolver con qué sube la API |
+| **`pg_cron` llama a la API** con una credencial guardada en la base | El disparo se queda entero en la base | Pide escribir una credencial en la base, que es justo lo que el `CLAUDE.md` de `emprende_db` prohíbe. Y seguiría sin resolver con qué sube la API |
 | **La API lo atiende con el token de la primera persona de Gerencia que entre** después de marcarse el mes | Ningún uso nuevo de la clave de servicio. El token es de verdad y Storage lo acepta | El archivo no aparece a medianoche, sino cuando alguien entra. Quien dirige lo descartó: la programación es para no depender de que alguien entre |
 | **Guardar un usuario de servicio con contraseña** y entrar como él por GoTrue | La clave de servicio no se amplía | Es una cuenta con contraseña en el despliegue, que es el mismo secreto con otro nombre y además aparece en `usuarios` como si fuera una persona |
 

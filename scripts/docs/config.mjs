@@ -24,13 +24,13 @@ export const REPOS_DE_CODIGO = [
   },
   {
     carpeta: '../backend-db',
-    nombre: 'prisma_db',
+    nombre: 'emprende_db',
     github: `${GITHUB}/Emprende-DataBase`,
     version: null,
   },
   {
     carpeta: '../frontend-flutter',
-    nombre: 'prisma_front',
+    nombre: 'emprende_front',
     github: `${GITHUB}/Emprende-Front`,
     version: { archivo: 'pubspec.yaml', patron: /^version: ([0-9][^+\s]*)/m },
   },
@@ -149,9 +149,9 @@ export const DEPENDENCIAS_HACIA_ADELANTE = [
   // El sobre de respuesta se escribio despues de la consulta de version, que lo usa.
   { de: '0.11', a: '0.14', motivo: 'el sobre es un cimiento y entro al Sprint 0 despues de la consulta que lo usa' },
   // La decision del esquema para las pruebas de integracion, que ADR-025 dejo abierta (08 §0.2).
-  { de: '1.7', a: '1.20', motivo: 'la decision del esquema de prisma_db se numero al final del Sprint 1 (08 §0.2)' },
-  { de: '1.8', a: '1.20', motivo: 'la decision del esquema de prisma_db se numero al final del Sprint 1 (08 §0.2)' },
-  { de: '1.15', a: '1.20', motivo: 'la decision del esquema de prisma_db se numero al final del Sprint 1 (08 §0.2)' },
+  { de: '1.7', a: '1.20', motivo: 'la decision del esquema de emprende_db se numero al final del Sprint 1 (08 §0.2)' },
+  { de: '1.8', a: '1.20', motivo: 'la decision del esquema de emprende_db se numero al final del Sprint 1 (08 §0.2)' },
+  { de: '1.15', a: '1.20', motivo: 'la decision del esquema de emprende_db se numero al final del Sprint 1 (08 §0.2)' },
   // Las doce tareas que el plan hacia sin numerarlas (08 §0.2): el contrato por funcionalidad, el
   // renderizador del descriptor y el cliente HTTP nacieron despues de lo que los necesita.
   { de: '1.10', a: '1.14', motivo: 'el filtro de idempotencia se numero despues de la gestion que lo usa' },
