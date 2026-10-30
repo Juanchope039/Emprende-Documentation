@@ -27,7 +27,7 @@ cambiar el número, y al generar la entrega se crea `release/X.Y.Z` con `X.Y.Z-R
 ## Decisión
 
 1. **La versión lleva `-SNAPSHOT` en `develop`, `qa` y `main`**: `2.13.3-SNAPSHOT` en la API y
-   `2.4.2-SNAPSHOT+62` en el front, con el sufijo delante del `+BUILD`. En `prisma_db` el sufijo va
+   `2.4.2+62-SNAPSHOT` en el front, con el sufijo detrás del `+BUILD`: la insignia muestra lo de antes del `+`, y así no crece. En `prisma_db` el sufijo va
    en el archivo `VERSION`, que dice la versión del esquema en curso; `schema_version` no lo lleva,
    porque es el número que la API compara y una migración aplicada no cambia.
 2. **[C-05](../12-pruebas-y-calidad.md#c-05) exige el sufijo y cuenta los pasos solo con `X.Y.Z`** (y el `+BUILD`). SemVer

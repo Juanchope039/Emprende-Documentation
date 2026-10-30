@@ -231,7 +231,7 @@ saber qué hace falta, no para arrancar nada.
 
 | Proyecto | Dónde vive la versión | Formato |
 |---|---|---|
-| `prisma_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH-SNAPSHOT+BUILD` |
+| `prisma_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD-SNAPSHOT` |
 | `prisma_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH-SNAPSHOT`, y la misma cadena etiqueta la imagen de contenedor |
 | Esquema de base (`prisma_db`) | Migraciones numeradas + tabla `schema_version`, y su estado en `VERSION` | `MAJOR.MINOR.PATCH`; `VERSION` dice `MAJOR.MINOR.PATCH-SNAPSHOT` |
 
