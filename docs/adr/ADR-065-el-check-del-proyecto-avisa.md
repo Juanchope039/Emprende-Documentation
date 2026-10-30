@@ -70,5 +70,5 @@ la vez. El aviso conserva lo único que el [ADR-062](ADR-062-el-pr-esta-en-el-pr
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md "ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige") · [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md "ADR-073 · Estar en el proyecto del tablero es recomendado, y se agrega a mano con el engranaje") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-062](ADR-062-el-pr-esta-en-el-proyecto.md "ADR-062 · Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige") · [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md "ADR-073 · Estar en el proyecto del tablero es recomendado, y se agrega a mano con el engranaje") · [ADR-074](ADR-074-el-check-del-proyecto-se-quita.md "ADR-074 · El check del proyecto se quita de los cuatro repositorios")
 <!-- /generado:referenciado-desde -->

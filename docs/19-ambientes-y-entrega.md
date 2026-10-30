@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-17 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-29 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de PRISMA.
 
@@ -181,7 +181,7 @@ dentro del artefacto.
 | `PRISMA_FECHA_COMPILACION` | Cuándo se compiló, ISO 8601 | `2026-09-15T09:40:00-05:00` | `2026-09-15T09:40:00-05:00` |
 
 > **`PRISMA_API_MAJOR` no se configura en el alojamiento.** Sale del repositorio del front:
-> del `ARG` del `Dockerfile` y de los dos respaldos del `ci.yml`, que `ambiente_test` obliga a
+> del `ARG` del `Dockerfile` y de los dos respaldos del `continuous-integration.yml`, que `ambiente_test` obliga a
 > coincidir con `Config.apiMajor`. Una copia en el panel del alojamiento no la mira nadie, y la
 > que había en dev se quedó en `0` hasta plantar el front contra una API `1.1.0`.
 

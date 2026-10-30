@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [4.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-26 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [4.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-29 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -36,7 +36,7 @@ node scripts/github/politicas-de-ramas.mjs verificar Emprende-API   # solo ese r
 | A `develop` se entra por PR, con la tubería terminada | `develop` | PR, y el check **Tubería completa** en verde: la tubería corrió hasta el final. **No se le exige haber terminado bien** |
 | A las demás ramas principales se entra por PR, con la tubería en verde | `qa`, `main` | PR, solo con merge commit ([ADR-061](../../docs/adr/ADR-061-se-promueve-con-merge-commit.md)), y el check **Tubería en verde**: ningún trabajo quedó en rojo ni cancelado |
 
-Los dos checks son trabajos puerta al final del `ci.yml` de cada repositorio —y del
+Los dos checks son trabajos puerta al final del `continuous-integration.yml` de cada repositorio —y del
 `documentacion.yml` de este—, y corren con `if: always()`, así que existen aunque la tubería falle.
 Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempre.
 
@@ -45,14 +45,11 @@ Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempr
 engranaje de *Projects* en la barra del PR. Por eso `pr-en-el-proyecto` está en `false` en los
 cinco repositorios.
 
-**El trabajo sigue ahí y sigue avisando en verde.** Es `proyecto-del-pr.yml`, el mismo en los
-cuatro repositorios de código y la especificación, y escribe un `::warning::` cuando el PR no está
-en el tablero o cuando no se puede saber. Una puerta que no se quiere bloqueante se vuelve
-advertencia, no se borra ([ADR-065](../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)). El nombre se queda en `puertas` para el día que vuelva a
-hacer falta.
+**Y el trabajo ya no existe** ([ADR-074](../../docs/adr/ADR-074-el-check-del-proyecto-se-quita.md)): se quitó de los cuatro repositorios, y
+`proyecto-del-pr.yml` se borró de la especificación. El nombre se queda en `puertas` como historia.
 
 **Y el check «El PR tiene milestone»**, en los cinco, también en el monorepo ([ADR-063](../../docs/adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md)). Es el
-trabajo de `milestone-del-pr.yml`, que solo lee el evento del PR y no necesita ningún secreto.
+trabajo de `reglas-del-pr.yml` en los repositorios de código y de `milestone-del-pr.yml` aquí, que solo lee el evento del PR y no necesita ningún secreto.
 
 **La especificación no tiene `develop`**: su base es `main` ([21 §6.5](../../docs/21-trabajo-en-paralelo.md#65-ramas-e-integración)), así que ahí solo se ponen
 dos conjuntos, y `main` entra en el de la tubería en verde.
