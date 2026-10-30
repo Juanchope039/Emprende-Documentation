@@ -1,15 +1,16 @@
 ---
 name: release
-description: Prepara y revisa el release de una versión de PRISMA que llega a main, o el de una entrega del monorepo de producto. Úsala antes de abrir el PR a main, cuando un release no salió, o para contar qué trae una entrega. No publica releases a mano.
+description: Prepara y revisa el release de una versión de PRISMA que se entrega en su release/X.Y.Z, o el de una entrega del monorepo de producto. Úsala antes de abrir el PR a main, cuando un release no salió, o para contar qué trae una entrega. No publica releases a mano.
 argument-hint: "[repositorio] [versión o entrega-vN]"
 model: sonnet
 ---
 
 # Preparar y revisar un release
 
-La regla está en el [ADR-059](../../../docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md), y cuándo nace cada cosa, en el 19 §4.4. **El release lo
-publica la tubería**: en el empuje a `main` de la API, el front y la base, y en el empuje de cada
-`entrega-vN` en el monorepo. Aquí se prepara lo que necesita y se revisa lo que salió.
+La regla está en el [ADR-059](../../../docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) y en el [ADR-077](../../../docs/adr/ADR-077-snapshot-hasta-la-release.md), y cuándo nace cada cosa, en el 19 §4.4. **El
+release lo publica la tubería**: «Crear la release» en la `release/X.Y.Z` de la API, el front y la
+base, que dispara la entrega a prod, y el empuje de cada `entrega-vN` en el monorepo. Aquí se
+prepara lo que necesita y se revisa lo que salió.
 
 ## 1. Antes del PR a `main`
 
@@ -29,12 +30,14 @@ bash .github/scripts/notas-del-release.sh --en-seco origin/qa
   de esa versión. Si el front no tiene imagen, es que faltan `PROD_API_URL` y `PROD_API_MAJOR`, y
   esas las pone quien dirige en el panel.
 
-## 2. Después del empuje a `main`
+## 2. Después de la entrega
 
-- El flujo «Publicar el release» corre en ese empuje. Mira su resumen: la versión, la etiqueta sobre
-  la que salió, las versiones que junta y la imagen con su digest.
+- La entrega dispara «Crear la release» en cada repositorio con el commit de `main` que entregó.
+  Mira su resumen: la rama `release/X.Y.Z`, la versión en `-RELEASE`, la etiqueta, las versiones
+  que junta y la imagen con su digest. El release se titula `X.Y.Z-RELEASE · AAAA-MM-DD`.
 - **Si no salió**, el resumen dice cuál de las puertas paró. Se arregla la causa y se vuelve a
-  correr el flujo con `workflow_dispatch`. Un release nunca se escribe a mano en GitHub.
+  correr el flujo con `workflow_dispatch` y el mismo commit: no rehace lo que ya existe. Un release
+  nunca se escribe a mano en GitHub.
 - Un release publicado no se edita. Si dice algo mal, el siguiente lo corrige en su changelog.
 
 ## 3. En el monorepo de producto

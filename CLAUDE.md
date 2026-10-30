@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.4.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-29 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.5.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -162,8 +162,8 @@ ni referencias de proyectos, ni nombres de clientes.
 - Rige para lo que se escribe o se cambia: lo que ya está no se reescribe solo por esto.
 
 **La versión del proyecto sube un paso en cada PR que cambia lo que se publica** ([ADR-034](docs/adr/ADR-034-la-version-sube-en-cada-pr.md)).
-- Es el PATCH, el MINOR o el MAJOR siguiente de la versión de `develop`. En el front, el `+BUILD`
-  sube uno.
+- Es el PATCH, el MINOR o el MAJOR siguiente de la versión de `develop`, con su `-SNAPSHOT`
+  ([ADR-077](docs/adr/ADR-077-snapshot-hasta-la-release.md)). En el front, el `+BUILD` sube uno. En la base, `VERSION` dice la del esquema en curso.
 - Si el PR agrega migraciones, la última publica en `schema_version` la versión siguiente del
   esquema.
 - No piden versión las pruebas, los README, los flujos ni las guías de agentes: `CLAUDE.md`,
@@ -171,8 +171,9 @@ ni referencias de proyectos, ni nombres de clientes.
 - Lo exige la prueba [C-05](docs/12-pruebas-y-calidad.md#c-05).
 
 **Las etiquetas y los releases los pone la tubería, nunca una persona ni una sesión** ([ADR-059](docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md)).
-- La etiqueta nace cuando la versión entra a `develop`, y el release cuando llega a `main`. En el
-  monorepo, los dos en cada entrega.
+- La etiqueta y el release nacen cuando la entrega crea `release/X.Y.Z`, con la versión en
+  `-RELEASE` ([ADR-077](docs/adr/ADR-077-snapshot-hasta-la-release.md)); la etiqueta del esquema, cuando la versión entra a `develop`. En el monorepo,
+  los dos en cada entrega.
 - Una etiqueta no se mueve ni se borra. Si quedó mal, la siguiente lo declara con `Corrige:`.
 - El esquema, con sus ejemplos, está en el [19 §4.4](docs/19-ambientes-y-entrega.md#44-etiquetas-y-releases), y el paso a paso en las skills `etiqueta` y `release`.
 

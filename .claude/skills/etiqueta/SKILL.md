@@ -7,8 +7,8 @@ model: sonnet
 
 # Revisar una etiqueta
 
-La regla está en el [ADR-059](../../../docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md), y el esquema, con sus ejemplos, en el 19 §4.4. Aquí va
-el procedimiento. **Una etiqueta no se crea, no se mueve y no se borra a mano**: la pone la
+La regla está en el [ADR-059](../../../docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) y en el [ADR-077](../../../docs/adr/ADR-077-snapshot-hasta-la-release.md), que la pone en `release/X.Y.Z`, y el esquema, con
+sus ejemplos, en el 19 §4.4. Aquí va el procedimiento. **Una etiqueta no se crea, no se mueve y no se borra a mano**: la pone la
 tubería, y una sesión en la nube ni siquiera puede empujarla.
 
 ## 1. Comprobar el esquema
@@ -16,17 +16,19 @@ tubería, y una sesión en la nube ni siquiera puede empujarla.
 En el repositorio de código, con las etiquetas al día:
 
 ```bash
-git fetch --tags origin develop
-bash .github/scripts/verificar-etiquetas.sh origin/develop
+git fetch --tags origin main develop 'refs/heads/release/*:refs/remotes/origin/release/*'
+bash .github/scripts/verificar-etiquetas.sh origin/release/<X.Y.Z>   # en la API y el front
+bash .github/scripts/verificar-etiquetas.sh origin/develop           # en la base
 ```
 
-- En verde, cada etiqueta cumple el patrón, es anotada, está en la primera línea de `develop`, sube
-  un solo paso y trae su mensaje; o está en la lista de excepciones.
+- En verde, cada etiqueta cumple el patrón, es anotada, sube y trae su mensaje; o está en la lista
+  de excepciones. La del esquema está en la primera línea de `develop` y sube un solo paso; la de
+  una release, sobre el commit que pasó la versión a `-RELEASE`, y puede juntar varios pasos.
 - En el monorepo la base es `origin/main` y el patrón `entrega-vN`.
 
 ## 2. Contar el tramo de una etiqueta
 
-Lo que entró en una etiqueta es lo de la primera línea desde la anterior del mismo patrón:
+Lo que entró en una etiqueta son los PR desde la anterior del mismo patrón:
 
 ```bash
 bash .github/scripts/verificar-etiquetas.sh --tramo <etiqueta>
@@ -41,7 +43,7 @@ bash .github/scripts/verificar-etiquetas.sh --tramo <etiqueta>
 
 | Lo que dice | Qué se hace |
 |---|---|
-| Falta la etiqueta de una versión | Volver a correr el flujo que la pone con `workflow_dispatch` («Etiquetas de la version» o «Etiquetas del esquema»). Nunca crearla a mano |
+| Falta la etiqueta de una versión entregada | Volver a correr «Crear la release» con el commit de `main` que se entregó; en la base, el trabajo de las etiquetas del esquema. Nunca crearla a mano. Una `-SNAPSHOT` todavía no la tiene, y está bien |
 | Saltó un paso o repitió una versión | Lo arrastró C-05 sin verlo: avisar a quien dirige con las dos versiones. No se renumera nada |
 | Una etiqueta está mal (ligera, otro commit, mensaje viejo) | No se rehace. La siguiente lo declara con un renglón `Corrige: <etiqueta>: lo que estaba mal`, y la mala entra a la lista de excepciones en el mismo PR |
 | El mensaje nombra otra etiqueta | Solo vale en un renglón `Corrige:`. Se arregla en el guion que lo escribió |
