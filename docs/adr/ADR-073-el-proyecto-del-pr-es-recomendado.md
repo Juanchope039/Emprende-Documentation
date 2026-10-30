@@ -2,7 +2,11 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-26 | 2026-10-26 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-074](ADR-074-el-check-del-proyecto-se-quita.md) | 2026-10-26 | 2026-10-29 | [Proceso](../INDICE.md#etiqueta-proceso) |
+
+> **Reemplazado por [ADR-074](ADR-074-el-check-del-proyecto-se-quita.md).** Estar en el tablero sigue siendo recomendado, pero el
+> trabajo «El PR está en el proyecto» que este ADR conservaba avisando (punto 3) se quitó de los
+> cuatro repositorios. El cuerpo de abajo se conserva tal como se escribió.
 
 ## Contexto
 
@@ -72,5 +76,5 @@ reglas de rama no quita nada que estuviera juzgando el código: quita un check v
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [ADR-065](ADR-065-el-check-del-proyecto-avisa.md "ADR-065 · El check del proyecto avisa y no bloquea") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-065](ADR-065-el-check-del-proyecto-avisa.md "ADR-065 · El check del proyecto avisa y no bloquea") · [ADR-074](ADR-074-el-check-del-proyecto-se-quita.md "ADR-074 · El check del proyecto se quita de los cuatro repositorios") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->

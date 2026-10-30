@@ -4,8 +4,8 @@
 # Existe porque los proyectos de GitHub solo se leen y se escriben por GraphQL, y una sesión de
 # agente en la nube no alcanza GraphQL: `gh project` contesta `unknown owner type`. En Actions sí.
 #
-# No es una puerta: si no puede escribir, avisa y termina en verde. Quien exige estar en el proyecto
-# es el check «El PR está en el proyecto», que es otro archivo.
+# No es una puerta: si no puede escribir, avisa y termina en verde. Estar en el proyecto es
+# recomendado y ningún check lo exige (ADR-073, ADR-074).
 #
 # Corre también en cada empuje, y por eso solo escribe Status cuando está vacío: así no le deshace a
 # nadie el cambio de columna que hizo a mano.

@@ -20,6 +20,10 @@ Esta skill corre porque quien dirige la invocó con `/pr` o pidió el PR en pala
 porque terminaste algo y nadie lo pidió, para: lo que toca es empujar y avisar que la rama está
 lista.
 
+**Esta skill abre el PR y nunca lo fusiona** ([ADR-075](../../../docs/adr/ADR-075-solo-quien-dirige-fusiona.md)): ni `gh pr merge`, ni la API de merge, ni
+el auto-merge, ni un empuje a `develop`, `qa` o `main`, aunque quien dirige lo pida. Fusiona solo
+quien dirige.
+
 ## 2. El issue
 
 **Todo PR nombra su issue de `Juanchope039/Emprende-MiniApp-MonoRepo`** ([ADR-060](../../../docs/adr/ADR-060-todo-pr-se-asocia-a-un-issue.md)), y sin issue no se
@@ -98,8 +102,7 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    Lo que le queda a esta skill es una cosa: **mirar el resumen de ese flujo** cuando termine, y
    pasarle a quien dirige los campos que quedaron vacíos, con el valor que les pondrías. **Lo que no
    se sepa se deja vacío**: un valor inventado en el tablero es peor que un hueco, porque nadie lo
-   vuelve a mirar. Y si el check «El PR está en el proyecto» avisa, se le pasa el aviso en un
-   renglón: no detiene nada, solo dice que el tablero todavía no lo cuenta.
+   vuelve a mirar. Ningún check mira el tablero ([ADR-074](../../../docs/adr/ADR-074-el-check-del-proyecto-se-quita.md)).
 
    Si quien dirige nombró un proyecto al pedir el PR, se le recuerda que lo agregue con el
    engranaje, o se hace desde una sesión que alcance GraphQL con
@@ -134,8 +137,8 @@ tercera es la única recomendada, y la cuarta no se arregla sin reescribir el cu
 
 - [ ] **nombra su issue** de `Juanchope039/Emprende-MiniApp-MonoRepo`, con `Closes` o con `Refs`;
 - [ ] **lleva milestone**, el mismo del issue;
-- [ ] **el tablero**, que es lo único recomendado y no exigido ([ADR-073](../../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)): si el check avisa,
-      el aviso se le pasa a quien dirige, que lo agrega con el engranaje si quiere;
+- [ ] **el tablero**, que es lo único recomendado y no exigido ([ADR-073](../../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)): ningún check lo
+      mira ([ADR-074](../../../docs/adr/ADR-074-el-check-del-proyecto-se-quita.md)), así que se le recuerda a quien dirige, que lo agrega con el engranaje si quiere;
 - [ ] **el cuerpo salió de `cuerpo.md`** y, releído, lleva una sola firma, la de la plataforma, sin
       el id de la sesión (§4.7).
 

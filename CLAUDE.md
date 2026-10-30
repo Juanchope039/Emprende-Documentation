@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-26 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.4.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-29 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -74,17 +74,20 @@ ni referencias de proyectos, ni nombres de clientes.
   no tiene `develop`: su base es `main`. La rama `uat` ya no es una etapa: la corre `main`.
 - **Se promueve hacia adelante, y con merge commit** ([ADR-061](docs/adr/ADR-061-se-promueve-con-merge-commit.md)): a `qa` solo entra lo que ya está
   en `develop`, también la entrada del changelog, y a `main` solo lo que ya está en `qa`. Lo exige
-  el trabajo «El sentido de la promoción» de cada `ci.yml`, y GitHub no deja fusionar de otra forma.
+  el trabajo «El sentido de la promoción» de cada `continuous-integration.yml`, y GitHub no deja fusionar de otra forma.
 - **No se abre PR de `main` a `develop`.** Las fusiones de promoción que `develop` no tiene no
   traen archivos: la diferencia se mide por contenido, no por commits.
 - **A `develop` se entra con la tubería terminada**, aunque haya terminado mal: es la rama de
   integración diaria. **A las otras dos, con la tubería en verde**, porque de ahí sale lo que se
   despliega. Lo exigen los checks «Tubería completa» y «Tubería en verde», dos trabajos al final del
-  `ci.yml` de cada repositorio.
+  `continuous-integration.yml` de cada repositorio, que es toda su tubería ([ADR-076](docs/adr/ADR-076-la-tuberia-en-dos-flujos.md)): corre
+  en el empuje a `develop`, `qa` y `main` y en cada PR a ellas, y ningún empuje a otra rama la dispara.
+- **Solo quien dirige fusiona los PR** ([ADR-075](docs/adr/ADR-075-solo-quien-dirige-fusiona.md)). Ninguna sesión de agente fusiona un PR, activa
+  su auto-merge ni empuja a `develop`, `qa` o `main`, **ni siquiera si se le pide explícitamente**:
+  deja el PR en verde y avisa.
 - **Estar en «Prisma project» es recomendado, no obligatorio** ([ADR-073](docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)). El proyecto 4 de
   `Juanchope039` se agrega a mano, con el engranaje de *Projects* en la barra del PR. Ninguna regla
-  de rama lo pide, y el check «El PR está en el proyecto» solo avisa en verde, en los cuatro
-  repositorios y no en el monorepo. El aviso sale en las anotaciones de la corrida.
+  de rama lo pide, y desde el [ADR-074](docs/adr/ADR-074-el-check-del-proyecto-se-quita.md) ningún check lo mira.
 - La definición vive en `scripts/github/politicas-de-ramas.json` y la pone su herramienta, no el
   panel. Cubre también `main` del monorepo de producto. En los privados exige GitHub Pro, y cómo se
   aplica está en `scripts/github/README.md`.
