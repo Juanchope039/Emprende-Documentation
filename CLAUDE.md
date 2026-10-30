@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-26 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -81,10 +81,10 @@ ni referencias de proyectos, ni nombres de clientes.
   integración diaria. **A las otras dos, con la tubería en verde**, porque de ahí sale lo que se
   despliega. Lo exigen los checks «Tubería completa» y «Tubería en verde», dos trabajos al final del
   `ci.yml` de cada repositorio.
-- **Todo PR a una de las tres está en «Prisma project»**, el proyecto 4 de `Juanchope039` ([ADR-062](docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)).
-  Lo mira el check «El PR está en el proyecto», en los cuatro repositorios y no en el monorepo,
-  **y avisa en vez de fallar** ([ADR-065](docs/adr/ADR-065-el-check-del-proyecto-avisa.md)): estar en el tablero es un clic de quien fusiona, así que
-  un PR no se queda esperándolo. El aviso sale en las anotaciones de la corrida.
+- **Estar en «Prisma project» es recomendado, no obligatorio** ([ADR-073](docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)). El proyecto 4 de
+  `Juanchope039` se agrega a mano, con el engranaje de *Projects* en la barra del PR. Ninguna regla
+  de rama lo pide, y el check «El PR está en el proyecto» solo avisa en verde, en los cuatro
+  repositorios y no en el monorepo. El aviso sale en las anotaciones de la corrida.
 - La definición vive en `scripts/github/politicas-de-ramas.json` y la pone su herramienta, no el
   panel. Cubre también `main` del monorepo de producto. En los privados exige GitHub Pro, y cómo se
   aplica está en `scripts/github/README.md`.

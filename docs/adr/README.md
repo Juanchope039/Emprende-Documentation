@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.39.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-26 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.40.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-26 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -73,7 +73,7 @@ consideraron y qué consecuencias tiene.
 | [062](ADR-062-el-pr-esta-en-el-proyecto.md) | Todo PR a una rama principal está en el proyecto del tablero, y un check lo exige | Reemplazado por [065](ADR-065-el-check-del-proyecto-avisa.md) |
 | [063](ADR-063-todo-issue-y-todo-pr-lleva-milestone.md) | Todo issue y todo PR lleva milestone, con los mismos milestones en los cinco repositorios | Aceptado |
 | [064](ADR-064-la-atribucion-la-pone-la-plataforma.md) | La atribución la pone la plataforma, y el agente no escribe ninguna | Aceptado |
-| [065](ADR-065-el-check-del-proyecto-avisa.md) | El check del proyecto avisa y no bloquea | Aceptado |
+| [065](ADR-065-el-check-del-proyecto-avisa.md) | El check del proyecto avisa y no bloquea | Reemplazado por [073](ADR-073-el-proyecto-del-pr-es-recomendado.md) |
 | [066](ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md) | La clave de servicio también sube el respaldo que nadie pidió | Aceptado |
 | [067](ADR-067-el-plan-no-tiene-carriles.md) | El plan no tiene carriles: cada tarea dice dónde vive | Aceptado |
 | [068](ADR-068-los-sprints-cerrados-no-reciben-tareas.md) | Los sprints del 0 al 10 están cerrados, y una tarea nueva abre un sprint nuevo | Aceptado |
@@ -81,8 +81,9 @@ consideraron y qué consecuencias tiene.
 | [070](ADR-070-las-migraciones-las-aplica-la-tuberia.md) | Las migraciones las aplica la tubería, no una persona | Aceptado |
 | [071](ADR-071-el-privilegio-es-del-tamano-del-uso.md) | El privilegio que la base le concede a la API es del tamaño de su uso | Aceptado |
 | [072](ADR-072-las-reglas-con-alcance-y-lo-compartido.md) | Una regla puede vivir en `.claude/rules/` con su alcance, y lo compartido tiene una fuente y copias verificadas | Aceptado |
+| [073](ADR-073-el-proyecto-del-pr-es-recomendado.md) | Estar en el proyecto del tablero es recomendado, y se agrega a mano con el engranaje | Aceptado |
 
-Son **72 decisiones** registradas: 59 aceptadas y 13 reemplazadas.
+Son **73 decisiones** registradas: 59 aceptadas y 14 reemplazadas.
 
 > **Sobre la numeración.** El cambio de stack se planeó como [ADR-010](ADR-010-almacenamiento-contrasenas.md) y [ADR-011](ADR-011-stack-flutter-dart.md), pero el 010 ya
 > estaba ocupado por la decisión de contraseñas. Un número asignado no se reutiliza, así que el

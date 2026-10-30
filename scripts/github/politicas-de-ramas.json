@@ -1,5 +1,6 @@
 {
-  "reglas": "Las de ADR-048, ADR-062 (el check solo avisa desde ADR-065) y ADR-063. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
+  "reglas": "Las de ADR-048 y ADR-063. Este archivo es la definicion, no una copia de lo que hay en GitHub.",
+  "proyecto": "El check del proyecto no se exige: desde ADR-073 estar en el tablero es recomendado y se agrega con el engranaje de Projects del PR. El nombre se queda en puertas, y pr-en-el-proyecto en false, para el dia que vuelva a hacer falta.",
   "puertas": {
     "completa": "Tubería completa",
     "en-verde": "Tubería en verde",
@@ -29,7 +30,7 @@
       "nombre": "Emprende-Documentation",
       "proyecto": "la especificacion",
       "visibilidad": "publico",
-      "pr-en-el-proyecto": true,
+      "pr-en-el-proyecto": false,
       "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main"],
@@ -41,7 +42,7 @@
       "nombre": "Emprende-DataBase",
       "proyecto": "prisma_db",
       "visibilidad": "privado",
-      "pr-en-el-proyecto": true,
+      "pr-en-el-proyecto": false,
       "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
@@ -53,7 +54,7 @@
       "nombre": "Emprende-API",
       "proyecto": "prisma_api",
       "visibilidad": "privado",
-      "pr-en-el-proyecto": true,
+      "pr-en-el-proyecto": false,
       "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],
@@ -65,7 +66,7 @@
       "nombre": "Emprende-Front",
       "proyecto": "prisma_front",
       "visibilidad": "privado",
-      "pr-en-el-proyecto": true,
+      "pr-en-el-proyecto": false,
       "pr-con-milestone": true,
       "ramas": {
         "sin-borrar": ["main", "develop", "qa"],

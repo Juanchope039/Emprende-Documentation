@@ -1,7 +1,7 @@
 ---
 name: pr
-description: Abre el PR de Emprende cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/Emprende-MiniApp-MonoRepo y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado al issue y en el proyecto del tablero, con sus campos. Se invoca a mano, con /pr.
-argument-hint: "[repositorio o id de la tarea] [proyecto, si no es Prisma project]"
+description: Abre el PR de Emprende cuando quien dirige lo autoriza expresamente, y solo entonces. Comprueba su issue en Juanchope039/Emprende-MiniApp-MonoRepo y su milestone, trae la base a cada repositorio de la rama, resuelve los conflictos, vuelve a pasar las puertas con la base adentro y abre el PR contra develop o main, asociado a su issue y con su milestone. Se invoca a mano, con /pr.
+argument-hint: "[repositorio o id de la tarea]"
 disable-model-invocation: true
 model: sonnet
 ---
@@ -84,35 +84,26 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    **Con la herramienta de GitHub que tenga la sesión**, lo mismo. **Sin ninguna**, se le deja a
    quien dirige el enlace `https://github.com/<dueño>/<repositorio>/compare/<base>...<rama>?expand=1`
    y el cuerpo en un archivo. Un token no se imprime nunca, ni se escribe en un archivo.
-6. **Agrégalo al proyecto, y llénale los campos** ([ADR-062](../../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)): por defecto «Prisma project»,
-   el 4 de `Juanchope039`, que es el que exige el check «El PR está en el proyecto». Si quien dirige
-   nombró otro al pedir el PR, agrégalo también a ese, sin quitar el 4.
+6. **El tablero es cosa de quien dirige, y esta skill no lo toca** ([ADR-073](../../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)). Estar en
+   «Prisma project», el proyecto 4 de `Juanchope039`, **es recomendado y no obligatorio**: se agrega
+   a mano, con el engranaje de *Projects* en la barra del PR, eligiendo «Prisma project». Ninguna
+   regla de rama lo pide y ningún check lo exige.
 
-   ```bash
-   gh pr edit <n> --add-project "Prisma project"   # necesita el alcance: gh auth refresh -s project
-   ```
+   **No lo intentes desde la sesión**: los proyectos solo se leen y se escriben por GraphQL, y una
+   sesión en la nube no alcanza GraphQL —`gh project` contesta `unknown owner type` y
+   `gh api graphql` responde 403—. En Actions sí, y de eso se encarga el flujo «Campos del
+   proyecto», que corre solo: agrega el PR si el auto-add no lo hizo, le pone `Status` en
+   `In review` y deja en el resumen del trabajo los campos que quedaron vacíos.
 
-   **Estar en el proyecto no es lo mismo que decir algo en él.** Un PR recién agregado entra con
-   todos sus campos vacíos, y el tablero lo enseña en la columna de los que nadie clasificó.
+   Lo que le queda a esta skill es una cosa: **mirar el resumen de ese flujo** cuando termine, y
+   pasarle a quien dirige los campos que quedaron vacíos, con el valor que les pondrías. **Lo que no
+   se sepa se deja vacío**: un valor inventado en el tablero es peor que un hueco, porque nadie lo
+   vuelve a mirar. Y si el check «El PR está en el proyecto» avisa, se le pasa el aviso en un
+   renglón: no detiene nada, solo dice que el tablero todavía no lo cuenta.
 
-   **De eso ya no se encarga esta skill: lo hace el flujo «Campos del proyecto»**, que corre en
-   cada PR a una rama principal. Agrega el PR si el auto-add no lo hizo, le pone `Status` en
-   `In review` y deja en el resumen del trabajo la lista de los campos que quedaron vacíos. Está
-   así porque **los proyectos solo se leen y se escriben por GraphQL**, y una sesión en la nube no
-   alcanza GraphQL: `gh project` contesta `unknown owner type` y `gh api graphql` responde 403. En
-   Actions sí, con el secreto `PRISMA_PROYECTO_TOKEN`.
-
-   Lo que le queda a esta skill son dos cosas:
-
-   - **Mirar el resumen del flujo** cuando termine, y pasarle a quien dirige los campos que el
-     flujo dejó vacíos, con el valor que les pondrías. **Lo que no se sepa se deja vacío**: un
-     valor inventado en el tablero es peor que un hueco, porque nadie lo vuelve a mirar.
-   - **Si el check «El PR está en el proyecto» avisa**, pasarle el aviso a quien dirige: desde el
-     [ADR-065](../../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md) ese trabajo no falla, así que el PR no se detiene, pero el aviso dice que el
-     tablero todavía no lo cuenta. Agregarlo no dispara ningún evento del PR.
-
-   Si quien dirige nombró otro proyecto al pedir el PR, ese sí va a mano con
-   `gh pr edit <n> --add-project "<nombre>"`, desde una sesión que alcance GraphQL.
+   Si quien dirige nombró un proyecto al pedir el PR, se le recuerda que lo agregue con el
+   engranaje, o se hace desde una sesión que alcance GraphQL con
+   `gh pr edit <n> --add-project "<nombre>"`.
 
 ## 4.7 Reenvíalo, para que el pie pierda la sesión
 
@@ -138,13 +129,13 @@ una revisión, con `issues/comments/<id>`.
 
 ## 4.1 Antes de decir que el PR está abierto
 
-Las cuatro cosas que ningún PR puede tener a medias, porque las tres primeras son checks que se
-ponen en rojo y la cuarta no se puede arreglar sin reescribir el cuerpo:
+Las cuatro cosas que se miran antes de avisar: las dos primeras son checks que se ponen en rojo, la
+tercera es la única recomendada, y la cuarta no se arregla sin reescribir el cuerpo:
 
 - [ ] **nombra su issue** de `Juanchope039/Emprende-MiniApp-MonoRepo`, con `Closes` o con `Refs`;
 - [ ] **lleva milestone**, el mismo del issue;
-- [ ] **está en «Prisma project»**, y sus campos dicen algo o se dijo quién los va a poner —el
-      check solo avisa ([ADR-065](../../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)), así que esto no lo atrapa nadie más;
+- [ ] **el tablero**, que es lo único recomendado y no exigido ([ADR-073](../../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)): si el check avisa,
+      el aviso se le pasa a quien dirige, que lo agrega con el engranaje si quiere;
 - [ ] **el cuerpo salió de `cuerpo.md`** y, releído, lleva una sola firma, la de la plataforma, sin
       el id de la sesión (§4.7).
 

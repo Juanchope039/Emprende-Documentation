@@ -49,7 +49,7 @@ function checksExigidos(contextos) {
   };
 }
 
-/** La puerta de la tuberia y, si el repositorio las lleva, la del proyecto (ADR-062) y la del milestone (ADR-063). */
+/** La puerta de la tuberia y, si el repositorio las lleva, la del proyecto (hoy ninguna: ADR-073) y la del milestone (ADR-063). */
 function puertasDe(repo, tuberia) {
   return [
     tuberia,

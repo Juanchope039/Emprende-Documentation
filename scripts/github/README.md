@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.4.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-17 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [4.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-26 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -40,13 +40,16 @@ Los dos checks son trabajos puerta al final del `ci.yml` de cada repositorio —
 `documentacion.yml` de este—, y corren con `if: always()`, así que existen aunque la tubería falle.
 Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempre.
 
-**Y el check «El PR está en el proyecto»**, junto a la tubería en los dos conjuntos de los cuatro
-repositorios, no en el monorepo ([ADR-062](../../docs/adr/ADR-062-el-pr-esta-en-el-proyecto.md)). Es el trabajo de `proyecto-del-pr.yml`, el mismo en los
-cuatro, y mira que el PR esté en «Prisma project», el proyecto 4 de `Juanchope039`.
+**El check «El PR está en el proyecto» ya no se exige en ninguno** ([ADR-073](../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)): estar en
+«Prisma project», el proyecto 4 de `Juanchope039`, es recomendado y se agrega a mano con el
+engranaje de *Projects* en la barra del PR. Por eso `pr-en-el-proyecto` está en `false` en los
+cinco repositorios.
 
-**Ese trabajo avisa y no falla** ([ADR-065](../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)): cuando el PR no está en el tablero, o cuando no se
-puede saber, escribe un `::warning::` y termina en verde. Se sigue exigiendo por su nombre a
-propósito, para que el día que vuelva a bloquear la definición ya esté puesta.
+**El trabajo sigue ahí y sigue avisando en verde.** Es `proyecto-del-pr.yml`, el mismo en los
+cuatro repositorios de código y la especificación, y escribe un `::warning::` cuando el PR no está
+en el tablero o cuando no se puede saber. Una puerta que no se quiere bloqueante se vuelve
+advertencia, no se borra ([ADR-065](../../docs/adr/ADR-065-el-check-del-proyecto-avisa.md)). El nombre se queda en `puertas` para el día que vuelva a
+hacer falta.
 
 **Y el check «El PR tiene milestone»**, en los cinco, también en el monorepo ([ADR-063](../../docs/adr/ADR-063-todo-issue-y-todo-pr-lleva-milestone.md)). Es el
 trabajo de `milestone-del-pr.yml`, que solo lee el evento del PR y no necesita ningún secreto.
@@ -66,24 +69,21 @@ vuelve a aplicar en cuanto la rama con el nombre nuevo esté en la base.
 
 ## El proyecto del PR
 
-El check «El PR está en el proyecto» necesita dos cosas que esta herramienta no pone:
+**Estar en el proyecto es recomendado** ([ADR-073](../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)), así que aquí no hay nada que aplicar: la
+herramienta no exige el check en ninguna rama. Se agrega a mano, con el engranaje de *Projects* en
+la barra del PR, eligiendo «Prisma project».
+
+Lo que el aviso del trabajo necesita para decir algo son dos cosas que esta herramienta no pone, y
+**sin ellas el trabajo sigue en verde**:
 
 1. **El secreto `PRISMA_PROYECTO_TOKEN` en cada uno de los cuatro repositorios**, en *Settings →
    Secrets and variables → Actions → Secrets*. Es un token fino del dueño, limitado a los
    cuatro repositorios, con *Pull requests* y *Projects* (de la cuenta) en lectura: el
    `GITHUB_TOKEN` de Actions no lee los proyectos de un usuario. Uno clásico necesitaría `repo`,
-   que escribe en todos los repositorios. Cuando vence,
-   todos los PR quedan en rojo el mismo día.
+   que escribe en todos los repositorios. Cuando vence, el aviso dice que no se pudo mirar.
 2. **El auto-add del proyecto**, para que nadie tenga que agregar el PR a mano: en «Prisma project»,
-   *⋯ → Workflows → Auto-add to project*, un flujo por repositorio con el filtro `is:pr`.
-
-**El orden es el mismo de arriba, con un paso más**: primero `proyecto-del-pr.yml` en `develop` de
-los tres de código y en `main` de la especificación, después el secreto y el auto-add, y por último
-`aplicar`. Un PR de promoción trae el flujo consigo, así que `qa` y `main` no tienen que tenerlo
-antes.
-
-**Si el PR entró al proyecto después del check**, se vuelve a correr el trabajo desde el PR:
-agregarlo no dispara ningún evento, y el check solo espera dos minutos.
+   *⋯ → Workflows → Auto-add to project*, un flujo por repositorio con el filtro `is:pr`. Es lo que
+   de verdad llena el tablero, y por eso vale más que un check.
 
 ## Los repositorios privados
 
@@ -105,8 +105,8 @@ de los tres conjuntos de la tabla de arriba:
    según el conjunto.
 4. **Rules**: `Restrict deletions` en el primero. En los otros dos, `Require a pull request before
    merging` con **0** aprobaciones y `Require status checks to pass`, agregando el check por su
-   nombre —**Tubería completa** o **Tubería en verde**, y **El PR está en el proyecto** salvo en el
-   monorepo, y **El PR tiene milestone** en los cinco— y dejando sin marcar «Require branches to be
-   up to date before merging».
+   nombre —**Tubería completa** o **Tubería en verde**, y **El PR tiene milestone** en los cinco— y
+   dejando sin marcar «Require branches to be up to date before merging». **El PR está en el
+   proyecto** no se agrega ([ADR-073](../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)).
 
 `mostrar` imprime el mismo JSON que se envía, que sirve para comparar lo que quedó en el panel.

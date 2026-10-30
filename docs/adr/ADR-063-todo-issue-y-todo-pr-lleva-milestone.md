@@ -65,5 +65,5 @@ que ya trae la tubería.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [ADR-073](ADR-073-el-proyecto-del-pr-es-recomendado.md "ADR-073 · Estar en el proyecto del tablero es recomendado, y se agrega a mano con el engranaje") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->
