@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-056-qa-se-aloja-desde-su-rama.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-14 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-056-qa-se-aloja-desde-su-rama.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
@@ -23,14 +23,14 @@ construye la API y el front desde la rama `qa`** de cada repositorio.
 
 ## Decisión
 
-1. **Railway construye el ambiente de qa desde la rama `qa`** de `prisma_api` y de `prisma_front`,
+1. **Railway construye el ambiente de qa desde la rama `qa`** de `prisma_api` y de `emprende_front`,
    cuando la integración continua de ese empuje termina en verde.
 2. **Se despliegan tres ambientes de este proyecto**: dev desde `develop`, qa desde `qa` y uat
    desde el monorepo de producto ([ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md)).
 3. **La etapa qa no cambia**: sigue compilando el artefacto de prod una vez y publicándolo en
    GHCR. Lo que Railway construye en qa es otra compilación, como la de dev, y no lo que llega a
    prod.
-4. **Las migraciones de qa siguen su camino**: `promover.ps1 -Ambiente qa` desde `prisma_db`, antes
+4. **Las migraciones de qa siguen su camino**: `promover.ps1 -Ambiente qa` desde `emprende_db`, antes
    de fusionar en `qa` la API que las necesita.
 
 ## Justificación

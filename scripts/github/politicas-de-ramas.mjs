@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Las politicas de rama de los cuatro repositorios de PRISMA, puestas desde un solo sitio.
+// Las politicas de rama de los cuatro repositorios de Emprende, puestas desde un solo sitio.
 //
 //   node scripts/github/politicas-de-ramas.mjs mostrar     imprime lo que se le pediria a GitHub
 //   node scripts/github/politicas-de-ramas.mjs verificar   compara con lo que hay, sin escribir

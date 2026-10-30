@@ -18,7 +18,7 @@ Se decide por lo que hay en la raíz, no por el nombre de la carpeta:
 |---|---|
 | `settings.gradle.kts` con `prisma_api` | la API |
 | `supabase/config.toml` | la base |
-| `pubspec.yaml` con `prisma_front` | el front |
+| `pubspec.yaml` con `emprende_front` | el front |
 | `docs/INDICE.md` | la especificación |
 
 ```bash

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-14 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** a `main` entra `uat` por PR, no `pre-prod`, que se quitó. `main` sigue
 > siendo la última etapa y sigue comprobando que el árbol es el que compiló qa, sin construir, sin
@@ -38,7 +38,7 @@ Quien dirige lo corrigió el 2026-10-05: **el ciclo es develop → qa → uat �
    y en el empuje que deja su fusión. No construye, no publica y no despliega.
 3. **No se marca ninguna imagen con `main`.** La etiqueta de prod la pone la entrega.
 4. **Lo demás del [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md) sigue igual**: Railway construye pre-prod desde la rama `pre-prod`.
-5. **`prisma_db` no cambia**: su CI ya corre en el PR a `pre-prod` y a `main`, y no en el empuje.
+5. **`emprende_db` no cambia**: su CI ya corre en el PR a `pre-prod` y a `main`, y no en el empuje.
 
 ## Justificación
 

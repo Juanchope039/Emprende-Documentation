@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/20-contrato-de-api.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-17 | [Contrato](INDICE.md#etiqueta-contrato) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) |
+| [3.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/20-contrato-de-api.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Contrato](INDICE.md#etiqueta-contrato) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) |
 
 Qué forma tiene toda respuesta de `prisma_api`, cómo se numeran los errores y qué cabeceras lleva
 cada petición. Es el documento de referencia para quien vaya a construir o a consumir la API.
@@ -311,7 +311,7 @@ La decisión de que el front no contenga ninguna regla está en
 
 ```http
 POST /api/v0/consultas/formularios HTTP/1.1
-Host: api.prisma.com
+Host: api.emprende.com
 Content-Type: application/json
 Idempotency-Key: 0c8a5e21-4b73-4f16-9d40-7a1e5c2b9f63
 
@@ -677,7 +677,7 @@ lectura— para que el contrato se vea, no solo se lea. Las cabeceras van entera
 
 ```http
 PUT /api/v0/movimientos/b21f8c40-3d7e-4a19-9c62-0e5a7f1d8b34 HTTP/1.1
-Host: api.prisma.com
+Host: api.emprende.com
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Idempotency-Key: 6f1c2f3a-8f4b-4f9a-9a2e-1b7c5d3e0a11
@@ -732,7 +732,7 @@ valor en cero:
 
 ```http
 PUT /api/v0/movimientos/7c0d5e93-1a46-4b28-8fd1-6e93a0c25b47 HTTP/1.1
-Host: api.prisma.com
+Host: api.emprende.com
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Idempotency-Key: 0a4d9e17-5c82-4b31-8f06-7e2c1a9d4b55
@@ -775,7 +775,7 @@ La clave del [§8.1](#81-éxito--20100), reutilizada con un cuerpo distinto:
 
 ```http
 PUT /api/v0/movimientos/b21f8c40-3d7e-4a19-9c62-0e5a7f1d8b34 HTTP/1.1
-Host: api.prisma.com
+Host: api.emprende.com
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Idempotency-Key: 6f1c2f3a-8f4b-4f9a-9a2e-1b7c5d3e0a11
@@ -816,7 +816,7 @@ otra petición ([§5.1](#51-la-cabecera)):
 
 ```http
 POST /api/v0/consultas/cuentas HTTP/1.1
-Host: api.prisma.com
+Host: api.emprende.com
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Idempotency-Key: 4d0b7a92-1e65-4c38-b7f4-8c3a0d5e1b27

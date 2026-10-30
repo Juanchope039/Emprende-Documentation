@@ -2,17 +2,17 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-029-esquema-por-etiqueta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-029-esquema-por-etiqueta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) · [Calidad](../INDICE.md#etiqueta-calidad) |
 
 > **Lo modifica [ADR-077](ADR-077-snapshot-hasta-la-release.md):** desde el 2026-10-30 la base se etiqueta `vX.Y.Z`, solo en su
 > `release/X.Y.Z`, y `esquema-vX.Y.Z` queda en desuso. La tubería de la API trae el esquema por su
 > `vX.Y.Z`, por la `esquema-vX.Y.Z` vieja o por el commit de `develop` que agregó la migración que
-> publica esa versión, y `prisma.esquema` sube cuando esa migración ya está en `develop`. El cuerpo
+> publica esa versión, y `emprende.esquema` sube cuando esa migración ya está en `develop`. El cuerpo
 > de abajo se conserva tal como se escribió.
 
 ## Contexto
 
-[ADR-025](ADR-025-cuatro-repositorios.md) sacó el esquema de `prisma_api` y lo puso en `prisma_db`, y dejó escrita una pregunta
+[ADR-025](ADR-025-cuatro-repositorios.md) sacó el esquema de `prisma_api` y lo puso en `emprende_db`, y dejó escrita una pregunta
 sin responder: **de dónde saca el esquema la API para sus pruebas de integración**, ahora que vive en
 otro repositorio. Es la tarea [1.20](../08-plan-de-desarrollo.md#tarea-1-20) del plan, y bloquea tres tareas que no son opcionales:
 
@@ -31,7 +31,7 @@ Tres cosas más, que son las que deciden:
    `FORCE ROW LEVEL SECURITY`. Probar RLS contra una base sin el esquema `auth` obliga a inventarlo, y
    entonces la prueba dice que los permisos funcionan **en algo que no es lo que corre en producción**.
 2. **El esquema ya tenía versión propia** ([ADR-014](ADR-014-semver.md)) y la API ya declara la que necesita, en
-   `prisma.esquema` ([19 §2.4](../19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro)). Falta el paso de convertir ese número en algo que se pueda
+   `emprende.esquema` ([19 §2.4](../19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro)). Falta el paso de convertir ese número en algo que se pueda
    descargar.
 3. **Docker no arranca en la máquina de desarrollo, y sí en los ejecutores de GitHub.** Lo primero es
    una avería local; lo segundo, un hecho con el que se puede contar.
@@ -40,19 +40,19 @@ Tres cosas más, que son las que deciden:
 
 | Opción | A favor | En contra |
 |---|---|---|
-| **Etiqueta de `prisma_db` + Supabase CLI en la integración continua** | La base de las pruebas es la misma que la de producción, con `auth` y sus roles; la referencia es una **versión del esquema**, no un commit; no hay artefacto nuevo que publicar ni registro que mantener | La tubería de la API descarga otro repositorio y tarda unos minutos más; si la base es privada hace falta un token; y en local, sin Docker, esas pruebas no corren |
+| **Etiqueta de `emprende_db` + Supabase CLI en la integración continua** | La base de las pruebas es la misma que la de producción, con `auth` y sus roles; la referencia es una **versión del esquema**, no un commit; no hay artefacto nuevo que publicar ni registro que mantener | La tubería de la API descarga otro repositorio y tarda unos minutos más; si la base es privada hace falta un token; y en local, sin Docker, esas pruebas no corren |
 | Imagen de PostgreSQL con el esquema, publicada en GHCR | La tubería arranca en segundos y no depende del CLI | Hay que montar y mantener otra tubería, y la imagen `postgres` no trae `auth` ni los roles de Supabase: habría que emularlos, que es exactamente lo que vuelve mentirosa una prueba de RLS |
-| `prisma_db` como submódulo de `prisma_api` | `git clone --recurse-submodules` y ya está | Un submódulo fija un **commit**, no una versión del esquema, y el número de `prisma.esquema` quedaría de adorno. Y los submódulos se olvidan de actualizar justo cuando importa |
+| `emprende_db` como submódulo de `prisma_api` | `git clone --recurse-submodules` y ya está | Un submódulo fija un **commit**, no una versión del esquema, y el número de `emprende.esquema` quedaría de adorno. Y los submódulos se olvidan de actualizar justo cuando importa |
 | Probar contra el proyecto dev de Supabase en la nube | No hay nada que levantar | Es una base compartida: una prueba que falla por lo que otro guardó hace diez minutos se termina ignorando ([21 §6.4](../21-trabajo-en-paralelo.md#64-ambientes)). Y las pruebas de RLS escriben y anulan datos |
 
 ## Decisión
 
-1. **`prisma_db` etiqueta cada versión del esquema:** `esquema-vX.Y.Z`, con el mismo número que
+1. **`emprende_db` etiqueta cada versión del esquema:** `esquema-vX.Y.Z`, con el mismo número que
    guarda `schema_version` (tarea [0.10](../08-plan-de-desarrollo.md#tarea-0-10)). Una migración fusionada sin etiquetar no existe para nadie más.
-2. **La API sigue declarando el esquema que necesita** en `prisma.esquema`, y ese número es el que la
+2. **La API sigue declarando el esquema que necesita** en `emprende.esquema`, y ese número es el que la
    tubería convierte en etiqueta. No hay una segunda lista que mantener al día.
 3. **La integración continua de `prisma_api` corre las pruebas de integración en un trabajo aparte**,
-   que descarga `prisma_db` en esa etiqueta —`actions/checkout` con `repository` y `ref`—, instala el
+   que descarga `emprende_db` en esa etiqueta —`actions/checkout` con `repository` y `ref`—, instala el
    Supabase CLI y levanta la base con `supabase db start`, que aplica las migraciones y la semilla.
    Las pruebas corren contra `127.0.0.1:54322`, que es la misma dirección que usa la configuración
    local.
@@ -61,9 +61,9 @@ Tres cosas más, que son las que deciden:
    máquina; las de integración se piden a propósito y fallan claro si no hay base a la que hablarle.
 5. **Si el repositorio de la base es privado, la tubería lleva un token de solo lectura** en el
    secreto `PRISMA_DB_TOKEN`, y nada más. La `service_role` no entra: la crea y la usa `supabase db
-   start` en su propia base local, y los secretos de las migraciones se quedan en `prisma_db`.
+   start` en su propia base local, y los secretos de las migraciones se quedan en `emprende_db`.
 6. **Cuando una función necesita una columna nueva, primero se etiqueta la base y después sube
-   `prisma.esquema`.** Es el punto 3 de [ADR-025](ADR-025-cuatro-repositorios.md) dicho en la tubería: la migración se publica antes que
+   `emprende.esquema`.** Es el punto 3 de [ADR-025](ADR-025-cuatro-repositorios.md) dicho en la tubería: la migración se publica antes que
    la API que la necesita.
 
 ## Justificación

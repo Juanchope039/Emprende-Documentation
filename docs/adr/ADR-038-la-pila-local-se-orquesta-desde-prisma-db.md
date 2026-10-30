@@ -1,8 +1,8 @@
-# ADR-038 · La pila local se orquesta desde `prisma_db`, y cada receta se apunta desde su `.env`
+# ADR-038 · La pila local se orquesta desde `emprende_db`, y cada receta se apunta desde su `.env`
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-24 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-24 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Base de datos](../INDICE.md#etiqueta-base-de-datos) |
 
 ## Contexto
 
@@ -26,7 +26,7 @@ Quien dirige pidió la tarea para este sprint. Queda por decidir **dónde vive l
 
 | Alternativa | A favor | En contra |
 |---|---|---|
-| **En `prisma_db`, con las recetas apuntadas desde su `.env`** | Es quien ya levanta la base y quien ya reparte los puertos en `config.toml`; su versión solo se mueve con las migraciones, así que la orquestación no le cambia el número a nadie; desde él no se despliega nada, así que un archivo de más no se acerca a ningún ambiente | Es el repositorio que menos código corre, y hay que explicar por qué |
+| **En `emprende_db`, con las recetas apuntadas desde su `.env`** | Es quien ya levanta la base y quien ya reparte los puertos en `config.toml`; su versión solo se mueve con las migraciones, así que la orquestación no le cambia el número a nadie; desde él no se despliega nada, así que un archivo de más no se acerca a ningún ambiente | Es el repositorio que menos código corre, y hay que explicar por qué |
 | En un quinto repositorio, solo para la pila | Nadie es dueño de nadie | Un repositorio más que clonar, versionar y mantener al día, para dos archivos. El [ADR-035](ADR-035-repositorios-hermanos.md) ya decidió que los repositorios son cuatro |
 | En `documentation` | Es de los cuatro por igual | La especificación es **pública** y no lleva nada de máquina; además no tiene nada que levantar, y quien la lee no necesita Docker |
 | En la API, que es quien manda | Es el centro del sistema | Levantar la base es de la base. La API tendría que saber del `config.toml` de otro repositorio, y su versión se mueve en cada PR |
@@ -34,7 +34,7 @@ Quien dirige pidió la tarea para este sprint. Queda por decidir **dónde vive l
 
 ## Decisión
 
-**La orquestación vive en `prisma_db`**, en `pila/compose.yaml`, y se levanta con
+**La orquestación vive en `emprende_db`**, en `pila/compose.yaml`, y se levanta con
 `scripts/db/pila-local.ps1`, que corre `supabase start`, le pone al rol `prisma_api` su clave
 local y construye la API y el front con `docker compose`.
 
@@ -48,13 +48,13 @@ hermanos arranca sin tocar nada.
 
 ## Justificación
 
-**`prisma_db` es el sitio con menos efectos secundarios.** Ya levanta la base, ya reparte los
+**`emprende_db` es el sitio con menos efectos secundarios.** Ya levanta la base, ya reparte los
 puertos y **su versión solo se mueve con las migraciones**: un archivo de orquestación no le hace
 subir el número a nadie ni entra en la cuenta de ningún despliegue. Desde este repositorio no se
 publica ninguna imagen, así que lo que se escriba aquí no puede llegarle a un ambiente por
 descuido.
 
-**La base no cabe en el `compose.yaml`, y eso no es un detalle.** La base de PRISMA no es «un
+**La base no cabe en el `compose.yaml`, y eso no es un detalle.** La base de Emprende no es «un
 PostgreSQL»: es un proyecto de Supabase con el esquema `auth` y sus roles, con GoTrue, con Storage
 y con `pg_cron`. Sin `auth.uid()` no hay política que juzgar, y **todo lo que este proyecto protege
 depende de eso** ([ADR-006](ADR-006-rls-por-rol.md)). Un `postgres:16` escrito a mano sería una base parecida, con la que
@@ -78,13 +78,13 @@ variables hacen falta sin llevar el valor de nadie.
 
 - Un solo comando levanta las tres piezas, y las levanta igual en todas las máquinas.
 - Los puertos se cambian **en un solo sitio**, y el front se recompila apuntando al que la API
-  publica: cambiar `PRISMA_API_PUERTO` mueve las dos cosas a la vez.
-- Probar una receta nueva no obliga a tocar la de verdad: se apunta otra con `PRISMA_API_RECETA`.
-- Se pueden levantar dos pilas a la vez —una por rama— cambiando `PRISMA_PILA_NOMBRE`.
+  publica: cambiar `EMPRENDE_API_PUERTO` mueve las dos cosas a la vez.
+- Probar una receta nueva no obliga a tocar la de verdad: se apunta otra con `EMPRENDE_API_RECETA`.
+- Se pueden levantar dos pilas a la vez —una por rama— cambiando `EMPRENDE_PILA_NOMBRE`.
 
 **Negativas**
 
-- `prisma_db` gana una carpeta que no es de la base, y hay que explicar por qué está ahí. Este ADR
+- `emprende_db` gana una carpeta que no es de la base, y hay que explicar por qué está ahí. Este ADR
   es esa explicación.
 - La pila **no es la de producción**: en dev el front lo sirve nginx desde el contenedor, y quien
   esté trabajando en una pantalla sigue queriendo `flutter run` con su recarga en caliente. La pila

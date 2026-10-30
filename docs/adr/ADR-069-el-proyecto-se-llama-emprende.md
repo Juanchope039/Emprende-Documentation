@@ -2,12 +2,12 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-069-el-proyecto-se-llama-emprende.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-17 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-069-el-proyecto-se-llama-emprende.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
-El proyecto se llamaba PRISMA, y los cinco repositorios se llamaban `Finanzas-PRISMA`,
-`Finanzas-PRISMA-API`, `Finanzas-PRISMA-DB`, `Finanzas-PRISMA-Front` y `PRISMA`. Quien dirige lo
+El proyecto se llamaba Emprende, y los cinco repositorios se llamaban `Finanzas-PRISMA`,
+`Finanzas-PRISMA-API`, `Finanzas-PRISMA-DB`, `Finanzas-PRISMA-Front` y `Emprende`. Quien dirige lo
 renombró el 2026-10-16: hoy son `Emprende-Documentation`, `Emprende-API`, `Emprende-DataBase`,
 `Emprende-Front` y `Emprende-MiniApp-MonoRepo`, y pidió el 2026-10-17 que el nombre nuevo entre a la
 documentación.
@@ -19,10 +19,10 @@ El nombre está en tres clases de sitio, y cada una tiene su propio riesgo:
   nombre viejo, así que ninguno está roto, pero `documentar.mjs` solo reconoce como propio un enlace
   que empieza por la URL que tiene configurada: con la vieja, deja de verificar los enlaces que
   llegan desde los repositorios de código y los trata como externos.
-- **La prosa.** Unas 210 menciones en los cinco repositorios, casi todas frases donde PRISMA es el
+- **La prosa.** Unas 210 menciones en los cinco repositorios, casi todas frases donde Emprende es el
   nombre del producto.
 - **Los identificadores.** El paquete `com.prismamy.api`, el rol `prisma_api` de la base, las claves
-  `prisma.esquema` y `prisma.contrato.version`, y la etiqueta `prisma.arbol` que lee la entrega a
+  `emprende.esquema` y `emprende.contrato.version`, y la etiqueta `prisma.arbol` que lee la entrega a
   prod.
 
 ## Alternativas consideradas
@@ -44,7 +44,7 @@ El nombre está en tres clases de sitio, y cada una tiene su propio riesgo:
 3. **La prosa nueva dice Emprende, y la que ya está cambia cuando su documento se toque por otra
    razón.** No se abre un PR cuyo único contenido sea un reemplazo masivo.
 4. **Los identificadores no se tocan en este ADR**: el paquete de la API, el rol `prisma_api`, las
-   claves `prisma.*` y la etiqueta `prisma.arbol`. Cada uno necesita su propio PR, y el del paquete
+   claves `emprende.*` y la etiqueta `prisma.arbol`. Cada uno necesita su propio PR, y el del paquete
    ya está decidido aparte.
 5. **El historial no se reescribe**: ni el `CHANGELOG.md`, ni los ADR aceptados, ni los mensajes de
    commit. Un ADR aceptado no se edita, y un changelog reescrito falsea lo que se publicó.
@@ -68,8 +68,8 @@ migración, una compilación o una entrega.
 - **Positivas:** los enlaces de los encabezados vuelven a apuntar al nombre real, la herramienta los
   verifica otra vez, y el nombre del proyecto queda escrito en un sitio.
 - **Negativas:** la prosa convive en dos nombres mientras los documentos se van tocando, y quien lea
-  un documento viejo verá PRISMA.
-- **A vigilar:** que la prosa nueva no siga diciendo PRISMA por costumbre. Hoy no hay guarda que lo
+  un documento viejo verá Emprende.
+- **A vigilar:** que la prosa nueva no siga diciendo Emprende por costumbre. Hoy no hay guarda que lo
   mire, y si hace falta, entra con la herramienta que vigile `.claude/`.
 
 ## Referencias

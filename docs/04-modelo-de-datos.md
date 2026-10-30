@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-23 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [7.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Base de datos PostgreSQL sobre Supabase. **Solo escritura: nada se elimina jamás.**
 
@@ -2852,7 +2852,7 @@ y pasa a ser un rojo en la canalización.
 > [4.11](08-plan-de-desarrollo.md#tarea-4-11) ya están escritas, en el esquema `0.11.0`, y la API todavía no las recoge. **Son tres
 > filas y no dos**: `cancelacion_con_motivo`, `destino_del_anticipo_valido` y la foránea
 > `pedidos_cancelado_por_fkey`, que esta consulta cuenta igual que las demás. Van en el PR que suba
-> su `prisma.esquema` a esa versión. La [2.22](08-plan-de-desarrollo.md#tarea-2-22) no agrega ninguna: reusa `cargos_nombre_key`, que ya
+> su `emprende.esquema` a esa versión. La [2.22](08-plan-de-desarrollo.md#tarea-2-22) no agrega ninguna: reusa `cargos_nombre_key`, que ya
 > tiene la suya.
 >
 > **Las nueve de `adjuntos` ([§4.12](#412-adjuntos--el-soporte-de-un-movimiento-o-de-un-pedido)) ya están, y tres no llevan el código de su clase.** Las escribió
@@ -2872,7 +2872,7 @@ y pasa a ser un rojo en la canalización.
 > **Las cuatro de `presentacion_tipos` ([§4.13](#413-cómo-se-ve-cada-tipo-de-movimiento)) ya existen, y la API todavía no las recoge**:
 > `presentacion_tipos_tipo_key`, `presentacion_tipos_se_lee_como_legible`,
 > `presentacion_tipos_color_valido` y `presentacion_tipos_grupo_valido`. Las creó la tarea [3.19](08-plan-de-desarrollo.md#tarea-3-19), en el
-> esquema `0.13.0`, y van en el PR que suba su `prisma.esquema` a esa versión. Las tres de formato
+> esquema `0.13.0`, y van en el PR que suba su `emprende.esquema` a esa versión. Las tres de formato
 > responden el `42200` sobre su campo —`seLeeComo`, `color` y `grupo`—, como acordó el contrato de la
 > tarea [3.17](08-plan-de-desarrollo.md#tarea-3-17): el formulario `presentacion-de-tipo` no tiene códigos propios. La unicidad va con el
 > transversal de su clase, el `40900`, porque ninguna ruta inserta en la tabla.
@@ -2882,7 +2882,7 @@ y pasa a ser un rojo en la canalización.
 > `aceptada_no_se_anula`, `anulacion_con_motivo`, `cotizaciones_numero_key`,
 > `cotizaciones_pedido_id_key` y las cuatro foráneas —la del cliente, la del pedido, la de quien la
 > emitió y la de quien la anuló—; en `cotizacion_lineas`, `cotizacion_lineas_cantidad_positiva` y sus
-> dos foráneas. Van en el PR que suba su `prisma.esquema` a esa versión. Tres ya tienen código en el
+> dos foráneas. Van en el PR que suba su `emprende.esquema` a esa versión. Tres ya tienen código en el
 > contrato de la tarea [8.11](08-plan-de-desarrollo.md#tarea-8-11): la validez responde el `42281` sobre `validaHasta`, la aceptada que se
 > anula el `40980`, y la foránea del cliente el `42232` sobre `clienteId`, como en el pedido. Las demás
 > van con el transversal de su clase.

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-011-stack-flutter-dart.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-017](ADR-017-api-en-java.md) | 2026-09-15 | 2026-09-16 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-011-stack-flutter-dart.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-017](ADR-017-api-en-java.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) · [API](../INDICE.md#etiqueta-api) |
 
 > **Lo reemplaza [ADR-017](ADR-017-api-en-java.md):** el front sigue en Flutter, pero `prisma_api`
 > pasa de Dart a Java 21 con Spring Boot, así que el argumento del lenguaje único ya no aplica.
@@ -30,9 +30,9 @@ dibuja un botón, sino de dónde vive la lógica y quién puede hablar con la ba
 
 ## Decisión
 
-**`prisma_front` en Flutter Web, `prisma_api` en Dart, PostgreSQL en Supabase.**
+**`emprende_front` en Flutter Web, `prisma_api` en Dart, PostgreSQL en Supabase.**
 
-- `prisma_front` — Flutter Web, instalable como PWA (ver [ADR-016](ADR-016-flutter-web-pwa.md)).
+- `emprende_front` — Flutter Web, instalable como PWA (ver [ADR-016](ADR-016-flutter-web-pwa.md)).
 - `prisma_api` — Dart, que es a la vez API y BFF. Framework HTTP: **Dart Frog**, que va sobre
   Shelf y da enrutado por sistema de archivos y recarga en caliente. Si algún día conviene
   depender de menos capas, Shelf desnudo sostiene la misma estructura.

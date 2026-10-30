@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-17 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [7.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
 
-Cómo avanza PRISMA con varias tareas a la vez sin que se bloqueen ni se pisen. **Lo que avanza en
+Cómo avanza Emprende con varias tareas a la vez sin que se bloqueen ni se pisen. **Lo que avanza en
 paralelo son tareas, no personas:** una tarea la puede llevar una persona, un equipo o una sesión de
 trabajo. Este documento fija las reglas; dónde vive cada tarea, de qué depende y cuánto dura el
 desarrollo con 1, 2 o 3 a la vez lo calcula el plan ([08-plan-de-desarrollo.md](08-plan-de-desarrollo.md)).
@@ -44,8 +44,8 @@ Cada tarea del plan vive en un sitio. La columna **Dónde** de las tablas del 08
 | Dónde | En qué repositorio | Escribe | Responde por | No toca |
 |---|---|---|---|---|
 | **API** | `prisma_api` | Java 25, Spring Boot | Que la regla se cumpla y el mensaje sea correcto | Widgets ni rutas del front |
-| **Base** | `prisma_db` | SQL: migraciones, funciones, RLS y semilla | Que la base siga siendo el juez de los permisos y no pierda historia | Código de la API ni del front |
-| **Front** | `prisma_front` | Dart, Flutter | Que la pantalla sea la del mockup y pinte lo que le dictan | SQL, reglas de negocio, textos de error |
+| **Base** | `emprende_db` | SQL: migraciones, funciones, RLS y semilla | Que la base siga siendo el juez de los permisos y no pierda historia | Código de la API ni del front |
+| **Front** | `emprende_front` | Dart, Flutter | Que la pantalla sea la del mockup y pinte lo que le dictan | SQL, reglas de negocio, textos de error |
 | **Contrato** | `contrato/` de esta especificación | OpenAPI y el catálogo de códigos | Que los dos lados construyan contra lo mismo | La implementación de ninguno de los dos |
 | **Decisión** | Ningún repositorio | — | Destrabar lo que el código no puede decidir | — |
 
@@ -73,8 +73,8 @@ su cuenta. Es la única coordinación obligatoria que queda, y por eso conviene 
 |---|---|---|---|
 | **`Finanzas-PRISMA`** | `repositories/documentation` | Documentación, ADR, mockup **y el contrato**: `openapi.json` y el catálogo de códigos | Contrato y documentación, con revisión cruzada |
 | **`prisma_api`** | `repositories/backend-api` | Java y Spring Boot | API |
-| **`prisma_db`** | `repositories/backend-db` | `supabase/migrations/`, la semilla y los scripts de la base | Base |
-| **`prisma_front`** | `repositories/frontend-flutter` | Flutter | Front |
+| **`emprende_db`** | `repositories/backend-db` | `supabase/migrations/`, la semilla y los scripts de la base | Base |
+| **`emprende_front`** | `repositories/frontend-flutter` | Flutter | Front |
 
 Los cuatro son hermanos dentro de una carpeta de trabajo que no es un repositorio: ninguno contiene
 a otro y cada uno conserva su propia historia ([ADR-025](adr/ADR-025-cuatro-repositorios.md), [ADR-035](adr/ADR-035-repositorios-hermanos.md)).
@@ -239,7 +239,7 @@ Siete reglas, y cada una evita un choque concreto que si no ocurrirá.
 - **Dos tareas a la vez no alteran la misma tabla en el mismo sprint.** El reparto de tablas del [§4.3](#43-fase-2--rebanadas-verticales-sprints-3-a-8)
   está hecho para que no haga falta; cuando haga falta, se habla antes de escribir.
 - **Se publican antes que la API que las necesita, y compatibles con la API que ya corre.** Viven
-  en `prisma_db`, así que una columna nueva y el código que la usa son dos commits: primero se
+  en `emprende_db`, así que una columna nueva y el código que la usa son dos commits: primero se
   agrega, y lo viejo se quita en una versión posterior, cuando ya ninguna API desplegada lo use
   ([ADR-025](adr/ADR-025-cuatro-repositorios.md)).
 - Las revisa quien trabaja el trabajo de la API, aunque las proponga otro.
@@ -271,7 +271,7 @@ sabe resolver solo.
 ### 6.4 Ambientes
 
 - **Cada tarea desarrolla contra su propio PostgreSQL**, levantado con Docker (`reset-local.ps1` de
-  `prisma_db`). Nadie desarrolla contra una base compartida: una prueba que falla por lo que otro
+  `emprende_db`). Nadie desarrolla contra una base compartida: una prueba que falla por lo que otro
   guardó hace diez minutos se termina ignorando, y con ella se ignoran las de verdad.
 - **Docker ya arranca**, así que la excepción que mandaba a cada frente a su propio proyecto gratuito
   de Supabase se acabó: no quedan proyectos gratuitos que repartir —dev y qa gastaron los dos
@@ -393,7 +393,7 @@ conflicto en un bloque generado no se resuelve a mano sino volviendo a correr la
    quien dirige**, que además es quien revisa los PR (fila 9).
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-023](adr/ADR-023-tres-repositorios.md "ADR-023 · Tres repositorios y el contrato como artefacto versionado") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-028](adr/ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-035](adr/ADR-035-repositorios-hermanos.md "ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo") · [ADR-037](adr/ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md "ADR-040 · Toda rama empieza por feature/, y el PR se abre solo con autorización expresa, trayendo entonces la base") · [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md "ADR-043 · Una tarea solo depende de tareas anteriores") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-067](adr/ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/github/README.md "Políticas de rama")
+**🔗 Referenciado desde:** [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [22](22-documentacion.md "22 · Documentación: versiones, estados y referencias") · [Contrato](../contrato/README.md "Contrato de la API · v0.36.0") · [ADR-023](adr/ADR-023-tres-repositorios.md "ADR-023 · Tres repositorios y el contrato como artefacto versionado") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-027](adr/ADR-027-documentacion-versionada.md "ADR-027 · La documentación se versiona, se fecha y se enlaza, y la integración continua lo verifica") · [ADR-028](adr/ADR-028-un-commit-por-tarea.md "ADR-028 · Cada tarea hecha es un commit, y el commit explica por qué") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-031](adr/ADR-031-commit-de-256-caracteres.md "ADR-031 · El mensaje de commit cabe en 256 caracteres") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-035](adr/ADR-035-repositorios-hermanos.md "ADR-035 · Los cuatro repositorios, hermanos en una carpeta de trabajo") · [ADR-037](adr/ADR-037-el-pr-se-abre-a-pedido.md "ADR-037 · La rama sale de la base al día, y el PR se abre a pedido y sin conflictos") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde emprende_db, y cada receta se apunta desde su .env") · [ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md "ADR-039 · Cada regla vive en un solo sitio: CLAUDE.md, AGENTS.md o una skill") · [ADR-040](adr/ADR-040-rama-feature-y-pr-autorizado.md "ADR-040 · Toda rama empieza por feature/, y el PR se abre solo con autorización expresa, trayendo entonces la base") · [ADR-043](adr/ADR-043-dependencias-solo-hacia-atras.md "ADR-043 · Una tarea solo depende de tareas anteriores") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-067](adr/ADR-067-el-plan-no-tiene-carriles.md "ADR-067 · El plan no tiene carriles: cada tarea dice dónde vive") · [CLAUDE](../CLAUDE.md "CLAUDE.md") · [README](../scripts/github/README.md "Políticas de rama")
 <!-- /generado:referenciado-desde -->
 
 ---

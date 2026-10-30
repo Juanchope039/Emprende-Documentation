@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [0.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/18-distribucion-y-pipelines.md "Historial de cambios") | [💡 Propuesta](22-documentacion.md#estados) | 2026-09-15 | 2026-09-16 | [Entrega](INDICE.md#etiqueta-entrega) · [Front](INDICE.md#etiqueta-front) |
+| [0.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/18-distribucion-y-pipelines.md "Historial de cambios") | [💡 Propuesta](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Front](INDICE.md#etiqueta-front) |
 
 > **Todavía es una idea, no una decisión.** Este documento recoge la intención de distribuir la aplicación
 > en **web, Android, iPhone y escritorio Windows**, y de automatizar pruebas y publicación.
@@ -43,7 +43,7 @@ Sobre GitHub Actions (el repositorio ya vive en GitHub). Se dispara en cada *pus
 request*. Son **dos proyectos con herramientas distintas** —el front es Flutter y la API es
 Java—, así que el pipeline los corre como dos trabajos en paralelo, no como uno solo.
 
-| Etapa | Front (`prisma_front`, Flutter) | API (`prisma_api`, Java) | Bloquea la fusión si… |
+| Etapa | Front (`emprende_front`, Flutter) | API (`prisma_api`, Java) | Bloquea la fusión si… |
 |---|---|---|---|
 | Instalar | `flutter pub get` con caché | Dependencias de la herramienta de construcción, con caché | — |
 | Formato | `dart format --set-exit-if-changed` | Formateador del proyecto en modo verificación | El código no está formateado |

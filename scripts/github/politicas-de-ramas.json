@@ -40,7 +40,7 @@
     },
     {
       "nombre": "Emprende-DataBase",
-      "proyecto": "prisma_db",
+      "proyecto": "emprende_db",
       "visibilidad": "privado",
       "pr-en-el-proyecto": false,
       "pr-con-milestone": true,
@@ -64,7 +64,7 @@
     },
     {
       "nombre": "Emprende-Front",
-      "proyecto": "prisma_front",
+      "proyecto": "emprende_front",
       "visibilidad": "privado",
       "pr-en-el-proyecto": false,
       "pr-con-milestone": true,

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-026-railway-al-final.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-032](ADR-032-railway-en-dev-ahora.md) | 2026-09-16 | 2026-09-17 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-026-railway-al-final.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-032](ADR-032-railway-en-dev-ahora.md) | 2026-09-16 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo reemplaza [ADR-032](ADR-032-railway-en-dev-ahora.md):** el código vive en GitHub y se
 > despliega en Railway, tal como se decide abajo, y **qa, uat y prod siguen esperando al
@@ -41,7 +41,7 @@ este ADR existe.
 |---|---|---|
 | **Railway, al final del desarrollo** | Despliega contenedores, que es justo lo que la API ya produce: un `Dockerfile` en dos etapas con JRE 25 y sonda de disponibilidad ([19 §2.4](../19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro)). Y no se paga alojamiento durante meses para ambientes que todavía no tienen usuarios | **Nadie despliega en un ambiente de verdad hasta el [Sprint 9](../08-plan-de-desarrollo.md#sprint-9).** La puerta de qa ([21 §6.4](../21-trabajo-en-paralelo.md#64-ambientes)) y el «llegó al menos hasta qa» de la definición de terminado no existen mientras tanto. Y el front web no trae cómo construirse en Railway: hay que escribirlo |
 | Railway desde el [Sprint 0](../08-plan-de-desarrollo.md#sprint-0), como decía el plan | [H1](../08-plan-de-desarrollo.md#h1) se cumple tal cual: cada cambio fusionado llega a dev, y los fallos de despliegue aparecen de a uno, cuando son baratos | Se paga alojamiento todo el desarrollo por ambientes que nadie usa todavía |
-| Otro proveedor de contenedores | Cualquiera corre una imagen de contenedor | No se evaluaron a fondo, y conviene decirlo. Lo que pesó fue que Railway ya estaba elegido y conectado a `prisma_front` |
+| Otro proveedor de contenedores | Cualquiera corre una imagen de contenedor | No se evaluaron a fondo, y conviene decirlo. Lo que pesó fue que Railway ya estaba elegido y conectado a `emprende_front` |
 
 ## Decisión
 

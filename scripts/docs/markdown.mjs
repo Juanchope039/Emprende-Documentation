@@ -1,4 +1,4 @@
-// Lectura y escritura de Markdown para la documentación de PRISMA: anclas como las calcula GitHub,
+// Lectura y escritura de Markdown para la documentación de Emprende: anclas como las calcula GitHub,
 // separación de lo que no se toca (código, enlaces, HTML), encabezados de metadatos y bloques
 // generados. Sin dependencias: corre con Node tal cual.
 

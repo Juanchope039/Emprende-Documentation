@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-052-la-entrega-del-release-a-prod.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-13 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-052-la-entrega-del-release-a-prod.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** Gerencia aprueba en uat, no en pre-prod, que se quitó. La entrega no
 > cambia de forma: sale del árbol de `main`, no recompila nada y la dispara una persona. El cuerpo de
@@ -52,7 +52,7 @@ del otro lado despliegan.
 ## Decisión
 
 **El destino es un repositorio espejo en la cuenta del taller, uno solo, con la aplicación entera
-dentro.** En los documentos se le llama **prisma-estampados**, y el propietario y el nombre exactos
+dentro.** En los documentos se le llama **emprende-estampados**, y el propietario y el nombre exactos
 salen de `vars.ESPEJO_PROPIETARIO` y `vars.ESPEJO_REPO`: la especificación es pública y no lleva
 cuentas ([`CLAUDE.md` §1](../../CLAUDE.md#1-los-cuatro-repositorios)).
 
@@ -62,7 +62,7 @@ cuentas ([`CLAUDE.md` §1](../../CLAUDE.md#1-los-cuatro-repositorios)).
 | **Qué recibe** | Ese árbol fuente —la API, el front y las migraciones de la base— **y además** las dos imágenes que compiló qa, copiadas al registro de esa cuenta |
 | **Qué historia tiene** | Un commit y una etiqueta `entrega-vN` por entrega. Ninguna rama ni commit del desarrollo interno |
 | **Quién la dispara** | Una persona, con `workflow_dispatch`, después de que Gerencia aprueba en pre-prod y de que eso entra en `main`. Nunca un empuje |
-| **Desde dónde** | `prisma_db`, en `.github/workflows/entregar-release.yml`: es el orquestador por el [ADR-038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md) y la entrega empieza por sus migraciones |
+| **Desde dónde** | `emprende_db`, en `.github/workflows/entregar-release.yml`: es el orquestador por el [ADR-038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md) y la entrega empieza por sus migraciones |
 | **Con qué credenciales** | Una llave de despliegue SSH para el git del espejo, una credencial de paquetes para su registro —una llave SSH no sirve para un registro— y un token con lectura de la API y del front, que son privados ([ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)) |
 
 - **La imagen se copia, no se reconstruye.** `imagetools create` mueve el manifiesto y las capas y
@@ -164,7 +164,7 @@ la aprobación y prod hay una persona decidiendo, y un disparo automático la sa
 - [ADR-045](ADR-045-pre-prod-y-prod-en-otro-repositorio.md), que dejó el hueco que este llena; [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md), que movió la última etapa a su rama, y
   [ADR-050](ADR-050-main-vuelve-a-ser-la-ultima-etapa.md), que devolvió `main` a la cadena y dejó esta elección a la 9.15.
 - [ADR-032](ADR-032-railway-en-dev-ahora.md), que descartó el despliegue a mano sin papeleo; [ADR-038](ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md), por el que la orquestación vive
-  en `prisma_db`, y [ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md), por el que la API y el front son privados.
+  en `emprende_db`, y [ADR-051](ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md), por el que la API y el front son privados.
 - [`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md), con las seis reglas, las etapas y los siete pasos de publicar.
 - [`08-plan-de-desarrollo.md`](../08-plan-de-desarrollo.md), la 9.15 del [Sprint 9](../08-plan-de-desarrollo.md#sprint-9).
 

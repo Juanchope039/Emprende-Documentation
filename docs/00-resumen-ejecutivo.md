@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-17 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
 
 > Documento de 5 minutos. Si solo vas a leer uno, que sea este.
 
@@ -27,7 +27,7 @@ Eso produce cinco síntomas concretos:
 
 ---
 
-## 2. Qué es PRISMA
+## 2. Qué es Emprende
 
 Una aplicación web instalable en el celular y usable desde el computador, que centraliza la
 administración y las finanzas del negocio.
@@ -96,7 +96,7 @@ funcionalidades juntas.
 | Rompecabezas | 35% | 65% del precio | ❌ Faltan 15 puntos |
 
 En los pedidos de margen bajo, **el negocio le está prestando plata al cliente** para comprar
-su propio material. PRISMA calculará el anticipo mínimo de cada cotización y avisará cuando el
+su propio material. Emprende calculará el anticipo mínimo de cada cotización y avisará cuando el
 50% no alcance.
 
 ### Hallazgo 2 — El trabajo propio no se cuenta, y eso infla la utilidad
@@ -119,7 +119,7 @@ quiebre al cuarto mes.**
 Patrimonio = Aportes − Retiros + Utilidades acumuladas
 ```
 
-Se puede tener doce meses rentables seguidos y estar vaciando el negocio. PRISMA vigila esa
+Se puede tener doce meses rentables seguidos y estar vaciando el negocio. Emprende vigila esa
 relación y alerta cuando los retiros de los últimos doce meses superan las utilidades del mismo
 período.
 

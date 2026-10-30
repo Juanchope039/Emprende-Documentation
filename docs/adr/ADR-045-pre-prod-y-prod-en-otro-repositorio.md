@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-04 | 2026-10-10 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
+| [1.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-04 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Plan](../INDICE.md#etiqueta-plan) |
 
 > **Lo modifica [ADR-046](ADR-046-pre-prod-se-construye-desde-su-rama.md):** pre-prod no corre la imagen de qa: Railway lo construye desde
 > la rama `pre-prod`, como dev desde `develop`, y esa rama es la última etapa de la tubería en lugar
@@ -66,7 +66,7 @@ se agrega es `pre-prod`.
 
 | Dónde | Hoy | Queda |
 |---|---|---|
-| `PRISMA_AMBIENTE` y el `ambiente` del contrato | `dev`, `qa`, `uat`, `prod` | Se suma `pre-prod` |
+| `EMPRENDE_AMBIENTE` y el `ambiente` del contrato | `dev`, `qa`, `uat`, `prod` | Se suma `pre-prod` |
 | El perfil de Spring | `prod` | Se suma `pre-prod`, con Swagger detrás de autenticación |
 | La insignia y la franja del front | Sin franja en prod | pre-prod lleva franja, como dev: sus datos no son reales. prod sigue sin franja |
 | La etiqueta de GHCR | `:prod`, la pone la etapa de `main` | `:pre-prod`. `:prod` la pone la entrega a prod |

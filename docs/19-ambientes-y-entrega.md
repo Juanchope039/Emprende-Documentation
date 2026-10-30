@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
-Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de PRISMA.
+Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de Emprende.
 
 > **Construcción: la integración continua corre y dev ya está alojado; uat todavía no.**
 > La API, el front, la base y esta especificación se verifican en cada push y cada PR ([§6.1](#61-en-cada-empuje-en-paralelo)). **Dev vive en
@@ -30,7 +30,7 @@ Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada
 | **uat** | **El último ambiente alojado aquí, donde Gerencia aprueba** ([ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md)). Se construye desde `main` del monorepo de producto, y su batería sobre datos realistas la corre la etapa `main` ([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)) | Gerencia y quien desarrolla | Realistas, **anonimizados** |
 | **prod** | El negocio de verdad. **Vive en otro repositorio** y recibe el artefacto tras cada release | El equipo del taller | Reales |
 
-La semilla reproducible de qa es la que ya existe (`supabase/seed.sql`, en `prisma_db`), descrita
+La semilla reproducible de qa es la que ya existe (`supabase/seed.sql`, en `emprende_db`), descrita
 en [`16-base-de-datos-y-snapshots.md`](16-base-de-datos-y-snapshots.md). No se inventa otra: es la misma de la base local y la de dev,
 y se aplica a un ambiente remoto con `scripts/db/sembrar.ps1` ([16 §5.2](16-base-de-datos-y-snapshots.md#52-la-semilla-en-dev-y-en-qa)).
 
@@ -174,13 +174,13 @@ dentro del artefacto.
 
 | Clave | Qué es | Ejemplo en dev | Ejemplo en prod |
 |---|---|---|---|
-| `PRISMA_API_URL` | Dónde vive `prisma_api` | `https://api-dev.prisma.com` | `https://api.prisma.com` |
-| `PRISMA_AMBIENTE` | Cuál de los ambientes es | `dev` | `prod` |
-| `PRISMA_API_MAJOR` | Qué MAJOR de la API exige ([§4.3](#43-el-contrato-de-compatibilidad)) | `1` | `1` |
-| `PRISMA_COMMIT` | Referencia del commit compilado | `a3f19c4` | `a3f19c4` |
-| `PRISMA_FECHA_COMPILACION` | Cuándo se compiló, ISO 8601 | `2026-09-15T09:40:00-05:00` | `2026-09-15T09:40:00-05:00` |
+| `EMPRENDE_API_URL` | Dónde vive `prisma_api` | `https://api-dev.prisma.com` | `https://api.prisma.com` |
+| `EMPRENDE_AMBIENTE` | Cuál de los ambientes es | `dev` | `prod` |
+| `EMPRENDE_API_MAJOR` | Qué MAJOR de la API exige ([§4.3](#43-el-contrato-de-compatibilidad)) | `1` | `1` |
+| `EMPRENDE_COMMIT` | Referencia del commit compilado | `a3f19c4` | `a3f19c4` |
+| `EMPRENDE_FECHA_COMPILACION` | Cuándo se compiló, ISO 8601 | `2026-09-15T09:40:00-05:00` | `2026-09-15T09:40:00-05:00` |
 
-> **`PRISMA_API_MAJOR` no se configura en el alojamiento.** Sale del repositorio del front:
+> **`EMPRENDE_API_MAJOR` no se configura en el alojamiento.** Sale del repositorio del front:
 > del `ARG` del `Dockerfile` y de los dos respaldos del `continuous-integration.yml`, que `ambiente_test` obliga a
 > coincidir con `Config.apiMajor`. Una copia en el panel del alojamiento no la mira nadie, y la
 > que había en dev se quedó en `0` hasta plantar el front contra una API `1.1.0`.
@@ -194,7 +194,7 @@ dentro del artefacto.
 
 | Variable | Para qué | Nota |
 |---|---|---|
-| `PRISMA_AMBIENTE` | Lo que responde `POST /api/v0/consultas/version` y lo que pinta la franja | `dev`, `qa`, `uat` o `prod` |
+| `EMPRENDE_AMBIENTE` | Lo que responde `POST /api/v0/consultas/version` y lo que pinta la franja | `dev`, `qa`, `uat` o `prod` |
 | `DATABASE_URL` | Conexión a PostgreSQL | Con el rol `prisma_api`, **sin `BYPASSRLS`** y sin ser dueño de las tablas |
 | `SUPABASE_URL` | Proyecto de Supabase del ambiente | Uno distinto por ambiente |
 | `SUPABASE_ANON_KEY` | Iniciar sesión contra Supabase Auth | Solo la usa la API, no el front |
@@ -231,9 +231,9 @@ saber qué hace falta, no para arrancar nada.
 
 | Proyecto | Dónde vive la versión | Formato |
 |---|---|---|
-| `prisma_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD-SNAPSHOT` |
+| `emprende_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD-SNAPSHOT` |
 | `prisma_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH-SNAPSHOT`, y la misma cadena etiqueta la imagen de contenedor |
-| Esquema de base (`prisma_db`) | Migraciones numeradas + tabla `schema_version`, y su estado en `VERSION` | `MAJOR.MINOR.PATCH`; `VERSION` dice `MAJOR.MINOR.PATCH-SNAPSHOT` |
+| Esquema de base (`emprende_db`) | Migraciones numeradas + tabla `schema_version`, y su estado en `VERSION` | `MAJOR.MINOR.PATCH`; `VERSION` dice `MAJOR.MINOR.PATCH-SNAPSHOT` |
 
 **El sufijo dice el estado** ([ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)): `-SNAPSHOT` en `develop`, `qa` y `main`, y `-RELEASE` en la
 rama `release/X.Y.Z` que crea la entrega. Los pasos se cuentan sin él.
@@ -242,11 +242,11 @@ rama `release/X.Y.Z` que crea la entrega. Los pasos se cuentan sin él.
 
 | Número | Se escribe en | Y de ahí lo leen |
 |---|---|---|
-| Del front | `pubspec.yaml` | La tubería, que lo compila entero en `PRISMA_VERSION`. `lib/ambiente.dart` lo repite para compilar a mano, y una prueba exige que sea el mismo |
+| Del front | `pubspec.yaml` | La tubería, que lo compila entero en `EMPRENDE_VERSION`. `lib/ambiente.dart` lo repite para compilar a mano, y una prueba exige que sea el mismo |
 | De la API | `build.gradle.kts` | El `application.yml`, que lo recibe al compilar, y `POST /api/v0/consultas/version`, que lo responde |
 | Del esquema | La migración que inserta la fila en `schema_version` | `POST /api/v0/consultas/version`, que lee la última fila **de la base de ese ambiente** —con la sesión de quien pregunta; sin sesión responde `desconocido`— |
 
-La versión del esquema que la API **necesita** es otro número y vive en otro sitio: `prisma.esquema`,
+La versión del esquema que la API **necesita** es otro número y vive en otro sitio: `emprende.esquema`,
 fijo en el artefacto. Es el que va a comparar la sonda de disponibilidad del [ADR-025](adr/ADR-025-cuatro-repositorios.md) y el que usa la
 tubería del [ADR-029](adr/ADR-029-esquema-por-etiqueta.md). El panel muestra la que la base **tiene**, que es lo que contesta «qué estaba
 corriendo».
@@ -259,7 +259,7 @@ corriendo».
   significa que el contrato rompió y no «todavía no hay nada que prometer».
 - **Cada versión entregada lleva su etiqueta de git, `v<versión>`, y la pone la tubería**, en la
   rama `release/X.Y.Z` que crea la entrega a prod ([ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)), y sin mover nunca una que ya exista. A
-  mano se saltaba: en `prisma_db` ocho veces seguidas. Las de la `1.0.0` a la `2.13.2` de la API y a
+  mano se saltaba: en `emprende_db` ocho veces seguidas. Las de la `1.0.0` a la `2.13.2` de la API y a
   la `2.4.1+61` del front nacieron en `develop`, antes de este flujo, y las anteriores a la `1.0.0`
   no la tienen. Su esquema, su mensaje y cuándo nace un release están en el [§4.4](#44-etiquetas-y-releases).
 - **MAJOR** de la API: cambio que rompe el contrato con el front —un campo que desaparece, un
@@ -288,7 +288,7 @@ Para que ser independientes no signifique romperse en silencio:
 | Pieza | Qué hace |
 |---|---|
 | `POST /api/v0/consultas/version` | La API publica su versión, la del esquema y el ambiente |
-| `PRISMA_API_MAJOR` | El front declara al compilar qué MAJOR de la API necesita |
+| `EMPRENDE_API_MAJOR` | El front declara al compilar qué MAJOR de la API necesita |
 | Comprobación al arrancar | El front consulta `/version`; si el MAJOR no coincide, muestra «Esta versión ya no sirve con el servidor» y no deja seguir |
 | Ventana de soporte | Cada versión de la API declara hasta cuándo sostiene el MAJOR anterior |
 
@@ -329,8 +329,8 @@ provisional. Si algún día rompe, es ese ADR el que decide qué pasa con la rut
 | Repositorio | Patrón | Vale | No vale, y por qué | Nace en |
 |---|---|---|---|---|
 | `prisma_api` | `vN.N.N` | `v2.4.0` | `2.4.0` (sin la `v`), `v2.4` (le falta el PATCH), `v2.4.0-RELEASE` (sin sufijo) | `release/X.Y.Z` |
-| `prisma_front` | `vN.N.N+N` | `v2.1.3+55` | `v2.1.3` (sin `+BUILD`), `v2.1.03+55` (cero a la izquierda) | `release/X.Y.Z` |
-| `prisma_db` | `vN.N.N` | `v0.28.0` | `0.28.0` (sin la `v`), `esquema-v0.28.0` (en desuso desde el 2026-10-30, [ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)) | `release/X.Y.Z` |
+| `emprende_front` | `vN.N.N+N` | `v2.1.3+55` | `v2.1.3` (sin `+BUILD`), `v2.1.03+55` (cero a la izquierda) | `release/X.Y.Z` |
+| `emprende_db` | `vN.N.N` | `v0.28.0` | `0.28.0` (sin la `v`), `esquema-v0.28.0` (en desuso desde el 2026-10-30, [ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)) | `release/X.Y.Z` |
 | Monorepo | `entrega-vN`, desde 1 | `entrega-v3` | `entrega-v0`, `entrega-v03`, `entrega-v1.0.0` (es un consecutivo) | `main` |
 
 **Las reglas de toda etiqueta:**
@@ -379,7 +379,7 @@ versión que llega no tiene la suya (el changelog cuenta lo que llega a qa, que 
 versiones en una entrada), o si a la API o al front les falta su imagen en GHCR con el árbol de esa versión. Su cuerpo nombra la
 imagen con su digest, dice qué versiones junta y no nombra el release anterior. En el monorepo, el
 mismo texto queda en `entrega/RELEASE.md`, que se reescribe en cada entrega, y el release se titula
-`PRISMA N · AAAA-MM-DD`.
+`Emprende N · AAAA-MM-DD`.
 
 **La entrega crea la `release/X.Y.Z` de cada repositorio** (apartado 1.1 de la política de versionamiento de Emprende).
 `entregar-release.yml` dispara `crear-release.yml` en la API, el front y la base con el commit de
@@ -465,8 +465,8 @@ solo hace esperar. La puerta para fusionar es que **todos** terminen en verde, n
 | Repositorio | Trabajos que corren a la vez |
 |---|---|
 | `prisma_api` | **Compilar y probar** —formato, compilación, regla de dependencias y todas las pruebas—, **la versión subió**, solo contra `develop`, y **el artefacto**, este solo de qa a `main`: qa construye la imagen y las demás comprueban que es la misma ([§6.3](#63-las-tres-etapas-cada-una-más-exhaustiva)) |
-| `prisma_front` | **Formato y análisis**, **pruebas** —incluida la regla de frontera—, **la versión subió**, solo contra `develop`, y **compilación web** |
-| `prisma_db` | **La versión subió**, que por ahora es su única comprobación: lo demás del [§6.2](#62-en-cada-promoción) necesita levantar Supabase, y llega con la tubería del [ADR-029](adr/ADR-029-esquema-por-etiqueta.md) |
+| `emprende_front` | **Formato y análisis**, **pruebas** —incluida la regla de frontera—, **la versión subió**, solo contra `develop`, y **compilación web** |
+| `emprende_db` | **La versión subió**, que por ahora es su única comprobación: lo demás del [§6.2](#62-en-cada-promoción) necesita levantar Supabase, y llega con la tubería del [ADR-029](adr/ADR-029-esquema-por-etiqueta.md) |
 | `Finanzas-PRISMA` | **Verificar la documentación**: encabezados, enlaces, referencias, plan y versiones ([`22-documentacion.md`](22-documentacion.md)) |
 
 **A esos trabajos se les suman las dos puertas**, al final y dependiendo de todos los demás
@@ -489,7 +489,7 @@ Lo que comprueba cada etapa:
 | **Secretos** | Recorre el repositorio entero buscando **valores** y no nombres: un JWT entero, una referencia de proyecto de Supabase, una cadena de conexión con la credencial adentro, o una variable de `.env.ejemplo` que dejó de estar vacía ([RNF-24](03-requisitos-y-bdd.md#rnf-24)) | Hay un secreto pegado en un archivo versionado |
 | **OpenAPI** | Regenera el documento desde los controladores y lo compara con el `openapi.json` versionado ([ADR-022](adr/ADR-022-openapi-generado.md)) | El regenerado difiere del versionado |
 | Compilación | `flutter build web` y la imagen de contenedor de `prisma_api` | No compila |
-| **Versión** | Compara con `develop` y exige que la versión del proyecto suba un paso si el PR cambia lo que se publica; en `prisma_db`, además, que ninguna migración vieja cambie ([C-05](12-pruebas-y-calidad.md#c-05), [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md)) | Cambió lo que se publica y la versión no subió, o subió más de un paso |
+| **Versión** | Compara con `develop` y exige que la versión del proyecto suba un paso si el PR cambia lo que se publica; en `emprende_db`, además, que ninguna migración vieja cambie ([C-05](12-pruebas-y-calidad.md#c-05), [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md)) | Cambió lo que se publica y la versión no subió, o subió más de un paso |
 | Documentación | `node scripts/docs/documentar.mjs verificar --base <commit>` en la especificación | Un encabezado está mal, algo quedó sin enlazar o un documento cambió sin subir su versión |
 
 > **La documentación desactualizada deja de ser un descuido y pasa a ser una compilación roja.** El
@@ -515,9 +515,9 @@ Lo que comprueba cada etapa:
 
 > **Y si lo que está roto es el archivo del flujo, no hay ni registros que abrir.** GitHub no llega a
 > crear ningún trabajo: la ejecución aparece con el nombre de la ruta en vez del suyo, y ahí se acaba
-> el rastro. Le pasó a `prisma_front` entre el 17 y el 18 de septiembre de 2026 —un `: ` dentro de un
+> el rastro. Le pasó a `emprende_front` entre el 17 y el 18 de septiembre de 2026 —un `: ` dentro de un
 > escalar plano—, y dev pasó un día entero sirviendo la versión anterior mientras se fusionaban tres
-> tareas. Por eso `prisma_front` comprueba ahora sus propios flujos en `flutter test`: un archivo que
+> tareas. Por eso `emprende_front` comprueba ahora sus propios flujos en `flutter test`: un archivo que
 > no se deja leer no puede correr el trabajo que comprobaría que se deja leer.
 
 ### 6.2 En cada promoción
@@ -554,7 +554,7 @@ producto ([ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md), [ADR-053]
 | develop | `develop` | Lo del [§6.1](#61-en-cada-empuje-en-paralelo), y la integración contra la base que levanta la tubería | dev, en Railway |
 | qa | `qa` | Extremo a extremo, permisos con sesión real y la traducción de errores del [§6.2](#62-en-cada-promoción). **Compila el artefacto una vez** y lo publica en GHCR con su versión ([§2.3](#23-el-artefacto-se-promueve-no-se-reconstruye)) | qa, en Railway, construido desde la rama ([ADR-056](adr/ADR-056-qa-se-aloja-desde-su-rama.md)) |
 | main | `main` | La semilla realista y anonimizada, y la batería entera sobre ella, contra la base que levanta la tubería. Comprueba que el árbol es el que compiló qa y marca la imagen `uat`, en el PR desde `qa` y en el empuje de su fusión ([ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md), [ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)) | uat, en Railway, cuando el monorepo trae este `main` a su `main` ([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)) |
-| prod | — | No es una etapa: es la entrega del [§7.5](#75-la-entrega-a-prod-en-el-repositorio-del-taller), que una persona dispara desde `prisma_db` leyendo `main` | prod, fuera de este proyecto |
+| prod | — | No es una etapa: es la entrega del [§7.5](#75-la-entrega-a-prod-en-el-repositorio-del-taller), que una persona dispara desde `emprende_db` leyendo `main` | prod, fuera de este proyecto |
 
 **La prueba de permisos corre en las tres**, dos veces ([9.5](08-plan-de-desarrollo.md#tarea-9-5)): contra la base que levanta la
 tubería, en el PR y en el empuje, y contra la base de dev en el empuje, porque una política puede
@@ -709,9 +709,9 @@ vale solo si el otro repositorio lo adopta** ([ADR-045](adr/ADR-045-pre-prod-y-p
 > tres secretos y correr «Instalar»; actualizar es correr «Actualizar» con la etiqueta. Lo de abajo
 > sigue valiendo en todo lo demás.
 
-**Prod no es una etapa de la tubería: es una entrega**, y la dispara una persona desde `prisma_db`,
+**Prod no es una etapa de la tubería: es una entrega**, y la dispara una persona desde `emprende_db`,
 con `.github/workflows/entregar-release.yml`, después del paso 5 ([ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md)). El destino es un
-repositorio espejo de la cuenta del taller, al que los documentos llaman **prisma-estampados**: su
+repositorio espejo de la cuenta del taller, al que los documentos llaman **emprende-estampados**: su
 propietario y su nombre salen de dos variables del repositorio, porque esta especificación es
 pública.
 
@@ -753,7 +753,7 @@ que va con una llave de despliegue, es lo que dispara el pipeline del otro lado:
 con el `GITHUB_TOKEN` del flujo no dispararía nada.
 
 **Lo que hace falta antes de la primera entrega** no es código: las variables `PROD_API_URL` y
-`PROD_API_MAJOR` en `prisma_front`, sin las cuales la etapa qa se salta el artefacto de prod con un
+`PROD_API_MAJOR` en `emprende_front`, sin las cuales la etapa qa se salta el artefacto de prod con un
 aviso; el repositorio espejo con su llave de despliegue; la credencial de paquetes de esa cuenta;
 un token con lectura de la API y del front, que son privados ([ADR-051](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)); y el proyecto de Supabase
 de prod, que lo paga ese lado.
@@ -819,7 +819,7 @@ solo está **con qué configuración corre cada ambiente y cómo se mueve una ve
 | Qué forma tiene cada respuesta de la API y qué cabeceras lleva | [`20-contrato-de-api.md`](20-contrato-de-api.md) |
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [18](18-distribucion-y-pipelines.md "18 · Distribución multiplataforma y automatización (pipelines)") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-024](adr/ADR-024-java-25-y-gradle.md "ADR-024 · Java 25, Gradle y Spring Boot 4 en la API") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md "ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde prisma_db, y cada receta se apunta desde su .env") · [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio") · [ADR-046](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-049](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE") · [ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-051](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia") · [ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md "ADR-055 · uat se despliega desde main del monorepo de producto, y lo aprobado es solo la etiqueta") · [ADR-056](adr/ADR-056-qa-se-aloja-desde-su-rama.md "ADR-056 · qa también se aloja en Railway, construido desde la rama qa") · [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [ADR-070](adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md "ADR-070 · Las migraciones las aplica la tubería, no una persona") · [ADR-077](adr/ADR-077-snapshot-hasta-la-release.md "ADR-077 · La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
+**🔗 Referenciado desde:** [04](04-modelo-de-datos.md "04 · Modelo de datos") · [07](07-arquitectura.md "07 · Arquitectura técnica") · [08](08-plan-de-desarrollo.md "08 · Plan de desarrollo") · [09](09-plan-de-implantacion.md "09 · Plan de implantación") · [10](10-ux-y-mockups.md "10 · Diseño de experiencia y mockups") · [12](12-pruebas-y-calidad.md "12 · Pruebas y calidad") · [16](16-base-de-datos-y-snapshots.md "16 · Base de datos: snapshots y datos de prueba") · [18](18-distribucion-y-pipelines.md "18 · Distribución multiplataforma y automatización (pipelines)") · [20](20-contrato-de-api.md "20 · Contrato de la API") · [ADR-014](adr/ADR-014-semver.md "ADR-014 · SemVer independiente por proyecto y contrato de compatibilidad") · [ADR-022](adr/ADR-022-openapi-generado.md "ADR-022 · OpenAPI generado del código y verificado en integración continua") · [ADR-024](adr/ADR-024-java-25-y-gradle.md "ADR-024 · Java 25, Gradle y Spring Boot 4 en la API") · [ADR-025](adr/ADR-025-cuatro-repositorios.md "ADR-025 · Cuatro repositorios: la base de datos sale de la API") · [ADR-026](adr/ADR-026-railway-al-final.md "ADR-026 · Railway aloja la API y el front, y el despliegue va al final del desarrollo") · [ADR-029](adr/ADR-029-esquema-por-etiqueta.md "ADR-029 · El esquema llega a la API por etiqueta, y la integración continua lo levanta con Supabase") · [ADR-032](adr/ADR-032-railway-en-dev-ahora.md "ADR-032 · Railway aloja dev desde ahora, y los otros tres ambientes siguen al final") · [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md "ADR-034 · La versión sube un paso en cada PR, y la integración continua lo exige") · [ADR-038](adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md "ADR-038 · La pila local se orquesta desde emprende_db, y cada receta se apunta desde su .env") · [ADR-044](adr/ADR-044-dos-ambientes-desplegados.md "ADR-044 · Dos ambientes desplegados, dev y prod, y qa y uat como etapas de la tubería") · [ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md "ADR-045 · El ambiente alojado al final se llama pre-prod, y prod vive en otro repositorio") · [ADR-046](adr/ADR-046-pre-prod-se-construye-desde-su-rama.md "ADR-046 · pre-prod se construye desde su rama, como dev, y es la última etapa de la tubería") · [ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md "ADR-048 · Las cinco ramas principales las protege GitHub, y la tubería es la puerta para entrar") · [ADR-049](adr/ADR-049-sin-docs-clave-swagger-toma-la-clave-de-gerencia.md "ADR-049 · Sin DOCS_CLAVE, Swagger toma PREPROD_GERENCIA_CLAVE") · [ADR-050](adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md "ADR-050 · main vuelve a ser la última etapa, y pre-prod entra en ella por PR") · [ADR-051](adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "ADR-051 · La visibilidad de un repositorio no se cambia") · [ADR-052](adr/ADR-052-la-entrega-del-release-a-prod.md "ADR-052 · La entrega del release a prod va a un repositorio espejo del taller, la dispara una persona y no recompila nada") · [ADR-053](adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md "ADR-053 · Se quita pre-prod, y uat pasa a ser el segundo ambiente desplegado") · [ADR-054](adr/ADR-054-la-entrega-va-al-monorepo-de-producto.md "ADR-054 · La entrega va una vez al monorepo de producto, y cada emprendimiento la adopta desde su copia") · [ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md "ADR-055 · uat se despliega desde main del monorepo de producto, y lo aprobado es solo la etiqueta") · [ADR-056](adr/ADR-056-qa-se-aloja-desde-su-rama.md "ADR-056 · qa también se aloja en Railway, construido desde la rama qa") · [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "ADR-059 · Toda etiqueta sigue un esquema que se verifica, y el release se publica al llegar a main") · [ADR-070](adr/ADR-070-las-migraciones-las-aplica-la-tuberia.md "ADR-070 · Las migraciones las aplica la tubería, no una persona") · [ADR-077](adr/ADR-077-snapshot-hasta-la-release.md "ADR-077 · La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z") · [CLAUDE](../CLAUDE.md "CLAUDE.md")
 <!-- /generado:referenciado-desde -->
 
 ---

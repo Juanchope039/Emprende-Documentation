@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-039-cada-regla-en-un-solo-sitio.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-24 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-039-cada-regla-en-un-solo-sitio.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-24 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
@@ -14,13 +14,13 @@ que aplicaba.
 En tres días se vio el costo:
 
 - **El flujo del PR del [ADR-037](ADR-037-el-pr-se-abre-a-pedido.md) quedó escrito en nueve sitios**: el `CLAUDE.md` y el `AGENTS.md` de
-  esta especificación, el `AGENTS.md` de `prisma_api` y el de `prisma_db`, las skills `pr`,
+  esta especificación, el `AGENTS.md` de `prisma_api` y el de `emprende_db`, las skills `pr`,
   `sin-conflictos` y `tarea`, el [21 §6.5](../21-trabajo-en-paralelo.md#65-ramas-e-integración) y el propio ADR. Cambiarlo obliga a cambiar los nueve, y
   el que se olvide queda contradiciendo a los demás.
 - **Las copias ya se separaron.** La skill `commit` seguía contando bytes dos días después de que el
   [ADR-036](ADR-036-sin-limite-en-el-commit.md) levantara el tope, y decía a la vez que el mensaje cierra con el trailer de coautoría y
   que no lleva `Co-Authored-By`. Las skills `pr` y `sin-conflictos` nombran `la-version-subio.sh` y
-  `reset-local.sh`, que no existen: los guiones de `prisma_db` son `.ps1`.
+  `reset-local.sh`, que no existen: los guiones de `emprende_db` son `.ps1`.
 - **Los tres `AGENTS.md` de código cierran con una lista «Nunca»** que repite reglas de algún
   `CLAUDE.md`. Una guía que enuncia reglas es una segunda copia de ellas.
 

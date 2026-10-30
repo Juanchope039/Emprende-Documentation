@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-06 | 2026-10-14 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-06 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Nota del 2026-10-14:** la cuenta pasó a GitHub Pro, la primera de las dos salidas que el
 > contexto describe. Los tres privados ya admiten reglas de rama, y la consecuencia negativa de
@@ -18,7 +18,7 @@ repositorios son privados. La API contesta `403 Upgrade to GitHub Pro or make th
 public`, y de ahí salieron dos salidas: pasar la cuenta a Pro, o publicar los repositorios.
 
 La auditoría previa a publicar encontró lo que se publicaría: la semilla crea usuarios con
-contraseña en claro, y el [19 §1](../19-ambientes-y-entrega.md) la aplica a local, dev y qa. Publicar `prisma_db` es publicar con
+contraseña en claro, y el [19 §1](../19-ambientes-y-entrega.md) la aplica a local, dev y qa. Publicar `emprende_db` es publicar con
 qué se entra a dev.
 
 Quien dirige lo decidió el 2026-10-06: **no se publican, y queda prohibido cambiar la visibilidad de

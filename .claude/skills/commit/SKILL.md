@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Hace el commit de PRISMA con el formato del proyecto y empuja la rama. Úsala cada vez que vayas a hacer un commit en cualquiera de los cuatro repositorios, sea de una tarea o no: el asunto, los tres párrafos Hace/Decide/Verifica de cuatro líneas y el empuje.
+description: Hace el commit de Emprende con el formato del proyecto y empuja la rama. Úsala cada vez que vayas a hacer un commit en cualquiera de los cuatro repositorios, sea de una tarea o no: el asunto, los tres párrafos Hace/Decide/Verifica de cuatro líneas y el empuje.
 argument-hint: "[repositorio]"
 model: sonnet
 ---

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [4.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-29 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
+| [4.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/scripts/github/README.md "Historial de cambios") | [✅ Vigente](../../docs/22-documentacion.md#estados) | 2026-10-05 | 2026-10-30 | [Proceso](../../docs/INDICE.md#etiqueta-proceso) |
 
 Pone en GitHub las protecciones de las tres ramas principales de los cuatro repositorios y de
 `main` del monorepo de producto: que no se
@@ -41,7 +41,7 @@ Los dos checks son trabajos puerta al final del `continuous-integration.yml` de 
 Sin ellos, el check exigido no se reporta y el PR se queda bloqueado para siempre.
 
 **El check «El PR está en el proyecto» ya no se exige en ninguno** ([ADR-073](../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)): estar en
-«Prisma project», el proyecto 4 de `Juanchope039`, es recomendado y se agrega a mano con el
+«Emprende project», el proyecto 4 de `Juanchope039`, es recomendado y se agrega a mano con el
 engranaje de *Projects* en la barra del PR. Por eso `pr-en-el-proyecto` está en `false` en los
 cinco repositorios.
 
@@ -68,7 +68,7 @@ vuelve a aplicar en cuanto la rama con el nombre nuevo esté en la base.
 
 **Estar en el proyecto es recomendado** ([ADR-073](../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)), así que aquí no hay nada que aplicar: la
 herramienta no exige el check en ninguna rama. Se agrega a mano, con el engranaje de *Projects* en
-la barra del PR, eligiendo «Prisma project».
+la barra del PR, eligiendo «Emprende project».
 
 Lo que el aviso del trabajo necesita para decir algo son dos cosas que esta herramienta no pone, y
 **sin ellas el trabajo sigue en verde**:
@@ -78,7 +78,7 @@ Lo que el aviso del trabajo necesita para decir algo son dos cosas que esta herr
    cuatro repositorios, con *Pull requests* y *Projects* (de la cuenta) en lectura: el
    `GITHUB_TOKEN` de Actions no lee los proyectos de un usuario. Uno clásico necesitaría `repo`,
    que escribe en todos los repositorios. Cuando vence, el aviso dice que no se pudo mirar.
-2. **El auto-add del proyecto**, para que nadie tenga que agregar el PR a mano: en «Prisma project»,
+2. **El auto-add del proyecto**, para que nadie tenga que agregar el PR a mano: en «Emprende project»,
    *⋯ → Workflows → Auto-add to project*, un flujo por repositorio con el filtro `is:pr`. Es lo que
    de verdad llena el tablero, y por eso vale más que un check.
 

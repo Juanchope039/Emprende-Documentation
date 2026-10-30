@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-034-la-version-sube-en-cada-pr.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-19 | 2026-09-19 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-034-la-version-sube-en-cada-pr.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-19 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) · [Calidad](../INDICE.md#etiqueta-calidad) |
 
 ## Contexto
 
@@ -17,7 +17,7 @@ El 18 de septiembre de 2026, con dev en línea desde el [ADR-032](ADR-032-railwa
 - **El front y la API no se habían movido en diecisiete PR.** Siete sobre la `0.2.0+2` del front y
   diez sobre la `0.2.0` de la API, con funciones nuevas en los dos lados. Nadie olvidó una regla
   difícil: se olvidó una regla que nadie miraba.
-- **El esquema no se leía de ningún lado.** Era el valor por defecto de una variable, `PRISMA_ESQUEMA`,
+- **El esquema no se leía de ningún lado.** Era el valor por defecto de una variable, `EMPRENDE_ESQUEMA`,
   junto a un comentario que prometía leer la tabla `schema_version` «en el [Sprint 1](../08-plan-de-desarrollo.md#sprint-1)». La tabla
   existía, y la base iba en `0.3.0`.
 - **Y aunque el front hubiera subido su versión, el panel no la habría mostrado entera:** la
@@ -56,9 +56,9 @@ las escribía.
 
    | Repositorio | Dónde está la versión | Forma | La puerta, en una máquina |
    |---|---|---|---|
-   | `prisma_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD` | `dart run tool/la_version_subio.dart origin/develop` |
+   | `emprende_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD` | `dart run tool/la_version_subio.dart origin/develop` |
    | `prisma_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH` | `./gradlew laVersionSubio --args=origin/develop` |
-   | `prisma_db` | La migración que inserta en `schema_version` | `MAJOR.MINOR.PATCH` | `./scripts/db/la-version-subio.ps1 -Base origin/develop` |
+   | `emprende_db` | La migración que inserta en `schema_version` | `MAJOR.MINOR.PATCH` | `./scripts/db/la-version-subio.ps1 -Base origin/develop` |
 
 6. **Cada dato de «Acerca de» sale de una sola fuente, y ninguna se escribe dos veces a mano:** la
    versión del front, del `pubspec.yaml`, entera; la de la API, del `build.gradle.kts`; la del

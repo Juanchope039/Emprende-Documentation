@@ -89,8 +89,8 @@ Si una puerta no pasa, no se abre el PR: se dice cuál, con la salida.
    quien dirige el enlace `https://github.com/<dueño>/<repositorio>/compare/<base>...<rama>?expand=1`
    y el cuerpo en un archivo. Un token no se imprime nunca, ni se escribe en un archivo.
 6. **El tablero es cosa de quien dirige, y esta skill no lo toca** ([ADR-073](../../../docs/adr/ADR-073-el-proyecto-del-pr-es-recomendado.md)). Estar en
-   «Prisma project», el proyecto 4 de `Juanchope039`, **es recomendado y no obligatorio**: se agrega
-   a mano, con el engranaje de *Projects* en la barra del PR, eligiendo «Prisma project». Ninguna
+   «Emprende project», el proyecto 4 de `Juanchope039`, **es recomendado y no obligatorio**: se agrega
+   a mano, con el engranaje de *Projects* en la barra del PR, eligiendo «Emprende project». Ninguna
    regla de rama lo pide y ningún check lo exige.
 
    **No lo intentes desde la sesión**: los proyectos solo se leen y se escriben por GraphQL, y una

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.4.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/16-base-de-datos-y-snapshots.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-09-23 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Calidad](INDICE.md#etiqueta-calidad) |
+| [3.4.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/16-base-de-datos-y-snapshots.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Calidad](INDICE.md#etiqueta-calidad) |
 
 > **Construcción: construido y corriendo contra dev y contra qa**, donde el esquema está aplicado y
 > verificado línea por línea (tareas [0.4](08-plan-de-desarrollo.md#tarea-0-4), [0.5](08-plan-de-desarrollo.md#tarea-0-5), [1.1](08-plan-de-desarrollo.md#tarea-1-1) a [1.5](08-plan-de-desarrollo.md#tarea-1-5) y [1.13](08-plan-de-desarrollo.md#tarea-1-13)). **qa quedó al día** con el
@@ -11,11 +11,11 @@
 > Convierte el esquema que describe [`04-modelo-de-datos.md`](04-modelo-de-datos.md) en una
 > base de datos real, reproducible en cualquier ambiente con un comando.
 
-> ### 📍 Estos archivos viven en `prisma_db`, no aquí
+> ### 📍 Estos archivos viven en `emprende_db`, no aquí
 >
 > Desde el [ADR-025](adr/ADR-025-cuatro-repositorios.md), `supabase/` y `scripts/db/` tienen
-> repositorio propio, `prisma_db`, que en disco va en `backend-db`, al lado de esta especificación. **Todas las rutas
-> de este documento son relativas a `prisma_db`.** Antes vivieron dentro de `prisma_api`
+> repositorio propio, `emprende_db`, que en disco va en `backend-db`, al lado de esta especificación. **Todas las rutas
+> de este documento son relativas a `emprende_db`.** Antes vivieron dentro de `prisma_api`
 > ([ADR-023](adr/ADR-023-tres-repositorios.md)).
 >
 > Separarlos de la API tiene un precio que vale la pena repetir: **una migración y el código que
@@ -191,7 +191,7 @@ ser la misma cada vez.
 
 Arriba está el comando; esto es **el procedimiento**, que es lo que pedía la tarea [1.12](08-plan-de-desarrollo.md#tarea-1-12). Se hace
 **a mano**: [19 §7.1](19-ambientes-y-entrega.md#71-publicar) da el paso a qa por «Automático», pero esa tubería llega en el
-[Sprint 9](08-plan-de-desarrollo.md#sprint-9) ([ADR-026](adr/ADR-026-railway-al-final.md)) y `prisma_db` todavía no tiene integración continua.
+[Sprint 9](08-plan-de-desarrollo.md#sprint-9) ([ADR-026](adr/ADR-026-railway-al-final.md)) y `emprende_db` todavía no tiene integración continua.
 
 ```powershell
 # 0 · Apuntar el CLI a qa. Los cinco pasos que siguen dicen --linked, y el vínculo
@@ -233,7 +233,7 @@ nada ([19 §3.3](19-ambientes-y-entrega.md#33-dónde-viven-los-secretos)): con e
 referencia ni contraseña se escribe en el repositorio, que es público.
 
 **Y cada migración llega con su número.** El esquema lleva su propio SemVer en `schema_version`
-([19 §4.1](19-ambientes-y-entrega.md#41-tres-cosas-versionadas-por-separado)) y [ADR-029](adr/ADR-029-esquema-por-etiqueta.md) lo ata a la etiqueta `esquema-vX.Y.Z` de `prisma_db`: son el mismo número
+([19 §4.1](19-ambientes-y-entrega.md#41-tres-cosas-versionadas-por-separado)) y [ADR-029](adr/ADR-029-esquema-por-etiqueta.md) lo ata a la etiqueta `esquema-vX.Y.Z` de `emprende_db`: son el mismo número
 escrito dos veces. **La versión se publica en el mismo PR que la migración**, no al promover
 ([ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md)): la última migración del PR inserta la fila de la versión siguiente —un paso—, y el bloque
 `1.12` de `verificar-base.sql` pasa a esperarla. Lo exige la prueba [C-05](12-pruebas-y-calidad.md#c-05), que además rechaza el PR que

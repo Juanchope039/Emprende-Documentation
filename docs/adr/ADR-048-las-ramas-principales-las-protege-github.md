@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-048-las-ramas-principales-las-protege-github.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-15 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.3.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-048-las-ramas-principales-las-protege-github.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-05 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Lo modifica [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md):** las ramas principales son **cuatro**, no cinco: `pre-prod` se quitó.
 > `develop` sigue pidiendo «Tubería completa» y las otras tres, «Tubería en verde». El cuerpo de
@@ -102,7 +102,7 @@ agrega con su ADR, que es más barato que descubrir que la protección no proteg
 
 **A vigilar**
 
-- **En un PR a `main` o a `pre-prod`, la tubería de `prisma_db` no corre hoy ningún trabajo**: sus
+- **En un PR a `main` o a `pre-prod`, la tubería de `emprende_db` no corre hoy ningún trabajo**: sus
   dos trabajos son solo para `develop`, `qa` y `uat`. La puerta queda en verde sin haber comprobado
   nada. Está anotado en [`TODO.md`](../../TODO.md) [§10](../../TODO.md#10-decisiones-de-construcción-que-conviene-revisar).
 - Si una rama nueva se vuelve principal, hay que agregarla a la definición: la protección no la

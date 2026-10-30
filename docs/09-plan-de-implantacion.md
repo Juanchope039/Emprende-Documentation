@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.3.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-15 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [7.3.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Cómo se pasa de tener el software construido a que el negocio realmente lo use.
 
@@ -72,7 +72,7 @@ En UAT se verifica, además, lo que un prototipo no puede mostrar:
 
 ## 2. Fase previa opcional: formalización
 
-El negocio aún no está formalizado. **Esto no bloquea el software** —PRISMA funciona igual—
+El negocio aún no está formalizado. **Esto no bloquea el software** —Emprende funciona igual—
 pero sí bloquea la contratación formal de una empleada.
 
 | Paso | Qué implica | Cuándo |
@@ -83,7 +83,7 @@ pero sí bloquea la contratación formal de una empleada.
 | 4 | Decidir figura jurídica con un contador | Antes de contratar |
 
 > **Recomendación independiente del software:** abrir la cuenta bancaria separada es lo más
-> valioso que se puede hacer antes del go-live, porque hace física la separación que PRISMA hace
+> valioso que se puede hacer antes del go-live, porque hace física la separación que Emprende hace
 > contable. Cuesta poco y ordena mucho.
 
 El paso 4 tiene consecuencias económicas importantes sobre el costo de una empleada, pero ese
@@ -94,7 +94,7 @@ análisis está fuera del alcance de esta versión y queda en
 
 ## 3. Los cuatro ambientes en la puesta en marcha
 
-Poner PRISMA a andar ya no es «subirlo». Hay cuatro ambientes y lo que entra a prod solo llega
+Poner Emprende a andar ya no es «subirlo». Hay cuatro ambientes y lo que entra a prod solo llega
 por promoción, en orden ([ADR-013](adr/ADR-013-cuatro-ambientes.md)). El procedimiento técnico
 completo vive en [`19-ambientes-y-entrega.md`](19-ambientes-y-entrega.md); aquí va lo que le
 toca a la implantación.
@@ -183,7 +183,7 @@ cargado, y cuatro veces, antes de promover nada:
 
 | Variable | Qué cambia entre ambientes |
 |---|---|
-| `PRISMA_AMBIENTE` | `dev`, `qa`, `uat` o `prod`. Es lo que responde `POST /api/v0/consultas/version` y lo que pinta la franja |
+| `EMPRENDE_AMBIENTE` | `dev`, `qa`, `uat` o `prod`. Es lo que responde `POST /api/v0/consultas/version` y lo que pinta la franja |
 | Perfil de Spring | El mismo valor del ambiente, para que no se mezclen configuraciones |
 | Memoria de la JVM | La de la tabla anterior, como variable y no dentro de la imagen: así se ajusta sin recompilar |
 | `DATABASE_URL` | La base de ese ambiente, siempre con el rol `prisma_api` |
@@ -261,7 +261,7 @@ con el dinero que realmente hay, falta información. Se ajusta con un movimiento
 Se define una **fecha de corte**, idealmente el primer día de un mes:
 
 - Todo lo anterior entra como saldos iniciales y datos históricos.
-- Todo lo posterior se registra únicamente en PRISMA.
+- Todo lo posterior se registra únicamente en Emprende.
 - **El Excel y el cuaderno se archivan, no se siguen usando en paralelo.**
 
 > Usar los dos sistemas al mismo tiempo es la forma más segura de terminar sin usar ninguno.
@@ -389,7 +389,7 @@ etapas. Ninguna se salta. Desde el [ADR-044](adr/ADR-044-dos-ambientes-desplegad
 
 ### 6.3 El día del go-live
 
-- Se registra todo el día **solo en PRISMA**.
+- Se registra todo el día **solo en Emprende**.
 - Al cerrar, se compara el efectivo en caja con el saldo del sistema.
 - Si no coincide, se identifica qué faltó registrar. No se ajusta a ciegas.
 
@@ -503,7 +503,7 @@ A los 90 días, la implantación se considera exitosa si:
    abierto.
 4. El Excel y el cuaderno están archivados y no se usan.
 5. Hay al menos una decisión del negocio —un precio, un pedido, una compra— que se tomó mirando
-   un número de PRISMA.
+   un número de Emprende.
 
 **El punto 5 es el más importante.** Un sistema que se alimenta pero no se consulta es trabajo
 sin retorno.

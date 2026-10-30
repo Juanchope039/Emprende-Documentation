@@ -1,8 +1,8 @@
-# Tareas de PRISMA
+# Tareas de Emprende
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.85.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-26 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.85.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -18,8 +18,8 @@ hacer, manda el plan.
 | ✏️ | Escrita pero sin verificar: SQL que todavía no corrió contra ninguna base | Quien la escribe |
 | ⏭️ | Movida a otro sprint | La herramienta, del plan |
 
-Cada tarea dice su **Dónde**: **API** (`prisma_api`), **Base** (`prisma_db`), **Front**
-(`prisma_front`), **Contrato** (`contrato/`, los dos lados) o **Decisión** (sin código).
+Cada tarea dice su **Dónde**: **API** (`prisma_api`), **Base** (`emprende_db`), **Front**
+(`emprende_front`), **Contrato** (`contrato/`, los dos lados) o **Decisión** (sin código).
 
 ---
 ## Índice
@@ -73,7 +73,7 @@ Lo que tiene su commit en `develop` con la integración continua en verde, que e
 | **API · cimientos** | Esqueleto hexagonal con su regla de dependencias verificada, el sobre `{status, mensaje, data}` en toda respuesta, el catálogo de códigos de cinco dígitos, la consulta de versión, el descriptor de formulario, el contrato v0.5.0 fijado y los hilos virtuales de Java 25 | [0.1](docs/08-plan-de-desarrollo.md#tarea-0-1) · [0.2](docs/08-plan-de-desarrollo.md#tarea-0-2) · [0.6](docs/08-plan-de-desarrollo.md#tarea-0-6) · [0.7](docs/08-plan-de-desarrollo.md#tarea-0-7) · [0.11](docs/08-plan-de-desarrollo.md#tarea-0-11) · [0.14](docs/08-plan-de-desarrollo.md#tarea-0-14) … [0.18](docs/08-plan-de-desarrollo.md#tarea-0-18) |
 | **API · dominio** | `Dinero`; `Movimiento` con los nueve tipos y su efecto sobre las tres cifras; `Pedido` con sus cinco estados; `Producto`, `Costeo` partido en materia y tiempo, la tarifa por hora, los tres márgenes y el cuadro que lee cada producto contra el resto del taller; y `RegistrarMovimiento`, el primer caso de uso, con la marca de registro tardío | [1.9](docs/08-plan-de-desarrollo.md#tarea-1-9) · [3.1](docs/08-plan-de-desarrollo.md#tarea-3-1) · [3.2](docs/08-plan-de-desarrollo.md#tarea-3-2) · [3.11](docs/08-plan-de-desarrollo.md#tarea-3-11) · [4.1](docs/08-plan-de-desarrollo.md#tarea-4-1) · [5.1](docs/08-plan-de-desarrollo.md#tarea-5-1) · [5.3](docs/08-plan-de-desarrollo.md#tarea-5-3) · [5.6](docs/08-plan-de-desarrollo.md#tarea-5-6) |
 | **API · la base** | `ConIdentidad`, **la única puerta a PostgreSQL**: abre la transacción, le dice a la base quién pregunta y se vuelve `authenticated`, y fuera de ella ninguna consulta sale —ni por un `DataSource` o un `@Transactional` de otra clase, que ArchUnit impide—. Probada contra la base local conectada como `prisma_api`: Gerencia ve el pro-labore, Operación no, y la conexión vuelve al pool sin la identidad de nadie. **Y el libro ya llega a la base**: `MovimientosEnPostgres` guarda lo que `RegistrarMovimiento` decide, con el autor y el instante que puso el caso de uso; registrar a nombre de otra persona lo rechaza `mov_insercion` y no un `if`, y la bitácora la escribe el trigger con la persona de la sesión. **Y ya se le puede pedir por HTTP**: `PUT /api/v0/movimientos/{id}` registra un ingreso, un gasto o una transferencia con el formulario que la API describe, y devuelve lo que quedó escrito —con los nombres de la cuenta, la categoría y quien registró, leídos de la base dentro de la misma transacción—. Los cuatro rechazos que no caben en el descriptor estrenan código propio, `42223` a `42226` | [1.6](docs/08-plan-de-desarrollo.md#tarea-1-6) · [3.3](docs/08-plan-de-desarrollo.md#tarea-3-3) · [3.4](docs/08-plan-de-desarrollo.md#tarea-3-4) |
-| **API · los permisos** | **Ya no se suponen: se prueban con una sesión de verdad.** Marcela entra por HTTP con su usuario y su contraseña, y de esa sesión de Operación salen [P-01](docs/12-pruebas-y-calidad.md#p-01) a [P-32](docs/12-pruebas-y-calidad.md#p-32): el patrimonio, los costos, la auditoría y las cuatro tablas de Gerencia llegan vacías; el desprendible propio llega y el ajeno no; y ascenderse sola, crear un usuario, tocar el catálogo de cargos o registrarse un adelanto los rechaza PostgreSQL, con el `42501` de una política o el `P0001` de un trigger en el fallo. [P-32](docs/12-pruebas-y-calidad.md#p-32) repite la lectura **sin capa de aplicación en medio** y el resultado no cambia. **Y la tubería por fin las corre**: un trabajo descarga `prisma_db` por etiqueta y levanta Supabase ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) [§3](#3-sprint-1--base-rls-identidad-e-idempotencia)), así que [C-01](docs/12-pruebas-y-calidad.md#c-01) y las demás gatean un PR | [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7) |
+| **API · los permisos** | **Ya no se suponen: se prueban con una sesión de verdad.** Marcela entra por HTTP con su usuario y su contraseña, y de esa sesión de Operación salen [P-01](docs/12-pruebas-y-calidad.md#p-01) a [P-32](docs/12-pruebas-y-calidad.md#p-32): el patrimonio, los costos, la auditoría y las cuatro tablas de Gerencia llegan vacías; el desprendible propio llega y el ajeno no; y ascenderse sola, crear un usuario, tocar el catálogo de cargos o registrarse un adelanto los rechaza PostgreSQL, con el `42501` de una política o el `P0001` de un trigger en el fallo. [P-32](docs/12-pruebas-y-calidad.md#p-32) repite la lectura **sin capa de aplicación en medio** y el resultado no cambia. **Y la tubería por fin las corre**: un trabajo descarga `emprende_db` por etiqueta y levanta Supabase ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) [§3](#3-sprint-1--base-rls-identidad-e-idempotencia)), así que [C-01](docs/12-pruebas-y-calidad.md#c-01) y las demás gatean un PR | [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7) |
 | **API · el acceso** | Las cuatro operaciones de `/sesiones` contra Supabase Auth, el **canal firmado** comprobando cada petición y la navegación que dicta qué ve cada sesión. La sesión dura 30 días en la cookie `prisma_renovacion` —`HttpOnly`, así que el front no la ve—, cada renovación estrena token y clave de firma, y un token vencido responde `40100` para que el cliente renueve en vez de mandar a la pantalla de acceso | [2.1](docs/08-plan-de-desarrollo.md#tarea-2-1) · [2.2](docs/08-plan-de-desarrollo.md#tarea-2-2) · [2.12](docs/08-plan-de-desarrollo.md#tarea-2-12) · [2.13](docs/08-plan-de-desarrollo.md#tarea-2-13) · [2.14](docs/08-plan-de-desarrollo.md#tarea-2-14) |
 | **API y Front · el soporte del movimiento** | **La foto del recibo ya llega al bucket, y pasa por la API** ([3.6](docs/08-plan-de-desarrollo.md#tarea-3-6), [07 §1](docs/07-arquitectura.md)). En el celular se elige con la cámara y **se encoge en el navegador** —1600 px de lado mayor, JPEG— antes de salir, que es lo que se ahorra del plan de datos de quien registra. `POST /api/v0/movimientos/{id}/adjuntos` es **la primera ruta que recibe archivos**: el cuerpo es `multipart/form-data` de una sola parte y la API lo lee de los bytes que el canal firmado ya retuvo, porque `MultipartFile` habría llegado tarde. **El id del adjunto es la clave de idempotencia** ([04 §4.12](docs/04-modelo-de-datos.md#412-adjuntos--el-soporte-de-un-movimiento-o-de-un-pedido), [ADR-020](docs/adr/ADR-020-idempotencia.md)), así que dos intentos escriben el mismo objeto en vez de dejar copias sueltas. Sube como `authenticated`, con el token de la sesión y nunca con la clave de servicio ([ADR-033](docs/adr/ADR-033-service-role-solo-en-auth.md)), y **primero el objeto y después la ficha**, para que ninguna fila prometa un archivo que no está. Estrena los códigos `40020` y `40021`, y **el bucket los vuelve a imponer por su cuenta**: con Storage levantado en la pila local, un PDF de 6 MB y un GIF los para el servicio y no un `if` ([ADR-015](docs/adr/ADR-015-validacion-tres-capas.md)). **Y con la [4.8](docs/08-plan-de-desarrollo.md#tarea-4-8) la misma tubería cuelga la factura de un pedido** ([RF-27](docs/03-requisitos-y-bdd.md#rf-27)): no estrena ningún código —el `40020` y el `40021` no dependen de quién es el padre—, `Adjunto` pasó a llevar de qué cuelga, de donde sale la carpeta del objeto, y el pedido la devuelve en `adjuntos`. En el front la trae la **fila abierta del pedido**, que el mockup y el [10 §4.2](docs/10-ux-y-mockups.md#42-pedidos) estrenan **para los dos tipos de usuario**, porque adjuntan los dos; **se encola antes de salir a la red**, como la foto, y bajar un adjunto se mudó a `lib/datos/soportes.dart`, que es la misma operación para los dos padres | [3.6](docs/08-plan-de-desarrollo.md#tarea-3-6) · [4.8](docs/08-plan-de-desarrollo.md#tarea-4-8) |
 | **API · los saldos** | **La caja ya dice cuánta plata hay en cada cuenta, y cuánta en total.** `POST /api/v0/consultas/saldos` suma en el dominio —el saldo inicial más el `aporteACaja` de cada movimiento vigente, sin un `if` por tipo— y deja `v_saldos_cuenta` de segunda opinión, como pide el [04 §6](docs/04-modelo-de-datos.md#6-vistas-de-cálculo-financiero): una prueba contra la base las enfrenta fila por fila. El total viaja sumado, porque el front no suma plata ([ADR-018](docs/adr/ADR-018-front-sin-decisiones.md)). **Solo Gerencia, y sin un `if` de tipos**: la tabla la leen los dos, así que el adaptador le pregunta a la base `fn_es_gerencia()` antes de leer los saldos, y a Operación le responde `40300`. La copia fijada del contrato pasa a `0.18.0` | [3.12](docs/08-plan-de-desarrollo.md#tarea-3-12) |
@@ -375,7 +375,7 @@ o indirectamente. No es el orden en que se descubrieron.
       entró en servicio el registro de idempotencia.
 - [x] **Una sola licencia** · Decisión — resuelta: **AGPL-3.0 en los cuatro repositorios**. La API y
       la base venían con GPL-3.0 del `Initial commit` con que GitHub crea un repositorio, sin que
-      nadie la hubiera elegido, y el hueco caía justo donde importa: PRISMA no se distribuye, se
+      nadie la hubiera elegido, y el hueco caía justo donde importa: Emprende no se distribuye, se
       **sirve por la red**, así que la GPL no obliga a publicar nada a quien tome la API, la
       modifique y la ofrezca como servicio. La sección 13 de la AGPL es lo que cierra eso, y estaba
       puesta en el front —que no decide nada— y no en la API, donde vive toda la lógica.
@@ -399,7 +399,7 @@ o indirectamente. No es el orden en que se descubrieron.
 
 - [x] [**0.1**](docs/08-plan-de-desarrollo.md#tarea-0-1) Proyecto `prisma_api`: Java 25, Spring Boot 4 y Gradle, con el esqueleto hexagonal · API
 - [x] [**0.2**](docs/08-plan-de-desarrollo.md#tarea-0-2) Regla de frontera con ArchUnit en la integración continua · API
-- [x] [**0.3**](docs/08-plan-de-desarrollo.md#tarea-0-3) Proyecto `prisma_front` en Flutter, web por defecto · Front
+- [x] [**0.3**](docs/08-plan-de-desarrollo.md#tarea-0-3) Proyecto `emprende_front` en Flutter, web por defecto · Front
 - [x] [**0.4**](docs/08-plan-de-desarrollo.md#tarea-0-4) Los proyectos **dev y qa** de Supabase · Decisión — los dos gratuitos, cada uno con
       su base, sus claves y su almacenamiento, y encima el esquema, la semilla y el rol `prisma_api`,
       con el que RLS ya juzga a la API. **Los dos de pago se fueron al [Sprint 9](docs/08-plan-de-desarrollo.md#sprint-9)**, a la [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12): uat y
@@ -420,7 +420,7 @@ o indirectamente. No es el orden en que se descubrieron.
       artefacto publicado ya trae `X-Prisma-Firma`
 - [x] [**0.10**](docs/08-plan-de-desarrollo.md#tarea-0-10) SemVer y migraciones con `schema_version` · Base — la tabla guarda una fila por
       versión publicada y hoy va por la `0.3.0`, con sus etiquetas de [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) puestas. Desde el
-      [ADR-034](docs/adr/ADR-034-la-version-sube-en-cada-pr.md) la API la lee de la base, en vez de la variable `PRISMA_ESQUEMA`, y cada migración
+      [ADR-034](docs/adr/ADR-034-la-version-sube-en-cada-pr.md) la API la lee de la base, en vez de la variable `EMPRENDE_ESQUEMA`, y cada migración
       publica la suya en su mismo PR
 - [x] [**0.11**](docs/08-plan-de-desarrollo.md#tarea-0-11) `POST /api/v0/consultas/version`: versión de la API, del esquema y ambiente · API
 - [x] [**0.12**](docs/08-plan-de-desarrollo.md#tarea-0-12) Insignia `v0.1.0 · Desarrollo` en el pie de la barra lateral y franja de ambiente · Front
@@ -452,7 +452,7 @@ se cierra con la [0.9](docs/08-plan-de-desarrollo.md#tarea-0-9), que volvió a e
 
 ## <a id="titulo-3"></a>3. <a id="sprint-1"></a>[Sprint 1](docs/08-plan-de-desarrollo.md#sprint-1) · base, RLS, identidad e idempotencia
 
-✏️ quiere decir que el SQL ya está en la migración inicial de `prisma_db`
+✏️ quiere decir que el SQL ya está en la migración inicial de `emprende_db`
 (`20260915120000_esquema_inicial.sql`) pero nunca corrió contra una base: no cuenta como hecho
 hasta aplicarlo y probarlo.
 
@@ -486,7 +486,7 @@ hasta aplicarlo y probarlo.
       los rechaza PostgreSQL. De cada rechazo se afirma **que trajo el `42501` de una política o el
       `P0001` de un trigger**, no que lanzó algo. [P-32](docs/12-pruebas-y-calidad.md#p-32) repite la lectura **sin capa de aplicación en
       medio** y el resultado no cambia. **Y la tubería ya las corre**: un trabajo nuevo descarga
-      `prisma_db` por etiqueta y levanta Supabase ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) [§3](#3-sprint-1--base-rls-identidad-e-idempotencia)), así que [C-01](docs/12-pruebas-y-calidad.md#c-01) y las demás por fin
+      `emprende_db` por etiqueta y levanta Supabase ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) [§3](#3-sprint-1--base-rls-identidad-e-idempotencia)), así que [C-01](docs/12-pruebas-y-calidad.md#c-01) y las demás por fin
       gatean un PR. Rota a propósito abriendo `usuarios_lectura`: [P-10](docs/12-pruebas-y-calidad.md#p-10) y [P-32](docs/12-pruebas-y-calidad.md#p-32) en rojo las dos
 - [x] [**1.8**](docs/08-plan-de-desarrollo.md#tarea-1-8) Traducción restricción → código del catálogo · API —
       `TraduccionDeRestricciones` cruza `(objeto, restricción)` con el catálogo, y [C-01](docs/12-pruebas-y-calidad.md#c-01) la compara
@@ -560,9 +560,9 @@ hasta aplicarlo y probarlo.
 - [x] [**1.19**](docs/08-plan-de-desarrollo.md#tarea-1-19) Cliente HTTP con `Idempotency-Key`, generada una vez por acción ([ADR-020](docs/adr/ADR-020-idempotencia.md)) · Front — la
       clave nace con la `Accion` y no con la petición: reenviar la misma acción es reintentar, y
       crear otra es hacer otra cosa
-- [x] [**1.20**](docs/08-plan-de-desarrollo.md#tarea-1-20) Decidir cómo consiguen la API y su CI el esquema de `prisma_db` · Decisión — por
-      **etiqueta** ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md)): `prisma_db` etiqueta cada versión del esquema, la API declara la que
-      necesita en `prisma.esquema` y su integración continua descarga ese repositorio en esa etiqueta
+- [x] [**1.20**](docs/08-plan-de-desarrollo.md#tarea-1-20) Decidir cómo consiguen la API y su CI el esquema de `emprende_db` · Decisión — por
+      **etiqueta** ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md)): `emprende_db` etiqueta cada versión del esquema, la API declara la que
+      necesita en `emprende.esquema` y su integración continua descarga ese repositorio en esa etiqueta
       y levanta la base con el Supabase CLI. Las pruebas de integración llevan etiqueta de JUnit y no
       corren en la compilación normal, que es la única forma de trabajar sin Docker
 - [x] [**1.21**](docs/08-plan-de-desarrollo.md#tarea-1-21) `anon` no toca nada · Base — la migración escribe el bloque del
@@ -736,7 +736,7 @@ hasta aplicarlo y probarlo.
 - [x] [**2.19**](docs/08-plan-de-desarrollo.md#tarea-2-19) Contrato de acceso, usuarios, cargos y canal firmado · Contrato — v0.4.0: `/sesiones`,
       `/navegacion`, `/usuarios`, `/cargos` y `/bitacora`, siete formularios más y los códigos `40100`
       a `40104`, `40301`, `40302`, `40910` a `40913` y `42210` a `42214`. El canal firmado va con sus
-      tres cabeceras `X-Prisma-`; cómo se arma la firma, al byte, vive en [20 §6.2](docs/20-contrato-de-api.md#62-cómo-se-arma-la-firma) y no se copia aquí
+      tres cabeceras `X-Emprende-`; cómo se arma la firma, al byte, vive en [20 §6.2](docs/20-contrato-de-api.md#62-cómo-se-arma-la-firma) y no se copia aquí
 - [x] [**2.21**](docs/08-plan-de-desarrollo.md#tarea-2-21) Auditoría de `usuarios` y eventos con nombre · Base — `usuarios` era la
       única tabla de negocio **sin auditar**, y no por olvido: la genérica decide que un `UPDATE`
       fue una baja mirando `anulado_en`, y ahí se da de baja con `desactivado_en`. Con eso,
@@ -785,7 +785,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
 - [x] [**3.5**](docs/08-plan-de-desarrollo.md#tarea-3-5) Formulario de registro rápido para celular, pintado del descriptor · Front —
       **la primera pantalla de sección**: el formulario «movimiento» lo describe la API, el registro
       es un `PUT` a su propio id —generado con la clave de idempotencia— y la intención se encola
-      antes de salir a la red, así que sin señal queda «Pendiente de sincronizar». `prisma_front` en
+      antes de salir a la red, así que sin señal queda «Pendiente de sincronizar». `emprende_front` en
       `0.4.0+4`, con 276 pruebas
 - [x] [**3.6**](docs/08-plan-de-desarrollo.md#tarea-3-6) Foto del recibo comprimida, subida a través de la API · Front, API —
       el recibo se fotografía en el celular, **se encoge en el navegador** a 1600 px y sube por
@@ -793,7 +793,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       del adjunto es la clave de idempotencia**, así que dos intentos escriben el mismo objeto. Sin
       señal la foto **espera en la cola con sus bytes**, detrás de su movimiento. Y el bucket
       **estrenó los dos rechazos que nadie había visto**: 6 MB y un GIF los para Storage, no un
-      `if`. `prisma_api` en `0.11.0`, `prisma_front` en `0.11.0+13`, contrato `0.18.0`; 852 pruebas
+      `if`. `prisma_api` en `0.11.0`, `emprende_front` en `0.11.0+13`, contrato `0.18.0`; 852 pruebas
       en la API, 165 contra la base y 370 en el front
 - [x] [**3.7**](docs/08-plan-de-desarrollo.md#tarea-3-7) Transferencias entre cuentas · API — **no hizo
       falta escribir nada**: la dejaron hecha las tareas de las que colgaba. La 3.13 le dio el campo
@@ -817,7 +817,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       interruptor y solo existe si la API dijo que quien mira puede: cambia qué libro se lee, así que
       el panel cambia de aspecto mientras está puesto, y lo anulado se queda atenuado y tachado con
       su motivo. Un rango a medias **no se ataja en el front**: se manda, y se lee el `42227` con las
-      palabras de la API. `prisma_front` en `0.12.0+16`; 429 pruebas
+      palabras de la API. `emprende_front` en `0.12.0+16`; 429 pruebas
 - [x] [**3.9**](docs/08-plan-de-desarrollo.md#tarea-3-9) Anulación con motivo obligatorio · API, Front — `POST
       /api/v0/movimientos/{id}/anulacion` saca el movimiento de las cuentas con motivo escrito y
       **no borra nada** —la fila se queda entera y solo estrena sus tres columnas de anulación—, y
@@ -832,7 +832,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       API: su etiqueta, su ayuda y sus avisos no están escritos en `lib/`. Si el movimiento va con
       otro registro, el panel lo dice antes con las palabras del `registroHermano`, y anulado el
       libro **se vuelve a pedir**, porque qué quedó anulado lo decide la base. `prisma_api` en
-      `0.16.0` y `prisma_front` en `0.12.0+16`; 436 pruebas en el front
+      `0.16.0` y `emprende_front` en `0.12.0+16`; 436 pruebas en el front
 - [x] [**3.10**](docs/08-plan-de-desarrollo.md#tarea-3-10) Corrección por contra-asiento · Base, API — `PUT
       /api/v0/movimientos/{id}/correccion/{correccionId}` registra un movimiento que reversa al
       errado y lo deja apuntando a él, y **el original queda intacto**: los dos se leen en el libro,
@@ -842,7 +842,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       «movimiento» tal cual. **El «solo Gerencia» del [CU-04](docs/02-casos-de-uso.md#cu-04) lo dice la base**: `mov_insercion` pasa
       a juzgar quién llena `corrige_a_id`, y registrar sigue siendo de los dos tipos; a Operación le
       responde `42501`, que sale como `40300`. Contrato `v0.20.0`, `prisma_api` en `0.16.0` y
-      esquema `0.16.0`, **que `prisma.esquema` todavía no declara porque su etiqueta no existe**
+      esquema `0.16.0`, **que `emprende.esquema` todavía no declara porque su etiqueta no existe**
       ([§9](#9-a-vigilar)); 1024 pruebas en la API, 216 contra la base y 295 comprobaciones en la base
 - [x] [**3.11**](docs/08-plan-de-desarrollo.md#tarea-3-11) Marca de registro tardío · API — más de 7 días entre lo que ocurrió y lo que se
       digitó, contados en días de Bogotá
@@ -865,12 +865,12 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       `fecha_no_futura` dejó de mirar `CURRENT_DATE`, que es el día del huso con que se conecte la
       sesión: con la base en `UTC` aceptaba, de siete a doce de la noche, el mañana que la API
       rechaza con `42223`. Esquema `0.6.0`, con 141 comprobaciones en `OK` contra la base local.
-      **Le deja dos filas a la API**, que van en el PR que suba su `prisma.esquema`, y **falta
+      **Le deja dos filas a la API**, que van en el PR que suba su `emprende.esquema`, y **falta
       promoverla a dev y a qa**
 - [x] [**3.16**](docs/08-plan-de-desarrollo.md#tarea-3-16) El andamio en el celular · Front — de 760 px para abajo, como el
       mockup, **el menú va arriba y de lado**: el logo y las pestañas en una barra fija, el topbar
       debajo a todo el ancho y la insignia al pie de la pantalla. Girar el celular no borra lo que
-      se estaba escribiendo. `prisma_front` en `0.5.0+5`, con 296 pruebas
+      se estaba escribiendo. `emprende_front` en `0.5.0+5`, con 296 pruebas
 - [x] [**3.17**](docs/08-plan-de-desarrollo.md#tarea-3-17) Contrato del libro que dibujó el mockup · Contrato — **hecho en el
       `v0.19.0`**: cada fila del libro dice cómo se pinta su tipo, con qué registro va y si se deja
       anular; la consulta pagina, filtra por grupo y rechaza el rango con una sola fecha (`42227`);
@@ -914,7 +914,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       decide la API y viaja en la respuesta, con las dos banderas de Gerencia y el mes en curso de
       Bogotá. Y `POST /api/v0/consultas/soporte` **baja el recibo por la API**, en base64 dentro del
       sobre, nunca por una URL al bucket. `prisma_api` en `0.16.0`, copia fijada del contrato en
-      `0.19.0` y `prisma.esquema` en `0.14.0`, que trae las seis filas que la 3.15, la 3.19 y la
+      `0.19.0` y `emprende.esquema` en `0.14.0`, que trae las seis filas que la 3.15, la 3.19 y la
       4.11 le habían dejado a la tabla de traducción; 1012 pruebas en la API y 202 contra la base
 - [x] [**3.22**](docs/08-plan-de-desarrollo.md#tarea-3-22) Cómo se ve cada tipo: leerlo y cambiarlo ([RF-104](docs/03-requisitos-y-bdd.md#rf-104)) · API —
       `POST /api/v0/consultas/presentacion-de-tipos` devuelve los nueve renglones del bloque, **en
@@ -949,15 +949,15 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       formulario de alta de uno de edición. Guardado, la lista se vuelve a pedir. Lo único que se
       elige aquí es **con qué se dibuja**: el tono de la paleta de cada color y el símbolo de cada
       efecto —▲, ▼, ↔ y —, los del mockup—; un color que esta versión no conozca se pinta neutro,
-      que es no decir nada. `prisma_front` en `0.12.0+16`, con 413 pruebas
+      que es no decir nada. `emprende_front` en `0.12.0+16`, con 413 pruebas
 - [x] [**3.25**](docs/08-plan-de-desarrollo.md#tarea-3-25) La pila local en contenedores · Base, API, Front —
       `./scripts/db/pila-local.ps1` levanta las tres piezas con un solo comando: `supabase start`,
       la clave local del rol `prisma_api` —cada reset lo deja sin contraseña a propósito— y
       `docker compose` con las recetas de la API y del front, que ya existían desde el [Sprint 0](docs/08-plan-de-desarrollo.md#sprint-0).
       **Ninguna ruta va escrita**: cada receta, cada puerto y el nombre de la pila se apuntan desde
       `pila/.env`, que está ignorado, así que da igual cómo se llame cada carpeta en cada máquina y
-      cambiar `PRISMA_API_PUERTO` mueve a la vez lo que publica la API y la URL que el front
-      compila dentro. **La base no entra en el `compose.yaml`**: la de PRISMA es la de Supabase, con
+      cambiar `EMPRENDE_API_PUERTO` mueve a la vez lo que publica la API y la URL que el front
+      compila dentro. **La base no entra en el `compose.yaml`**: la de Emprende es la de Supabase, con
       `auth`, GoTrue, Storage y `pg_cron`, y un `postgres:16` escrito a mano no tendría `auth.uid()`
       que juzgar. Ninguna clave se versiona. Con su [ADR-038](docs/adr/ADR-038-la-pila-local-se-orquesta-desde-prisma-db.md). **Queda por hacer la primera
       construcción de las dos imágenes** en una máquina con cuota de Docker Hub ([§9](#9-a-vigilar))
@@ -1016,7 +1016,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       pinta porque el contrato no le da destino, y que **la pantalla se construyó contra el contrato
       aunque la API todavía no sirva la ruta**, así que hoy lee su `40400` ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). El gráfico de doce
       meses ([6.4](docs/08-plan-de-desarrollo.md#tarea-6-4)), las alertas ([6.7](docs/08-plan-de-desarrollo.md#tarea-6-7)), los sobres ([7.8](docs/08-plan-de-desarrollo.md#tarea-7-8)) y «Descargar» ([6.9](docs/08-plan-de-desarrollo.md#tarea-6-9)) entran con su
-      tarea. `prisma_front` en `0.25.0+31`, con 28 pruebas nuevas y 603 en total
+      tarea. `emprende_front` en `0.25.0+31`, con 28 pruebas nuevas y 603 en total
 - [x] [**6.4**](docs/08-plan-de-desarrollo.md#tarea-6-4) Gráfico de 12 meses · Front —
       **el Inicio pinta «Últimos 12 meses», entre la línea que concilia y «Cuentas»**: barras de
       utilidad y línea punteada de caja, que son las mismas dos cifras de arriba mes a mes y llegan
@@ -1035,7 +1035,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       la utilidad sea negativa, que lo que dice el signo es hacia dónde crece, y el punto de la caja
       se pone rojo cuando es negativo, como las tres cifras de arriba. **Para un lector de pantalla
       es una sola imagen con su nombre**, que es el `role="img"` del mockup: veinticuatro cifras
-      leídas una por una y sin poder recorrerlas no dicen nada. `prisma_front` en `0.26.0+32`, con 43
+      leídas una por una y sin poder recorrerlas no dicen nada. `emprende_front` en `0.26.0+32`, con 43
       pruebas nuevas y 646 en total
 - [x] [**6.5**](docs/08-plan-de-desarrollo.md#tarea-6-5) Reporte mensual y anual con promedio de ganancias · API, Front — **la
       mitad API estaba hecha**: `POST /api/v0/consultas/reporte` arma el año mes a mes, con el promedio
@@ -1064,7 +1064,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       es de la API y ya viaja dentro de esta respuesta; y que el año no se elija todavía, porque la
       consulta va con el cuerpo vacío y cuál es el año del negocio lo decide la API en Bogotá
       ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). La frontera estrena su tercera excepción, `nomina`, que es un campo del
-      contrato y no la sección. `prisma_front` en `0.29.0+35`, con 30 pruebas nuevas y 692 en total
+      contrato y no la sección. `emprende_front` en `0.29.0+35`, con 30 pruebas nuevas y 692 en total
 - [x] [**6.6**](docs/08-plan-de-desarrollo.md#tarea-6-6) Punto de equilibrio · API — **casi toda estaba
       hecha**: la [6.5](docs/08-plan-de-desarrollo.md#tarea-6-5) trajo la fórmula del [05 §10](docs/05-reglas-financieras.md#10-punto-de-equilibrio) entera —margen de contribución, ventas
       necesarias y pedidos necesarios—, y el front ya pintaba su panel. Lo que faltaba es **la última
@@ -1078,7 +1078,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       ventas por encima: son los números del ejemplo del [§10](docs/05-reglas-financieras.md#10-punto-de-equilibrio) —$2.480.000 de fijos al 52 %—, no los de
       septiembre, que tiene $2.630.000 de fijos al 53,99 % y da $4.871.272 y +$2.978.728. Con los de
       antes, ninguna prueba podía reproducir a la vez las cifras del mes y sus indicadores. Contrato `0.25.0`,
-      `prisma_api` en `0.42.0` con 1579 pruebas —cuatro nuevas— y `prisma_front` en `0.31.0+37` con 706
+      `prisma_api` en `0.42.0` con 1579 pruebas —cuatro nuevas— y `emprende_front` en `0.31.0+37` con 706
       —dos nuevas—
 - [x] [**6.7**](docs/08-plan-de-desarrollo.md#tarea-6-7) Alertas: caja libre negativa, anticipos y pedidos estancados · API, Front —
       **el Inicio dice qué hay que atender.** `POST /api/v0/consultas/tablero` deja de mandar
@@ -1091,7 +1091,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       una alerta con destino lleva a su sección si la API la puso en el menú. **Lo que decidió**:
       que el destino lo ponga la interfaz y no el dominio, que los anticipos se midan sobre los
       pedidos por entregar como los pendientes, y que la concentración con un solo cliente alerte
-      ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_api` en 0.36.0 con 21 pruebas nuevas, y `prisma_front` en `0.28.0+34` con 11
+      ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_api` en 0.36.0 con 21 pruebas nuevas, y `emprende_front` en `0.28.0+34` con 11
       nuevas y 662 en total
 - [x] [**6.8**](docs/08-plan-de-desarrollo.md#tarea-6-8) Cierre mensual con snapshot inmutable · Base, API —
       **un mes se puede cerrar, y lo cerrado ya no se mueve.** `PUT /api/v0/cierres/{id}` congela las
@@ -1104,7 +1104,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       aplicación, y `DELETE` lo estaba desde la [1.2](docs/08-plan-de-desarrollo.md#tarea-1-2). **Lo que decidió**: que las cifras sean
       las que el Inicio mostraba ese día, del mismo `TableroDelMes` de la [6.1](docs/08-plan-de-desarrollo.md#tarea-6-1) y no de un cálculo
       aparte; que la nómina vaya en cero hasta que exista; y que el punto 4 del [05 §8](docs/05-reglas-financieras.md)
-      quede fuera ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_db` publica el esquema `0.20.0` y `prisma_api` queda en 0.40.0, con
+      quede fuera ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_db` publica el esquema `0.20.0` y `prisma_api` queda en 0.40.0, con
       25 pruebas nuevas y 1563 en total, y 12 de integración
 - [x] [**6.9**](docs/08-plan-de-desarrollo.md#tarea-6-9) Inicio de solo consulta y su descarga en CSV o PDF ([RF-95](docs/03-requisitos-y-bdd.md#rf-95), [RF-96](docs/03-requisitos-y-bdd.md#rf-96)) · Front, API
 - [x] [**6.10**](docs/08-plan-de-desarrollo.md#tarea-6-10) Contrato de reportes, indicadores, alertas y cierre mensual · Contrato —
@@ -1143,7 +1143,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       presentación, y «+ Registrar inversión», que abre el formulario «activo» que genera la API.
       Guardar **vuelve a pedir la lista**, y sin ningún activo el panel lo dice con una frase. El
       botón no estaba dibujado y el mockup lo estrena ([§10](#10-decisiones-de-construcción-que-conviene-revisar)).
-      `prisma_front` en `0.19.0+23`, con 17 pruebas nuevas —8 del modelo y 9 del panel— y 525 en
+      `emprende_front` en `0.19.0+23`, con 17 pruebas nuevas —8 del modelo y 9 del panel— y 525 en
       total
 - [x] [**7.2**](docs/08-plan-de-desarrollo.md#tarea-7-2) Aportes de capital · API, Front — `PUT /api/v0/aportes/{id}` registra plata que entra desde afuera, y escribe en la misma
       transacción el movimiento `aporte` —que **sube la caja y el patrimonio y no toca la utilidad**
@@ -1163,7 +1163,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       tipo sería consultar de más ([ADR-018](docs/adr/ADR-018-front-sin-decisiones.md)). Lo que sí pinta es **el comprobante que devolvió la
       API**, leído del `data` del sobre y no del formulario: sin fecha el aporte es de hoy en Bogotá,
       así que la que vuelve puede no ser la que se mandó. El panel no estaba dibujado y el mockup lo
-      estrena ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_front` en
+      estrena ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_front` en
       `0.20.0+24`, con 17 pruebas nuevas —8 del modelo y 9 del panel— y 542 en total
 - [x] [**7.3**](docs/08-plan-de-desarrollo.md#tarea-7-3) Pro-labore con justificación · API, Front — `PUT /api/v0/prolabore/{id}`
       escribe una definición nueva, vigente desde el día de Bogotá, y
@@ -1172,7 +1172,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       devuelve la fila. La justificación la exige el formulario aunque la columna la admita
       nula. Estrena el `42294` y, en el front, el tipo de campo `numero` y «Inversiones y
       retiros», con el panel del pro-labore. **La pantalla la aprobó quien dirige** ([§10](#10-decisiones-de-construcción-que-conviene-revisar)).
-      `prisma_api` en `0.19.0` y `prisma_front` en `0.14.0+18`, con 35 pruebas nuevas en la API,
+      `prisma_api` en `0.19.0` y `emprende_front` en `0.14.0+18`, con 35 pruebas nuevas en la API,
       9 contra la base local y 14 en el front
 - [x] [**7.4**](docs/08-plan-de-desarrollo.md#tarea-7-4) Retiro con división automática en pro-labore y distribución · API —
       `PUT /api/v0/retiros/{id}` escribe un movimiento y una fila de `aportes_retiros` por cada parte
@@ -1223,7 +1223,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       el `42293` llega sobre `pctRetiro` y se lee debajo del último sobre. **Los cuatro colores los
       pone la pantalla**, los de la tarjeta del Inicio, porque el contrato manda cuatro claves
       sueltas y ninguna presentación ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). El panel no estaba dibujado y el mockup lo
-      estrena. `prisma_front` en `0.22.0+27`, con 14 pruebas nuevas
+      estrena. `emprende_front` en `0.22.0+27`, con 14 pruebas nuevas
 - [x] [**7.8**](docs/08-plan-de-desarrollo.md#tarea-7-8) Panel de sobres: asignado contra usado · Front — el Inicio
       estrena «Los 4 sobres», detrás de «Cuentas», que es el orden del [10 §4.1](docs/10-ux-y-mockups.md#41-dashboard). La barra de
       cuatro tramos y, por sobre, lo asignado contra lo usado y lo disponible con su signo, en verde
@@ -1241,7 +1241,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       no conozca se pinta neutra con su clave por nombre. **Lo que no se escribe es la frase con que
       el mockup cierra el panel** —«los gastos fijos consumieron el 49% de lo que entró»—, que es una
       lectura redactada sobre las cifras y le toca a la API ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). Sin reparto configurado la
-      lista llega vacía y el panel no se pinta. `prisma_front` en `0.32.0+38`, con 12 pruebas nuevas
+      lista llega vacía y el panel no se pinta. `emprende_front` en `0.32.0+38`, con 12 pruebas nuevas
 - [x] [**7.9**](docs/08-plan-de-desarrollo.md#tarea-7-9) Contrato de inversiones, aportes, retiros, pro-labore y sobres · Contrato — v0.13.0:
       diez operaciones, veintitrés esquemas y cinco códigos que estrenan el rango `90`–`99`. El
       retiro se registra de una vez y se parte solo si no se dice cómo: pro-labore hasta completar
@@ -1326,7 +1326,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       cuadro con `orden: margen_porcentual`, el título dice cuál se pidió y la tabla se pinta como
       llega, sin reordenarla. El botón se decide por ausencia, como las columnas: sin cifras la API
       manda el catálogo por nombre. La última columna estrena la barra del mockup, el margen por hora
-      contra el mayor del cuadro con el color del `nivel`. `prisma_front` sube a `0.27.0+33`
+      contra el mayor del cuadro con el color del `nivel`. `emprende_front` sube a `0.27.0+33`
 - [x] [**5.10**](docs/08-plan-de-desarrollo.md#tarea-5-10) Contrato de productos, servicios y costeo · Contrato — v0.12.0: seis
       operaciones, once esquemas y dos códigos que estrenan el rango `40`–`49`. El formulario se
       guarda de una vez y el costo no se sobrescribe: si cambió, entra una fila nueva. **A Operación
@@ -1367,7 +1367,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       pantalla pinta antes de guardar las da la API. En el front, «Nuevo pedido» entra encima de los
       clientes con su lista de renglones, y **al guardar pregunta por el abono**, que es otro caso de
       uso y otro formulario. `prisma_api` en `0.25.0`, con 1284 pruebas sin base y 300 contra ella;
-      `prisma_front` en `0.17.0+21`, con 499
+      `emprende_front` en `0.17.0+21`, con 499
 - [x] [**4.4**](docs/08-plan-de-desarrollo.md#tarea-4-4) `CobrarAnticipo`: crea pasivo, no ingreso · API —
       `POST /api/v0/pedidos/{id}/anticipos` escribe un movimiento `anticipo_recibido` colgado del
       pedido y su fila en `anticipos`, y responde el pedido entero con lo anticipado, el saldo y si
@@ -1398,7 +1398,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       ver uno lo dice `fn_es_gerencia()`. En el front, la lista entra **dentro del panel de
       Pedidos**, debajo del formulario, y el segmentado que el mockup dibujaba sin conectar pasa a
       ser el desplegable de los cinco estados del contrato ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_api` en `0.30.0` con 19
-      pruebas nuevas —9 de ellas contra la base local— y `prisma_front` en `0.23.0+28` con 7
+      pruebas nuevas —9 de ellas contra la base local— y `emprende_front` en `0.23.0+28` con 7
       pruebas de la pantalla. El contrato sube a `0.22.1`: la descripción de `Idempotency-Key` de
       esa consulta decía la de una escritura, de antes del [ADR-030](docs/adr/ADR-030-contrato-sin-get.md)
 - [x] [**4.7**](docs/08-plan-de-desarrollo.md#tarea-4-7) Resaltado de pedidos estancados · API, Front — **no agregó
@@ -1411,7 +1411,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       ([10 §3.1](docs/10-ux-y-mockups.md#31-color)). Ahora afirma el tono, y también que **la condición le gana al estado**: con anticipo
       cobrado y estancado, el morado no se pinta al lado. [BDD-08-1](docs/03-requisitos-y-bdd.md#bdd-08-1) queda nombrado en las dos mitades,
       el caso de los 18 días en el dominio y el ámbar en la pantalla. **No se agregó ningún filtro
-      «solo estancados» ni el conteo de días** ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_front` en `0.23.1+29`, con las mismas
+      «solo estancados» ni el conteo de días** ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_front` en `0.23.1+29`, con las mismas
       563 pruebas: ninguna nueva, dos que ya estaban pasaron a mirar lo que importaba
 - [x] [**4.8**](docs/08-plan-de-desarrollo.md#tarea-4-8) Factura adjunta al pedido · API, Front — **aterrizaron las dos
       mitades**. La de API ya estaba: `POST /api/v0/pedidos/{id}/adjuntos` sube la factura y la deja
@@ -1431,7 +1431,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       factura». **La factura se encola antes de salir a la red**, como la foto del recibo: lo que se
       toma en el taller no se pierde porque en ese momento no hubiera señal ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). Bajar un adjunto
       se mudó a `lib/datos/soportes.dart`, porque es la misma operación para los dos padres, y
-      `AdjuntoDelLibro` se retiró: el contrato tiene un solo esquema. `prisma_front` en `0.24.0+30`,
+      `AdjuntoDelLibro` se retiró: el contrato tiene un solo esquema. `emprende_front` en `0.24.0+30`,
       con 575 pruebas —doce nuevas—, y la fila abierta verificada en el navegador a 375 y a 1440 px
 - [x] [**4.9**](docs/08-plan-de-desarrollo.md#tarea-4-9) Cancelación con destino del anticipo · API — `POST
       /api/v0/pedidos/{id}/cancelacion` deja el pedido `cancelado` con su motivo y con **qué pasa con
@@ -1450,7 +1450,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       que no reusa las columnas `anulado_*`. Y `v_pedidos` se volvió a crear, porque su `SELECT *` se
       congeló al crearla y no veía las columnas nuevas. Esquema `0.11.0`, con 199 comprobaciones en
       `OK` contra la base local. **Le deja tres filas a la API, y no dos**: la foránea de
-      `cancelado_por` también la cuenta [C-01](docs/12-pruebas-y-calidad.md#c-01). Van en el PR que suba su `prisma.esquema`, y **falta
+      `cancelado_por` también la cuenta [C-01](docs/12-pruebas-y-calidad.md#c-01). Van en el PR que suba su `emprende.esquema`, y **falta
       promoverla a dev y a qa**
 
 <a id="sprint-8"></a>**[Sprint 8](docs/08-plan-de-desarrollo.md#sprint-8) · Cotizador**
@@ -1625,7 +1625,7 @@ La toma quien termine primero su cadena: es la funcionalidad más independiente 
       por bueno sin correrlo. Lo que se vio en los otros dos tareas a la vez quedó en el [§9](#titulo-9)
 - [x] [**9.9**](docs/08-plan-de-desarrollo.md#tarea-9-9) El front rechaza de verdad un MAJOR de API distinto · Front — [C-02](docs/12-pruebas-y-calidad.md#c-02) ya
       cubría sus tres casos, pero todos pasándole el MAJOR a mano: **nada probaba que la aplicación
-      usara `PRISMA_API_MAJOR`**, así que un `0` escrito en `main.dart` pasaba en verde. Ahora se
+      usara `EMPRENDE_API_MAJOR`**, así que un `0` escrito en `main.dart` pasaba en verde. Ahora se
       prueban el cableado, la consulta en el cable, que un sobre raro no plante y el texto del
       documento. La pantalla se desviaba del mockup y **el documento se alineó al código**, con
       autorización. **La prueba contra una API real ya corrió**, contra dev y con la [9.10](docs/08-plan-de-desarrollo.md#tarea-9-10): no le
@@ -1654,7 +1654,7 @@ La toma quien termine primero su cadena: es la funcionalidad más independiente 
       [§7.1](#71-el-expediente-de-uat-y-prod) y lo único que falta es la firma
 - [ ] ⚡ [**9.13**](docs/08-plan-de-desarrollo.md#tarea-9-13) Los secretos de GitHub para correr permisos y extremo a extremo contra dev · Decisión — la configuración que los trabajos del CI ya esperan desde la [2.11](docs/08-plan-de-desarrollo.md#tarea-2-11) y la [9.6](docs/08-plan-de-desarrollo.md#tarea-9-6), que apuntaban a qa y desde el [ADR-044](docs/adr/ADR-044-dos-ambientes-desplegados.md) apuntan a dev; sin ella se saltan con aviso. Los de permisos ya se llaman `DEV_BASE_URL`, `DEV_BASE_CLAVE_DUENO`, `DEV_BASE_CLAVE_API`, `DEV_AUTH_URL`, `DEV_ANON_KEY` y `DEV_SERVICE_ROLE_KEY` ([9.5](docs/08-plan-de-desarrollo.md#tarea-9-5))
 - [x] [**9.14**](docs/08-plan-de-desarrollo.md#tarea-9-14) El ambiente de despliegue en el código · API, Front — se hizo con
-      `pre-prod`, que entró al contrato (`0.28.0`), a `PRISMA_AMBIENTE` y a un perfil de Spring con
+      `pre-prod`, que entró al contrato (`0.28.0`), a `EMPRENDE_AMBIENTE` y a un perfil de Spring con
       Swagger cerrado, igual que prod. **El [ADR-053](docs/adr/ADR-053-se-quita-pre-prod-y-uat-se-despliega.md) quitó ese ambiente y puso a `uat` en su lugar**:
       el contrato (`0.34.0`) deja el enum en `dev`, `qa`, `uat` y `prod`, el perfil que cierra
       Swagger se llama `uat` y su clave es `UAT_GERENCIA_CLAVE`. `:prod` queda para la entrega ([9.15](docs/08-plan-de-desarrollo.md#tarea-9-15)).
@@ -1665,7 +1665,7 @@ La toma quien termine primero su cadena: es la funcionalidad más independiente 
       imágenes** que compiló qa —copiadas con `imagetools create`, sin recompilar y con su
       `prisma.arbol` intacto—, y **la dispara una persona**, nunca un empuje. Sale de `main` porque
       es la última etapa desde el [ADR-050](docs/adr/ADR-050-main-vuelve-a-ser-la-ultima-etapa.md), que lo dejó a vigilar justo para esta
-      tarea. `entregar-release.yml` vive en `prisma_db`, pide quién aprobó y el nombre del espejo
+      tarea. `entregar-release.yml` vive en `emprende_db`, pide quién aprobó y el nombre del espejo
       escrito entero, y viene en seco por omisión. La etiqueta `entrega-vN` que empuja es lo que
       arranca el pipeline del otro lado. ✏️ **la entrega no ha corrido nunca**: faltan las variables
       `PROD_API_URL` y `PROD_API_MAJOR` del front, sin las cuales qa no compila el artefacto de
@@ -1760,18 +1760,18 @@ un catálogo de funciones, que sería el 8, queda para después y no está desca
 | 3 | El pago de pre-prod, el proyecto de Supabase que falta ([ADR-045](docs/adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md)) | Quien dirige crea; Gerencia paga | Tarea [9.12](docs/08-plan-de-desarrollo.md#tarea-9-12) | 🟡 dev y qa quedaron configurados, con el esquema y la semilla aplicados, y con ellos se cerró la [0.4](docs/08-plan-de-desarrollo.md#tarea-0-4). **El expediente está listo y la cifra es ≈ 55 USD al mes** ([§7.1](#71-el-expediente-de-uat-y-prod)); falta la firma de Gerencia, que es el paso 2 del [09 §3.1](docs/09-plan-de-implantacion.md#31-alistamiento-técnico-de-los-ambientes) |
 | 4 | PostgreSQL para desarrollar sin Docker | Quien dirige | Tareas [0.5](docs/08-plan-de-desarrollo.md#tarea-0-5) y [0.10](docs/08-plan-de-desarrollo.md#tarea-0-10) | ✅ El proyecto dev de Supabase, mientras Docker no arranque |
 | 5 | Remotos de los repositorios | Quien dirige | Integración continua | ✅ Los cuatro en GitHub |
-| 6 | Cómo consiguen la API y su CI el esquema de `prisma_db` | La API | Tareas [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7), [1.8](docs/08-plan-de-desarrollo.md#tarea-1-8) y [1.15](docs/08-plan-de-desarrollo.md#tarea-1-15) | ✅ Por etiqueta, con el Supabase CLI en la tubería ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md)) |
+| 6 | Cómo consiguen la API y su CI el esquema de `emprende_db` | La API | Tareas [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7), [1.8](docs/08-plan-de-desarrollo.md#tarea-1-8) y [1.15](docs/08-plan-de-desarrollo.md#tarea-1-15) | ✅ Por etiqueta, con el Supabase CLI en la tubería ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md)) |
 | 7 | Quién trabaja cada repositorio, y quién sabe Flutter y Java para revisar el contrato | Quien dirige | Trabajar en más de una tarea a la vez | ⬜ |
 | 8 | Contrato por etiqueta de git o como paquete publicado | Los dos lados | El primer cambio de contrato | ✅ **Por etiqueta**: `contrato-vX.Y.Z` en cada fusión que cambie `openapi.json`, como se inclinaba el [21 §8](docs/21-trabajo-en-paralelo.md#8-qué-hay-que-decidir-antes-de-trabajar-dos-tareas-a-la-vez). Un paquete publicado pedía un registro y credenciales que no existen, para resolver dependencias que nadie tiene |
 | 9 | Quién desempata un cambio de contrato | Quien dirige | El primer desacuerdo | ✅ **Quien dirige**, que además es quien revisa los PR: partir las dos cosas dejaría a alguien decidiendo sobre lo que no lee |
 | 10 | Supuestos [S1](docs/01-vision-y-alcance.md#s1) a [S5](docs/01-vision-y-alcance.md#s5) de [01 §6](docs/01-vision-y-alcance.md#6-supuestos) | Gerencia | [Sprint 1](docs/08-plan-de-desarrollo.md#sprint-1) | ⬜ Por confirmar; el mockup ya está confirmado |
-| 11 | El dominio, del que dependen el correo sintético, la URL de la API y CORS | Gerencia | — | ✅ `prisma.com`: la API en `api.prisma.com` y `api-dev.prisma.com`, el correo sintético en `@usuarios.prisma.com`. Se cambió sin migrar nada porque todavía no existe ningún usuario real; desde el primero, «fijo de por vida» quiere decir exactamente eso ([ADR-009](docs/adr/ADR-009-login-por-usuario.md)) |
+| 11 | El dominio, del que dependen el correo sintético, la URL de la API y CORS | Gerencia | — | ✅ `emprende.com`: la API en `api.emprende.com` y `api-dev.emprende.com`, el correo sintético en `@usuarios.prisma.com`. Se cambió sin migrar nada porque todavía no existe ningún usuario real; desde el primero, «fijo de por vida» quiere decir exactamente eso ([ADR-009](docs/adr/ADR-009-login-por-usuario.md)) |
 | 12 | Plazos de conservación y registro de bases de datos personales (Ley 1581) | Un abogado | Go-live | ⬜ |
 | 13 | Qué objetivos nativos se publican | Gerencia | Nada hoy: no hay disparador | ⬜ |
-| 14 | Una sola licencia para los cuatro repositorios | Quien dirige | Nada técnico | ✅ **AGPL-3.0 en los cuatro**: PRISMA se sirve por la red y no se distribuye, y la sección 13 es lo único que obliga a publicar lo que alguien modifique de un servicio |
-| 15 | Encabezado de licencia en cada archivo fuente | Quien dirige | Nada técnico | ✅ **No lleva: la licencia se declara una vez por repositorio, no en cada archivo.** Los tres repositorios de código son privados, así que ningún archivo fuente sale solo de ellos. Las migraciones ya fusionadas de `prisma_db` no se editan, así que una regla de «cada archivo» nacería con excepciones. El aviso por archivo es un consejo del apéndice de la AGPL, no una condición de la licencia. Se revisa si un repositorio de código se hace público, y entonces basta una línea `SPDX-License-Identifier`. La versión que declara y el titular son la fila 17 |
-| 16 | Dónde vive la orquestación de la pila local, y cómo encuentra cada receta | Quien dirige | Tarea [3.25](docs/08-plan-de-desarrollo.md#tarea-3-25) | ✅ **En `prisma_db`**, el repositorio más idóneo: ya levanta la base local y reparte sus puertos ([21 §6.4](docs/21-trabajo-en-paralelo.md#64-ambientes)). Cada receta de contenedor y cada puerto se apuntan desde el `.env` de la orquestación, no con rutas escritas. La especificación no va en un contenedor. El ADR lo escribe la propia tarea |
-| 17 | Quién es el titular de PRISMA, y si la licencia es `AGPL-3.0-only` o `AGPL-3.0-or-later` | Quien dirige | Nada técnico | ✅ **Juan David Garzón Vallejo, con `AGPL-3.0-only`.** Lo declara la sección «Licencia» del README de cada repositorio, con su `SPDX-License-Identifier`. Solo la versión 3 porque, con un solo titular, `-or-later` no da nada que no se logre volviendo a licenciar, y deja en manos de la FSF una versión que todavía no existe. Las licencias que el titular otorgue a otros van por contrato aparte, fuera de los repositorios |
+| 14 | Una sola licencia para los cuatro repositorios | Quien dirige | Nada técnico | ✅ **AGPL-3.0 en los cuatro**: Emprende se sirve por la red y no se distribuye, y la sección 13 es lo único que obliga a publicar lo que alguien modifique de un servicio |
+| 15 | Encabezado de licencia en cada archivo fuente | Quien dirige | Nada técnico | ✅ **No lleva: la licencia se declara una vez por repositorio, no en cada archivo.** Los tres repositorios de código son privados, así que ningún archivo fuente sale solo de ellos. Las migraciones ya fusionadas de `emprende_db` no se editan, así que una regla de «cada archivo» nacería con excepciones. El aviso por archivo es un consejo del apéndice de la AGPL, no una condición de la licencia. Se revisa si un repositorio de código se hace público, y entonces basta una línea `SPDX-License-Identifier`. La versión que declara y el titular son la fila 17 |
+| 16 | Dónde vive la orquestación de la pila local, y cómo encuentra cada receta | Quien dirige | Tarea [3.25](docs/08-plan-de-desarrollo.md#tarea-3-25) | ✅ **En `emprende_db`**, el repositorio más idóneo: ya levanta la base local y reparte sus puertos ([21 §6.4](docs/21-trabajo-en-paralelo.md#64-ambientes)). Cada receta de contenedor y cada puerto se apuntan desde el `.env` de la orquestación, no con rutas escritas. La especificación no va en un contenedor. El ADR lo escribe la propia tarea |
+| 17 | Quién es el titular de Emprende, y si la licencia es `AGPL-3.0-only` o `AGPL-3.0-or-later` | Quien dirige | Nada técnico | ✅ **Juan David Garzón Vallejo, con `AGPL-3.0-only`.** Lo declara la sección «Licencia» del README de cada repositorio, con su `SPDX-License-Identifier`. Solo la versión 3 porque, con un solo titular, `-or-later` no da nada que no se logre volviendo a licenciar, y deja en manos de la FSF una versión que todavía no existe. Las licencias que el titular otorgue a otros van por contrato aparte, fuera de los repositorios |
 
 **Lo que el modelo de datos todavía no define** ([`04-modelo-de-datos.md`](docs/04-modelo-de-datos.md)):
 
@@ -1903,11 +1903,11 @@ a `anon`.
   mientras la comprobación no esté marcada como obligatoria en la protección de `develop`. Lo que sí
   hace hoy en la API y el front, aunque se fusione en rojo, es parar el despliegue: el empuje a
   `develop` también la corre, y Railway no construye dev con la integración continua en rojo.
-  `prisma_db` no se despliega, así que ahí la única cerradura es esa casilla. Hasta el 2026-10-14 esa
+  `emprende_db` no se despliega, así que ahí la única cerradura es esa casilla. Hasta el 2026-10-14 esa
   casilla no existía: los tres repositorios de código son privados y el plan gratuito contestaba
   *«Upgrade to GitHub Pro or make this repository public»* tanto a la protección de rama como a los
   rulesets (comprobado el 2026-09-19 contra su API). Las dos salidas costaban algo —pagar el plan, o
-  hacer públicos unos repositorios de los que `prisma_db` lleva la semilla con nombres reales del
+  hacer públicos unos repositorios de los que `emprende_db` lleva la semilla con nombres reales del
   equipo ([R-23](docs/11-riesgos-y-proteccion-de-datos.md))—, así que se decidió dejarlo y escribirlo aquí. **Ya no es así: la cuenta
   pasó a GitHub Pro el 2026-10-14**, la casilla se puede marcar, y publicar quedó prohibido aparte
   ([ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)). **Y ya se hizo:** la casilla está marcada, como cuenta la viñeta siguiente.
@@ -1986,18 +1986,18 @@ a `anon`.
   diciendo cuál; pero **construir la imagen de la API y la del front quedó sin ejercitar**, porque
   Docker Hub responde `429` a la máquina donde se escribió. Es lo primero que hay que correr en una
   máquina con cuota: `./scripts/db/pila-local.ps1`, y ver las tres piezas arriba
-- **A `prisma_db` le faltan ocho etiquetas `esquema-vX.Y.Z`, y por eso la CI de `develop` de la API
-  está en rojo.** El [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) dice que la API descarga la base en la etiqueta de su `prisma.esquema`.
+- **A `emprende_db` le faltan ocho etiquetas `esquema-vX.Y.Z`, y por eso la CI de `develop` de la API
+  está en rojo.** El [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) dice que la API descarga la base en la etiqueta de su `emprende.esquema`.
   Están la `esquema-v0.1.0` y de la `0.3.0` a la `0.10.0`; **faltan la `0.2.0` y de la `0.11.0` a
   la `0.17.0`**, aunque sus migraciones estén fusionadas en `develop`. La [3.21](docs/08-plan-de-desarrollo.md#tarea-3-21) subió
-  `prisma.esquema` a `0.14.0` antes de que su etiqueta existiera, y desde entonces el trabajo «Probar
-  contra la base» falla al traer `prisma_db`: ya estaba en rojo en el PR que la llevó a `develop`, y
+  `emprende.esquema` a `0.14.0` antes de que su etiqueta existiera, y desde entonces el trabajo «Probar
+  contra la base» falla al traer `emprende_db`: ya estaba en rojo en el PR que la llevó a `develop`, y
   se fusionó igual, porque ese trabajo avisa pero no frena. **Las pone el flujo
-  `etiquetas-del-esquema.yml` de `prisma_db`**, que en su primera corrida pone las ocho, cada una
+  `etiquetas-del-esquema.yml` de `emprende_db`**, que en su primera corrida pone las ocho, cada una
   sobre el commit con que se fusionó su PR —`0.2.0` en `15dce67`, `0.11.0` en `89982e6`, `0.12.0` en
   `2dd0e11`, `0.13.0` en `f24cf39`, `0.14.0` en `1c337b2`, `0.15.0` en `ca14398`, `0.16.0` en
   `e916e85` y `0.17.0` en `6d5d5af`—, y desde ahí una por fusión. **Hasta que ese PR se fusione, la
-  API no puede subir su `prisma.esquema`**, y con él esperan las doce filas de traducción que le dejó
+  API no puede subir su `emprende.esquema`**, y con él esperan las doce filas de traducción que le dejó
   la [8.12](docs/08-plan-de-desarrollo.md#tarea-8-12), las dos de la [5.11](docs/08-plan-de-desarrollo.md#tarea-5-11) y la política del contra-asiento de la [3.10](docs/08-plan-de-desarrollo.md#tarea-3-10), cuya prueba
   de permiso se salta mientras tanto en vez de pasar en verde sin mirar
 - **Una comprobación de la [2.5](docs/08-plan-de-desarrollo.md#tarea-2-5) se pone en rojo con dos personas de Gerencia activas.** El
@@ -2089,23 +2089,23 @@ a `anon`.
   registro rápido ([3.5](docs/08-plan-de-desarrollo.md#tarea-3-5)), que está hecho. La cola cuenta cuántas esperan y nadie lo muestra;
   **ninguna tarea del [08](docs/08-plan-de-desarrollo.md) la pide**, así que entra como tarea nueva del trabajo del front o se dice por
   qué no hace falta.
-- **El servicio de Railway conectado a `prisma_front`** intentaba construir en cada push y fallaba,
+- **El servicio de Railway conectado a `emprende_front`** intentaba construir en cada push y fallaba,
   porque no había receta de construcción para Flutter. Ya la hay ([0.9](docs/08-plan-de-desarrollo.md#tarea-0-9)): falta revisar en la consola
   si ese servicio se reconfigura o se borra, para no terminar con dos y sin saber cuál es el bueno.
 
-- **El `.gitignore` de `prisma_front` no tiene el glob `.env.*` que sí tienen los otros dos.** Ignora
+- **El `.gitignore` de `emprende_front` no tiene el glob `.env.*` que sí tienen los otros dos.** Ignora
   `.env` y nada más, así que un `.env.local` o un `.env.produccion` entrarían al repositorio sin que
   nadie se diera cuenta. Se vio haciendo la [9.8](docs/08-plan-de-desarrollo.md#tarea-9-8), que es del trabajo de la API y no toca el front: **es
-  un arreglo suelto de una línea en `prisma_front`**, y hoy no hay ningún archivo así en disco.
+  un arreglo suelto de una línea en `emprende_front`**, y hoy no hay ningún archivo así en disco.
 
 - **La prueba de compatibilidad contra una API real está escrita y nunca ha corrido** (✏️). Vive en
-  `test/integracion/compatibilidad_contra_api_real_test.dart`, en `prisma_front`, y se salta sola
-  mientras no se le dé `PRISMA_API_URL_REAL`. Se escribió con la [9.9](docs/08-plan-de-desarrollo.md#tarea-9-9) porque es lo único que
+  `test/integracion/compatibilidad_contra_api_real_test.dart`, en `emprende_front`, y se salta sola
+  mientras no se le dé `EMPRENDE_API_URL_REAL`. Se escribió con la [9.9](docs/08-plan-de-desarrollo.md#tarea-9-9) porque es lo único que
   comprueba que la ruta, el verbo y el nombre del campo son los que la API **de verdad** contesta: una
   API simulada dice lo que uno escribió que dijera. **Hay que correrla en cuanto exista qa**, que es
   la [9.13](docs/08-plan-de-desarrollo.md#tarea-9-13), y hasta entonces la 9.9 está terminada solo en la mitad que se puede verificar.
 
-- **`service_role` aparece en `prisma_db` fuera de las migraciones**, que es lo que la [9.8](docs/08-plan-de-desarrollo.md#tarea-9-8) promete
+- **`service_role` aparece en `emprende_db` fuera de las migraciones**, que es lo que la [9.8](docs/08-plan-de-desarrollo.md#tarea-9-8) promete
   que no pasa: en `scripts/db/verificar-base.sql`, que comprueba que ese rol tampoco borre, y en los
   tres archivos de la pila local, que pasan de largo lo que imprime `supabase status`. Los cuatro
   tienen su justificación escrita y ninguno lleva un valor, así que **la promesa se cumple en lo que
@@ -2853,7 +2853,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 - [ ] **Las etiquetas `esquema-vX.Y.Z` las pone la tubería, no una persona.** Es la respuesta a
       «quién etiqueta y cuándo», que quedó abierta en la [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7): a mano se saltaron ocho seguidas, y una
       sesión de Claude en la nube no puede ponerlas, porque recibe `403` al empujar una etiqueta
-      aunque sí pueda empujar una rama. El flujo `etiquetas-del-esquema.yml` de `prisma_db` corre en
+      aunque sí pueda empujar una rama. El flujo `etiquetas-del-esquema.yml` de `emprende_db` corre en
       cada empuje a `develop` con permiso de escritura, y es lo único de ese repositorio que lo tiene.
       **Si las reglas del repositorio no dejan escribir etiquetas a la tubería**, la primera corrida
       falla y lo dice
@@ -2947,7 +2947,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       filas.** La función toma la fila con `FOR UPDATE`, que pasa por `mov_anulacion`; si la fila
       existe y la política la esconde, lo dice. No pregunta `fn_es_gerencia()` por su cuenta. Lo que
       no existe y lo ya anulado también son `RAISE`, para el `40400` y el `40900`
-- [ ] **Es `SECURITY INVOKER`, aunque el `CLAUDE.md` de `prisma_db` diga que toda función es
+- [ ] **Es `SECURITY INVOKER`, aunque el `CLAUDE.md` de `emprende_db` diga que toda función es
       `SECURITY DEFINER`.** Lo manda el [04 §10](docs/04-modelo-de-datos.md#10-funciones-de-negocio-atómicas), que es el documento de la regla: así RLS juzga cada
       fila con los permisos de quien llama. La regla del `CLAUDE.md` vale para las de trigger y las
       que tienen que saltarse RLS, y conviene que diga la excepción
@@ -2963,7 +2963,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       pidió quien dirige para agilizar y homogeneizar lo local. Lo que ya había —la imagen de la API,
       la receta del front y `supabase start`— no se levanta junto, y cada quien reparte sus puertos
       copiando a mano un `config.toml` que no se versiona ([21 §6.4](docs/21-trabajo-en-paralelo.md#64-ambientes))
-- [ ] **La orquestación va en `prisma_db`, y no en la especificación ni en la API.** Quien dirige pidió
+- [ ] **La orquestación va en `emprende_db`, y no en la especificación ni en la API.** Quien dirige pidió
       el repositorio más idóneo ([§7](#7-decisiones-pendientes), decisión 16), y lo es por lo que ya hace: levanta la base
       local y guarda ese `config.toml`, así que lo difícil —Supabase con los puertos de cada copia—
       se queda donde ya vive. Su versión solo se mueve con las migraciones ([C-05](docs/12-pruebas-y-calidad.md#c-05)) y desde ahí no se
@@ -2972,7 +2972,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       versión, y la API tendría que conocer al front, que depende de ella y no al revés
 - [ ] **En el [Sprint 3](docs/08-plan-de-desarrollo.md#sprint-3) y no en el roadmap**, adonde el [08 §6](docs/08-plan-de-desarrollo.md#6-backlog-priorizado) manda lo que surge. No agrega alcance al
       producto —no hay requisito detrás— y ninguna tarea pasa a depender de ella. La lleva Base aunque
-      en ese sprint ya tenga la 3.18, la 3.19 y la 3.20, porque la orquestación vive en `prisma_db`
+      en ese sprint ya tenga la 3.18, la 3.19 y la 3.20, porque la orquestación vive en `emprende_db`
 - [ ] **La receta de la base no es una imagen de PostgreSQL.** RLS lee `auth` y los roles de Supabase,
       el acceso pasa por GoTrue, los soportes por Storage y la purga por `pg_cron`: con otra base, lo
       que pasa en local fallaría en dev. La integración continua ya levanta Supabase con el CLI
@@ -3197,7 +3197,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 - [ ] **La tubería no levantaba el servicio que la 3.6 encendió, y se supo contando las rojas.** El
       flujo de la API excluía `storage-api` de `supabase start` desde la 1.7, con un comentario que
       decía la verdad de entonces: que ninguna prueba lo miraba. La 3.6 encendió
-      `[storage] enabled = true` en `prisma_db` —para que el techo del bucket y sus cuatro tipos se
+      `[storage] enabled = true` en `emprende_db` —para que el techo del bucket y sus cuatro tipos se
       pudieran comprobar de verdad— y escribió las primeras pruebas que sí lo miran; el flujo se
       quedó con la lista vieja. Sin nadie detrás de `/storage/v1` el gateway contesta **503**, y las
       cuatro de `SoportesIntegracionTest` caen con `ProveedorNoDisponible`. **Decidido: sale de la
@@ -3298,7 +3298,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       soporte de un movimiento que no existe es que no se encontró lo que se buscaba, y el contrato
       de la operación ya prometía ese código. Es la única foránea de las cuarenta y siete que no
       lleva el transversal
-- [ ] **`prisma.contrato.version` se queda en `0.16.0` con el acordado en `0.18.0`.** La API
+- [ ] **`emprende.contrato.version` se queda en `0.16.0` con el acordado en `0.18.0`.** La API
       implementa lo que esta versión agrega, pero no los reportes del `0.17.0`, así que declarar
       `0.18.0` afirmaría algo falso. **Sigue sin estar escrito** qué número declara un artefacto que
       implementa partes sueltas de dos versiones: es la misma decisión que quedó anotada en la
@@ -3565,7 +3565,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       la tabla salió del [04](docs/04-modelo-de-datos.md). **El [ADR-015](docs/adr/ADR-015-validacion-tres-capas.md) se queda como estaba**: está reemplazado, y un
       documento reemplazado «se conserva como historia» ([22 §4](docs/22-documentacion.md))
 - [ ] **La verificación de la base es un guion SQL** (`scripts/db/verificar-base.sql`) y no un marco
-      de pruebas: `prisma_db` no tiene ninguno, y lo que hay que comprobar son respuestas de
+      de pruebas: `emprende_db` no tiene ninguno, y lo que hay que comprobar son respuestas de
       PostgreSQL a sesiones de verdad. Corre dentro de una transacción que termina en `ROLLBACK`
 
 **De la tarea [1.13](docs/08-plan-de-desarrollo.md#tarea-1-13):**
@@ -3649,22 +3649,22 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       el bloque `1.12` de `verificar-base.sql`, que llevaba los dos valores escritos a mano
 - [ ] **Dos frases del [§10](#10-decisiones-de-construcción-que-conviene-revisar) sobre la rama `qa` no pueden ser verdad a la vez.** Arriba: moverlas
       «sería inventar un flujo de ramas por ambiente que nadie decidió». Abajo, en lo de empujar
-      siempre: «en `prisma_db`, promover a qa es un PR contra la rama `qa`». El [21 §6.5](docs/21-trabajo-en-paralelo.md#65-ramas-e-integración) solo nombra
+      siempre: «en `emprende_db`, promover a qa es un PR contra la rama `qa`». El [21 §6.5](docs/21-trabajo-en-paralelo.md#65-ramas-e-integración) solo nombra
       `develop` y `main`, y el procedimiento del [16 §5.3](docs/16-base-de-datos-y-snapshots.md#53-promover-a-qa-paso-a-paso) promueve con `db push` desde `develop`, sin
       tocar ninguna de las tres. Promover no necesita la respuesta; el flujo de ambientes del
       [Sprint 9](docs/08-plan-de-desarrollo.md#sprint-9), sí
-- [ ] **`prisma_db` es privado, y sus guiones dicen que es público.** `promover.ps1` y el
+- [ ] **`emprende_db` es privado, y sus guiones dicen que es público.** `promover.ps1` y el
       [16 §5.3](docs/16-base-de-datos-y-snapshots.md#53-promover-a-qa-paso-a-paso) justifican no escribir ahí ninguna referencia ni contraseña «porque el repositorio es
       público», y quien manda es el hábito, no el motivo: la referencia sigue sin escribirse. Pero el
-      privado es el que necesita el secreto `PRISMA_DB_TOKEN` de la [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7), y el que decide si `prisma_db`
+      privado es el que necesita el secreto `PRISMA_DB_TOKEN` de la [1.7](docs/08-plan-de-desarrollo.md#tarea-1-7), y el que decide si `emprende_db`
       puede recibir integración continua sin gastar minutos de una cuenta. Público es **este**
       repositorio, no aquel
-- [ ] **Las ramas `qa`, `uat` y `prod` de `prisma_db` no se tocaron.** Existen en el remoto, las tres
+- [ ] **Las ramas `qa`, `uat` y `prod` de `emprende_db` no se tocaron.** Existen en el remoto, las tres
       en el mismo commit viejo, y **ningún documento las menciona**: [21 §6.5](docs/21-trabajo-en-paralelo.md#65-ramas-e-integración) solo nombra `develop` y
       `main`. O son el estado de cada ambiente y llevan tiempo mintiendo, o son restos de cuando se
       creó el repositorio. Moverlas sería inventar un flujo de ramas por ambiente que nadie decidió
 - [ ] **La promoción se hace a mano, aunque [19 §7.1](docs/19-ambientes-y-entrega.md#71-publicar) la dé por «Automático».** Esa tubería llega en el
-      [Sprint 9](docs/08-plan-de-desarrollo.md#sprint-9) ([ADR-026](docs/adr/ADR-026-railway-al-final.md)), y `prisma_db` no tiene integración continua: no existe `.github/` en
+      [Sprint 9](docs/08-plan-de-desarrollo.md#sprint-9) ([ADR-026](docs/adr/ADR-026-railway-al-final.md)), y `emprende_db` no tiene integración continua: no existe `.github/` en
       el repositorio. El procedimiento de [16 §5.3](docs/16-base-de-datos-y-snapshots.md#53-promover-a-qa-paso-a-paso) dice lo que hay, no lo que habrá
 - [ ] **Nadie sabía en qué estado estaba qa, y esa es la lección de la promoción.** Los documentos
       decían cuatro migraciones de atraso; eran cinco, y no las mismas: los dominios y la revocación
@@ -3815,7 +3815,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 
 - [ ] **La regla se acota a la rama de trabajo, y las de ambiente siguen sin dueño escrito.**
       `develop`, `main`, `qa`, `uat` y `prod` no se mueven por cuenta propia, pero ningún documento
-      dice quién las mueve ni cuándo; en `prisma_db`, promover a qa es un PR contra la rama `qa`
+      dice quién las mueve ni cuándo; en `emprende_db`, promover a qa es un PR contra la rama `qa`
 - [ ] **Empujar una rama `feature/` en este repositorio no comprueba nada:** la acción corre solo en
       `main` y en los PR contra `main`, aunque el [22 §8](docs/22-documentacion.md#herramienta) y el [19 §6.1](docs/19-ambientes-y-entrega.md#61-en-cada-empuje-en-paralelo) hablen de «cada
       empuje». O se amplía el disparador a `feature/**` —y cada empuje gasta minutos de acción— o se
@@ -4373,9 +4373,9 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       SemVer si empatan**, que es la misma consulta del bloque `1.12` de `verificar-base.sql`. La
       prueba de integración calcula lo esperado solo por SemVer, para que las dos no puedan
       torcerse juntas
-- [ ] **`prisma.esquema` deja de ser la variable `PRISMA_ESQUEMA` y pasa a `0.3.0` fijo.** Es lo que
+- [ ] **`emprende.esquema` deja de ser la variable `EMPRENDE_ESQUEMA` y pasa a `0.3.0` fijo.** Es lo que
       el artefacto necesita, y eso viaja con el artefacto, no con el ambiente. Nada la lee todavía:
-      la leerán la sonda del [ADR-025](docs/adr/ADR-025-cuatro-repositorios.md) y la tubería del [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md). Si en Railway hay una `PRISMA_ESQUEMA`, ya no
+      la leerán la sonda del [ADR-025](docs/adr/ADR-025-cuatro-repositorios.md) y la tubería del [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md). Si en Railway hay una `EMPRENDE_ESQUEMA`, ya no
       hace nada
 - [ ] **Un paso por PR, y ni uno más.** La puerta no distingue una corrección de una función nueva
       —eso lo decide quien escribe—, pero sí rechaza saltarse números. [19 §4.2](docs/19-ambientes-y-entrega.md#42-las-reglas) define PATCH, MINOR y
@@ -4401,7 +4401,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       API de `0.2.0` a `0.3.0`. No se reconstruyeron las versiones que habría habido si cada PR hubiera
       subido la suya, por la misma razón por la que [22 §3](docs/22-documentacion.md#3-versiones) no reconstruyó las de los documentos.
       Que los dos queden en `0.3.0` es coincidencia, no sincronización
-- [ ] **Las cadenas del guion de `prisma_db` van sin tildes.** Windows PowerShell 5.1 lee un `.ps1`
+- [ ] **Las cadenas del guion de `emprende_db` van sin tildes.** Windows PowerShell 5.1 lee un `.ps1`
       sin BOM como ANSI, y una raya dentro de una cadena se vuelve una comilla tipográfica que cierra
       la cadena. Los demás guiones no llevan BOM, y ponérselo a uno solo sería una excepción más
 
@@ -4535,7 +4535,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       formulario**: inventarle una pantalla propia habría sido decidir diseño, y dejarlo fuera
       habría dejado a Gerencia sin manera de crear una categoría, con lo que la lista del registro
       rápido no podría crecer
-- [ ] **`prisma.contrato.version` se queda en `0.14.0` aunque el acordado vaya en `0.16.0`.** La API
+- [ ] **`emprende.contrato.version` se queda en `0.14.0` aunque el acordado vaya en `0.16.0`.** La API
       ya emite el campo que estrena el `0.16.0`, pero **no implementa el `0.15.0`** —nómina y
       cotizaciones—, así que subirla sería afirmar algo falso. Qué número declara un artefacto que
       implementa partes sueltas de dos versiones no está escrito en ningún documento. **Lo respondió
@@ -4565,7 +4565,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       dev y en qa: es el mismo desajuste que se le acaba de arreglar a la 0.4. No se partió también
       porque nadie lo pidió y porque parte de ese trabajo ya cae dentro de la [9.2](docs/08-plan-de-desarrollo.md#tarea-9-2), que levanta uat.
       **Conviene decidir si se parte igual que la 0.4 o si la 9.2 y la [9.3](docs/08-plan-de-desarrollo.md#tarea-9-3) se hacen cargo del rol**
-- [ ] **El `README` de `prisma_db` dice que la 0.4 «sigue abierta», y desde hoy no.** Vive en otro
+- [ ] **El `README` de `emprende_db` dice que la 0.4 «sigue abierta», y desde hoy no.** Vive en otro
       repositorio ([ADR-025](docs/adr/ADR-025-cuatro-repositorios.md)), con su propio PR y su propia versión, así que no se tocó desde aquí:
       se corrige en el primer PR que toque ese repositorio
 
@@ -4595,7 +4595,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 - [ ] **El trabajo nuevo de la tubería no se pudo probar desde aquí, y le falta un secreto.**
       `Finanzas-PRISMA-DB` es privado, así que el trabajo necesita `PRISMA_DB_TOKEN` en `prisma_api`, y
       ese no lo puede poner el código. Hasta que esté, el trabajo falla, y falla claro
-- [ ] **`prisma_db` llevaba dos versiones del esquema sin etiquetar**, la `0.4.0` y la `0.5.0`, que el
+- [ ] **`emprende_db` llevaba dos versiones del esquema sin etiquetar**, la `0.4.0` y la `0.5.0`, que el
       punto 1 del [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) da por hechas y de las que cuelga la tubería entera. Se escribieron y se
       empujaron sobre los commits de fusión de la [3.14](docs/08-plan-de-desarrollo.md#tarea-3-14) y la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10), como la `esquema-v0.3.0`.
       **Conviene decidir quién etiqueta y cuándo**: el ADR dice que una migración fusionada sin
@@ -4608,19 +4608,19 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       la contraseña `x` y esperan que GoTrue la rechace por débil. En esta máquina el contenedor
       trae `GOTRUE_PASSWORD_MIN_LENGTH=6` y pasaban; en la tubería el alta **se aceptó** y salieron
       rojas, porque `config.toml` no declaraba `minimum_password_length` y cada versión del CLI
-      pone la suya. Quedó escrito en `prisma_db`, con el 6 que ya había. **Una política que nadie
+      pone la suya. Quedó escrito en `emprende_db`, con el 6 que ya había. **Una política que nadie
       escribe es una política que cambia sola**, y llevaba desde la [2.7](docs/08-plan-de-desarrollo.md#tarea-2-7) sin que se notara porque
       nadie corría esas pruebas fuera de esta máquina.
       **No era eso**: con el 6 ya escrito siguieron rojas. Lo que cambiaba era la versión de GoTrue,
       y está en «Del arreglo de GoTrue en la tubería»
 - [x] **Un cambio de `config.toml` no llega a la tubería hasta que se publique una versión nueva del
-      esquema.** El [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) manda descargar `prisma_db` **en la etiqueta**, y la etiqueta lleva el número
+      esquema.** El [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) manda descargar `emprende_db` **en la etiqueta**, y la etiqueta lleva el número
       de `schema_version`; pero `config.toml` no es esquema y subir ese número por un cambio de
       configuración sería afirmar algo falso. **Decidido: lo arrastra la próxima migración**, que es
       la [3.15](docs/08-plan-de-desarrollo.md#tarea-3-15) —la que esta misma corrida acabó de probar que hace falta—. Al publicarse el
       esquema siguiente, su etiqueta ya lleva el `config.toml` escrito, y el [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) se queda
       como está. De ahí sale el orden: la [3.15](docs/08-plan-de-desarrollo.md#tarea-3-15) publica y se etiqueta, y **el PR de la API que suba
-      su `prisma.esquema` a esa versión** es el que pone verdes las dos pruebas de GoTrue y el que
+      su `emprende.esquema` a esa versión** es el que pone verdes las dos pruebas de GoTrue y el que
       lleva las dos filas de traducción que la [3.15](docs/08-plan-de-desarrollo.md#tarea-3-15) pide. Hasta entonces esas dos siguen rojas.
       **No las puso verdes**: la API ya pide el esquema `0.9.0` y seguían rojas; ver «Del arreglo de
       GoTrue en la tubería»
@@ -4629,7 +4629,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       noche y la medianoche de Bogotá le mandaba mañana, y la API la rechazaba con `42223`, que es
       lo correcto. Arreglado con `ZonaDelNegocio`, y **buscadas las demás**: en `prisma_api` no
       queda ninguna —`src/main` no lee el reloj sin huso, y las dos lecturas que hay en las
-      pruebas pasan `ZonaDelNegocio.BOGOTA`—, y en `prisma_front` el calendario toma el reloj del
+      pruebas pasan `ZonaDelNegocio.BOGOTA`—, y en `emprende_front` el calendario toma el reloj del
       aparato solo para saber hasta dónde se puede desplazar, que no es la regla de qué fecha vale.
       **Donde sigue es en la base**: `fecha_no_futura` compara contra `CURRENT_DATE`, que va en el
       huso de la sesión, y la sesión va en `UTC` —a las ocho de la noche del 19 en Bogotá, la base
@@ -4647,7 +4647,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       del esquema y no se ve al leer la tabla. Tampoco se envolvió en un `fn_hoy_bogota()`: sería
       un objeto más que mantener y auditar para ahorrar una línea que se lee igual que la regla
 - [ ] ⚡ **La tabla de traducción se queda sin las dos filas del destino hasta el PR de la API que
-      suba su `prisma.esquema` a `0.6.0`.** Es el orden que fijan el [04 §11](docs/04-modelo-de-datos.md#11-el-contrato-de-errores) y esta misma
+      suba su `emprende.esquema` a `0.6.0`.** Es el orden que fijan el [04 §11](docs/04-modelo-de-datos.md#11-el-contrato-de-errores) y esta misma
       lista, y la 3.15 es del trabajo de la base: la tabla vive en `prisma_api`. **Mientras tanto,
       [C-01](docs/12-pruebas-y-calidad.md#c-01) sale roja contra cualquier base que ya tenga la `0.6.0`**, igual que pasó con la
       [3.14](docs/08-plan-de-desarrollo.md#tarea-3-14). Ese mismo PR es el que pone verdes las dos pruebas de GoTrue que esperaban el
@@ -4849,7 +4849,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       rastro en un ambiente equivocado. El cerrojo del anfitrión se queda igual, como segundo
 - [ ] **La prueba dejó de tocar la configuración del ambiente.** El `ALTER ROLE ... PASSWORD` tiene
       sentido en una base que se levanta y se tira; contra qa sería cambiarle la contraseña a un rol
-      que está sin ninguna a propósito. Si viene dada en `PRISMA_PRUEBAS_BASE_CLAVE_API`, se usa y
+      que está sin ninguna a propósito. Si viene dada en `EMPRENDE_PRUEBAS_BASE_CLAVE_API`, se usa y
       no se ejecuta ningún `ALTER`. Comprobado comparando el hash del rol antes y después
 - [ ] **El trabajo de la tubería se salta, no falla, cuando no hay secretos.** Este repositorio es
       público: un PR de fuera no puede leerlos, y un trabajo rojo por eso enseñaría a ignorar el
@@ -5237,7 +5237,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       que se respaldan siguen siendo 27 ([13 §3](docs/13-respaldo-y-exportacion.md#3-formatos)). No es historia de nadie, y un respaldo que al
       restaurarse devolviera la programación vieja encendería solo un trabajo que nadie pidió. **Lo
       decidió la [8.14](docs/08-plan-de-desarrollo.md#tarea-8-14)**
-- [ ] **En un PR a `main`, la tubería de `prisma_db` no corre ningún trabajo.** Sus
+- [ ] **En un PR a `main`, la tubería de `emprende_db` no corre ningún trabajo.** Sus
       dos trabajos son solo para `develop`, `qa` y `uat`, así que la puerta «Tubería en verde» que
       pide el [ADR-048](docs/adr/ADR-048-las-ramas-principales-las-protege-github.md) se reporta verde sin haber comprobado nada. Se dejó así para no tocar la
       condición de un trabajo que ya existía; **lo que hay que decidir es si el informe de la base
@@ -5316,20 +5316,20 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       subiendo primero, el «no» vendría del bucket y se leería como un fallo del proveedor. Si la
       subida falla después, la transacción se revierte y no queda fila
 
-**Del arreglo de la razón de no escribir credenciales en `prisma_db`, que no es una tarea del 08:**
+**Del arreglo de la razón de no escribir credenciales en `emprende_db`, que no es una tarea del 08:**
 
 - [ ] **La migración del rol `prisma_api` sigue diciendo que el repositorio es público, y se dejó
-      así.** Es falso desde el [ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md), que fija que `prisma_db` es privado. Está fusionada y una
+      así.** Es falso desde el [ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md), que fija que `emprende_db` es privado. Está fusionada y una
       migración aplicada no se edita jamás, así que corregirla pide otra migración, y entonces la
       puerta obliga a publicar el esquema siguiente y detrás va un PR de la API subiendo
-      `prisma.esquema`: dos versiones y tres PR por una frase que nadie ejecuta. **Se decidió no
+      `emprende.esquema`: dos versiones y tres PR por una frase que nadie ejecuta. **Se decidió no
       gastarla**, y que la corrección viaje en la cabecera de la próxima migración que se escriba
       por su cuenta. Donde sí se lee la afirmación ya está corregida: los dos guiones que la
       repetían
 - [ ] **Las cadenas de los guiones `.ps1` se arreglaron quitándoles las tildes, no poniéndoles el
       BOM.** Con un BOM, PowerShell 5.1 leería el archivo como UTF-8 y no haría falta la regla: se
       arreglarían de una vez las cadenas y los comentarios. Se siguió la regla que ya estaba, porque
-      cambiar de remedio es cambiar el `AGENTS.md` de `prisma_db` y eso va con su ADR. **Si se
+      cambiar de remedio es cambiar el `AGENTS.md` de `emprende_db` y eso va con su ADR. **Si se
       prefiere el BOM**, se escribe ese ADR y la regla se retira
 
 ---

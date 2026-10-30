@@ -1,6 +1,6 @@
 ---
 name: contrato
-description: Cambia el contrato de la API de PRISMA, contrato/openapi.json. Respeta su formato byte a byte, los rangos de códigos, la versión y el orden con la copia fijada de prisma_api. Úsala cada vez que haya que tocar el contrato o su README.
+description: Cambia el contrato de la API de Emprende, contrato/openapi.json. Respeta su formato byte a byte, los rangos de códigos, la versión y el orden con la copia fijada de prisma_api. Úsala cada vez que haya que tocar el contrato o su README.
 paths: "**/contrato/**"
 model: sonnet
 ---
@@ -63,7 +63,7 @@ node -e "JSON.parse(require('fs').readFileSync('contrato/openapi.json','utf8'))"
 Cuando se fusione el PR del contrato, en el repositorio `backend-api` se hace esto:
 
 1. Se copia el archivo tal cual a `contrato/openapi.json`, sin editarlo.
-2. Se sube `prisma.contrato.version` en `application.yml`.
+2. Se sube `emprende.contrato.version` en `application.yml`.
 3. Lo acordado que todavía no se emite se marca con `@PendienteDeEmitir(sprint, quien)`.
 4. Se corre `./gradlew build`: C-04 compara lo generado con la copia, y C-03 el catálogo con el
    código fuente. Si C-04 falla, manda la regla del `CLAUDE.md` de la API.

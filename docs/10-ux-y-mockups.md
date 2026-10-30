@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-18 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
+| [9.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
 
 Prototipo navegable: [`../mockup/prisma-mockup.html`](../mockup/prisma-mockup.html)
 
@@ -497,7 +497,7 @@ que ella. Son tres pasos en el mismo panel ([RF-64](03-requisitos-y-bdd.md#rf-64
 
 1. **Elegir el archivo.** «Elegir archivo CSV» y, al lado, su nombre. Elegirlo ya lo manda, sin
    mapeo, y la API contesta qué columnas trae y cuáles necesita ([BDD-21-1](03-requisitos-y-bdd.md#bdd-21-1)).
-2. **Relacionar las columnas.** Una fila por cada columna que PRISMA necesita, con su etiqueta y un
+2. **Relacionar las columnas.** Una fila por cada columna que Emprende necesita, con su etiqueta y un
    `<select>` con las del archivo; las obligatorias lo dicen. Ninguna viene elegida: adivinar por el
    nombre sería decidir qué significa la columna de otro. Si falta una obligatoria, el aviso del
    `42270` va debajo, en rojo.
@@ -1007,7 +1007,7 @@ navegación, pequeña y sin competir con nada:
 
 ```
 ┌──────────────┐
-│  PRISMA M&Y  │
+│  Emprende M&Y  │
 │              │
 │  • Inicio    │
 │  • Pedidos   │

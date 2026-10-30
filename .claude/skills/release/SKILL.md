@@ -1,6 +1,6 @@
 ---
 name: release
-description: Prepara y revisa el release de una versión de PRISMA que se entrega en su release/X.Y.Z, o el de una entrega del monorepo de producto. Úsala antes de abrir el PR a main, cuando un release no salió, o para contar qué trae una entrega. No publica releases a mano.
+description: Prepara y revisa el release de una versión de Emprende que se entrega en su release/X.Y.Z, o el de una entrega del monorepo de producto. Úsala antes de abrir el PR a main, cuando un release no salió, o para contar qué trae una entrega. No publica releases a mano.
 argument-hint: "[repositorio] [versión o entrega-vN]"
 model: sonnet
 ---
@@ -42,7 +42,7 @@ bash .github/scripts/notas-del-release.sh --en-seco origin/qa
 
 ## 3. En el monorepo de producto
 
-- La entrega (`entregar-release.yml` en `prisma_db`) deja `entrega/RELEASE.md` en el sobre, con el
+- La entrega (`entregar-release.yml` en `emprende_db`) deja `entrega/RELEASE.md` en el sobre, con el
   mismo texto del release. Se mira en la corrida en seco, antes de entregar de verdad.
 - El empuje de la etiqueta dispara «Publicar la entrega», que crea el release de `entrega-vN` con
   ese texto.

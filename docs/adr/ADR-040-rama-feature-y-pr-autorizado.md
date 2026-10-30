@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-040-rama-feature-y-pr-autorizado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-24 | 2026-09-24 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-040-rama-feature-y-pr-autorizado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-24 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
 
 ## Contexto
 
@@ -20,7 +20,7 @@ muchas veces, una que habrá que repetir.
 **Y el nombre de la rama no tiene regla para lo que no es una tarea.** El [21 §6.5](../21-trabajo-en-paralelo.md#65-ramas-e-integración) pide `feature/`
 con el id de la tarea, y lo demás quedó a criterio: las sesiones en la nube empujaron con la rama
 que traían asignada, y diez PR se fusionaron desde ramas `claude/…`, seis en esta especificación y
-cuatro en `prisma_db`. Un nombre así no dice qué trae, y eso era lo que el [21 §6.5](../21-trabajo-en-paralelo.md#65-ramas-e-integración) le pedía a una
+cuatro en `emprende_db`. Un nombre así no dice qué trae, y eso era lo que el [21 §6.5](../21-trabajo-en-paralelo.md#65-ramas-e-integración) le pedía a una
 rama: que dijera sola qué es.
 
 Quien dirige decidió las dos cosas: toda rama empieza por `feature/`, y el PR se abre solo con su

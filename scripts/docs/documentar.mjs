@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Mantiene la documentación de PRISMA enlazada y la verifica.
+// Mantiene la documentación de Emprende enlazada y la verifica.
 //
 //   node scripts/docs/documentar.mjs enlazar              escribe anclas, enlaces y bloques generados
 //   node scripts/docs/documentar.mjs verificar            falla si algo está roto o sin enlazar
