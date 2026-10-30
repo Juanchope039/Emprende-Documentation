@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-035-repositorios-hermanos.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-21 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-035-repositorios-hermanos.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-21 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) · [Paralelo](../INDICE.md#etiqueta-paralelo) |
 
 ## Contexto
 
@@ -41,7 +41,7 @@ más.**
 | Carpeta | Repositorio | Qué es |
 |---|---|---|
 | `documentation` | `Finanzas-PRISMA` | Esta especificación: documentación, ADR, mockup, contrato y la herramienta que los verifica |
-| `backend-api` | `prisma_api` | La API |
+| `backend-api` | `emprende_api` | La API |
 | `backend-db` | `emprende_db` | Las migraciones, la semilla y los scripts de la base |
 | `frontend-flutter` | `emprende_front` | El front |
 

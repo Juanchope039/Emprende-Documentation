@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.3.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [7.3.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Cómo se pasa de tener el software construido a que el negocio realmente lo use.
 
@@ -122,7 +122,7 @@ pasos cuestan plata y hay que decidirlos con tiempo.
 | # | Paso | Responsable | Cuándo |
 |---|---|---|---|
 | 1 | Crear los **proyectos de Supabase**: dev y qa en el [Sprint 0](08-plan-de-desarrollo.md#sprint-0), y pre-prod al final. Cada uno con su propia base, sus claves y su almacenamiento. uat no tiene proyecto, qa queda quieto ([ADR-044](adr/ADR-044-dos-ambientes-desplegados.md)), y el de prod lo pone el otro repositorio ([ADR-045](adr/ADR-045-pre-prod-y-prod-en-otro-repositorio.md)) | Apoyo técnico | [Sprint 0](08-plan-de-desarrollo.md#sprint-0) y [Sprint 9](08-plan-de-desarrollo.md#sprint-9) |
-| 2 | **Contratar lo que hay que pagar:** el plan de pago de Supabase en pre-prod, y el alojamiento de `prisma_api` en **pre-prod**, que no se puede apagar ([19 §2.4](19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro), condición 2 del [ADR-026](adr/ADR-026-railway-al-final.md)). dev y qa se quedan en planes gratuitos o apagables | Gerencia | Antes de levantar pre-prod |
+| 2 | **Contratar lo que hay que pagar:** el plan de pago de Supabase en pre-prod, y el alojamiento de `emprende_api` en **pre-prod**, que no se puede apagar ([19 §2.4](19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro), condición 2 del [ADR-026](adr/ADR-026-railway-al-final.md)). dev y qa se quedan en planes gratuitos o apagables | Gerencia | Antes de levantar pre-prod |
 | 3 | Crear el rol **`prisma_api`** en cada ambiente: sin `BYPASSRLS`, sin `SUPERUSER` y sin ser dueño de las tablas | Apoyo técnico | [Sprint 0](08-plan-de-desarrollo.md#sprint-0) |
 | 4 | **Levantar el alojamiento de la API en los cuatro ambientes**: una imagen de contenedor por versión, con su memoria y sus variables ([§3.2](#32-alojar-la-api-de-java-en-los-cuatro-ambientes)), en Railway ([ADR-032](adr/ADR-032-railway-en-dev-ahora.md)) | Apoyo técnico | dev, en el [Sprint 0](08-plan-de-desarrollo.md#sprint-0); pre-prod, en el [Sprint 9](08-plan-de-desarrollo.md#sprint-9). qa y uat no se alojan |
 | 5 | Cargar los **secretos de cada ambiente** fuera del repositorio: variables de entorno en la API, `--dart-define` al compilar el front | Apoyo técnico | [Sprint 0](08-plan-de-desarrollo.md#sprint-0) |
@@ -145,7 +145,7 @@ pasos cuestan plata y hay que decidirlos con tiempo.
 
 ### 3.2 Alojar la API de Java en los cuatro ambientes
 
-`prisma_api` es Java 25 con Spring Boot ([ADR-024](adr/ADR-024-java-25-y-gradle.md)). Eso no
+`emprende_api` es Java 25 con Spring Boot ([ADR-024](adr/ADR-024-java-25-y-gradle.md)). Eso no
 cambia ni un caso de uso, pero sí cambia el alistamiento: ya no basta con publicar archivos
 estáticos, hay **un proceso encendido** en cada ambiente. Lo que hay que dejar listo antes del
 go-live:

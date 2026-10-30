@@ -2,11 +2,11 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-024-java-25-y-gradle.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-09-16 | [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-024-java-25-y-gradle.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) |
 
 ## Contexto
 
-[ADR-017](ADR-017-api-en-java.md) decidió `prisma_api` en **Java 21 con Spring Boot**, y
+[ADR-017](ADR-017-api-en-java.md) decidió `emprende_api` en **Java 21 con Spring Boot**, y
 [`19-ambientes-y-entrega.md`](../19-ambientes-y-entrega.md) [§2.4](../19-ambientes-y-entrega.md#24-el-artefacto-de-la-api-una-imagen-de-contenedor-con-una-jvm-adentro) eligió **Maven** para
 construirlo, con un argumento explícito: *«es lo que produce Spring Initializr por defecto y lo
 que más gente sabe leer»*.

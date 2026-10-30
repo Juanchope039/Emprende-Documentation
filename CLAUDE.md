@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.6.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.6.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -24,7 +24,7 @@ Emprende** ([ADR-069](docs/adr/ADR-069-el-proyecto-se-llama-emprende.md)), y as�
 | Carpeta | Proyecto | En GitHub | Rama base | Qué es |
 |---|---|---|---|---|
 | `documentation` | La especificación | `Emprende-Documentation`, **público** | `main` | Documentación, ADR, mockup, contrato y la herramienta que los verifica |
-| `backend-api` | `prisma_api` | `Emprende-API` | `develop` | Java y Spring Boot. Es lo único que habla con la base |
+| `backend-api` | `emprende_api` | `Emprende-API` | `develop` | Java y Spring Boot. Es lo único que habla con la base |
 | `backend-db` | `emprende_db` | `Emprende-DataBase` | `develop` | Migraciones de PostgreSQL, semilla y scripts. No es un servicio |
 | `frontend-flutter` | `emprende_front` | `Emprende-Front` | `develop` | Flutter, web por defecto. No decide nada |
 
@@ -93,7 +93,7 @@ ni referencias de proyectos, ni nombres de clientes.
   aplica está en `scripts/github/README.md`.
 
 **La visibilidad de un repositorio no se cambia, en ninguna de las dos direcciones** ([ADR-051](docs/adr/ADR-051-la-visibilidad-de-un-repositorio-no-se-cambia.md)).
-- Los cuatro son los que son: la especificación es pública, y `prisma_api`, `emprende_front` y
+- Los cuatro son los que son: la especificación es pública, y `emprende_api`, `emprende_front` y
   `emprende_db` son privados. **Ninguna sesión lo cambia, ni lo intenta, ni lo propone como salida a
   otro problema.**
 - Publicar un privado no se deshace: lo indexado, clonado o en caché no se recoge. Y la semilla
@@ -217,7 +217,7 @@ escribe el porqué en el commit y se anota en [`TODO.md`](TODO.md) [§10](TODO.m
 ## 3. Reglas de la arquitectura
 
 ```
-emprende_front  ──HTTP──▶  prisma_api  ──SQL──▶  emprende_db
+emprende_front  ──HTTP──▶  emprende_api  ──SQL──▶  emprende_db
   pinta                   decide todo           impone lo que no se puede romper
 ```
 

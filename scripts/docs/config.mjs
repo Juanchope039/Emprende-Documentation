@@ -18,7 +18,7 @@ export const ESPECIFICACION = {
 export const REPOS_DE_CODIGO = [
   {
     carpeta: '../backend-api',
-    nombre: 'prisma_api',
+    nombre: 'emprende_api',
     github: `${GITHUB}/Emprende-API`,
     version: { archivo: 'build.gradle.kts', patron: /^version = "([^"]+)"/m },
   },

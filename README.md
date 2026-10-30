@@ -3,7 +3,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.10.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
+| [1.10.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
 
 > **Emprende** = **P**lataforma de **R**egistro, **I**nversión, **S**eguimiento, **M**árgenes y **A**dministración.
 > Un solo lugar para saber cuánto entra, cuánto sale, cuánto queda y cuánto se puede pagar.
@@ -109,7 +109,7 @@ El mockup es un archivo HTML suelto y se abre con doble clic. El sistema de verd
 | Pieza | Qué es | Qué hace |
 |---|---|---|
 | `emprende_front` | Flutter, un solo código: el objetivo por defecto es **web**, instalable como PWA, y el mismo código compila a Android, iOS y escritorio | Pide, recibe y muestra. Nada más |
-| `prisma_api` | API propia en **Java 25 con Spring Boot**. Hace de API y de BFF a la vez, y es la única que habla con la base | Toda la lógica. Toma las decisiones y dicta los mensajes que se ven |
+| `emprende_api` | API propia en **Java 25 con Spring Boot**. Hace de API y de BFF a la vez, y es la única que habla con la base | Toda la lógica. Toma las decisiones y dicta los mensajes que se ven |
 | Capa de datos | PostgreSQL en Supabase, siempre en línea | Garantiza lo que no se puede romper: restricciones, permisos y durabilidad |
 
 > **El front no decide nada.** Ni una regla de negocio, ni un permiso, ni un mensaje de error, ni
@@ -117,18 +117,18 @@ El mockup es un archivo HTML suelto y se abre con doble clic. El sistema de verd
 > Flutter es saltarse la arquitectura y se rechaza en revisión de código.
 
 > **El front nunca habla con Supabase directamente.** Ni con la base, ni con Auth, ni con
-> Storage: todo pasa por `prisma_api`. Meter el cliente de Supabase dentro del código Flutter
+> Storage: todo pasa por `emprende_api`. Meter el cliente de Supabase dentro del código Flutter
 > también se rechaza en revisión.
 
 **Cada pieza vive en su propio repositorio** ([ADR-025](docs/adr/ADR-025-cuatro-repositorios.md)), y los cuatro son hermanos dentro de una
 carpeta de trabajo ([ADR-035](docs/adr/ADR-035-repositorios-hermanos.md)): este repositorio guarda la documentación, el mockup y el contrato;
-`prisma_api` guarda la API; `emprende_db`, las migraciones y la semilla de la base; `emprende_front`,
+`emprende_api` guarda la API; `emprende_db`, las migraciones y la semilla de la base; `emprende_front`,
 el front.
 
 | Repositorio | En disco, dentro de la carpeta de trabajo |
 |---|---|
 | `Finanzas-PRISMA`, este | `repositories/documentation` |
-| `prisma_api` | `repositories/backend-api` |
+| `emprende_api` | `repositories/backend-api` |
 | `emprende_db` | `repositories/backend-db` |
 | `emprende_front` | `repositories/frontend-flutter` |
 

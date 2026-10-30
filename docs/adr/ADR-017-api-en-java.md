@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-017-api-en-java.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-024](ADR-024-java-25-y-gradle.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-017-api-en-java.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-024](ADR-024-java-25-y-gradle.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [API](../INDICE.md#etiqueta-api) |
 
 > **Lo reemplaza [ADR-024](ADR-024-java-25-y-gradle.md):** la API sigue siendo Java con Spring
 > Boot y todo lo que este ADR argumenta sigue en pie, pero las versiones cambiaron. Java 21
@@ -12,7 +12,7 @@
 
 ## Contexto
 
-[ADR-011](ADR-011-stack-flutter-dart.md) decidió `emprende_front` en Flutter y `prisma_api` en Dart
+[ADR-011](ADR-011-stack-flutter-dart.md) decidió `emprende_front` en Flutter y `emprende_api` en Dart
 con Dart Frog. Su argumento principal fue **un solo lenguaje en todo el proyecto**: Dart en el
 front, Dart en la API, un solo dialecto para las reglas de plata.
 
@@ -35,18 +35,18 @@ argumento que sostenía [ADR-011](ADR-011-stack-flutter-dart.md).
 ## Decisión
 
 **`emprende_front` en Flutter, multiplataforma y con objetivo web por defecto.
-`prisma_api` en Java 21 con Spring Boot. PostgreSQL en Supabase.**
+`emprende_api` en Java 21 con Spring Boot. PostgreSQL en Supabase.**
 
 - `emprende_front` — un solo código Flutter. Se compila a web por defecto, y el mismo código
   compila a Android, iOS y escritorio sin rehacer nada. [ADR-016](ADR-016-flutter-web-pwa.md)
   sigue vigente: «web por defecto» es exactamente lo que decidió.
-- `prisma_api` — Java 21 con Spring Boot. Toda la lógica del sistema.
+- `emprende_api` — Java 21 con Spring Boot. Toda la lógica del sistema.
 - **PostgreSQL gestionado por Supabase**, siempre en línea, un proyecto por ambiente.
 
 Lo que **no** cambia de [ADR-011](ADR-011-stack-flutter-dart.md) y sigue mandando:
 
 > **El front nunca habla con Supabase directamente.** Ni con la base, ni con Auth, ni con
-> Storage. Todo pasa por `prisma_api`. Si aparece el cliente de Supabase dentro del código
+> Storage. Todo pasa por `emprende_api`. Si aparece el cliente de Supabase dentro del código
 > Flutter, se rechaza en revisión de código.
 
 [ADR-002](ADR-002-arquitectura-hexagonal.md) tampoco cambia, solo de lenguaje. En Java los cuatro

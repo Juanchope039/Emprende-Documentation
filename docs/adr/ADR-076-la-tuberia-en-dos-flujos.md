@@ -2,11 +2,11 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-076-la-tuberia-en-dos-flujos.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-29 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-076-la-tuberia-en-dos-flujos.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-29 | 2026-10-30 | [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
-`prisma_api`, `emprende_db` y `emprende_front` tenían 18 flujos entre los tres. `milestone-del-pr.yml` y
+`emprende_api`, `emprende_db` y `emprende_front` tenían 18 flujos entre los tres. `milestone-del-pr.yml` y
 `proyecto-del-pr.yml` eran copias idénticas en los tres, `changelog.yml` solo cambiaba en los
 comentarios, y cada repositorio tenía además su flujo de etiquetas y, en la API, el de SonarCloud.
 La API corría también en el empuje a `feature/*`, así que cada empuje a una rama con PR abierto
@@ -26,7 +26,7 @@ corría la tubería dos veces. Y el changelog, aunque su comentario lo pedía, n
    repositorios. Corre en el empuje a `develop`, `qa` y `main`, en cada PR a esas tres y a mano.
    **Ningún empuje a otra rama la dispara.**
 2. **Adentro van, cada uno en su trabajo y solo en su etapa,** el changelog (`qa`), las etiquetas
-   de la versión (al fusionar a `develop`) y, en `prisma_api`, el análisis de SonarCloud
+   de la versión (al fusionar a `develop`) y, en `emprende_api`, el análisis de SonarCloud
    (`develop`). Los nombres de los trabajos no cambian, así que los rulesets ven los mismos checks.
 3. **El changelog y SonarCloud entran a las dos puertas.** En `qa` el changelog bloquea por
    «Tubería en verde»; SonarCloud corre en `develop`, donde «Tubería completa» pide que termine y
@@ -35,7 +35,7 @@ corría la tubería dos veces. Y el changelog, aunque su comentario lo pedía, n
    «El PR está en el proyecto» ya no está ([ADR-074](ADR-074-el-check-del-proyecto-se-quita.md)).
 5. **`emprende_db` conserva aparte `migrar.yml` y `entregar-release.yml`**, porque escriben en bases
    con datos. Esta especificación no tiene tubería y conserva `milestone-del-pr.yml`.
-6. **Los pasos repetidos van a una acción compuesta**: `preparar-java` en `prisma_api`, como
+6. **Los pasos repetidos van a una acción compuesta**: `preparar-java` en `emprende_api`, como
    `preparar-flutter` en `emprende_front`.
 7. **La medición de rendimiento de `emprende_front` publica su nginx en el 18080.** El runner propio es
    la misma máquina donde corre el front de dev, que ya tiene el 8080.

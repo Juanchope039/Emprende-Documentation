@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-029-esquema-por-etiqueta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-029-esquema-por-etiqueta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-16 | 2026-10-30 | [Base de datos](../INDICE.md#etiqueta-base-de-datos) · [API](../INDICE.md#etiqueta-api) · [Entrega](../INDICE.md#etiqueta-entrega) · [Calidad](../INDICE.md#etiqueta-calidad) |
 
 > **Lo modifica [ADR-077](ADR-077-snapshot-hasta-la-release.md):** desde el 2026-10-30 la base se etiqueta `vX.Y.Z`, solo en su
 > `release/X.Y.Z`, y `esquema-vX.Y.Z` queda en desuso. La tubería de la API trae el esquema por su
@@ -12,7 +12,7 @@
 
 ## Contexto
 
-[ADR-025](ADR-025-cuatro-repositorios.md) sacó el esquema de `prisma_api` y lo puso en `emprende_db`, y dejó escrita una pregunta
+[ADR-025](ADR-025-cuatro-repositorios.md) sacó el esquema de `emprende_api` y lo puso en `emprende_db`, y dejó escrita una pregunta
 sin responder: **de dónde saca el esquema la API para sus pruebas de integración**, ahora que vive en
 otro repositorio. Es la tarea [1.20](../08-plan-de-desarrollo.md#tarea-1-20) del plan, y bloquea tres tareas que no son opcionales:
 
@@ -42,7 +42,7 @@ Tres cosas más, que son las que deciden:
 |---|---|---|
 | **Etiqueta de `emprende_db` + Supabase CLI en la integración continua** | La base de las pruebas es la misma que la de producción, con `auth` y sus roles; la referencia es una **versión del esquema**, no un commit; no hay artefacto nuevo que publicar ni registro que mantener | La tubería de la API descarga otro repositorio y tarda unos minutos más; si la base es privada hace falta un token; y en local, sin Docker, esas pruebas no corren |
 | Imagen de PostgreSQL con el esquema, publicada en GHCR | La tubería arranca en segundos y no depende del CLI | Hay que montar y mantener otra tubería, y la imagen `postgres` no trae `auth` ni los roles de Supabase: habría que emularlos, que es exactamente lo que vuelve mentirosa una prueba de RLS |
-| `emprende_db` como submódulo de `prisma_api` | `git clone --recurse-submodules` y ya está | Un submódulo fija un **commit**, no una versión del esquema, y el número de `emprende.esquema` quedaría de adorno. Y los submódulos se olvidan de actualizar justo cuando importa |
+| `emprende_db` como submódulo de `emprende_api` | `git clone --recurse-submodules` y ya está | Un submódulo fija un **commit**, no una versión del esquema, y el número de `emprende.esquema` quedaría de adorno. Y los submódulos se olvidan de actualizar justo cuando importa |
 | Probar contra el proyecto dev de Supabase en la nube | No hay nada que levantar | Es una base compartida: una prueba que falla por lo que otro guardó hace diez minutos se termina ignorando ([21 §6.4](../21-trabajo-en-paralelo.md#64-ambientes)). Y las pruebas de RLS escriben y anulan datos |
 
 ## Decisión
@@ -51,7 +51,7 @@ Tres cosas más, que son las que deciden:
    guarda `schema_version` (tarea [0.10](../08-plan-de-desarrollo.md#tarea-0-10)). Una migración fusionada sin etiquetar no existe para nadie más.
 2. **La API sigue declarando el esquema que necesita** en `emprende.esquema`, y ese número es el que la
    tubería convierte en etiqueta. No hay una segunda lista que mantener al día.
-3. **La integración continua de `prisma_api` corre las pruebas de integración en un trabajo aparte**,
+3. **La integración continua de `emprende_api` corre las pruebas de integración en un trabajo aparte**,
    que descarga `emprende_db` en esa etiqueta —`actions/checkout` con `repository` y `ref`—, instala el
    Supabase CLI y levanta la base con `supabase db start`, que aplica las migraciones y la semilla.
    Las pruebas corren contra `127.0.0.1:54322`, que es la misma dirección que usa la configuración

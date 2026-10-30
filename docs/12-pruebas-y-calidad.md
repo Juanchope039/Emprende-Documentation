@@ -2,13 +2,13 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [5.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Calidad](INDICE.md#etiqueta-calidad) |
+| [5.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Calidad](INDICE.md#etiqueta-calidad) |
 
 ---
 
 ## 1. Estrategia
 
-Ahora hay **dos bases de código** —`emprende_front` en Flutter y `prisma_api` en Java 25 con Spring
+Ahora hay **dos bases de código** —`emprende_front` en Flutter y `emprende_api` en Java 25 con Spring
 Boot— y **cuatro ambientes** —dev, qa, uat y prod—. La estrategia cambia de forma, no de fondo: la
 arquitectura hexagonal sigue permitiendo invertir el esfuerzo donde más importa, **los cálculos de
 plata y los permisos**.
@@ -17,7 +17,7 @@ plata y los permisos**.
         ╱╲          Manuales en dispositivo real
        ╱  ╲         10 recorridos · antes de cada entrega
       ╱────╲
-     ╱      ╲       Integración de prisma_api contra un PostgreSQL real
+     ╱      ╲       Integración de emprende_api contra un PostgreSQL real
     ╱        ╲      Acceso, permisos, transacciones, contrato de errores
    ╱──────────╲
   ╱            ╲    Unidad en JUnit 5 · widget en Flutter
@@ -27,7 +27,7 @@ plata y los permisos**.
 
 | Nivel | Dónde vive | Qué prueba | Herramienta | Meta |
 |---|---|---|---|---|
-| Unitario de dominio | `prisma_api` | Servicios de dominio: fórmulas financieras | **JUnit 5** | **≥ 90% de cobertura** |
+| Unitario de dominio | `emprende_api` | Servicios de dominio: fórmulas financieras | **JUnit 5** | **≥ 90% de cobertura** |
 | Unitario de presentación | `emprende_front` | Formato de cifras y fechas, estado, y que el formulario aplique el descriptor que la API le dictó | `flutter test` | Cada regla del descriptor |
 | Widget | `emprende_front` | Que cada pantalla pinte lo que debe y reaccione a lo que recibe | `flutter test` | Las 12 pantallas |
 | Integración | `prisma_api` + base | Repositorios, transacciones, políticas RLS, contrato de errores | **JUnit 5 con contenedores de prueba** (`Testcontainers`): un PostgreSQL real y desechable | Casos críticos |
@@ -45,7 +45,7 @@ cosa distinta, la de la promoción ([`19-ambientes-y-entrega.md`](19-ambientes-y
 comprobar que las migraciones aplican sobre lo que ese ambiente ya tiene escrito.
 
 **Las pruebas de widget no levantan la API.** Hablan con un cliente HTTP falso. Si para probar una
-pantalla hubiera que levantar `prisma_api` y su base, la pantalla quedó pegada al transporte: eso
+pantalla hubiera que levantar `emprende_api` y su base, la pantalla quedó pegada al transporte: eso
 es un defecto que se corrige, no una condición de la prueba. Lo que sí se prueba de verdad entre
 el front y la API es el contrato de versiones, y eso está en la sección 9.
 
@@ -122,7 +122,7 @@ llega a producción.**
 ## 3. Pruebas de permisos
 
 Las más importantes desde el punto de vista de confianza. Todas se ejecutan con una **sesión
-real de tipo Operación**, no simulada, abierta **a través de `prisma_api`** con usuario y
+real de tipo Operación**, no simulada, abierta **a través de `emprende_api`** con usuario y
 contraseña. La API propaga esa identidad a la sesión de PostgreSQL, así que quien decide sigue
 siendo RLS.
 
@@ -214,7 +214,7 @@ leerlas con tres cosas en mente:
 
 Es la prueba que hay que escribir primero y la única que no puede faltar: es la que verifica
 [`ADR-012`](adr/ADR-012-identidad-a-postgres.md) y la que hace exigible el **[RNF-22](03-requisitos-y-bdd.md#rnf-22)**. Se escribe en
-Java, con JUnit 5, igual que el resto de la integración de `prisma_api`. Con
+Java, con JUnit 5, igual que el resto de la integración de `emprende_api`. Con
 `prisma_api` en medio, la base ya no ve a la empleada: ve a la API. Si la API se conectara con la
 clave de servicio, RLS dejaría de aplicar,
 todas las políticas de [`ADR-006`](adr/ADR-006-rls-por-rol.md) se volverían decorado **y ninguna
@@ -392,7 +392,7 @@ Gerencia pueda salir; ninguna verifica un permiso.
 
 ## 8. Calidad del código
 
-| Control | En `emprende_front` (Flutter) | En `prisma_api` (Java) | Cuándo |
+| Control | En `emprende_front` (Flutter) | En `emprende_api` (Java) | Cuándo |
 |---|---|---|---|
 | Formato consistente | `dart format` | `Spotless` | Al guardar |
 | Tipado estricto y avisos | `dart analyze` con `strict-casts` y `strict-raw-types` | Compilación con `-Xlint:all -Werror` | Cada compilación |
@@ -412,7 +412,7 @@ revisa con una vara más floja que la otra.
 
 ## 9. Pruebas del contrato entre las tres partes
 
-Dos capas deciden —la base y `prisma_api`— y una tercera solo pinta: el formulario, que aplica el
+Dos capas deciden —la base y `emprende_api`— y una tercera solo pinta: el formulario, que aplica el
 descriptor que la API le dictó. Eso solo es sostenible si algo vigila que las tres no se separen
 con el tiempo. Y versionar el front y la API por separado solo es sostenible si algo detecta cuándo
 dejaron de entenderse, y si los números que se comparan dicen la verdad. Estas cinco pruebas son
@@ -455,7 +455,7 @@ mete adentro es la tarea [1.7](08-plan-de-desarrollo.md#tarea-1-7), que descarga
 es la más barata de las de integración: se conecta como el dueño y **solo lee** el catálogo de
 PostgreSQL, sin RLS, sin identidad y sin semilla.
 
-En ejecución, la contraparte es la regla de `prisma_api`: un error de la base que no esté en la
+En ejecución, la contraparte es la regla de `emprende_api`: un error de la base que no esté en la
 tabla se devuelve como 500 y se registra como defecto. [C-01](#c-01) existe para que eso nunca ocurra
 por primera vez en prod.
 
@@ -477,7 +477,7 @@ el contrato. Es **[BDD-101-1](03-requisitos-y-bdd.md#bdd-101-1)** convertido en 
 
 ### <a id="c-03"></a>9.3 C-03 · El catálogo de códigos, completo y sin sobras
 
-Hay **un solo catálogo** de códigos de cinco dígitos en `prisma_api`: código, HTTP, módulo, mensaje
+Hay **un solo catálogo** de códigos de cinco dígitos en `emprende_api`: código, HTTP, módulo, mensaje
 en español y cuándo se emite. De él salen las respuestas, la documentación de Swagger y la tabla de
 traducción de restricciones. [C-03](#c-03) lo compara con la realidad del código fuente, en los dos sentidos:
 
@@ -528,7 +528,7 @@ es que la versión siga en `-SNAPSHOT`. Una versión sin sufijo, o en `-RELEASE`
 | Repositorio | Qué exige | Cómo se corre en una máquina |
 |---|---|---|
 | `emprende_front` | Si el PR cambia lo que se publica, el `pubspec.yaml` sube un paso y el número de compilación, uno | `dart run tool/la_version_subio.dart origin/develop` |
-| `prisma_api` | Si el PR cambia lo que se publica, el `build.gradle.kts` sube un paso | `./gradlew laVersionSubio --args=origin/develop` |
+| `emprende_api` | Si el PR cambia lo que se publica, el `build.gradle.kts` sube un paso | `./gradlew laVersionSubio --args=origin/develop` |
 | `emprende_db` | Ninguna migración que ya estaba cambia; si el PR agrega migraciones, la última publica en `schema_version` la versión siguiente; `verificar-base.sql` la espera; y `VERSION` la dice con `-SNAPSHOT` | `./scripts/db/la-version-subio.ps1 -Base origin/develop` |
 
 Tres detalles deciden si sirve de algo:
@@ -559,7 +559,7 @@ la API corre con los privilegios del otro. La concesión de `prisma_api` se mide
 la otra mitad del [ADR-071](adr/ADR-071-el-privilegio-es-del-tamano-del-uso.md) y va en su propia afirmación.
 
 Corre contra la base, en el trabajo «Probar contra la base» de la integración continua de
-`prisma_api`, y falla en los dos sentidos:
+`emprende_api`, y falla en los dos sentidos:
 
 | Lo que encuentra | Por qué falla |
 |---|---|
@@ -687,7 +687,7 @@ Son la tarea [9.6](08-plan-de-desarrollo.md#tarea-9-6), y corren en dos sitios c
 
 | Dónde | Contra qué | Cuándo |
 |---|---|---|
-| **En cada empuje** | La aplicación levantada por la tubería, con su base recién migrada y sembrada | Dentro de las pruebas de integración de `prisma_api` |
+| **En cada empuje** | La aplicación levantada por la tubería, con su base recién migrada y sembrada | Dentro de las pruebas de integración de `emprende_api` |
 | **En qa** | La API **desplegada**, con su configuración y su base | A mano, y en cada empuje a `develop` |
 
 > **La que corre en cada empuje es la que da fe de que las pruebas sirven.** La que corre en qa es

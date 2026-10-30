@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [0.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/18-distribucion-y-pipelines.md "Historial de cambios") | [💡 Propuesta](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Front](INDICE.md#etiqueta-front) |
+| [0.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/18-distribucion-y-pipelines.md "Historial de cambios") | [💡 Propuesta](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Front](INDICE.md#etiqueta-front) |
 
 > **Todavía es una idea, no una decisión.** Este documento recoge la intención de distribuir la aplicación
 > en **web, Android, iPhone y escritorio Windows**, y de automatizar pruebas y publicación.
@@ -43,7 +43,7 @@ Sobre GitHub Actions (el repositorio ya vive en GitHub). Se dispara en cada *pus
 request*. Son **dos proyectos con herramientas distintas** —el front es Flutter y la API es
 Java—, así que el pipeline los corre como dos trabajos en paralelo, no como uno solo.
 
-| Etapa | Front (`emprende_front`, Flutter) | API (`prisma_api`, Java) | Bloquea la fusión si… |
+| Etapa | Front (`emprende_front`, Flutter) | API (`emprende_api`, Java) | Bloquea la fusión si… |
 |---|---|---|---|
 | Instalar | `flutter pub get` con caché | Dependencias de la herramienta de construcción, con caché | — |
 | Formato | `dart format --set-exit-if-changed` | Formateador del proyecto en modo verificación | El código no está formateado |
@@ -74,7 +74,7 @@ no dependen de esa elección.
 | **Android** | `.aab` (y `.apk` para pruebas) | `flutter build appbundle` | Google Play (cuenta de desarrollador) |
 | **iPhone (iOS)** | `.ipa` | `flutter build ipa`, **solo en un Mac** | App Store (cuenta Apple Developer) |
 | **Windows** | `.exe` / `.msi` | `flutter build windows` más el armado del instalador | Descarga directa + firma de código |
-| **API** (`prisma_api`) | Ejecutable de Java o imagen de contenedor | Empaquetado del proyecto Java | **No se descarga**: se despliega por promoción de ambiente ([`19-ambientes-y-entrega.md`](19-ambientes-y-entrega.md)) |
+| **API** (`emprende_api`) | Ejecutable de Java o imagen de contenedor | Empaquetado del proyecto Java | **No se descarga**: se despliega por promoción de ambiente ([`19-ambientes-y-entrega.md`](19-ambientes-y-entrega.md)) |
 
 La API va en esta tabla aunque nadie la descargue: el mismo pipeline tiene que producir su
 artefacto y promoverlo por los ambientes. Su número de versión es **independiente** del front
@@ -163,7 +163,7 @@ PWA no cubra ([§5.2](#52-cuándo-se-agrega-un-objetivo)); el costo de compilarl
 | Android | ✅ | ⬜ | Decidir el objetivo ([§5.2](#52-cuándo-se-agrega-un-objetivo)) + cuenta Play + firma |
 | iOS | ✅ | ⬜ | Decidir el objetivo ([§5.2](#52-cuándo-se-agrega-un-objetivo)) + cuenta Apple + Mac |
 | Windows | ✅ | ⬜ | Decidir el objetivo ([§5.2](#52-cuándo-se-agrega-un-objetivo)) + certificado de firma |
-| API (`prisma_api`) | ✅ | ➖ (se promueve, no se descarga) | Proyecto Java andamiado |
+| API (`emprende_api`) | ✅ | ➖ (se promueve, no se descarga) | Proyecto Java andamiado |
 
 ---
 

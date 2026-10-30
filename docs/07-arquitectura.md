@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/07-arquitectura.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](INDICE.md#etiqueta-arquitectura) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) · [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Seguridad](INDICE.md#etiqueta-seguridad) |
+| [6.0.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/07-arquitectura.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](INDICE.md#etiqueta-arquitectura) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) · [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Seguridad](INDICE.md#etiqueta-seguridad) |
 
 Tres partes —un front en Flutter multiplataforma, una API en Java 25 con Spring Boot y una capa
 de datos PostgreSQL siempre en línea—. Arquitectura hexagonal (puertos y adaptadores) sobre Clean
@@ -16,13 +16,13 @@ Architecture, con principios SOLID.
 |---|---|---|
 | Lenguajes | **Dart en el front, Java 25 en la API** | Son dos, y es un costo que se asume a conciencia. El porqué está en [§1.5](#15-qué-se-pierde-y-qué-se-gana-al-pasar-la-api-a-java) |
 | Front | **Flutter multiplataforma**, objetivo por defecto **web**, instalable como PWA (`emprende_front`) | Una sola base de código para el navegador del taller y, sin reescribir nada, para Android, iOS y escritorio |
-| API | **Java 25 con Spring Boot**, a la vez API y BFF (`prisma_api`) | Único punto que habla con la base. Ahí viven el dominio y los casos de uso |
+| API | **Java 25 con Spring Boot**, a la vez API y BFF (`emprende_api`) | Único punto que habla con la base. Ahí viven el dominio y los casos de uso |
 | Framework HTTP | **Spring Web** sobre el arranque de Spring Boot ([ADR-017](adr/ADR-017-api-en-java.md)) | Enrutado por anotaciones, inyección de dependencias y transacciones declarativas en la misma caja. Nada de esto hay que construirlo |
 | Acceso a datos | **JDBC con `JdbcTemplate`**, sin ORM | El SQL queda a la vista y la transacción con identidad ([§7.2](#72-la-solución-obligatoria)) se controla a mano. Un ORM que abre conexiones por su cuenta es justo lo que rompe esa transacción |
 | Base | **PostgreSQL gestionado por Supabase**, siempre en línea | Es la misma base de siempre: RLS, triggers y restricciones siguen siendo el corazón de la seguridad |
 | Autenticación | **Supabase Auth, llamado desde la API** | El front manda usuario y contraseña; nunca ve al proveedor ni el correo sintético ([§6.1](#61-acceso-con-nombre-de-usuario--el-correo-sintético)) |
 | Archivos | **Supabase Storage, llamado desde la API** | El front sube a `prisma_api` y la API al Storage. Las políticas por rol no se mueven |
-| PDF | **Se genera en `prisma_api`** | Cotizaciones, remisiones y desprendibles salen idénticos para todo el mundo y el front no carga una librería de PDF |
+| PDF | **Se genera en `emprende_api`** | Cotizaciones, remisiones y desprendibles salen idénticos para todo el mundo y el front no carga una librería de PDF |
 | Resiliencia | **Resilience4j** | Reintentos, cortacircuitos, tiempos de espera y límite de tasa como piezas probadas, no escritas a mano ([§10](#10-resiliencia-y-comportamiento-sin-conexión)) |
 | Documentación | **springdoc-openapi** | Swagger sale del ecosistema y se genera de los controladores ([§9.4](#94-swagger-generado-del-código)) |
 | Construcción | **Gradle** en la API, con Java 25 declarado como *toolchain* ([ADR-024](adr/ADR-024-java-25-y-gradle.md)); `flutter build` en el front | Gradle descarga el JDK por su cuenta: quien clone el proyecto compila sin instalar nada. El costo es un demonio más que puede fallar |
@@ -41,7 +41,7 @@ Architecture, con principios SOLID.
 
 ```mermaid
 graph LR
-    FRONT[emprende_front · Flutter multiplataforma · web por defecto] -->|HTTPS · JSON firmado| API[prisma_api · Java 25 · Spring Boot]
+    FRONT[emprende_front · Flutter multiplataforma · web por defecto] -->|HTTPS · JSON firmado| API[emprende_api · Java 25 · Spring Boot]
     API -->|JDBC| DB[(Capa de datos · PostgreSQL · Supabase · siempre en línea)]
     API -->|HTTPS| AUTH[Supabase Auth y Storage]
     FRONT -. nunca · prohibido .-> DB
@@ -55,7 +55,7 @@ graph LR
 | **Capa de datos** | PostgreSQL en Supabase, más migraciones, funciones de negocio, índices, particiones y el pool de conexiones | Garantiza lo que no se puede romper: restricciones, RLS, atomicidad, durabilidad | No es un servicio desplegable. La API le habla directo |
 
 > **Regla dura: el front NUNCA habla con Supabase directamente.** Ni con la base, ni con Auth,
-> ni con Storage. Todo pasa por `prisma_api`.
+> ni con Storage. Todo pasa por `emprende_api`.
 
 Si alguien mete el cliente de Supabase en el código Flutter, está saltándose la arquitectura y
 **hay que rechazarlo en revisión de código**. No es una preferencia de estilo: es lo que sostiene
@@ -82,9 +82,9 @@ Hoy hay **un solo cliente**. Separar las dos capas daría dos cosas que desplega
 vigilar sin ninguna ganancia a cambio.
 
 El día que aparezca un segundo cliente —una integración contable, un panel público— ahí sí se
-parte. Y `prisma_api` ya está organizada por dentro para permitirlo.
+parte. Y `emprende_api` ya está organizada por dentro para permitirlo.
 
-### 1.4 Por dentro de `prisma_api`
+### 1.4 Por dentro de `emprende_api`
 
 [ADR-002](adr/ADR-002-arquitectura-hexagonal.md) decidió **arquitectura hexagonal**, y esa
 decisión **no se deroga: se refuerza**. Ahora por fin hay un backend donde aplicarla de verdad,
@@ -131,7 +131,7 @@ plan de desarrollo tiene que reflejarlo.
 ## 2. Estructura de carpetas
 
 Dos proyectos, cada uno con su repositorio y su versión: la API con `build.gradle.kts`, el front con
-`pubspec.yaml`. **Son dos árboles distintos y dos lenguajes distintos:** Java en `prisma_api`,
+`pubspec.yaml`. **Son dos árboles distintos y dos lenguajes distintos:** Java en `emprende_api`,
 Dart en `emprende_front`.
 
 La base de datos tiene un tercer repositorio, `emprende_db`, con las migraciones, la semilla y sus
@@ -141,7 +141,7 @@ carpeta de trabajo: `documentation` —esta especificación—, `backend-api`, `
 `frontend-flutter` ([ADR-035](adr/ADR-035-repositorios-hermanos.md)).
 
 ```
-prisma_api/
+emprende_api/
 ├── contrato/
 │   └── openapi.json               # Copia fijada del contrato de Finanzas-PRISMA. La vigila C-04 (§9.4)
 ├── build.gradle.kts               # Java 25 como toolchain: Gradle lo descarga si no está
@@ -241,7 +241,7 @@ emprende_front/
 │   │   ├── formulario/            # Pinta el descriptor que manda la API (§8.4)
 │   │   └── formato/               # Moneda y fechas para Colombia
 │   ├── datos/
-│   │   ├── cliente_api.dart       # ÚNICO punto de salida a la red. Solo habla con prisma_api
+│   │   ├── cliente_api.dart       # ÚNICO punto de salida a la red. Solo habla con emprende_api
 │   │   ├── firma.dart             # Nonce, marca de tiempo y HMAC de cada petición (§9.3)
 │   │   ├── cola_pendientes.dart   # Cola local persistente con clave de idempotencia (§10)
 │   │   └── modelos/               # Espejo de lo que devuelve la API
@@ -311,7 +311,7 @@ dart_code_metrics:
         entries:
           - paths: ['lib/.*']
             deny: ['package:supabase_flutter', 'package:postgres']
-            message: 'El front habla con prisma_api, nunca con Supabase (§1.1)'
+            message: 'El front habla con emprende_api, nunca con Supabase (§1.1)'
 ```
 
 Si alguien importa PostgreSQL dentro del dominio, o Supabase dentro del front, la compilación
@@ -321,7 +321,7 @@ falla. No es una recomendación de estilo: es una barrera.
 
 ## 4. El dominio en detalle
 
-Vive en `prisma_api`. El front no reimplementa ninguna de estas reglas: las consume.
+Vive en `emprende_api`. El front no reimplementa ninguna de estas reglas: las consume.
 
 ### 4.1 Dinero como objeto de valor
 
@@ -360,7 +360,7 @@ qué. Con enteros, el problema no existe. En Java, `long` es siempre un entero d
 `double`.
 
 > **Y hay una razón más para que el dinero se calcule en la API.** En la JVM —donde corre
-> `prisma_api`— un `long` es un entero de 64 bits de verdad. En el front compilado a JavaScript
+> `emprende_api`— un `long` es un entero de 64 bits de verdad. En el front compilado a JavaScript
 > para el navegador, un `int` de Dart pasa a ser un número de coma flotante. El sitio correcto
 > para sumar plata es el servidor, y con el front sin reglas de negocio ([§8](#8-validación-dos-capas-deciden-una-pinta)) ni siquiera hay
 > tentación de hacerlo en otro lado.
@@ -796,7 +796,7 @@ Lo que esto obliga en la arquitectura:
 
 - **`mensaje` es para una persona del taller**, siempre en español, nunca jerga técnica, nunca un
   nombre de restricción, nunca una traza. Es la API la que redacta, no el front ([§8.3](#83-qué-desaparece-del-front)).
-- **Existe un catálogo único de códigos** en `prisma_api`, y de él salen las respuestas, la
+- **Existe un catálogo único de códigos** en `emprende_api`, y de él salen las respuestas, la
   documentación de Swagger y la tabla de traducción de restricciones de [§8.5](#85-el-contrato-de-errores-lo-que-mantiene-honesta-la-redundancia). Generados, nunca
   copiados a mano.
 - Una prueba automática comprueba que **ningún código emitido por el código fuente falta en el
@@ -949,7 +949,7 @@ Flutter entra por `--dart-define` en el momento de compilar; en la API, por vari
 | ADR | Decisión | Estado |
 |---|---|---|
 | [ADR-001](adr/ADR-001-stack.md) | React + Vite + TypeScript + Supabase | Reemplazado por [ADR-011](adr/ADR-011-stack-flutter-dart.md) |
-| [ADR-002](adr/ADR-002-arquitectura-hexagonal.md) | Arquitectura hexagonal con regla de dependencias verificada | Aceptado · **se refuerza** ([§1.4](#14-por-dentro-de-prisma_api)) |
+| [ADR-002](adr/ADR-002-arquitectura-hexagonal.md) | Arquitectura hexagonal con regla de dependencias verificada | Aceptado · **se refuerza** ([§1.4](#14-por-dentro-de-emprende_api)) |
 | [ADR-003](adr/ADR-003-dinero-entero.md) | Dinero como entero de pesos | Aceptado |
 | [ADR-004](adr/ADR-004-base-solo-escritura.md) | Base de datos de solo escritura | Aceptado · con la excepción declarada de [§9.2](#92-idempotencia) |
 | [ADR-005](adr/ADR-005-auditoria-por-triggers.md) | Auditoría por triggers, no por aplicación | Aceptado |

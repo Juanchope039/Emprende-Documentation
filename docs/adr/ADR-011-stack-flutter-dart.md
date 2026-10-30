@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-011-stack-flutter-dart.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-017](ADR-017-api-en-java.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-011-stack-flutter-dart.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-017](ADR-017-api-en-java.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) · [API](../INDICE.md#etiqueta-api) |
 
-> **Lo reemplaza [ADR-017](ADR-017-api-en-java.md):** el front sigue en Flutter, pero `prisma_api`
+> **Lo reemplaza [ADR-017](ADR-017-api-en-java.md):** el front sigue en Flutter, pero `emprende_api`
 > pasa de Dart a Java 21 con Spring Boot, así que el argumento del lenguaje único ya no aplica.
 > El cuerpo de abajo se conserva tal como se escribió.
 
@@ -30,20 +30,20 @@ dibuja un botón, sino de dónde vive la lógica y quién puede hablar con la ba
 
 ## Decisión
 
-**`emprende_front` en Flutter Web, `prisma_api` en Dart, PostgreSQL en Supabase.**
+**`emprende_front` en Flutter Web, `emprende_api` en Dart, PostgreSQL en Supabase.**
 
 - `emprende_front` — Flutter Web, instalable como PWA (ver [ADR-016](ADR-016-flutter-web-pwa.md)).
-- `prisma_api` — Dart, que es a la vez API y BFF. Framework HTTP: **Dart Frog**, que va sobre
+- `emprende_api` — Dart, que es a la vez API y BFF. Framework HTTP: **Dart Frog**, que va sobre
   Shelf y da enrutado por sistema de archivos y recarga en caliente. Si algún día conviene
   depender de menos capas, Shelf desnudo sostiene la misma estructura.
 - **PostgreSQL gestionado por Supabase**, siempre en línea, un proyecto por ambiente.
 
 > **Regla dura: el front nunca habla con Supabase directamente.** Ni con la base, ni con Auth, ni
-> con Storage. Todo pasa por `prisma_api`. Si aparece el cliente de Supabase dentro del código
+> con Storage. Todo pasa por `emprende_api`. Si aparece el cliente de Supabase dentro del código
 > Flutter, se rechaza en revisión de código.
 
 Una sola API, y no BFF más API de dominio, porque hoy hay **un solo cliente**. Partirla daría dos
-cosas que desplegar, versionar y vigilar sin ninguna ganancia. `prisma_api` queda organizada por
+cosas que desplegar, versionar y vigilar sin ninguna ganancia. `emprende_api` queda organizada por
 dentro según [ADR-002](ADR-002-arquitectura-hexagonal.md) para que ese corte sea posible el día
 que exista un segundo cliente.
 
@@ -81,7 +81,7 @@ hasta PostgreSQL en cada petición. Sin eso, este cambio destruye la seguridad d
 - **Negativas:** **el backend vuelve al proyecto.** [ADR-001](ADR-001-stack.md) justificó Supabase
   diciendo que lo más lento y riesgoso de cualquier sistema es el backend —usuarios, contraseñas,
   permisos, archivos, respaldos— y que quitarlo reducía el proyecto de unas 20 semanas a 14. Este
-  cambio lo devuelve: hay que construir, probar, desplegar, versionar y asegurar `prisma_api`, y
+  cambio lo devuelve: hay que construir, probar, desplegar, versionar y asegurar `emprende_api`, y
   hacerlo **por cuatro ambientes**. El plan de 7 sprints de
   [`08-plan-de-desarrollo.md`](../08-plan-de-desarrollo.md) **ya no alcanza** y hay que rehacerlo
   con honestidad, no apretando las mismas tareas en el mismo tiempo. Se suma el costo de operación:
