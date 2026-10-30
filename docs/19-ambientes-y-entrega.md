@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.1.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de PRISMA.
 
@@ -319,7 +319,7 @@ provisional. Si algún día rompe, es ese ADR el que decide qué pasa con la rut
 
 | | Etiqueta | Release |
 |---|---|---|
-| **Cuándo** | Cuando la entrega crea `release/X.Y.Z`; el esquema, cada vez que una versión entra a `develop`; en el monorepo, en cada entrega | Cuando la entrega crea `release/X.Y.Z`; en el monorepo, en cada `entrega-vN` |
+| **Cuándo** | Cuando la entrega crea `release/X.Y.Z`; en el monorepo, en cada entrega | Cuando la entrega crea `release/X.Y.Z`; en el monorepo, en cada `entrega-vN` |
 | **Tramo** | Desde la etiqueta anterior del mismo patrón | Desde el release anterior: junta las versiones intermedias |
 | **Contenido** | Lo escribe la tubería: `Paso:` e `Incluye:` | Lo generan los `CHANGELOG.md` del tramo |
 | **Para quién** | La tubería y quien depura | Quien adopta: el equipo y, en el monorepo, cada emprendimiento |
@@ -330,20 +330,23 @@ provisional. Si algún día rompe, es ese ADR el que decide qué pasa con la rut
 |---|---|---|---|---|
 | `prisma_api` | `vN.N.N` | `v2.4.0` | `2.4.0` (sin la `v`), `v2.4` (le falta el PATCH), `v2.4.0-RELEASE` (sin sufijo) | `release/X.Y.Z` |
 | `prisma_front` | `vN.N.N+N` | `v2.1.3+55` | `v2.1.3` (sin `+BUILD`), `v2.1.03+55` (cero a la izquierda) | `release/X.Y.Z` |
-| `prisma_db` | `esquema-vN.N.N` | `esquema-v0.26.1` | `v0.26.1` (sin el prefijo), `esquema-0.26.1` (sin la `v`) | `develop` |
+| `prisma_db` | `vN.N.N` | `v0.28.0` | `0.28.0` (sin la `v`), `esquema-v0.28.0` (en desuso desde el 2026-10-30, [ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)) | `release/X.Y.Z` |
 | Monorepo | `entrega-vN`, desde 1 | `entrega-v3` | `entrega-v0`, `entrega-v03`, `entrega-v1.0.0` (es un consecutivo) | `main` |
 
 **Las reglas de toda etiqueta:**
 
 - es anotada, nunca ligera, y **no se mueve ni se borra jamás**;
-- en la API y el front va sobre el commit de `release/X.Y.Z` que pasa la versión a `-RELEASE`, cuyo
-  primer padre es el commit de `main` que se entregó; en la base, sobre el commit de la primera
-  línea de `develop` con que la versión entró;
-- **sube** con respecto a la anterior del mismo patrón. La del esquema sube **un solo paso**: después
-  de `esquema-v0.26.1` valen `esquema-v0.26.2`, `esquema-v0.27.0` o `esquema-v1.0.0`, y no
-  `esquema-v0.28.0`. La de una release puede juntar varios, porque entre dos entregas `develop` sube
-  un paso por PR: después de `v2.4.0` vale `v2.6.0`, y en el front el `+BUILD` también crece. Después
-  de `entrega-v3`, solo `entrega-v4`.
+- en la API, el front y la base va sobre el commit de `release/X.Y.Z` que pasa la versión a
+  `-RELEASE`, cuyo primer padre es el commit de `main` que se entregó;
+- **sube** con respecto a la anterior del mismo patrón, y puede juntar varios pasos, porque entre dos
+  entregas `develop` sube un paso por PR: después de `v2.4.0` vale `v2.6.0`, y en el front el
+  `+BUILD` también crece. Después de `entrega-v3`, solo `entrega-v4`.
+
+**`esquema-vX.Y.Z` queda en desuso** ({A}). Las que existen, de `esquema-v0.2.0` a
+`esquema-v0.28.0`, se quedan donde están y nadie pone una nueva. La tubería de la API trae la
+versión del esquema que pide por su `vX.Y.Z`, por la `esquema-vX.Y.Z` vieja o, si todavía no se
+entregó, por el commit de la primera línea de `develop` que agregó la migración que la publica: el
+mismo que antes recibía la etiqueta.
 
 **El mensaje** tiene forma fija, y no nombra otras etiquetas: la anterior se deduce.
 
@@ -363,14 +366,14 @@ Incluye:
 - **Solo se nombra otra etiqueta para corregirla**, en un renglón `Corrige: <etiqueta>: lo que estaba
   mal`. Una etiqueta equivocada no se rehace: la siguiente lo declara.
 
-**Lo verifica `verificar-etiquetas.sh`** en cada repositorio de código: en la base, en el empuje a
-`develop`; en la API y el front, desde la `release/X.Y.Z` nueva, antes de empujarla.
+**Lo verifica `verificar-etiquetas.sh`** en cada repositorio de código, desde la `release/X.Y.Z`
+nueva, antes de empujarla.
 Las etiquetas de antes del [ADR-059](adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md) llevan el mensaje viejo, y ocho de la base no cumplen el resto
 (seis ligeras y dos fuera de la primera línea): están en su lista de excepciones, que solo se
 encoge.
 
 **El release** lo publica `crear-release.yml` en la `release/X.Y.Z` ([ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)), titulado
-`X.Y.Z-RELEASE · AAAA-MM-DD` con la fecha en hora de Bogotá; en la base, sobre su `esquema-vX.Y.Z`.
+`X.Y.Z-RELEASE · AAAA-MM-DD` con la fecha en hora de Bogotá, sobre su `vX.Y.Z`.
 Junta las entradas del `CHANGELOG.md` que caen en su tramo, y no se publica si la
 versión que llega no tiene la suya (el changelog cuenta lo que llega a qa, que puede juntar varias
 versiones en una entrada), o si a la API o al front les falta su imagen en GHCR con el árbol de esa versión. Su cuerpo nombra la

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.5.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [16.6.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -172,8 +172,8 @@ ni referencias de proyectos, ni nombres de clientes.
 
 **Las etiquetas y los releases los pone la tubería, nunca una persona ni una sesión** ([ADR-059](docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md)).
 - La etiqueta y el release nacen cuando la entrega crea `release/X.Y.Z`, con la versión en
-  `-RELEASE` ([ADR-077](docs/adr/ADR-077-snapshot-hasta-la-release.md)); la etiqueta del esquema, cuando la versión entra a `develop`. En el monorepo,
-  los dos en cada entrega.
+  `-RELEASE` ([ADR-077](docs/adr/ADR-077-snapshot-hasta-la-release.md)), también en la base, que usa `vX.Y.Z`: `esquema-vX.Y.Z` queda en desuso. En el
+  monorepo, los dos en cada entrega.
 - Una etiqueta no se mueve ni se borra. Si quedó mal, la siguiente lo declara con `Corrige:`.
 - El esquema, con sus ejemplos, está en el [19 §4.4](docs/19-ambientes-y-entrega.md#44-etiquetas-y-releases), y el paso a paso en las skills `etiqueta` y `release`.
 
