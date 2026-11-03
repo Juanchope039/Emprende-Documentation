@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [16.6.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/CLAUDE.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Las reglas de Emprende, para cualquier sesión en cualquiera de los cuatro repositorios.
 
@@ -180,6 +180,11 @@ ni referencias de proyectos, ni nombres de clientes.
 **Todo `.md` de los cuatro repositorios lleva encabezado con versión, estado y fechas** ([ADR-027](docs/adr/ADR-027-documentacion-versionada.md),
 [`22-documentacion.md`](docs/22-documentacion.md)).
 - Al cambiar un documento sube su versión, que es MAJOR si alguien actuaría mal con la anterior.
+- **Los archivos de IA van aparte** ([ADR-078](docs/adr/ADR-078-los-archivos-de-ia-solo-cambian-con-autorizacion.md)): `CLAUDE.md`, `AGENTS.md` y todo `.claude/`.
+  - **Solo cambian con autorización previa de quien dirige**, que ve antes el texto que entra o sale.
+    Un plan aprobado no la da si no nombra ese texto.
+  - Su versión es X.Y: X cuenta las versiones promovidas a uat, e Y sube con cada cambio autorizado.
+  - No llevan la versión del proyecto ni su resumen: eso vive solo en el `CHANGELOG.md`.
 - **Los bloques `<!-- generado:… -->` no se editan a mano**, y tampoco las marcas ⚡ 🔒 ⏭️ de
   [`TODO.md`](TODO.md). 🚧 y ✏️ sí las pone una persona.
 - El paso a paso —la versión, la fecha, `enlazar` y `verificar`— es la skill `documentar`.
