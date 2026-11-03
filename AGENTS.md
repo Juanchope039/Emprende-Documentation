@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.7.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
+| [1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/AGENTS.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-21 | 2026-10-17 | [Proceso](docs/INDICE.md#etiqueta-proceso) |
 
 Guía para los agentes de código que trabajan en la especificación de Emprende. **Las reglas están en
 [`CLAUDE.md`](CLAUDE.md)**, tanto las del proceso como las de la arquitectura y las de este

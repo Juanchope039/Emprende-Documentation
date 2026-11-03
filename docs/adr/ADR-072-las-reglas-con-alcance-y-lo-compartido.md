@@ -93,5 +93,5 @@ avisa, en el PR, que es cuando se puede arreglar.
 ---
 
 <!-- generado:referenciado-desde · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
-**🔗 Referenciado desde:** [AGENTS](../../AGENTS.md "AGENTS.md") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/agentes/README.md "Herramienta de lo compartido")
+**🔗 Referenciado desde:** [ADR-078](ADR-078-los-archivos-de-ia-solo-cambian-con-autorizacion.md "ADR-078 · Los archivos de IA solo cambian con autorización de quien dirige, y van en X.Y") · [AGENTS](../../AGENTS.md "AGENTS.md") · [CLAUDE](../../CLAUDE.md "CLAUDE.md") · [README](../../scripts/agentes/README.md "Herramienta de lo compartido")
 <!-- /generado:referenciado-desde -->

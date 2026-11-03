@@ -840,10 +840,12 @@ function revisarEncabezados(archivos, errores) {
       error('no tiene encabezado de metadatos (Versión | Estado | Creado | Actualizado | Etiquetas)');
       continue;
     }
-    const version = md.leerSemver(meta.version);
+    const deIA = md.esArchivoDeIA(a.ruta);
+    const version = deIA ? null : md.leerSemver(meta.version);
     const tipo = a.tipo === 'adr' ? 'adr' : 'documento';
     const reglaEstado = cfg.ESTADOS[tipo][meta.estado];
-    if (!version) error(`la versión «${meta.version}» no es SemVer`);
+    if (deIA && !md.leerVersionDeIA(meta.version)) error(`un archivo de IA va en X.Y (ADR-078), y está en «${meta.version}»`);
+    if (!deIA && !version) error(`la versión «${meta.version}» no es SemVer`);
     if (!reglaEstado) error(`el estado «${meta.estado}» no existe para un ${tipo === 'adr' ? 'ADR' : 'documento'}`);
     if (version && reglaEstado?.versiones === 'cero' && version[0] !== 0) error(`un documento en «${meta.estado}» va en 0.y.z, y está en ${meta.version}`);
     if (version && reglaEstado?.versiones === 'estable' && version[0] === 0) error(`un documento «${meta.estado}» va en 1.0.0 o más, y está en ${meta.version}`);
@@ -896,7 +898,8 @@ function revisarVersionesSubidas(archivos, base, errores) {
   }
   for (const ruta of cambiados) {
     const a = archivos.find((x) => x.ruta === ruta);
-    if (!a) continue;
+    // Un archivo de IA sube Y solo cuando quien dirige lo autoriza (ADR-078): no se le exige.
+    if (!a || md.esArchivoDeIA(a.ruta)) continue;
     let anterior;
     try {
       anterior = execFileSync('git', ['show', `${base}:${ruta}`], { cwd: RAIZ, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
