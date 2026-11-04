@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-055-uat-se-despliega-desde-el-monorepo.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-055-uat-se-despliega-desde-el-monorepo.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Lo modifica [ADR-061](ADR-061-se-promueve-con-merge-commit.md):** a `qa` ya no entra la entrada del changelog por su cuenta;
 > llega por `develop`, como todo lo demás. Las promociones se fusionan con merge commit.
@@ -10,7 +10,7 @@
 ## Contexto
 
 Desde el [ADR-053](ADR-053-se-quita-pre-prod-y-uat-se-despliega.md), Railway construye el uat alojado desde la rama `uat` de dos repositorios: la
-API desde `prisma_api` y el front desde `emprende_front`. Son dos orígenes para un ambiente, y
+API desde `emprende_api` y el front desde `emprende_front`. Son dos orígenes para un ambiente, y
 ninguno es el que reciben los emprendimientos, que parten del monorepo de producto ([ADR-054](ADR-054-la-entrega-va-al-monorepo-de-producto.md)).
 
 El monorepo ya lleva los cuatro repositorios como subárboles de git, en `backend-api/`,

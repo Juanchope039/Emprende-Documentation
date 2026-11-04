@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.2.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-059-etiquetas-con-esquema-y-release-en-main.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-15 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Lo modifica [ADR-077](ADR-077-snapshot-hasta-la-release.md):** la etiqueta `v<versión>` de la API y el front, y el release de
 > las tres piezas, ya no nacen en `develop` ni en el empuje a `main`: los pone la entrega, en la
@@ -19,7 +19,7 @@ etiqueta, y «Actualizar» del monorepo pide la entrega por la suya.
 
 Lo que no había era contenido ni comprobación. El 2026-10-15 había 44 etiquetas:
 
-- el mensaje solo decía la versión, como `prisma_api 2.4.0`, y no qué había entrado desde la
+- el mensaje solo decía la versión, como `emprende_api 2.4.0`, y no qué había entrado desde la
   anterior;
 - leer el tramo con `git log` devolvía las fusiones de promoción mezcladas con las tareas;
 - seis etiquetas de la base eran ligeras, y dos estaban fuera de la primera línea de `develop`;

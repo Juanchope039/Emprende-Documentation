@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-056-qa-se-aloja-desde-su-rama.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-056-qa-se-aloja-desde-su-rama.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-14 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 ## Contexto
 
@@ -23,7 +23,7 @@ construye la API y el front desde la rama `qa`** de cada repositorio.
 
 ## Decisión
 
-1. **Railway construye el ambiente de qa desde la rama `qa`** de `prisma_api` y de `emprende_front`,
+1. **Railway construye el ambiente de qa desde la rama `qa`** de `emprende_api` y de `emprende_front`,
    cuando la integración continua de ese empuje termina en verde.
 2. **Se despliegan tres ambientes de este proyecto**: dev desde `develop`, qa desde `qa` y uat
    desde el monorepo de producto ([ADR-055](ADR-055-uat-se-despliega-desde-el-monorepo.md)).

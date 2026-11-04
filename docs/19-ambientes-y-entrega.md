@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.2.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de Emprende.
 
@@ -104,7 +104,7 @@ no hay forma de saber cuál dice la verdad.
 ### 2.3 El artefacto se promueve, no se reconstruye
 
 Se compila **una vez**, en la etapa qa. Ese mismo archivo —el mismo `build/web` del front, la
-misma imagen de contenedor de `prisma_api`— es el que pasa la etapa `main` y el que se entrega a prod.
+misma imagen de contenedor de `emprende_api`— es el que pasa la etapa `main` y el que se entrega a prod.
 Lo único que cambia entre ambientes es la configuración del [§3](#3-la-configuración-de-cada-ambiente).
 
 > **uat no corre ese archivo: se construye desde `main` del monorepo, como dev desde su rama** ([ADR-055](adr/ADR-055-uat-se-despliega-desde-el-monorepo.md)).
@@ -143,7 +143,7 @@ Railway desde `main` del monorepo de producto, con su configuración ([ADR-055](
 
 ### 2.4 El artefacto de la API: una imagen de contenedor con una JVM adentro
 
-`prisma_api` es una aplicación Java 25 con Spring Boot, y eso decide cómo se construye, qué se
+`emprende_api` es una aplicación Java 25 con Spring Boot, y eso decide cómo se construye, qué se
 promueve y qué hace falta para alojarla:
 
 | Asunto | Cómo queda | Por qué |
@@ -174,7 +174,7 @@ dentro del artefacto.
 
 | Clave | Qué es | Ejemplo en dev | Ejemplo en prod |
 |---|---|---|---|
-| `EMPRENDE_API_URL` | Dónde vive `prisma_api` | `https://api-dev.prisma.com` | `https://api.prisma.com` |
+| `EMPRENDE_API_URL` | Dónde vive `emprende_api` | `https://api-dev.prisma.com` | `https://api.prisma.com` |
 | `EMPRENDE_AMBIENTE` | Cuál de los ambientes es | `dev` | `prod` |
 | `EMPRENDE_API_MAJOR` | Qué MAJOR de la API exige ([§4.3](#43-el-contrato-de-compatibilidad)) | `1` | `1` |
 | `EMPRENDE_COMMIT` | Referencia del commit compilado | `a3f19c4` | `a3f19c4` |
@@ -232,7 +232,7 @@ saber qué hace falta, no para arrancar nada.
 | Proyecto | Dónde vive la versión | Formato |
 |---|---|---|
 | `emprende_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD-SNAPSHOT` |
-| `prisma_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH-SNAPSHOT`, y la misma cadena etiqueta la imagen de contenedor |
+| `emprende_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH-SNAPSHOT`, y la misma cadena etiqueta la imagen de contenedor |
 | Esquema de base (`emprende_db`) | Migraciones numeradas + tabla `schema_version`, y su estado en `VERSION` | `MAJOR.MINOR.PATCH`; `VERSION` dice `MAJOR.MINOR.PATCH-SNAPSHOT` |
 
 **El sufijo dice el estado** ([ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)): `-SNAPSHOT` en `develop`, `qa` y `main`, y `-RELEASE` en la
@@ -328,7 +328,7 @@ provisional. Si algún día rompe, es ese ADR el que decide qué pasa con la rut
 
 | Repositorio | Patrón | Vale | No vale, y por qué | Nace en |
 |---|---|---|---|---|
-| `prisma_api` | `vN.N.N` | `v2.4.0` | `2.4.0` (sin la `v`), `v2.4` (le falta el PATCH), `v2.4.0-RELEASE` (sin sufijo) | `release/X.Y.Z` |
+| `emprende_api` | `vN.N.N` | `v2.4.0` | `2.4.0` (sin la `v`), `v2.4` (le falta el PATCH), `v2.4.0-RELEASE` (sin sufijo) | `release/X.Y.Z` |
 | `emprende_front` | `vN.N.N+N` | `v2.1.3+55` | `v2.1.3` (sin `+BUILD`), `v2.1.03+55` (cero a la izquierda) | `release/X.Y.Z` |
 | `emprende_db` | `vN.N.N` | `v0.28.0` | `0.28.0` (sin la `v`), `esquema-v0.28.0` (en desuso desde el 2026-10-30, [ADR-077](adr/ADR-077-snapshot-hasta-la-release.md)) | `release/X.Y.Z` |
 | Monorepo | `entrega-vN`, desde 1 | `entrega-v3` | `entrega-v0`, `entrega-v03`, `entrega-v1.0.0` (es un consecutivo) | `main` |
@@ -351,7 +351,7 @@ mismo que antes recibía la etiqueta.
 **El mensaje** tiene forma fija, y no nombra otras etiquetas: la anterior se deduce.
 
 ```text
-prisma_api 2.5.0
+emprende_api 2.5.0
 
 Paso: MINOR
 Incluye:
@@ -464,7 +464,7 @@ solo hace esperar. La puerta para fusionar es que **todos** terminen en verde, n
 
 | Repositorio | Trabajos que corren a la vez |
 |---|---|
-| `prisma_api` | **Compilar y probar** —formato, compilación, regla de dependencias y todas las pruebas—, **la versión subió**, solo contra `develop`, y **el artefacto**, este solo de qa a `main`: qa construye la imagen y las demás comprueban que es la misma ([§6.3](#63-las-tres-etapas-cada-una-más-exhaustiva)) |
+| `emprende_api` | **Compilar y probar** —formato, compilación, regla de dependencias y todas las pruebas—, **la versión subió**, solo contra `develop`, y **el artefacto**, este solo de qa a `main`: qa construye la imagen y las demás comprueban que es la misma ([§6.3](#63-las-tres-etapas-cada-una-más-exhaustiva)) |
 | `emprende_front` | **Formato y análisis**, **pruebas** —incluida la regla de frontera—, **la versión subió**, solo contra `develop`, y **compilación web** |
 | `emprende_db` | **La versión subió**, que por ahora es su única comprobación: lo demás del [§6.2](#62-en-cada-promoción) necesita levantar Supabase, y llega con la tubería del [ADR-029](adr/ADR-029-esquema-por-etiqueta.md) |
 | `Finanzas-PRISMA` | **Verificar la documentación**: encabezados, enlaces, referencias, plan y versiones ([`22-documentacion.md`](22-documentacion.md)) |
@@ -488,7 +488,7 @@ Lo que comprueba cada etapa:
 | Pruebas unitarias | Las fórmulas financieras, sin base ni red ([`12-pruebas-y-calidad.md`](12-pruebas-y-calidad.md)) | Falla una |
 | **Secretos** | Recorre el repositorio entero buscando **valores** y no nombres: un JWT entero, una referencia de proyecto de Supabase, una cadena de conexión con la credencial adentro, o una variable de `.env.ejemplo` que dejó de estar vacía ([RNF-24](03-requisitos-y-bdd.md#rnf-24)) | Hay un secreto pegado en un archivo versionado |
 | **OpenAPI** | Regenera el documento desde los controladores y lo compara con el `openapi.json` versionado ([ADR-022](adr/ADR-022-openapi-generado.md)) | El regenerado difiere del versionado |
-| Compilación | `flutter build web` y la imagen de contenedor de `prisma_api` | No compila |
+| Compilación | `flutter build web` y la imagen de contenedor de `emprende_api` | No compila |
 | **Versión** | Compara con `develop` y exige que la versión del proyecto suba un paso si el PR cambia lo que se publica; en `emprende_db`, además, que ninguna migración vieja cambie ([C-05](12-pruebas-y-calidad.md#c-05), [ADR-034](adr/ADR-034-la-version-sube-en-cada-pr.md)) | Cambió lo que se publica y la versión no subió, o subió más de un paso |
 | Documentación | `node scripts/docs/documentar.mjs verificar --base <commit>` en la especificación | Un encabezado está mal, algo quedó sin enlazar o un documento cambió sin subir su versión |
 
@@ -805,7 +805,7 @@ Queda escrito aquí, en [ADR-013](adr/ADR-013-cuatro-ambientes.md) y en
 ## 9. Lo que este documento no cubre
 
 **Este documento no repite la arquitectura.** Cómo está construido el sistema por dentro —las
-capas, la regla de dependencias, el dominio, cómo `prisma_api` propaga la identidad hasta
+capas, la regla de dependencias, el dominio, cómo `emprende_api` propaga la identidad hasta
 PostgreSQL— está en [`07-arquitectura.md`](07-arquitectura.md), y ahí es donde se cambia. Aquí
 solo está **con qué configuración corre cada ambiente y cómo se mueve una versión entre ellos**.
 

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-077-snapshot-hasta-la-release.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-30 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-077-snapshot-hasta-la-release.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-30 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **Nota del 2026-10-30:** quien dirige decidió que `esquema-vX.Y.Z` queda en desuso. La base usa
 > `vX.Y.Z`, como la API y el front, y solo se pone en `release/X.Y.Z`; las `esquema-v` que existen
@@ -13,7 +13,7 @@
 
 ## Contexto
 
-La versión de `prisma_api` y `emprende_front` no distinguía lo que está en curso de lo entregado: la
+La versión de `emprende_api` y `emprende_front` no distinguía lo que está en curso de lo entregado: la
 `2.13.2` de `develop` y la `2.8.0` de `main` se escribían igual, y la etiqueta `v<versión>` nacía al
 fusionar a `develop` ([ADR-059](ADR-059-etiquetas-con-esquema-y-release-en-main.md)), antes de que la versión llegara a `qa` o a `main`. El release salía en
 el empuje a `main`, y la entrega a prod no dejaba rastro en los repositorios de código.

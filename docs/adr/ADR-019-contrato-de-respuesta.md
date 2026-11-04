@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-019-contrato-de-respuesta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-09-16 | [Contrato](../INDICE.md#etiqueta-contrato) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-019-contrato-de-respuesta.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-30 | [Contrato](../INDICE.md#etiqueta-contrato) · [API](../INDICE.md#etiqueta-api) |
 
 ## Contexto
 
@@ -126,7 +126,7 @@ que merecen un HTTP más preciso. El rango lleno es el aviso, no el problema.
 
 ### El catálogo
 
-Existe **un solo catálogo** de códigos en `prisma_api`, con cinco columnas: código, HTTP, módulo,
+Existe **un solo catálogo** de códigos en `emprende_api`, con cinco columnas: código, HTTP, módulo,
 mensaje en español y cuándo se emite. De él salen tres cosas, **generadas, nunca copiadas a
 mano**:
 
@@ -197,7 +197,7 @@ tiempo a quien lo lea.
 - [ADR-022 · OpenAPI generado del código](ADR-022-openapi-generado.md) — la documentación de
   Swagger es una de las tres cosas que se generan de este catálogo.
 - [`../07-arquitectura.md`](../07-arquitectura.md) — dónde vive el sobre dentro de la capa de
-  interfaz de `prisma_api`.
+  interfaz de `emprende_api`.
 
 ---
 

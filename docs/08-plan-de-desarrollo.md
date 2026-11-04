@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [11.4.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/08-plan-de-desarrollo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Paralelo](INDICE.md#etiqueta-paralelo) |
+| [11.4.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/08-plan-de-desarrollo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Paralelo](INDICE.md#etiqueta-paralelo) |
 
 **El plan se organiza por repositorios y dependencias, no por personas.** Cada tarea dice dónde
 vive —API, Base, Front, Contrato o Decisión— y de qué depende. De esas dos columnas sale lo demás,
@@ -17,7 +17,7 @@ persona, un equipo o una sesión de trabajo; al plan le da igual.
 > **El plan de 7 sprints daba por hecho que no había backend.**
 > [ADR-011](adr/ADR-011-stack-flutter-dart.md) lo devolvió al proyecto y **[ADR-017](adr/ADR-017-api-en-java.md) lo reescribió en Java**: ahora hay dos bases de
 > código que construir, versionar y desplegar —`emprende_front` en Flutter, con web por defecto, y
-> `prisma_api` en Java 25 con Spring Boot— y cuatro ambientes por donde promoverlas. Apretar lo
+> `emprende_api` en Java 25 con Spring Boot— y cuatro ambientes por donde promoverlas. Apretar lo
 > nuevo en el mismo calendario sería mentir.
 
 > **Con más tareas a la vez no se tarda la mitad, y el cálculo dice por qué.** Los Sprints 0 a 2 son
@@ -349,7 +349,7 @@ gantt
 
 | Columna | Qué dice |
 |---|---|
-| **Dónde** | Dónde vive la tarea: **API** (`prisma_api`), **Base** (`emprende_db`), **Front** (`emprende_front`), **Contrato** (`contrato/` de la especificación, lo revisan los dos lados) o **Decisión** (no es código: la toma quien dirige el proyecto). Si hay varios, el primero es el que la lleva |
+| **Dónde** | Dónde vive la tarea: **API** (`emprende_api`), **Base** (`emprende_db`), **Front** (`emprende_front`), **Contrato** (`contrato/` de la especificación, lo revisan los dos lados) o **Decisión** (no es código: la toma quien dirige el proyecto). Si hay varios, el primero es el que la lleva |
 | **Depende de** | Lo que tiene que estar hecho antes de empezarla, sea del mismo sprint o de otro. Un hito, como [H9](#h9), significa todas las tareas de ese sprint |
 | **Días** | Días de trabajo, no de calendario |
 
@@ -379,7 +379,7 @@ hoy, con lo que ya está hecho, está en [`TODO.md`](../TODO.md).
 
 | # | Tarea | Dónde | Depende de | Días |
 |---|---|---|---|---:|
-| <a id="tarea-0-1"></a>0.1 | Proyecto `prisma_api` en **Java 25 con Spring Boot**, construido con **Gradle**, con el esqueleto hexagonal en paquetes: `dominio`, `aplicacion`, `infraestructura`, `interfaz` | API | — | 2 |
+| <a id="tarea-0-1"></a>0.1 | Proyecto `emprende_api` en **Java 25 con Spring Boot**, construido con **Gradle**, con el esqueleto hexagonal en paquetes: `dominio`, `aplicacion`, `infraestructura`, `interfaz` | API | — | 2 |
 | <a id="tarea-0-2"></a>0.2 | Regla de frontera verificada en la integración continua con **ArchUnit**: la construcción falla si `dominio` importa Spring, JDBC o HTTP | API | [0.1](#tarea-0-1) | 1 |
 | <a id="tarea-0-3"></a>0.3 | Proyecto `emprende_front` en Flutter, con **web por defecto** y la misma separación por capas | Front | — | 1,5 |
 | <a id="tarea-0-4"></a>0.4 | Los proyectos **dev y qa** de Supabase, cada uno con su base, sus claves y su almacenamiento. Los dos de pago —uat y prod— son la [9.12](#tarea-9-12) | Decisión | — | 0,5 |

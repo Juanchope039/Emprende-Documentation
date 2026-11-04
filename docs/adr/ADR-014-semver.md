@@ -2,12 +2,12 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.3.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-014-semver.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
+| [1.3.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-014-semver.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) |
 
 > **La decisión sigue vigente; un dato del cuerpo dejó de serlo.** Cuando se escribió, la API
 > estaba en Dart y su versión vivía en un `pubspec.yaml`. [ADR-017](ADR-017-api-en-java.md) la
 > pasó a Java con Spring Boot y [ADR-024](ADR-024-java-25-y-gradle.md) lo puso en Gradle, así
-> que **la versión de `prisma_api` vive en su `build.gradle.kts`**. El
+> que **la versión de `emprende_api` vive en su `build.gradle.kts`**. El
 > front sigue en `pubspec.yaml` y el esquema sigue en sus migraciones. Lo que este ADR decide
 > —SemVer independiente por proyecto y un contrato de compatibilidad que impide que ser
 > independientes signifique romperse en silencio— no cambia en nada. La tabla vigente de dónde
@@ -67,7 +67,7 @@ comprueba al arrancar.**
 | Proyecto | Dónde vive la versión | Formato |
 |---|---|---|
 | `emprende_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD` |
-| `prisma_api` | `pubspec.yaml` | `MAJOR.MINOR.PATCH` |
+| `emprende_api` | `pubspec.yaml` | `MAJOR.MINOR.PATCH` |
 | Esquema de base | Migraciones numeradas + tabla `schema_version` | `MAJOR.MINOR.PATCH` |
 
 ### Reglas

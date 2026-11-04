@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-034-la-version-sube-en-cada-pr.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-19 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) · [Calidad](../INDICE.md#etiqueta-calidad) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-034-la-version-sube-en-cada-pr.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-19 | 2026-10-30 | [Entrega](../INDICE.md#etiqueta-entrega) · [Proceso](../INDICE.md#etiqueta-proceso) · [Calidad](../INDICE.md#etiqueta-calidad) |
 
 ## Contexto
 
@@ -57,7 +57,7 @@ las escribía.
    | Repositorio | Dónde está la versión | Forma | La puerta, en una máquina |
    |---|---|---|---|
    | `emprende_front` | `pubspec.yaml` | `MAJOR.MINOR.PATCH+BUILD` | `dart run tool/la_version_subio.dart origin/develop` |
-   | `prisma_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH` | `./gradlew laVersionSubio --args=origin/develop` |
+   | `emprende_api` | `build.gradle.kts` | `MAJOR.MINOR.PATCH` | `./gradlew laVersionSubio --args=origin/develop` |
    | `emprende_db` | La migración que inserta en `schema_version` | `MAJOR.MINOR.PATCH` | `./scripts/db/la-version-subio.ps1 -Base origin/develop` |
 
 6. **Cada dato de «Acerca de» sale de una sola fuente, y ninguna se escribe dos veces a mano:** la

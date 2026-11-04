@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.4.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/16-base-de-datos-y-snapshots.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Calidad](INDICE.md#etiqueta-calidad) |
+| [3.4.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/16-base-de-datos-y-snapshots.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Calidad](INDICE.md#etiqueta-calidad) |
 
 > **Construcción: construido y corriendo contra dev y contra qa**, donde el esquema está aplicado y
 > verificado línea por línea (tareas [0.4](08-plan-de-desarrollo.md#tarea-0-4), [0.5](08-plan-de-desarrollo.md#tarea-0-5), [1.1](08-plan-de-desarrollo.md#tarea-1-1) a [1.5](08-plan-de-desarrollo.md#tarea-1-5) y [1.13](08-plan-de-desarrollo.md#tarea-1-13)). **qa quedó al día** con el
@@ -15,7 +15,7 @@
 >
 > Desde el [ADR-025](adr/ADR-025-cuatro-repositorios.md), `supabase/` y `scripts/db/` tienen
 > repositorio propio, `emprende_db`, que en disco va en `backend-db`, al lado de esta especificación. **Todas las rutas
-> de este documento son relativas a `emprende_db`.** Antes vivieron dentro de `prisma_api`
+> de este documento son relativas a `emprende_db`.** Antes vivieron dentro de `emprende_api`
 > ([ADR-023](adr/ADR-023-tres-repositorios.md)).
 >
 > Separarlos de la API tiene un precio que vale la pena repetir: **una migración y el código que

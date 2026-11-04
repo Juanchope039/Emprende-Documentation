@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.42.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
+| [1.44.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/README.md "Historial de cambios") | [🔄 Vivo](../22-documentacion.md#estados) | 2026-09-13 | 2026-11-03 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) |
 
 Registro de las decisiones técnicas importantes: qué se decidió, por qué, qué alternativas se
 consideraron y qué consecuencias tiene.
@@ -86,8 +86,10 @@ consideraron y qué consecuencias tiene.
 | [075](ADR-075-solo-quien-dirige-fusiona.md) | Solo quien dirige fusiona los PR | Aceptado |
 | [076](ADR-076-la-tuberia-en-dos-flujos.md) | La tubería de cada repositorio de código va en dos flujos | Aceptado |
 | [077](ADR-077-snapshot-hasta-la-release.md) | La versión es -SNAPSHOT hasta que la entrega crea su release/X.Y.Z | Aceptado |
+| [078](ADR-078-los-archivos-de-ia-solo-cambian-con-autorizacion.md) | Los archivos de IA solo cambian con autorización de quien dirige, y van en X.Y | Aceptado |
+| [079](ADR-079-el-correo-se-busca-no-se-arma.md) | El correo se busca, no se arma, y la persona decide si tiene uno | Aceptado |
 
-Son **76 decisiones** registradas: 61 aceptadas y 15 reemplazadas.
+Son **79 decisiones** registradas: 64 aceptadas y 15 reemplazadas.
 
 > **Sobre la numeración.** El cambio de stack se planeó como [ADR-010](ADR-010-almacenamiento-contrasenas.md) y [ADR-011](ADR-011-stack-flutter-dart.md), pero el 010 ya
 > estaba ocupado por la decisión de contraseñas. Un número asignado no se reutiliza, así que el

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-015-validacion-tres-capas.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-018](ADR-018-front-sin-decisiones.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-015-validacion-tres-capas.md "Historial de cambios") | [⛔ Reemplazado](../22-documentacion.md#estados-de-un-adr) por [ADR-018](ADR-018-front-sin-decisiones.md) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) · [API](../INDICE.md#etiqueta-api) |
 
 > **Lo reemplaza [ADR-018](ADR-018-front-sin-decisiones.md):** la base y la API siguen decidiendo
 > y el contrato de errores se conserva, pero el front deja de tener su copia de las reglas y pasa
@@ -10,7 +10,7 @@
 
 ## Contexto
 
-Con `prisma_api` en medio, una misma regla —«el valor de un movimiento es mayor que cero»— puede
+Con `emprende_api` en medio, una misma regla —«el valor de un movimiento es mayor que cero»— puede
 vivir en tres sitios: el formulario del front, el caso de uso de la API y la restricción de
 PostgreSQL. Hay que decidir en cuántos de los tres vive.
 
@@ -43,7 +43,7 @@ dejaron pasar, eso es un defecto de las otras dos, no de la base.
 | Capa | Qué valida | Qué pasa si falla | Se puede saltar |
 |---|---|---|---|
 | **PostgreSQL** | `NOT NULL`, `CHECK`, `FOREIGN KEY`, `UNIQUE`, `EXCLUDE`, dominios, triggers, RLS, `REVOKE DELETE` | Error del motor con nombre de restricción | **No** |
-| **`prisma_api`** | Las mismas reglas, otra vez, antes de ir a la base | 400 o 422 con mensaje en español | Sí, si alguien llama a la base por fuera |
+| **`emprende_api`** | Las mismas reglas, otra vez, antes de ir a la base | 400 o 422 con mensaje en español | Sí, si alguien llama a la base por fuera |
 | **`emprende_front`** | Las mismas reglas, otra vez, en el formulario | Aviso inmediato, sin viaje a la red | Sí, con las herramientas del navegador |
 
 ### El contrato de errores

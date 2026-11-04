@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-018-front-sin-decisiones.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-018-front-sin-decisiones.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-09-15 | 2026-10-30 | [Arquitectura](../INDICE.md#etiqueta-arquitectura) · [Front](../INDICE.md#etiqueta-front) |
 
 > **La decisión sigue vigente; un dato del cuerpo dejó de serlo.** Donde abajo dice «Java 21», la
 > API ya es **Java 25**: lo cambió [ADR-024](ADR-024-java-25-y-gradle.md), que reemplazó a
@@ -42,7 +42,7 @@ mal sin gastar un viaje por datos móviles en un taller con señal intermitente?
 
 ```
 ┌──────────────────────┐  HTTPS/JSON   ┌──────────────────────┐   JDBC   ┌──────────────────┐
-│ emprende_front         │ ────────────▶ │ prisma_api           │ ───────▶ │ Capa de datos    │
+│ emprende_front         │ ────────────▶ │ emprende_api           │ ───────▶ │ Capa de datos    │
 │ Flutter multiplat.   │ ◀──────────── │ Java 21 · Spring Boot│ ◀─────── │ PostgreSQL       │
 │ web por defecto      │               │ TODA la lógica       │          │ Supabase         │
 │ pide, recibe, muestra│               │ dicta los mensajes   │          │ siempre en línea │
@@ -74,7 +74,7 @@ Esto **reemplaza el modelo de tres capas de [ADR-015](ADR-015-validacion-tres-ca
 | Capa | Qué hace | Se puede saltar |
 |---|---|---|
 | **PostgreSQL** | **Decide.** `NOT NULL`, `CHECK`, `FOREIGN KEY`, `UNIQUE`, `EXCLUDE`, dominios, triggers, RLS, `REVOKE DELETE` | **No** |
-| **`prisma_api`** | **Decide.** Las mismas reglas, otra vez, antes de ir a la base; traduce el error de la base a mensaje en español | Sí, si alguien llama a la base por fuera |
+| **`emprende_api`** | **Decide.** Las mismas reglas, otra vez, antes de ir a la base; traduce el error de la base a mensaje en español | Sí, si alguien llama a la base por fuera |
 | **`emprende_front`** | **Pinta.** Aplica el descriptor que la API le mandó y muestra el mensaje que la API redactó | Sí, y no importa: no autoriza nada |
 
 Sigue siendo cierto lo que decía [ADR-015](ADR-015-validacion-tres-capas.md) y no se toca: si las capas discrepan, **gana la base**;

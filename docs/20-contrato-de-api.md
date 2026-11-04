@@ -2,14 +2,14 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/20-contrato-de-api.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Contrato](INDICE.md#etiqueta-contrato) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) |
+| [3.1.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/20-contrato-de-api.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Contrato](INDICE.md#etiqueta-contrato) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) |
 
-Qué forma tiene toda respuesta de `prisma_api`, cómo se numeran los errores y qué cabeceras lleva
+Qué forma tiene toda respuesta de `emprende_api`, cómo se numeran los errores y qué cabeceras lleva
 cada petición. Es el documento de referencia para quien vaya a construir o a consumir la API.
 
 > **Construcción: en parte.** Todo lo que este documento describe —el sobre, el catálogo, el
 > descriptor, la idempotencia y el canal firmado— está construido de los dos lados. De las
-> operaciones, el contrato acordado va por el `0.22.0` y la copia fijada de `prisma_api` lo sigue;
+> operaciones, el contrato acordado va por el `0.22.0` y la copia fijada de `emprende_api` lo sigue;
 > **qué rutas sirve ya la API y cuáles todavía no, lo dice su README**, no este documento, para que
 > un número no envejezca en dos sitios ([ADR-039](adr/ADR-039-cada-regla-en-un-solo-sitio.md)).
 > Este documento fijó el contrato antes de escribir el primer controlador, porque un contrato
@@ -207,7 +207,7 @@ Y el primer límite deja de ser un problema por lo que significa cuando aparece:
 
 ### 3.1 Uno solo, y de él sale todo lo demás
 
-Existe **un solo catálogo** de códigos, y vive en `prisma_api`. Cada entrada lleva código, HTTP,
+Existe **un solo catálogo** de códigos, y vive en `emprende_api`. Cada entrada lleva código, HTTP,
 módulo, mensaje en español y cuándo se emite.
 
 De ese catálogo salen tres cosas, **generadas, nunca copiadas a mano**:

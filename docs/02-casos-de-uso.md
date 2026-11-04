@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.2.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/02-casos-de-uso.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [3.2.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/02-casos-de-uso.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Requisitos](INDICE.md#etiqueta-requisitos) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Los 37 casos de uso del MVP, **todos con su flujo paso a paso** en el [§2](#2-casos-de-uso-detallados). Cada uno indica el
 **rol autorizado**, y esa autorización se implementa en la base de datos, no en la pantalla.
@@ -1685,23 +1685,23 @@ quiere decir que el dato no está en la historia de git**, no que no aplique; el
 | [CU-07 A3](#cu-07) · Cancelar el pedido | ✅ | [4.9](08-plan-de-desarrollo.md#tarea-4-9) · [10.6](08-plan-de-desarrollo.md#tarea-10-6) | `emprende_front` · PR #147 | `f08f8f2` | `feature/el-estado-del-pedido` | 2026-10-16 | `2.2.0+57` |
 | [CU-08](#cu-08) · Consultar pedidos por fecha | ✅ | [4.6](08-plan-de-desarrollo.md#tarea-4-6) · [10.7](08-plan-de-desarrollo.md#tarea-10-7) | `emprende_front` · PR #147 | `f08f8f2` | `feature/el-estado-del-pedido` | 2026-10-16 | `2.2.0+57` |
 | [CU-09](#cu-09) · Costear un producto | ✅ | [5.2](08-plan-de-desarrollo.md#tarea-5-2) · [5.3](08-plan-de-desarrollo.md#tarea-5-3) · [5.9](08-plan-de-desarrollo.md#tarea-5-9) | `emprende_front` · PR #49 | `166156c` | `feature/5.9` | 2026-09-29 | `0.27.0+33` |
-| [CU-10](#cu-10) · Costear servicio de bordado | ⛔ | [5.4](08-plan-de-desarrollo.md#tarea-5-4) · [10.3](08-plan-de-desarrollo.md#tarea-10-3) | `prisma_api` · PR #77 | `13fbb39` | `feature/5.4` | 2026-09-30 | `0.41.0` |
+| [CU-10](#cu-10) · Costear servicio de bordado | ⛔ | [5.4](08-plan-de-desarrollo.md#tarea-5-4) · [10.3](08-plan-de-desarrollo.md#tarea-10-3) | `emprende_api` · PR #77 | `13fbb39` | `feature/5.4` | 2026-09-30 | `0.41.0` |
 | [CU-11](#cu-11) · Generar cotización PDF | ✅ | [8.8](08-plan-de-desarrollo.md#tarea-8-8) · [8.12](08-plan-de-desarrollo.md#tarea-8-12) | `emprende_front` · PR #56 | `35a813a` | `feature/8.8` | 2026-10-01 | `0.33.0+39` |
-| [CU-12](#cu-12) · Validar anticipo mínimo | ✅ | [8.9](08-plan-de-desarrollo.md#tarea-8-9) | `prisma_api` · PR #86 | `a8bbe31` | `feature/8.9` | 2026-10-02 | `0.48.0` |
+| [CU-12](#cu-12) · Validar anticipo mínimo | ✅ | [8.9](08-plan-de-desarrollo.md#tarea-8-9) | `emprende_api` · PR #86 | `a8bbe31` | `feature/8.9` | 2026-10-02 | `0.48.0` |
 | [CU-13](#cu-13) · Ver utilidad, caja y caja libre | ✅ | [6.1](08-plan-de-desarrollo.md#tarea-6-1) · [6.3](08-plan-de-desarrollo.md#tarea-6-3) · [6.11](08-plan-de-desarrollo.md#tarea-6-11) | `emprende_front` · PR #47 | `3b47343` | `feature/6.3` | 2026-09-29 | `0.25.0+31` |
 | [CU-14](#cu-14) · Ver promedio de ganancias | ✅ | [6.5](08-plan-de-desarrollo.md#tarea-6-5) | `emprende_front` · PR #51 | `d13f9a8` | `feature/6.5` | 2026-09-29 | `0.29.0+35` |
 | [CU-15](#cu-15) · Registrar inversión en activo | ✅ | [7.1](08-plan-de-desarrollo.md#tarea-7-1) · [7.2](08-plan-de-desarrollo.md#tarea-7-2) | — | — | — | — | — |
 | [CU-16](#cu-16) · Registrar retiro | ✅ | [7.4](08-plan-de-desarrollo.md#tarea-7-4) | — | — | — | — | — |
 | [CU-17](#cu-17) · Configurar los 4 sobres | ✅ | [7.7](08-plan-de-desarrollo.md#tarea-7-7) · [7.8](08-plan-de-desarrollo.md#tarea-7-8) | `emprende_front` · PR #54 | `1f12af1` | `feature/7.8` | 2026-09-30 | `0.32.0+38` |
-| [CU-18](#cu-18) · Simular capacidad de pago | ✅ | [8.5](08-plan-de-desarrollo.md#tarea-8-5) · [8.6](08-plan-de-desarrollo.md#tarea-8-6) | `prisma_api` · PR #92 | `510357e` | `feature/8.6` | 2026-10-03 | `0.53.0` |
+| [CU-18](#cu-18) · Simular capacidad de pago | ✅ | [8.5](08-plan-de-desarrollo.md#tarea-8-5) · [8.6](08-plan-de-desarrollo.md#tarea-8-6) | `emprende_api` · PR #92 | `510357e` | `feature/8.6` | 2026-10-03 | `0.53.0` |
 | [CU-19](#cu-19) · Liquidar nómina del mes | 🚧 | [8.2](08-plan-de-desarrollo.md#tarea-8-2) | `emprende_db` · PR #41 | `e35406f` | `feature/8.2` | 2026-10-02 | esquema `0.22.0` |
-| [CU-20](#cu-20) · Ver el propio desprendible | 🚧 | [8.4](08-plan-de-desarrollo.md#tarea-8-4) | `prisma_api` · PR #91 | `cf16129` | `feature/8.4` | 2026-10-03 | `0.52.0` |
+| [CU-20](#cu-20) · Ver el propio desprendible | 🚧 | [8.4](08-plan-de-desarrollo.md#tarea-8-4) | `emprende_api` · PR #91 | `cf16129` | `feature/8.4` | 2026-10-03 | `0.52.0` |
 | [CU-21](#cu-21) · Importar histórico de Excel | ✅ | [8.10](08-plan-de-desarrollo.md#tarea-8-10) | `emprende_front` · PR #64 | `5cf1cc5` | `feature/8.10` | 2026-10-03 | `0.39.0+46` |
 | [CU-22](#cu-22) · Exportar respaldo | 🚧 | [8.13](08-plan-de-desarrollo.md#tarea-8-13) · [8.14](08-plan-de-desarrollo.md#tarea-8-14) · [8.15](08-plan-de-desarrollo.md#tarea-8-15) · [8.17](08-plan-de-desarrollo.md#tarea-8-17) | `emprende_db` · PR #61 | `18c63c5` | `feature/8.14` | 2026-10-08 | esquema `0.26.0` |
-| [CU-23](#cu-23) · Consultar auditoría | 🚧 | [8.13](08-plan-de-desarrollo.md#tarea-8-13) · [8.18](08-plan-de-desarrollo.md#tarea-8-18) · [8.19](08-plan-de-desarrollo.md#tarea-8-19) | `prisma_api` · PR #118 | `558d99e` | `feature/8.18` | 2026-10-09 | `2.3.0` |
-| [CU-24](#cu-24) · Alertar descapitalización | ✅ | [6.7](08-plan-de-desarrollo.md#tarea-6-7) · [7.6](08-plan-de-desarrollo.md#tarea-7-6) | `prisma_api` · PR #74 | `8d3378f` | `feature/7.6` | 2026-09-29 | `0.38.0` |
+| [CU-23](#cu-23) · Consultar auditoría | 🚧 | [8.13](08-plan-de-desarrollo.md#tarea-8-13) · [8.18](08-plan-de-desarrollo.md#tarea-8-18) · [8.19](08-plan-de-desarrollo.md#tarea-8-19) | `emprende_api` · PR #118 | `558d99e` | `feature/8.18` | 2026-10-09 | `2.3.0` |
+| [CU-24](#cu-24) · Alertar descapitalización | ✅ | [6.7](08-plan-de-desarrollo.md#tarea-6-7) · [7.6](08-plan-de-desarrollo.md#tarea-7-6) | `emprende_api` · PR #74 | `8d3378f` | `feature/7.6` | 2026-09-29 | `0.38.0` |
 | [CU-25](#cu-25) · Definir el pro-labore | ✅ | [7.3](08-plan-de-desarrollo.md#tarea-7-3) | — | — | — | — | — |
-| [CU-26](#cu-26) · Registrar adelanto a la empleada | ✅ | [8.3](08-plan-de-desarrollo.md#tarea-8-3) | `prisma_api` · PR #87 | `3089bc8` | `feature/8.3` | 2026-10-02 | `0.49.0` |
+| [CU-26](#cu-26) · Registrar adelanto a la empleada | ✅ | [8.3](08-plan-de-desarrollo.md#tarea-8-3) | `emprende_api` · PR #87 | `3089bc8` | `feature/8.3` | 2026-10-02 | `0.49.0` |
 | [CU-27](#cu-27) · Horas pagadas vs. horas facturadas | ⛔ | [8.7](08-plan-de-desarrollo.md#tarea-8-7) · [10.3](08-plan-de-desarrollo.md#tarea-10-3) | `emprende_front` · PR #63 | `3cf3ab3` | `feature/8.7` | 2026-10-03 | `0.38.0+45` |
 | [CU-28](#cu-28) · Iniciar sesión con usuario y contraseña | ✅ | [2.1](08-plan-de-desarrollo.md#tarea-2-1) · [2.2](08-plan-de-desarrollo.md#tarea-2-2) · [2.6](08-plan-de-desarrollo.md#tarea-2-6) | `emprende_front` | `561874c` | — | 2026-09-17 | `0.1.0+1` |
 | [CU-29](#cu-29) · Crear un usuario | ✅ | [2.7](08-plan-de-desarrollo.md#tarea-2-7) | — | — | — | — | — |
@@ -1712,7 +1712,7 @@ quiere decir que el dato no está en la historia de git**, no que no aplique; el
 | [CU-34](#cu-34) · Reactivar un usuario desactivado | ✅ | [2.17](08-plan-de-desarrollo.md#tarea-2-17) | — | — | — | — | — |
 | [CU-35](#cu-35) · Revertir un cambio desde la bitácora | ✅ | [2.16](08-plan-de-desarrollo.md#tarea-2-16) | `emprende_db` · PR #24 | `ab98f11` | `feature/2.16` | 2026-09-21 | esquema `0.10.0` |
 | [CU-36](#cu-36) · Previsualizar el sistema como lo ve Operación | ✅ | [2.18](08-plan-de-desarrollo.md#tarea-2-18) | — | — | — | — | — |
-| [CU-37](#cu-37) · Descargar lo que muestra una pantalla | ✅ | [6.9](08-plan-de-desarrollo.md#tarea-6-9) | `prisma_api` · PR #75 | `8556219` | `feature/6.9` | 2026-09-30 | `0.39.0` |
+| [CU-37](#cu-37) · Descargar lo que muestra una pantalla | ✅ | [6.9](08-plan-de-desarrollo.md#tarea-6-9) | `emprende_api` · PR #75 | `8556219` | `feature/6.9` | 2026-09-30 | `0.39.0` |
 
 ### 4.1 Las filas sin rastro
 

@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.85.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.85.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -18,7 +18,7 @@ hacer, manda el plan.
 | ✏️ | Escrita pero sin verificar: SQL que todavía no corrió contra ninguna base | Quien la escribe |
 | ⏭️ | Movida a otro sprint | La herramienta, del plan |
 
-Cada tarea dice su **Dónde**: **API** (`prisma_api`), **Base** (`emprende_db`), **Front**
+Cada tarea dice su **Dónde**: **API** (`emprende_api`), **Base** (`emprende_db`), **Front**
 (`emprende_front`), **Contrato** (`contrato/`, los dos lados) o **Decisión** (sin código).
 
 ---
@@ -397,7 +397,7 @@ o indirectamente. No es el orden en que se descubrieron.
 
 ## <a id="titulo-2"></a>2. <a id="sprint-0"></a>[Sprint 0](docs/08-plan-de-desarrollo.md#sprint-0) · proyectos, ambientes y contrato
 
-- [x] [**0.1**](docs/08-plan-de-desarrollo.md#tarea-0-1) Proyecto `prisma_api`: Java 25, Spring Boot 4 y Gradle, con el esqueleto hexagonal · API
+- [x] [**0.1**](docs/08-plan-de-desarrollo.md#tarea-0-1) Proyecto `emprende_api`: Java 25, Spring Boot 4 y Gradle, con el esqueleto hexagonal · API
 - [x] [**0.2**](docs/08-plan-de-desarrollo.md#tarea-0-2) Regla de frontera con ArchUnit en la integración continua · API
 - [x] [**0.3**](docs/08-plan-de-desarrollo.md#tarea-0-3) Proyecto `emprende_front` en Flutter, web por defecto · Front
 - [x] [**0.4**](docs/08-plan-de-desarrollo.md#tarea-0-4) Los proyectos **dev y qa** de Supabase · Decisión — los dos gratuitos, cada uno con
@@ -551,7 +551,7 @@ hasta aplicarlo y probarlo.
       de `/cuentas` y `/categorias`, los formularios `cuenta` y `categoria` con sus mensajes, y los
       códigos `42220` a `42222`. El descriptor suma `opciones`, `origen` y el tipo `casilla`, que es
       lo que una lista necesitaba para pintarse sin que el front decida nada. La copia fijada en
-      `prisma_api` sube con la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10)
+      `emprende_api` sube con la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10)
 - [x] [**1.18**](docs/08-plan-de-desarrollo.md#tarea-1-18) Renderizador del descriptor de formulario en el front ([RF-102](docs/03-requisitos-y-bdd.md#rf-102)) · Front — pinta los cinco
       tipos de campo con el teclado, los límites, las opciones y los avisos que manda la API, y
       entrega los valores listos para una `Accion`. Un descriptor que no se puede pintar entero no se
@@ -780,7 +780,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       `PUT /api/v0/movimientos/{id}` con el formulario «movimiento» y los cuatro códigos que
       estrenan el rango: la fecha futura, la cuenta, la categoría y la cuenta de destino. **La
       respuesta se lee de la base después de escribir**, en la misma transacción, porque el
-      contrato declara nombres que la petición no trae. `prisma_api` en `0.4.0`, contrato `0.14.0`
+      contrato declara nombres que la petición no trae. `emprende_api` en `0.4.0`, contrato `0.14.0`
       y 649 pruebas
 - [x] [**3.5**](docs/08-plan-de-desarrollo.md#tarea-3-5) Formulario de registro rápido para celular, pintado del descriptor · Front —
       **la primera pantalla de sección**: el formulario «movimiento» lo describe la API, el registro
@@ -793,7 +793,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       del adjunto es la clave de idempotencia**, así que dos intentos escriben el mismo objeto. Sin
       señal la foto **espera en la cola con sus bytes**, detrás de su movimiento. Y el bucket
       **estrenó los dos rechazos que nadie había visto**: 6 MB y un GIF los para Storage, no un
-      `if`. `prisma_api` en `0.11.0`, `emprende_front` en `0.11.0+13`, contrato `0.18.0`; 852 pruebas
+      `if`. `emprende_api` en `0.11.0`, `emprende_front` en `0.11.0+13`, contrato `0.18.0`; 852 pruebas
       en la API, 165 contra la base y 370 en el front
 - [x] [**3.7**](docs/08-plan-de-desarrollo.md#tarea-3-7) Transferencias entre cuentas · API — **no hizo
       falta escribir nada**: la dejaron hecha las tareas de las que colgaba. La 3.13 le dio el campo
@@ -831,7 +831,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       panel debajo de la fila, y lo pinta el formulario «anulacion-de-movimiento» que describe la
       API: su etiqueta, su ayuda y sus avisos no están escritos en `lib/`. Si el movimiento va con
       otro registro, el panel lo dice antes con las palabras del `registroHermano`, y anulado el
-      libro **se vuelve a pedir**, porque qué quedó anulado lo decide la base. `prisma_api` en
+      libro **se vuelve a pedir**, porque qué quedó anulado lo decide la base. `emprende_api` en
       `0.16.0` y `emprende_front` en `0.12.0+16`; 436 pruebas en el front
 - [x] [**3.10**](docs/08-plan-de-desarrollo.md#tarea-3-10) Corrección por contra-asiento · Base, API — `PUT
       /api/v0/movimientos/{id}/correccion/{correccionId}` registra un movimiento que reversa al
@@ -841,7 +841,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       reversa a cuál. Los dos ids van en la ruta para que el cuerpo siga siendo el formulario
       «movimiento» tal cual. **El «solo Gerencia» del [CU-04](docs/02-casos-de-uso.md#cu-04) lo dice la base**: `mov_insercion` pasa
       a juzgar quién llena `corrige_a_id`, y registrar sigue siendo de los dos tipos; a Operación le
-      responde `42501`, que sale como `40300`. Contrato `v0.20.0`, `prisma_api` en `0.16.0` y
+      responde `42501`, que sale como `40300`. Contrato `v0.20.0`, `emprende_api` en `0.16.0` y
       esquema `0.16.0`, **que `emprende.esquema` todavía no declara porque su etiqueta no existe**
       ([§9](#9-a-vigilar)); 1024 pruebas en la API, 216 contra la base y 295 comprobaciones en la base
 - [x] [**3.11**](docs/08-plan-de-desarrollo.md#tarea-3-11) Marca de registro tardío · API — más de 7 días entre lo que ocurrió y lo que se
@@ -849,7 +849,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
 - [x] [**3.12**](docs/08-plan-de-desarrollo.md#tarea-3-12) Saldos por cuenta · API — `POST /api/v0/consultas/saldos`: cada
       cuenta sin anular con su saldo y el total sumado. **La suma es del dominio** y la vista
       `v_saldos_cuenta` queda de contraste; a Operación le responde `40300` lo que dice
-      `fn_es_gerencia()`. `prisma_api` en `0.13.0`, copia fijada del contrato en `0.18.0`; 891
+      `fn_es_gerencia()`. `emprende_api` en `0.13.0`, copia fijada del contrato en `0.18.0`; 891
       pruebas en la API y 178 contra la base
 - [x] [**3.13**](docs/08-plan-de-desarrollo.md#tarea-3-13) Contrato de movimientos · Contrato — registrar con `PUT` a su propio id,
       anular con motivo, adjuntar el soporte y el libro con filtros; ocho esquemas, el formulario
@@ -913,7 +913,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       fecha o al revés, que hasta hoy devolvía la lista vacía y lo escondía. El máximo por página lo
       decide la API y viaja en la respuesta, con las dos banderas de Gerencia y el mes en curso de
       Bogotá. Y `POST /api/v0/consultas/soporte` **baja el recibo por la API**, en base64 dentro del
-      sobre, nunca por una URL al bucket. `prisma_api` en `0.16.0`, copia fijada del contrato en
+      sobre, nunca por una URL al bucket. `emprende_api` en `0.16.0`, copia fijada del contrato en
       `0.19.0` y `emprende.esquema` en `0.14.0`, que trae las seis filas que la 3.15, la 3.19 y la
       4.11 le habían dejado a la tabla de traducción; 1012 pruebas en la API y 202 contra la base
 - [x] [**3.22**](docs/08-plan-de-desarrollo.md#tarea-3-22) Cómo se ve cada tipo: leerlo y cambiarlo ([RF-104](docs/03-requisitos-y-bdd.md#rf-104)) · API —
@@ -936,7 +936,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       su vida **no anula nada y la transacción cae entera**, con su código: `40920`, `40921`,
       `40922`, `40923` y el `40960` del mes cerrado ([CU-03](docs/02-casos-de-uso.md#cu-03) A3 a A7). Los cinco se reconocen **por
       el texto del `RAISE`**, que es contrato con la base porque todos salen con `P0001`, y del
-      mismo mapa con que el libro pinta `porQueNo` antes de que nadie toque el botón. `prisma_api`
+      mismo mapa con que el libro pinta `porQueNo` antes de que nadie toque el botón. `emprende_api`
       en `0.16.0` —la rama entera es un PR y la versión sube un solo paso ([C-05](docs/12-pruebas-y-calidad.md#c-05))—; 1019 pruebas
       en la API y 211 contra la base
 - [x] [**3.24**](docs/08-plan-de-desarrollo.md#tarea-3-24) «Cómo se ve cada tipo», el bloque de Gerencia ([RF-104](docs/03-requisitos-y-bdd.md#rf-104)) · Front — el
@@ -978,7 +978,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       `pedido_id`, así que contar los dos no duplica y la venta de mostrador deja de perderse—, y
       que un gasto de categoría de costo directo, o atado a un pedido, no vuelve a restar en los
       operativos. **No trae endpoint**: `POST /api/v0/consultas/tablero` junta además los doce meses
-      ([6.4](docs/08-plan-de-desarrollo.md#tarea-6-4)), las alertas ([6.7](docs/08-plan-de-desarrollo.md#tarea-6-7)) y los sobres ([7.8](docs/08-plan-de-desarrollo.md#tarea-7-8)), que todavía no existen. `prisma_api` en `0.32.0`,
+      ([6.4](docs/08-plan-de-desarrollo.md#tarea-6-4)), las alertas ([6.7](docs/08-plan-de-desarrollo.md#tarea-6-7)) y los sobres ([7.8](docs/08-plan-de-desarrollo.md#tarea-7-8)), que todavía no existen. `emprende_api` en `0.32.0`,
       con 27 pruebas nuevas ([§10](#10-decisiones-de-construcción-que-conviene-revisar))
 - [x] [**6.2**](docs/08-plan-de-desarrollo.md#tarea-6-2) Pruebas con el ejemplo de septiembre completo · API —
       **el septiembre del [05 §12](docs/05-reglas-financieras.md#12-ejemplo-integral--septiembre-completo) dejó de ser una tabla y es un juego de datos que corre.** `Septiembre`, en el
@@ -1050,7 +1050,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       esta ruta. **Estrena un código**, el `42260` para un año fuera de 2020..2100, que el contrato
       declaraba y el catálogo no tenía. **Y arregla un silencio**: `vigentes()` nunca traía la
       categoría ni el pedido de cada movimiento, así que los gastos fijos comprometidos de la [6.1](docs/08-plan-de-desarrollo.md#tarea-6-1)
-      salían siempre en cero. `prisma_api` en 0.34.0, con 1444 pruebas sin base —veintinueve nuevas— y 340
+      salían siempre en cero. `emprende_api` en 0.34.0, con 1444 pruebas sin base —veintinueve nuevas— y 340
       contra ella —siete nuevas— ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). **Y ahora se abre la pantalla**: «Reportes», «Cómo va el
       año», con una sola llamada en `lib/datos/reportes.dart`. Arriba la utilidad acumulada del año
       con el promedio mensual y su proyección a doce meses; debajo la lectura que la API redacta, la
@@ -1078,7 +1078,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       ventas por encima: son los números del ejemplo del [§10](docs/05-reglas-financieras.md#10-punto-de-equilibrio) —$2.480.000 de fijos al 52 %—, no los de
       septiembre, que tiene $2.630.000 de fijos al 53,99 % y da $4.871.272 y +$2.978.728. Con los de
       antes, ninguna prueba podía reproducir a la vez las cifras del mes y sus indicadores. Contrato `0.25.0`,
-      `prisma_api` en `0.42.0` con 1579 pruebas —cuatro nuevas— y `emprende_front` en `0.31.0+37` con 706
+      `emprende_api` en `0.42.0` con 1579 pruebas —cuatro nuevas— y `emprende_front` en `0.31.0+37` con 706
       —dos nuevas—
 - [x] [**6.7**](docs/08-plan-de-desarrollo.md#tarea-6-7) Alertas: caja libre negativa, anticipos y pedidos estancados · API, Front —
       **el Inicio dice qué hay que atender.** `POST /api/v0/consultas/tablero` deja de mandar
@@ -1091,7 +1091,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       una alerta con destino lleva a su sección si la API la puso en el menú. **Lo que decidió**:
       que el destino lo ponga la interfaz y no el dominio, que los anticipos se midan sobre los
       pedidos por entregar como los pendientes, y que la concentración con un solo cliente alerte
-      ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_api` en 0.36.0 con 21 pruebas nuevas, y `emprende_front` en `0.28.0+34` con 11
+      ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_api` en 0.36.0 con 21 pruebas nuevas, y `emprende_front` en `0.28.0+34` con 11
       nuevas y 662 en total
 - [x] [**6.8**](docs/08-plan-de-desarrollo.md#tarea-6-8) Cierre mensual con snapshot inmutable · Base, API —
       **un mes se puede cerrar, y lo cerrado ya no se mueve.** `PUT /api/v0/cierres/{id}` congela las
@@ -1104,7 +1104,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       aplicación, y `DELETE` lo estaba desde la [1.2](docs/08-plan-de-desarrollo.md#tarea-1-2). **Lo que decidió**: que las cifras sean
       las que el Inicio mostraba ese día, del mismo `TableroDelMes` de la [6.1](docs/08-plan-de-desarrollo.md#tarea-6-1) y no de un cálculo
       aparte; que la nómina vaya en cero hasta que exista; y que el punto 4 del [05 §8](docs/05-reglas-financieras.md)
-      quede fuera ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_db` publica el esquema `0.20.0` y `prisma_api` queda en 0.40.0, con
+      quede fuera ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_db` publica el esquema `0.20.0` y `emprende_api` queda en 0.40.0, con
       25 pruebas nuevas y 1563 en total, y 12 de integración
 - [x] [**6.9**](docs/08-plan-de-desarrollo.md#tarea-6-9) Inicio de solo consulta y su descarga en CSV o PDF ([RF-95](docs/03-requisitos-y-bdd.md#rf-95), [RF-96](docs/03-requisitos-y-bdd.md#rf-96)) · Front, API
 - [x] [**6.10**](docs/08-plan-de-desarrollo.md#tarea-6-10) Contrato de reportes, indicadores, alertas y cierre mensual · Contrato —
@@ -1123,7 +1123,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       ([6.7](docs/08-plan-de-desarrollo.md#tarea-6-7)) y los sobres ([7.8](docs/08-plan-de-desarrollo.md#tarea-7-8)) viajen vacíos, que es lo que el contrato admite y lo que deja cada
       regla en su tarea; que las cuentas por cobrar descuenten también el ingreso cobrado contra
       entrega y no solo los anticipos; y que si llega solo el año o solo el mes, el que falta sea el
-      de hoy en Bogotá. `prisma_api` en 0.35.0 ([§10](#10-decisiones-de-construcción-que-conviene-revisar))
+      de hoy en Bogotá. `emprende_api` en 0.35.0 ([§10](#10-decisiones-de-construcción-que-conviene-revisar))
 
 <a id="sprint-7"></a>**[Sprint 7](docs/08-plan-de-desarrollo.md#sprint-7) · Capital, retiros y patrimonio**
 
@@ -1136,7 +1136,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       de la base **en los dos sentidos**: le rechaza la escritura con el `42501` de
       `activos_solo_gerencia` y al leer le filtra las filas, así que recibe la lista vacía y no un
       `40300` ([P-20](docs/12-pruebas-y-calidad.md#p-20)). No estrena ningún código: el `42290` y el `42291` ya los emitía la 7.4, y aquí
-      el primero va sobre `fechaCompra`. `prisma_api` en 0.24.0, con 13 pruebas nuevas y 10 contra la
+      el primero va sobre `fechaCompra`. `emprende_api` en 0.24.0, con 13 pruebas nuevas y 10 contra la
       base local ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). **En el front, el
       panel «Activos del negocio» entra debajo del pro-labore**: la tabla de cuatro columnas del
       mockup, con la píldora «En uso» que escribe la pantalla porque los activos no tienen tabla de
@@ -1155,7 +1155,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       deriva de él como en el activo. El «no» a Operación es de la base, con el `42501` de
       `ret_solo_gerencia` y su control positivo en el fallo. **No estrena ningún código ni pide
       migración**: el `42290` y el `42291` ya nombraban al aporte, la clase `aporte` está en el
-      esquema desde el inicial y `fn_anular_movimiento` ya lo arrastra desde la [3.20](docs/08-plan-de-desarrollo.md#tarea-3-20). `prisma_api`
+      esquema desde el inicial y `fn_anular_movimiento` ya lo arrastra desde la [3.20](docs/08-plan-de-desarrollo.md#tarea-3-20). `emprende_api`
       en 0.25.0. **En el front, el panel «Aportes de capital» entra debajo de los activos, y es el
       primero sin tabla**: el contrato no declara ninguna consulta de aportes, así que el panel no
       consulta nada al abrirse y dice dónde se ve lo aportado —en el libro, cada uno en su
@@ -1172,7 +1172,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       devuelve la fila. La justificación la exige el formulario aunque la columna la admita
       nula. Estrena el `42294` y, en el front, el tipo de campo `numero` y «Inversiones y
       retiros», con el panel del pro-labore. **La pantalla la aprobó quien dirige** ([§10](#10-decisiones-de-construcción-que-conviene-revisar)).
-      `prisma_api` en `0.19.0` y `emprende_front` en `0.14.0+18`, con 35 pruebas nuevas en la API,
+      `emprende_api` en `0.19.0` y `emprende_front` en `0.14.0+18`, con 35 pruebas nuevas en la API,
       9 contra la base local y 14 en el front
 - [x] [**7.4**](docs/08-plan-de-desarrollo.md#tarea-7-4) Retiro con división automática en pro-labore y distribución · API —
       `PUT /api/v0/retiros/{id}` escribe un movimiento y una fila de `aportes_retiros` por cada parte
@@ -1181,7 +1181,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       retiro, y el resto es distribución; `POST /api/v0/consultas/division-de-retiro` lo propone
       antes de guardar. **Trae la primera caja libre**, que era de la [6.1](docs/08-plan-de-desarrollo.md#tarea-6-1) y el contrato le pedía
       al retiro: un retiro que se pasa responde `40990` hasta que llegue confirmado. El «no» a
-      Operación es de la base. Estrena el `40990`, el `42290`, el `42291` y el `42292`. `prisma_api`
+      Operación es de la base. Estrena el `40990`, el `42290`, el `42291` y el `42292`. `emprende_api`
       en `0.22.0`, con 33 pruebas nuevas y 11 contra la base local ([§10](#10-decisiones-de-construcción-que-conviene-revisar))
 - [x] [**7.5**](docs/08-plan-de-desarrollo.md#tarea-7-5) Cálculo de patrimonio · API —
       `POST /api/v0/consultas/patrimonio` devuelve lo que se ha construido y lo que se ha sacado:
@@ -1193,7 +1193,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       suma del libro, que daría otra cifra con el mismo nombre en otra pantalla. La tasa falta
       cuando las utilidades del período no son positivas, y la lectura lo dice en palabras. El «no»
       a Operación lo pregunta la API con `fn_es_gerencia()`, como el tablero y el reporte. **La
-      lectura viaja informativa**: su umbral es la [7.6](docs/08-plan-de-desarrollo.md#tarea-7-6). No estrena ningún código. `prisma_api` en
+      lectura viaja informativa**: su umbral es la [7.6](docs/08-plan-de-desarrollo.md#tarea-7-6). No estrena ningún código. `emprende_api` en
       `0.37.0`, con 12 pruebas nuevas y 2 contra la base local
 - [x] [**7.6**](docs/08-plan-de-desarrollo.md#tarea-7-6) Alerta de descapitalización a 12 meses · API — la lectura del
       patrimonio pasa a nivel `critica` cuando lo repartido en los últimos doce meses supera lo que
@@ -1203,7 +1203,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       del [05 §6.4](docs/05-reglas-financieras.md#64-patrimonio-y-descapitalización) deja $1.000.000 de patrimonio y aun así alerta. **Y sin nada repartido no
       alerta**, aunque el período haya dado pérdida ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). Por debajo del umbral dice cuántos
       centavos de cada peso generado se retiran, que es la frase del [10 §6](docs/10-ux-y-mockups.md#6-micro-decisiones-que-importan). No estrena ningún
-      código ni mueve el contrato. `prisma_api` en `0.38.0`, con 3 pruebas nuevas
+      código ni mueve el contrato. `emprende_api` en `0.38.0`, con 3 pruebas nuevas
 - [x] [**7.7**](docs/08-plan-de-desarrollo.md#tarea-7-7) Los cuatro sobres con historial · API, Front — **las dos mitades
       aterrizaron**. La API: `PUT /api/v0/sobres/{id}` define desde hoy cómo se reparte cada peso que
       entra en efectivo —costo directo, gastos fijos, reserva y retiro ([05 §11](docs/05-reglas-financieras.md#11-la-regla-de-los-4-sobres))— y
@@ -1216,7 +1216,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       **estrena el `42293`**, el código que el contrato de capital dejó pendiente para esta tarea. Una
       regla entre cuatro campos no cabe en el descriptor ([20 §4.4](docs/20-contrato-de-api.md#44-las-reglas-que-caben-y-por-qué-no-caben-más)), y la API no la sabría
       mejor que la base. **No pidió migración**: la tabla, la restricción y la política están desde el
-      esquema inicial. `prisma_api` en `0.27.0`, con 13 pruebas nuevas y 11 contra la base local.
+      esquema inicial. `emprende_api` en `0.27.0`, con 13 pruebas nuevas y 11 contra la base local.
       Y el Front: el panel «Los 4 sobres» cierra «Inversiones y retiros» por abajo, con la barra de
       cuatro tramos, los cuatro con su color y su porcentaje, y desde cuándo rige. **El historial no
       se pinta** —el [RF-51](docs/03-requisitos-y-bdd.md#rf-51) pide conservarlo, no mostrarlo— **y la suma tampoco se comprueba ahí**:
@@ -1236,7 +1236,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       que se descarga del Inicio. **La reserva no gasta nada** —ningún movimiento se marca contra el
       colchón— y es la única con acumulado y meta: lo apartado mes a mes, con el porcentaje que regía
       en cada mes, contra tres meses de gasto fijo. El [08](docs/08-plan-de-desarrollo.md) la daba solo al front
-      ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_api` en `0.43.0`, con 19 pruebas nuevas. **Los nombres y los
+      ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_api` en `0.43.0`, con 19 pruebas nuevas. **Los nombres y los
       colores los pone la pantalla**, los mismos del panel de la [7.7](docs/08-plan-de-desarrollo.md#tarea-7-7), y una clave que el front
       no conozca se pinta neutra con su clave por nombre. **Lo que no se escribe es la frase con que
       el mockup cierra el panel** —«los gastos fijos consumieron el 49% de lo que entró»—, que es una
@@ -1294,7 +1294,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       minutos. **Nace en cero, así que nada de lo que hay hoy cambia de cifra.** Contrato `0.24.0`
       con `minutosMaquina` en el formulario «producto», en la vista previa del costeo y en la
       respuesta `Costeo`, y el `42241` nuevo para sus decimales. **No pidió migración ni tocó el
-      front**: el campo entra por el descriptor. `prisma_api` en `0.41.0`, con 1575 pruebas sin base
+      front**: el campo entra por el descriptor. `emprende_api` en `0.41.0`, con 1575 pruebas sin base
       ([§10](#10-decisiones-de-construcción-que-conviene-revisar))
 - [x] [**5.5**](docs/08-plan-de-desarrollo.md#tarea-5-5) Historial de costos con fecha de vigencia · Base, API — el historial
       ya estaba; lo que faltaba era **leerlo hacia atrás**. `fn_costeo_vigente` dice qué costeo
@@ -1320,7 +1320,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       **no hizo falta código**: la base no le devuelve el costeo y sin él no hay de dónde sacar los
       márgenes. Lo que faltaba era la prueba del [12 §3](docs/12-pruebas-y-calidad.md#3-pruebas-de-permisos): [P-02](docs/12-pruebas-y-calidad.md#p-02) va ahora **por HTTP, con la sesión real
       de Operación**, y recorre el sobre entero del catálogo sin encontrar una cifra; la vista previa,
-      guardar y reactivar le responden `40300` sin dejar nada escrito. `prisma_api` sigue en `0.22.0`
+      guardar y reactivar le responden `40300` sin dejar nada escrito. `emprende_api` sigue en `0.22.0`
 - [x] [**5.9**](docs/08-plan-de-desarrollo.md#tarea-5-9) Cuadro comparativo ordenable por margen por hora · Front —
       **el orden lo pone la API y el front solo lo pide**: «Ordenar por margen %» vuelve a pedir el
       cuadro con `orden: margen_porcentual`, el título dice cuál se pidió y la tabla se pinta como
@@ -1366,14 +1366,14 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       **Y el contrato estrena una consulta**, `resumen-de-pedido` (`0.22.0`): las tres cifras que la
       pantalla pinta antes de guardar las da la API. En el front, «Nuevo pedido» entra encima de los
       clientes con su lista de renglones, y **al guardar pregunta por el abono**, que es otro caso de
-      uso y otro formulario. `prisma_api` en `0.25.0`, con 1284 pruebas sin base y 300 contra ella;
+      uso y otro formulario. `emprende_api` en `0.25.0`, con 1284 pruebas sin base y 300 contra ella;
       `emprende_front` en `0.17.0+21`, con 499
 - [x] [**4.4**](docs/08-plan-de-desarrollo.md#tarea-4-4) `CobrarAnticipo`: crea pasivo, no ingreso · API —
       `POST /api/v0/pedidos/{id}/anticipos` escribe un movimiento `anticipo_recibido` colgado del
       pedido y su fila en `anticipos`, y responde el pedido entero con lo anticipado, el saldo y si
       está estancado. **Todo se valida antes de escribir**, porque el filtro confirma los `4xx`, y el
       pedido se lee reservado con `FOR UPDATE`: sin eso, dos cobros a la vez se pasaban juntos del
-      valor. Estrena `40930`, `42230`, `42233` y `42234`. `prisma_api` en `0.15.0`, con 11 pruebas
+      valor. Estrena `40930`, `42230`, `42233` y `42234`. `emprende_api` en `0.15.0`, con 11 pruebas
       nuevas contra la base local
 - [x] [**4.5**](docs/08-plan-de-desarrollo.md#tarea-4-5) Función en la base que entrega el pedido y causa la venta en una
       transacción · Base — `fn_entregar_pedido(p_pedido, p_fecha, p_cuenta)` es **la primera de las
@@ -1397,7 +1397,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       fecha sí vale, a diferencia del libro. Los anulados salen solo si se piden, y quién alcanza a
       ver uno lo dice `fn_es_gerencia()`. En el front, la lista entra **dentro del panel de
       Pedidos**, debajo del formulario, y el segmentado que el mockup dibujaba sin conectar pasa a
-      ser el desplegable de los cinco estados del contrato ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `prisma_api` en `0.30.0` con 19
+      ser el desplegable de los cinco estados del contrato ([§10](#10-decisiones-de-construcción-que-conviene-revisar)). `emprende_api` en `0.30.0` con 19
       pruebas nuevas —9 de ellas contra la base local— y `emprende_front` en `0.23.0+28` con 7
       pruebas de la pantalla. El contrato sube a `0.22.1`: la descripción de `Idempotency-Key` de
       esa consulta decía la de una escritura, de antes del [ADR-030](docs/adr/ADR-030-contrato-sin-get.md)
@@ -1422,7 +1422,7 @@ códigos ([21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-vertica
       que produce `adjuntos_pedido_id_fkey`. `Adjunto` dejó de llevar el id del movimiento y lleva
       **de qué cuelga**, de donde sale la carpeta del objeto, y `vigentePorId` cambió su unión
       interna por dos por la izquierda: sin eso la factura de un pedido no se podía bajar. El pedido
-      la devuelve en `adjuntos`, que el contrato estrena en el `0.23.0`. `prisma_api` en 0.30.0, con
+      la devuelve en `adjuntos`, que el contrato estrena en el `0.23.0`. `emprende_api` en 0.30.0, con
       1336 pruebas sin base —doce nuevas— y cinco nuevas contra ella ([§10](#10-decisiones-de-construcción-que-conviene-revisar)).
       **La pantalla la trae esta tarea**, y va donde no estaba dibujada: el mockup y el [10 §4.2](docs/10-ux-y-mockups.md#42-pedidos)
       estrenan la **fila abierta del pedido**, que hasta ahora era solo de Gerencia y ahora se abre
@@ -1889,7 +1889,7 @@ a `anon`.
   la versión de GoTrue que trae el CLI. Está en «Del arreglo de GoTrue en la tubería»
 
 - **La integración continua no corre [C-01](docs/12-pruebas-y-calidad.md#c-01), y por eso estuvo un día en rojo sin que nadie lo
-  viera.** El trabajo de CI de `prisma_api` corre `./gradlew build`, que **excluye la etiqueta
+  viera.** El trabajo de CI de `emprende_api` corre `./gradlew build`, que **excluye la etiqueta
   `integracion`** ([ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) [§4](docs/12-pruebas-y-calidad.md#4-juego-de-datos-de-prueba-oficial)), así que la prueba que cruza la tabla de traducción con `pg_constraint`
   solo falla en la máquina de quien la corra a mano contra una base con el esquema puesto. Se
   descubrió al hacer la [1.10](docs/08-plan-de-desarrollo.md#tarea-1-10): la [3.14](docs/08-plan-de-desarrollo.md#tarea-3-14) había fusionado la tabla `adjuntos` sin sus nueve filas,
@@ -2162,7 +2162,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       tablas que audita `fn_auditar` no nombra a `horas_limite_config`, y
       `horas_limite_config_horas_semanales_check` termina en `_check`, que es lo que la fila de la
       [1.1](docs/08-plan-de-desarrollo.md#tarea-1-1) prohíbe. Las dos primeras son una línea cada una; la tercera es una migración de
-      renombre **y** su fila en `prisma_api`, por [C-01](docs/12-pruebas-y-calidad.md#c-01). **Las arregló la [9.2](docs/08-plan-de-desarrollo.md#tarea-9-2)**, porque la etapa qa no podía nacer roja
+      renombre **y** su fila en `emprende_api`, por [C-01](docs/12-pruebas-y-calidad.md#c-01). **Las arregló la [9.2](docs/08-plan-de-desarrollo.md#tarea-9-2)**, porque la etapa qa no podía nacer roja
 
 **De la 8.4, el desprendible de pago:**
 
@@ -3453,7 +3453,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 
 **Del contrato sin GET ([ADR-030](docs/adr/ADR-030-contrato-sin-get.md)):**
 
-- [ ] La copia fijada de `prisma_api` declara el contrato `0.5.0` aunque solo sirva tres de sus 26 operaciones. Declara contra qué versión está escrita, no cuánto implementa; dejarla en `0.2.0` habría dado dos contratos distintos con el mismo número
+- [ ] La copia fijada de `emprende_api` declara el contrato `0.5.0` aunque solo sirva tres de sus 26 operaciones. Declara contra qué versión está escrita, no cuánto implementa; dejarla en `0.2.0` habría dado dos contratos distintos con el mismo número
 - [ ] Las lecturas van a `POST /api/v0/consultas/<recurso>`, con `cargos/asignables` aplanado a `cargos-asignables`
 - [ ] Las seis consultas sin datos que filtrar viajan sin cuerpo; solo bitácora, navegación y formularios lo llevan
 - [ ] Las dos operaciones de sesión siguen exentas de `Idempotency-Key`, por la razón que ya tenían: no hay clave de firma todavía y su respuesta trae secretos
@@ -3465,7 +3465,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 - [ ] Supabase enciende RLS sola en cada tabla nueva de `public`, con un event trigger suyo,
       `ensure_rls`. Se apagó en las seis que [04 §7](docs/04-modelo-de-datos.md#7-seguridad-por-tipo-de-usuario-rls) deja sin RLS a propósito, en una migración
       aparte: con RLS encendida y cero políticas habrían quedado mudas en cuanto exista el rol
-      `prisma_api`
+      `emprende_api`
 - [ ] Las cuatro vistas que nacieron sin `security_invoker` ya lo llevan, por el mismo motivo que
       [04 §5.6](docs/04-modelo-de-datos.md#56-la-bitácora-de-la-pantalla-es-una-vista-no-una-tabla-nueva) se lo exige a `v_bitacora_usuarios`. Hoy no cambia nada; el día que esas
       tablas restrinjan filas, la fuga habría sido silenciosa
@@ -3556,7 +3556,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       entra aunque sea el rol «administrador», por coherencia con [ADR-004](docs/adr/ADR-004-base-solo-escritura.md): la única excepción del
       modelo, la purga de claves vencidas, la corre el dueño
 - [ ] **`schema_version` se queda en `0.1.0`** aunque el esquema haya cambiado. Ningún documento dice
-      cuándo sube el SemVer del esquema; el precedente de la [1.5](docs/08-plan-de-desarrollo.md#tarea-1-5) es no moverlo, y `prisma_api`
+      cuándo sube el SemVer del esquema; el precedente de la [1.5](docs/08-plan-de-desarrollo.md#tarea-1-5) es no moverlo, y `emprende_api`
       declara `0.1.0` en su configuración, que no puede viajar en el mismo commit ([ADR-025](docs/adr/ADR-025-cuatro-repositorios.md)). Cuándo y
       cómo se publica una versión nueva del esquema es lo que tiene que escribir la [1.12](docs/08-plan-de-desarrollo.md#tarea-1-12)
 - [x] **Los docs [07](docs/07-arquitectura.md) y [12](docs/12-pruebas-y-calidad.md) nombraban una restricción `movimientos_valor_positivo` que no
@@ -3626,7 +3626,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       `20 3 * * *` del [04 §4.9](docs/04-modelo-de-datos.md#49-claves-de-idempotencia) corre a las **22:20 de Bogotá**. Se dejó el valor escrito en vez de
       cambiarlo por la espalda. Si se quiere de madrugada de verdad es `20 8 * * *`, y hay que
       cambiar el [04](docs/04-modelo-de-datos.md) y el [16 §10](docs/16-base-de-datos-y-snapshots.md#10-tareas-programadas-dentro-de-la-base)
-- [ ] **No se tocó `prisma_api`, aunque el plan ponga «API, Base».** Los documentos
+- [ ] **No se tocó `emprende_api`, aunque el plan ponga «API, Base».** Los documentos
       movieron la purga dentro de la base: corre como el rol de migraciones, y [04 §4.9](docs/04-modelo-de-datos.md#49-claves-de-idempotencia) y
       [16 §10.1](docs/16-base-de-datos-y-snapshots.md#101-qué-hace-falta-en-cada-ambiente) dicen que darle `DELETE` al rol de la API sería el error. Una prueba en la API que
       solo leyera `cron.job` probaría la base desde el repositorio equivocado
@@ -4187,7 +4187,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       el [21 §4.3](docs/21-trabajo-en-paralelo.md#43-fase-2--rebanadas-verticales-sprints-3-a-8) le había puesto el de Exportación. Se descartó el `20`–`29`, porque a su `422` le quedaban
       tres casos para cinco y Movimientos todavía puede necesitarlos, y mover Exportación, que gasta
       la misma reserva y cambia de rango un módulo ya nombrado. **Ya no queda ningún rango libre.** En
-      `prisma_api`, `CatalogoDeCodigos.Modulo` llama `RESERVADO` a ese rango: lo renombra a
+      `emprende_api`, `CatalogoDeCodigos.Modulo` llama `RESERVADO` a ese rango: lo renombra a
       `CAPITAL_Y_PATRIMONIO` la tarea que emita el primero de estos códigos
 - [ ] **Diez operaciones y ninguna anulación.** Una escritura y una lectura por cosa que el
       [Sprint 7](docs/08-plan-de-desarrollo.md#sprint-7) hace. Anular un activo, un aporte o un retiro no lo pide ningún RF de capital, no lo
@@ -4552,7 +4552,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       afirmado algo que no pasaba—, que es el mismo camino que siguieron los de `movimientos` entre
       la [1.8](docs/08-plan-de-desarrollo.md#tarea-1-8) y la [3.4](docs/08-plan-de-desarrollo.md#tarea-3-4)
 - [ ] **Las filas de una tabla nueva no tienen dueño mientras su tarea de API esté lejos.** El plan
-      de la [3.14](docs/08-plan-de-desarrollo.md#tarea-3-14) dijo que las agregaría «`prisma_api` en el mismo PR en que recoja este esquema»,
+      de la [3.14](docs/08-plan-de-desarrollo.md#tarea-3-14) dijo que las agregaría «`emprende_api` en el mismo PR en que recoja este esquema»,
       y ese PR fue el de la [3.6](docs/08-plan-de-desarrollo.md#tarea-3-6), tres tareas más allá. Entre una cosa y otra, [C-01](docs/12-pruebas-y-calidad.md#c-01) estuvo
       días en rojo contra cualquier base con la `0.4.0`. **Sigue sin decidirse si una tarea de Base
       que agrega tabla debe pedir sus filas en el mismo sprint**, como ya hacen la [3.15](docs/08-plan-de-desarrollo.md#tarea-3-15) y la
@@ -4593,7 +4593,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       como conjunto vacío, y además se comprueba que la tabla tiene filas de verdad. **Conviene
       corregir esas dos celdas del documento**
 - [ ] **El trabajo nuevo de la tubería no se pudo probar desde aquí, y le falta un secreto.**
-      `Finanzas-PRISMA-DB` es privado, así que el trabajo necesita `PRISMA_DB_TOKEN` en `prisma_api`, y
+      `Finanzas-PRISMA-DB` es privado, así que el trabajo necesita `PRISMA_DB_TOKEN` en `emprende_api`, y
       ese no lo puede poner el código. Hasta que esté, el trabajo falla, y falla claro
 - [ ] **`emprende_db` llevaba dos versiones del esquema sin etiquetar**, la `0.4.0` y la `0.5.0`, que el
       punto 1 del [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) da por hechas y de las que cuelga la tubería entera. Se escribieron y se
@@ -4627,7 +4627,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 - [x] **Una prueba con `LocalDate.now()` depende de en qué huso corre.** [P-08](docs/12-pruebas-y-calidad.md#p-08) registraba un
       movimiento con la fecha del reloj de la máquina, y el ejecutor va en UTC: entre las 7 de la
       noche y la medianoche de Bogotá le mandaba mañana, y la API la rechazaba con `42223`, que es
-      lo correcto. Arreglado con `ZonaDelNegocio`, y **buscadas las demás**: en `prisma_api` no
+      lo correcto. Arreglado con `ZonaDelNegocio`, y **buscadas las demás**: en `emprende_api` no
       queda ninguna —`src/main` no lee el reloj sin huso, y las dos lecturas que hay en las
       pruebas pasan `ZonaDelNegocio.BOGOTA`—, y en `emprende_front` el calendario toma el reloj del
       aparato solo para saber hasta dónde se puede desplazar, que no es la regla de qué fecha vale.
@@ -4693,7 +4693,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       y las otras cuatro devuelven `trigger`, que PostgreSQL no deja llamar directamente—, pero el
       título de la tarea es «`anon` no toca nada». Mismo criterio que la [1.2](docs/08-plan-de-desarrollo.md#tarea-1-2), que revocó el
       borrado a tres roles y no solo al que el [04 §5.1](docs/04-modelo-de-datos.md#51-revocación-real-del-borrado) alcanzaba a nombrar
-- [ ] **Y ahí apareció la trampa: `prisma_api` tenía ese `EXECUTE` por `PUBLIC` y no por una
+- [ ] **Y ahí apareció la trampa: `emprende_api` tenía ese `EXECUTE` por `PUBLIC` y no por una
       concesión suya.** Quitárselo a `anon` obliga a revocárselo a `PUBLIC`, y eso se lo quita
       también al rol con el que se conecta la API; la migración se lo vuelve a conceder en la
       sentencia siguiente. Aplicada sin ese `GRANT` —a propósito, para verla fallar—, la prueba de
@@ -4735,7 +4735,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
 - [ ] **Lo que la migración deja sin imponer, a propósito.** El [04 §5.4](docs/04-modelo-de-datos.md#54-auditoría-por-triggers) dice que `registro_id` es
       nulo «solo en `inicio_sesion_fallido`», y ninguna restricción lo amarra; y cualquier sesión
       `authenticated` que alcance `fn_registrar_evento` puede escribir una entrada de algo que no
-      pasó. Las dos se sostienen hoy porque **nadie habla con la base salvo `prisma_api`**
+      pasó. Las dos se sostienen hoy porque **nadie habla con la base salvo `emprende_api`**
       ([ADR-018](docs/adr/ADR-018-front-sin-decisiones.md)) y porque la [1.21](docs/08-plan-de-desarrollo.md#tarea-1-21) cerró la puerta pública. Apretarlas es su propia decisión
 - [ ] **La vista se tira y se vuelve a crear en vez de reemplazarse.** `CREATE OR REPLACE VIEW`
       solo deja agregar columnas al final, y el [04 §5.6](docs/04-modelo-de-datos.md#56-la-bitácora-de-la-pantalla-es-una-vista-no-una-tabla-nueva) pone `motivo` entre `registro_id` y
@@ -4921,7 +4921,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       [2.16](docs/08-plan-de-desarrollo.md#tarea-2-16), que es «la bitácora de todo cambio sobre usuarios y cargos». El trigger genérico sí
       deja su `INSERT`, `UPDATE` o `ANULAR`, que es lo que había
 - [ ] **La copia fijada del contrato se desvió del acordado, y nada los compara.** [C-04](docs/12-pruebas-y-calidad.md#c-04) compara el
-      OpenAPI generado con la copia de `prisma_api`, y quien compara esa copia con el original de
+      OpenAPI generado con la copia de `emprende_api`, y quien compara esa copia con el original de
       este repositorio es una persona. Hoy difieren en las palabras clave de validación que salen de
       las anotaciones —`minLength`, `maxLength`, `minItems`—, que el original no tiene porque se
       escribió antes que el código, y en dos descripciones, la de `Desactivacion` y la de `Motivo`.

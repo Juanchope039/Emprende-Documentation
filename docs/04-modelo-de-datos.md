@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [7.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Base de datos PostgreSQL sobre Supabase. **Solo escritura: nada se elimina jamás.**
 
@@ -1390,7 +1390,7 @@ horas.
 
 **`opera` no se guarda aquí.** El contrato lo devuelve al lado del modo, pero dice si la
 programación corre en este ambiente, y la base no sabe en cuál está. Lo decide el perfil de
-`prisma_api` ([19 §4](19-ambientes-y-entrega.md#4-versionado)).
+`emprende_api` ([19 §4](19-ambientes-y-entrega.md#4-versionado)).
 
 **No la lee Operación, ni para mirar** ([§7](#7-seguridad-por-tipo-de-usuario-rls)). Es la misma puerta del respaldo: el [13 §7](13-respaldo-y-exportacion.md#7-alcance-por-rol)
 reserva a Gerencia generar, descargar, ver el historial y configurar la programación.
@@ -1424,7 +1424,7 @@ CREATE TRIGGER tr_auditar_respaldo_pendiente
 ```
 
 **La base es el reloj y la API el que trabaja** ([13 §6](13-respaldo-y-exportacion.md#6-programación-automática), tarea [8.16](08-plan-de-desarrollo.md#tarea-8-16)). Aquí queda escrito qué
-mes toca; el archivo lo arma `prisma_api`, que es lo único que escribe un ZIP y lo único que habla
+mes toca; el archivo lo arma `emprende_api`, que es lo único que escribe un ZIP y lo único que habla
 con el bucket. Esta tabla es la junta entre las dos mitades.
 
 **Dos relojes la escriben, y ninguno de los dos pregunta dos veces.** El trabajo de `pg_cron` del
@@ -1959,7 +1959,7 @@ WHERE a.devengado_en IS NULL
 ```
 
 > Estas vistas existen para consulta y verificación. **El cálculo autoritativo vive en el
-> dominio de `prisma_api`, en Java**, probado unitariamente (ver
+> dominio de `emprende_api`, en Java**, probado unitariamente (ver
 > [`07-arquitectura.md`](07-arquitectura.md) [§4](07-arquitectura.md#4-el-dominio-en-detalle)). Tener dos implementaciones permite
 > contrastarlas: si difieren, hay un error en alguna.
 
@@ -2640,7 +2640,7 @@ Supabase crea dos roles que este modelo no usa: `anon`, el de quien no ha entrad
 defecto `SELECT`, `INSERT` y `UPDATE` sobre todo `public`. **Eso no es una puerta teórica:** su
 clave es pública por diseño, y con la Data API encendida cualquiera escribe en las tablas que el
 [§7](#7-seguridad-por-tipo-de-usuario-rls) deja sin RLS a propósito y lee las que tienen una política de lectura abierta, `movimientos`
-entre ellas. Nadie habla con la base salvo `prisma_api`: ni el front, que no sabe de Supabase
+entre ellas. Nadie habla con la base salvo `emprende_api`: ni el front, que no sabe de Supabase
 ([ADR-018](adr/ADR-018-front-sin-decisiones.md)), ni nada más.
 
 ```sql
@@ -2781,7 +2781,7 @@ ese texto es contrato**: la API lo reconoce por él, como los de los triggers.
 
 Tres reglas que valen para las cuatro:
 
-1. **La API las llama; no rehace sus pasos.** Si `prisma_api` escribe por su cuenta los tres
+1. **La API las llama; no rehace sus pasos.** Si `emprende_api` escribe por su cuenta los tres
    `UPDATE` de una entrega, ya hay dos versiones del procedimiento y solo una se prueba.
 2. **Son `SECURITY INVOKER`**, que es el valor por omisión y aquí es la decisión correcta: corren
    con los permisos de quien llama, así que **RLS sigue juzgando** cada fila que tocan. La única
@@ -2807,7 +2807,7 @@ dígitos** del catálogo —de donde sale el mensaje en español, que no se escr
 campo del formulario al que señala.
 
 > **La tabla existe desde la tarea [1.8](08-plan-de-desarrollo.md#tarea-1-8)** y es
-> `interfaz/error/TraduccionDeRestricciones` en `prisma_api`. Casi todas sus filas comparten el
+> `interfaz/error/TraduccionDeRestricciones` en `emprende_api`. Casi todas sus filas comparten el
 > código transversal de su clase, por lo mismo que los dominios: noventa y tres frases que dicen
 > dos cosas no son noventa y tres mensajes. Un rechazo de llave foránea ocurre en cualquier
 > módulo, así que su código tiene que ser uno de los transversales; darle un caso de módulo

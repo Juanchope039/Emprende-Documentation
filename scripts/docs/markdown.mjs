@@ -274,6 +274,17 @@ export function leerSemver(texto) {
   return m ? [Number(m[1]), Number(m[2]), Number(m[3])] : null;
 }
 
+// Los archivos de IA van en X.Y y no en SemVer (ADR-078): X cuenta las versiones promovidas a uat,
+// e Y sube con cada cambio que autoriza quien dirige.
+export function esArchivoDeIA(ruta) {
+  return /(^|\/)(CLAUDE|AGENTS)\.md$/.test(ruta) || /(^|\/)\.claude\//.test(ruta);
+}
+
+export function leerVersionDeIA(texto) {
+  const m = String(texto).match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)$/);
+  return m ? [Number(m[1]), Number(m[2])] : null;
+}
+
 export function compararSemver(a, b) {
   for (let i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] - b[i];
   return 0;
@@ -323,7 +334,7 @@ export function leerEncabezado(contenido) {
       lineaCabecera: i,
       lineaValores: i + 2,
       columnas: nombres,
-      version: campo('Versión').match(/\d+\.\d+\.\d+/)?.[0] ?? campo('Versión'),
+      version: campo('Versión').match(/\d+\.\d+\.\d+/)?.[0] ?? campo('Versión').match(/^\[?(\d+\.\d+)\b/)?.[1] ?? campo('Versión'),
       estado,
       reemplazadoPor: reemplazo,
       creado: campo('Creado'),

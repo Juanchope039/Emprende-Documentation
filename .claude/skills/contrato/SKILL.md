@@ -1,6 +1,6 @@
 ---
 name: contrato
-description: Cambia el contrato de la API de Emprende, contrato/openapi.json. Respeta su formato byte a byte, los rangos de códigos, la versión y el orden con la copia fijada de prisma_api. Úsala cada vez que haya que tocar el contrato o su README.
+description: Cambia el contrato de la API de Emprende, contrato/openapi.json. Respeta su formato byte a byte, los rangos de códigos, la versión y el orden con la copia fijada de emprende_api. Úsala cada vez que haya que tocar el contrato o su README.
 paths: "**/contrato/**"
 model: sonnet
 ---

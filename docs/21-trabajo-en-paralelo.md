@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [7.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo avanza Emprende con varias tareas a la vez sin que se bloqueen ni se pisen. **Lo que avanza en
 paralelo son tareas, no personas:** una tarea la puede llevar una persona, un equipo o una sesión de
@@ -43,7 +43,7 @@ Cada tarea del plan vive en un sitio. La columna **Dónde** de las tablas del 08
 
 | Dónde | En qué repositorio | Escribe | Responde por | No toca |
 |---|---|---|---|---|
-| **API** | `prisma_api` | Java 25, Spring Boot | Que la regla se cumpla y el mensaje sea correcto | Widgets ni rutas del front |
+| **API** | `emprende_api` | Java 25, Spring Boot | Que la regla se cumpla y el mensaje sea correcto | Widgets ni rutas del front |
 | **Base** | `emprende_db` | SQL: migraciones, funciones, RLS y semilla | Que la base siga siendo el juez de los permisos y no pierda historia | Código de la API ni del front |
 | **Front** | `emprende_front` | Dart, Flutter | Que la pantalla sea la del mockup y pinte lo que le dictan | SQL, reglas de negocio, textos de error |
 | **Contrato** | `contrato/` de esta especificación | OpenAPI y el catálogo de códigos | Que los dos lados construyan contra lo mismo | La implementación de ninguno de los dos |
@@ -72,7 +72,7 @@ su cuenta. Es la única coordinación obligatoria que queda, y por eso conviene 
 | Repositorio | En disco | Qué vive ahí | Dónde |
 |---|---|---|---|
 | **`Finanzas-PRISMA`** | `repositories/documentation` | Documentación, ADR, mockup **y el contrato**: `openapi.json` y el catálogo de códigos | Contrato y documentación, con revisión cruzada |
-| **`prisma_api`** | `repositories/backend-api` | Java y Spring Boot | API |
+| **`emprende_api`** | `repositories/backend-api` | Java y Spring Boot | API |
 | **`emprende_db`** | `repositories/backend-db` | `supabase/migrations/`, la semilla y los scripts de la base | Base |
 | **`emprende_front`** | `repositories/frontend-flutter` | Flutter | Front |
 

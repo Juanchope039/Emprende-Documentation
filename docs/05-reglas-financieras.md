@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [3.0.0](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/05-reglas-financieras.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-06 | [Finanzas](INDICE.md#etiqueta-finanzas) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [3.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/05-reglas-financieras.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Finanzas](INDICE.md#etiqueta-finanzas) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 > **El documento más importante del proyecto.** Aquí viven las fórmulas exactas que el sistema
 > debe implementar. Si algo en el código contradice este documento, el código está mal.
@@ -552,7 +552,7 @@ contribución. **No es el $4.769.231 del ejemplo del [§10](#10-punto-de-equilib
 
 ## 13. Verificación
 
-Cada fórmula de este documento tiene su prueba automática en el dominio de `prisma_api`, en Java.
+Cada fórmula de este documento tiene su prueba automática en el dominio de `emprende_api`, en Java.
 Los valores del ejemplo de la sección 12 se usan como **juego de datos de prueba oficial**
 (ver [`12-pruebas-y-calidad.md`](12-pruebas-y-calidad.md) [§4](12-pruebas-y-calidad.md#4-juego-de-datos-de-prueba-oficial)).
 

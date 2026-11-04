@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-30 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
+| [1.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/adr/ADR-066-la-clave-de-servicio-sube-el-respaldo-programado.md "Historial de cambios") | [✅ Aceptado](../22-documentacion.md#estados-de-un-adr) | 2026-10-17 | 2026-10-30 | [Seguridad](../INDICE.md#etiqueta-seguridad) · [API](../INDICE.md#etiqueta-api) |
 
 ## Contexto
 
@@ -13,7 +13,7 @@ un hueco que ningún documento cubría.
 
 **Un respaldo programado no tiene a nadie detrás**, y el archivo solo lo puede armar la API:
 
-- el ZIP y el `manifiesto.json` los escribe `prisma_api`, que es lo único que habla con la base
+- el ZIP y el `manifiesto.json` los escribe `emprende_api`, que es lo único que habla con la base
   ([ADR-025](ADR-025-cuatro-repositorios.md)), así que la base no puede dejar el archivo por su cuenta;
 - las dos políticas del bucket `respaldos` son `TO authenticated` y preguntan por
   `fn_es_gerencia()` ([13 §5.1](../13-respaldo-y-exportacion.md#51-quién-arma-el-archivo-la-api)), así que subir pide un JWT que Storage pueda
