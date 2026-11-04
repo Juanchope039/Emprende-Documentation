@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.85.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
+| [9.85.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/TODO.md "Historial de cambios") | [🔄 Vivo](docs/22-documentacion.md#estados) | 2026-09-16 | 2026-11-04 | [Plan](docs/INDICE.md#etiqueta-plan) · [Paralelo](docs/INDICE.md#etiqueta-paralelo) |
 
 Lo hecho y lo pendiente, con los números de tarea del
 [plan de desarrollo](docs/08-plan-de-desarrollo.md). El plan dice **qué** hay que hacer, **en qué
@@ -390,7 +390,7 @@ o indirectamente. No es el orden en que se descubrieron.
       que hace que la clave y el efecto caigan juntos. Registrar la clave espera al filtro de sesión
       ([2.2](docs/08-plan-de-desarrollo.md#tarea-2-2)): hasta ese día ninguna petición trae identidad.
 - [x] **La identidad hasta PostgreSQL** ([1.6](docs/08-plan-de-desarrollo.md#tarea-1-6)) — hecha: RLS ya juzga a la persona y no a
-      `prisma_api`. Destrabó la prueba de permisos ([1.7](docs/08-plan-de-desarrollo.md#tarea-1-7)) y, con la tabla de la [1.13](docs/08-plan-de-desarrollo.md#tarea-1-13), la idempotencia
+      `emprende_api`. Destrabó la prueba de permisos ([1.7](docs/08-plan-de-desarrollo.md#tarea-1-7)) y, con la tabla de la [1.13](docs/08-plan-de-desarrollo.md#tarea-1-13), la idempotencia
       ([1.14](docs/08-plan-de-desarrollo.md#tarea-1-14)); el acceso del [Sprint 2](docs/08-plan-de-desarrollo.md#sprint-2) espera ahora a la tabla `usuarios` ([2.4](docs/08-plan-de-desarrollo.md#tarea-2-4)).
 
 ---
@@ -4593,7 +4593,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       como conjunto vacío, y además se comprueba que la tabla tiene filas de verdad. **Conviene
       corregir esas dos celdas del documento**
 - [ ] **El trabajo nuevo de la tubería no se pudo probar desde aquí, y le falta un secreto.**
-      `Finanzas-PRISMA-DB` es privado, así que el trabajo necesita `PRISMA_DB_TOKEN` en `emprende_api`, y
+      `Emprende-DataBase` es privado, así que el trabajo necesita `PRISMA_DB_TOKEN` en `emprende_api`, y
       ese no lo puede poner el código. Hasta que esté, el trabajo falla, y falla claro
 - [ ] **`emprende_db` llevaba dos versiones del esquema sin etiquetar**, la `0.4.0` y la `0.5.0`, que el
       punto 1 del [ADR-029](docs/adr/ADR-029-esquema-por-etiqueta.md) da por hechas y de las que cuelga la tubería entera. Se escribieron y se
@@ -4648,7 +4648,7 @@ huecos que los documentos no cubrían y que el código tuvo que llenar para pode
       un objeto más que mantener y auditar para ahorrar una línea que se lee igual que la regla
 - [ ] ⚡ **La tabla de traducción se queda sin las dos filas del destino hasta el PR de la API que
       suba su `emprende.esquema` a `0.6.0`.** Es el orden que fijan el [04 §11](docs/04-modelo-de-datos.md#11-el-contrato-de-errores) y esta misma
-      lista, y la 3.15 es del trabajo de la base: la tabla vive en `prisma_api`. **Mientras tanto,
+      lista, y la 3.15 es del trabajo de la base: la tabla vive en `emprende_api`. **Mientras tanto,
       [C-01](docs/12-pruebas-y-calidad.md#c-01) sale roja contra cualquier base que ya tenga la `0.6.0`**, igual que pasó con la
       [3.14](docs/08-plan-de-desarrollo.md#tarea-3-14). Ese mismo PR es el que pone verdes las dos pruebas de GoTrue que esperaban el
       `config.toml`, porque la etiqueta `esquema-v0.6.0` es la que por fin lo lleva.

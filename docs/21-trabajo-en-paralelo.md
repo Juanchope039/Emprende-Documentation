@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-10-30 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [7.0.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/21-trabajo-en-paralelo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-16 | 2026-11-04 | [Paralelo](INDICE.md#etiqueta-paralelo) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo avanza Emprende con varias tareas a la vez sin que se bloqueen ni se pisen. **Lo que avanza en
 paralelo son tareas, no personas:** una tarea la puede llevar una persona, un equipo o una sesión de
@@ -71,7 +71,7 @@ su cuenta. Es la única coordinación obligatoria que queda, y por eso conviene 
 
 | Repositorio | En disco | Qué vive ahí | Dónde |
 |---|---|---|---|
-| **`Finanzas-PRISMA`** | `repositories/documentation` | Documentación, ADR, mockup **y el contrato**: `openapi.json` y el catálogo de códigos | Contrato y documentación, con revisión cruzada |
+| **`Emprende-Documentation`** | `repositories/documentation` | Documentación, ADR, mockup **y el contrato**: `openapi.json` y el catálogo de códigos | Contrato y documentación, con revisión cruzada |
 | **`emprende_api`** | `repositories/backend-api` | Java y Spring Boot | API |
 | **`emprende_db`** | `repositories/backend-db` | `supabase/migrations/`, la semilla y los scripts de la base | Base |
 | **`emprende_front`** | `repositories/frontend-flutter` | Flutter | Front |
@@ -97,7 +97,7 @@ se ejecuta.
 Se tapa convirtiendo el contrato en un **artefacto con versión propia**, no en un archivo que
 cada quien copia:
 
-1. El contrato vive en `Finanzas-PRISMA` y se versiona con **SemVer**, igual que los otros tres
+1. El contrato vive en `Emprende-Documentation` y se versiona con **SemVer**, igual que los otros tres
    proyectos de [ADR-014](adr/ADR-014-semver.md).
 2. Un cambio de contrato es **un solo PR**, en ese repositorio, revisado por los dos lados. Al
    fusionarse se etiqueta una versión.
@@ -260,7 +260,7 @@ sabe resolver solo.
 
 ### 6.3 El contrato
 
-- Cambiarlo es siempre un PR en `Finanzas-PRISMA`, revisado por los dos lados. **Cada
+- Cambiarlo es siempre un PR en `Emprende-Documentation`, revisado por los dos lados. **Cada
   funcionalidad tiene su tarea de contrato en el plan**, y las demás tareas de esa funcionalidad
   dependen de ella.
 - Un cambio que rompe el contrato sube la versión **mayor** y obliga a la comprobación de

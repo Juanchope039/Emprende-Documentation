@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [11.4.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/08-plan-de-desarrollo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Paralelo](INDICE.md#etiqueta-paralelo) |
+| [11.4.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/08-plan-de-desarrollo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Plan](INDICE.md#etiqueta-plan) · [Paralelo](INDICE.md#etiqueta-paralelo) |
 
 **El plan se organiza por repositorios y dependencias, no por personas.** Cada tarea dice dónde
 vive —API, Base, Front, Contrato o Decisión— y de qué depende. De esas dos columnas sale lo demás,
@@ -491,7 +491,7 @@ mismo `POST` enviado dos veces con la misma clave deja un solo movimiento.
 
 | # | Tarea | Dónde | Depende de | Días |
 |---|---|---|---|---:|
-| <a id="tarea-2-1"></a>2.1 | Autenticación contra Supabase Auth **desde `prisma_api`**: el mapeo de usuario a correo sintético ocurre en el servidor ([ADR-009](adr/ADR-009-login-por-usuario.md)) | API | [1.6](#tarea-1-6), [2.4](#tarea-2-4), [2.19](#tarea-2-19) | 1,5 |
+| <a id="tarea-2-1"></a>2.1 | Autenticación contra Supabase Auth **desde `emprende_api`**: el mapeo de usuario a correo sintético ocurre en el servidor ([ADR-009](adr/ADR-009-login-por-usuario.md)) | API | [1.6](#tarea-1-6), [2.4](#tarea-2-4), [2.19](#tarea-2-19) | 1,5 |
 | <a id="tarea-2-2"></a>2.2 | Sesión, expiración a 30 días y enrutamiento del front **según la navegación que dicta la API**, no según reglas escritas en el cliente | API, Front | [2.1](#tarea-2-1), [2.14](#tarea-2-14) | 1,5 |
 | <a id="tarea-2-3"></a>2.3 | Tabla `cargos` con sus datos semilla y sus políticas RLS | Base | [1.4](#tarea-1-4) | 1 |
 | <a id="tarea-2-4"></a>2.4 | Tabla `usuarios` ampliada: `usuario`, `nombre_completo`, `cargo_id` y `tipo` | Base | [2.3](#tarea-2-3) | 1 |

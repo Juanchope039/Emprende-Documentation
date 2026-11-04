@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [13.2.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
+| [13.2.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/19-ambientes-y-entrega.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-15 | 2026-11-04 | [Entrega](INDICE.md#etiqueta-entrega) · [Proceso](INDICE.md#etiqueta-proceso) |
 
 Cómo se configura, se prueba, se publica y —si hace falta— se devuelve cada versión de Emprende.
 
@@ -174,7 +174,7 @@ dentro del artefacto.
 
 | Clave | Qué es | Ejemplo en dev | Ejemplo en prod |
 |---|---|---|---|
-| `EMPRENDE_API_URL` | Dónde vive `emprende_api` | `https://api-dev.prisma.com` | `https://api.prisma.com` |
+| `EMPRENDE_API_URL` | Dónde vive `emprende_api` | `https://api-dev.emprende.com` | `https://api.emprende.com` |
 | `EMPRENDE_AMBIENTE` | Cuál de los ambientes es | `dev` | `prod` |
 | `EMPRENDE_API_MAJOR` | Qué MAJOR de la API exige ([§4.3](#43-el-contrato-de-compatibilidad)) | `1` | `1` |
 | `EMPRENDE_COMMIT` | Referencia del commit compilado | `a3f19c4` | `a3f19c4` |
@@ -187,7 +187,7 @@ dentro del artefacto.
 
 > **En el front no entra ningún secreto, nunca.** Todo lo que se compila en un Flutter Web queda
 > a la vista de cualquiera que abra las herramientas del navegador. Una URL no es un secreto; una
-> clave de base de datos sí. Por eso el front ya no lleva ninguna: habla con `prisma_api` y nada
+> clave de base de datos sí. Por eso el front ya no lleva ninguna: habla con `emprende_api` y nada
 > más.
 
 ### 3.2 La API: variables de entorno
@@ -467,7 +467,7 @@ solo hace esperar. La puerta para fusionar es que **todos** terminen en verde, n
 | `emprende_api` | **Compilar y probar** —formato, compilación, regla de dependencias y todas las pruebas—, **la versión subió**, solo contra `develop`, y **el artefacto**, este solo de qa a `main`: qa construye la imagen y las demás comprueban que es la misma ([§6.3](#63-las-tres-etapas-cada-una-más-exhaustiva)) |
 | `emprende_front` | **Formato y análisis**, **pruebas** —incluida la regla de frontera—, **la versión subió**, solo contra `develop`, y **compilación web** |
 | `emprende_db` | **La versión subió**, que por ahora es su única comprobación: lo demás del [§6.2](#62-en-cada-promoción) necesita levantar Supabase, y llega con la tubería del [ADR-029](adr/ADR-029-esquema-por-etiqueta.md) |
-| `Finanzas-PRISMA` | **Verificar la documentación**: encabezados, enlaces, referencias, plan y versiones ([`22-documentacion.md`](22-documentacion.md)) |
+| `Emprende-Documentation` | **Verificar la documentación**: encabezados, enlaces, referencias, plan y versiones ([`22-documentacion.md`](22-documentacion.md)) |
 
 **A esos trabajos se les suman las dos puertas**, al final y dependiendo de todos los demás
 ([ADR-048](adr/ADR-048-las-ramas-principales-las-protege-github.md)): **Tubería completa**, que termina en verde en cuanto la tubería llegó al final, sin

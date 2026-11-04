@@ -3,7 +3,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.10.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
+| [1.10.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/README.md "Historial de cambios") | [✅ Vigente](docs/22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Negocio](docs/INDICE.md#etiqueta-negocio) · [Plan](docs/INDICE.md#etiqueta-plan) |
 
 > **Emprende** = **P**lataforma de **R**egistro, **I**nversión, **S**eguimiento, **M**árgenes y **A**dministración.
 > Un solo lugar para saber cuánto entra, cuánto sale, cuánto queda y cuánto se puede pagar.
@@ -75,7 +75,7 @@ Emprende existe para responder esas tres preguntas con números, no con intuici�
 ## <a id="titulo-3"></a>3. Mockup interactivo
 
 Antes de escribir una sola línea de código de producción hay un **prototipo navegable**
-en [`mockup/prisma-mockup.html`](mockup/prisma-mockup.html).
+en [`mockup/emprende-mockup.html`](mockup/emprende-mockup.html).
 
 Ábrelo con doble clic. Abre en la **pantalla de ingreso**: cada persona entra con su propio
 usuario y contraseña, y lo que ve después depende de con quién entró. Ya no hay selector de
@@ -127,7 +127,7 @@ el front.
 
 | Repositorio | En disco, dentro de la carpeta de trabajo |
 |---|---|
-| `Finanzas-PRISMA`, este | `repositories/documentation` |
+| `Emprende-Documentation`, este | `repositories/documentation` |
 | `emprende_api` | `repositories/backend-api` |
 | `emprende_db` | `repositories/backend-db` |
 | `emprende_front` | `repositories/frontend-flutter` |

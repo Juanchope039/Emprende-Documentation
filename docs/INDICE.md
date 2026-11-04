@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.39.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-10-30 | — |
+| [1.39.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/INDICE.md "Historial de cambios") | [🔄 Vivo](22-documentacion.md#estados) | 2026-09-15 | 2026-11-04 | — |
 
 > Guía para moverte por toda la documentación de Emprende **sin perderte y sin saber de programación**.
 > Cada documento dice para qué sirve, en lenguaje sencillo, y está marcado si es técnico.
@@ -19,8 +19,8 @@
 
 | Si eres… | Lee en este orden |
 |----------|-------------------|
-| 🧑‍💼 **Dueña o gerente del negocio** | [Resumen ejecutivo](00-resumen-ejecutivo.md) → abre el [mockup](../mockup/prisma-mockup.html) → [Reglas financieras](05-reglas-financieras.md) |
-| 👷 **Trabajas en el negocio (Operación)** | [Resumen ejecutivo](00-resumen-ejecutivo.md) → abre el [mockup](../mockup/prisma-mockup.html) |
+| 🧑‍💼 **Dueña o gerente del negocio** | [Resumen ejecutivo](00-resumen-ejecutivo.md) → abre el [mockup](../mockup/emprende-mockup.html) → [Reglas financieras](05-reglas-financieras.md) |
+| 👷 **Trabajas en el negocio (Operación)** | [Resumen ejecutivo](00-resumen-ejecutivo.md) → abre el [mockup](../mockup/emprende-mockup.html) |
 | 🧾 **Eres el contador** | [Reglas financieras](05-reglas-financieras.md) → [Nómina y capacidad de pago](06-nomina-y-capacidad-de-pago.md) → [Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) |
 | 💻 **Vas a programar** | [Visión y alcance](01-vision-y-alcance.md) → [Casos de uso](02-casos-de-uso.md) → [Diagramas de los casos de uso](23-diagramas-de-casos-de-uso.md) → [Requisitos y BDD](03-requisitos-y-bdd.md) → [Modelo de datos](04-modelo-de-datos.md) → [Arquitectura](07-arquitectura.md) → [Contrato de API](20-contrato-de-api.md) |
 | 📚 **Solo quieres entender una palabra** | [Glosario](15-glosario.md) |
@@ -32,7 +32,7 @@
 | Si te preguntas… | Ve a… |
 |------------------|-------|
 | ¿Qué es Emprende y qué problema resuelve? | 📗 [Resumen ejecutivo](00-resumen-ejecutivo.md) |
-| ¿Cómo se ve el sistema por dentro? | 📗 [Mockup interactivo](../mockup/prisma-mockup.html) |
+| ¿Cómo se ve el sistema por dentro? | 📗 [Mockup interactivo](../mockup/emprende-mockup.html) |
 | ¿Cuánto gané de verdad este mes? | 📗 [Reglas financieras](05-reglas-financieras.md) |
 | ¿Cuánto le puedo pagar a una empleada sin quebrar? | 📗 [Nómina y capacidad de pago](06-nomina-y-capacidad-de-pago.md) |
 | ¿Quién puede hacer qué dentro del sistema? | 📘 [Visión y alcance](01-vision-y-alcance.md) |
@@ -188,34 +188,34 @@ Qué significa cada estado y cuándo sube una versión está en
 <!-- generado:estado-de-la-documentacion · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
-| [Emprende — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.10.2 | ✅ Vigente | 2026-10-30 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
-| [Tareas de Emprende](../TODO.md) | 9.85.2 | 🔄 Vivo | 2026-10-30 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
-| [Índice navegable de la documentación](INDICE.md) | 1.39.1 | 🔄 Vivo | 2026-10-30 | — |
-| [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.1.1 | ✅ Vigente | 2026-10-30 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
+| [Emprende — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.10.3 | ✅ Vigente | 2026-11-04 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
+| [Tareas de Emprende](../TODO.md) | 9.85.3 | 🔄 Vivo | 2026-11-04 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [Índice navegable de la documentación](INDICE.md) | 1.39.2 | 🔄 Vivo | 2026-11-04 | — |
+| [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.1.2 | ✅ Vigente | 2026-11-04 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
 | [01 · Visión y alcance](01-vision-y-alcance.md) | 2.1.1 | ✅ Vigente | 2026-10-30 | [Negocio](#etiqueta-negocio) · [Requisitos](#etiqueta-requisitos) |
 | [02 · Casos de uso](02-casos-de-uso.md) | 3.2.2 | ✅ Vigente | 2026-10-30 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) |
 | [03 · Requisitos, reglas de negocio y escenarios BDD](03-requisitos-y-bdd.md) | 5.0.0 | ✅ Vigente | 2026-10-16 | [Requisitos](#etiqueta-requisitos) · [Calidad](#etiqueta-calidad) |
-| [04 · Modelo de datos](04-modelo-de-datos.md) | 7.0.2 | ✅ Vigente | 2026-10-30 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
+| [04 · Modelo de datos](04-modelo-de-datos.md) | 7.0.3 | ✅ Vigente | 2026-11-04 | [Base de datos](#etiqueta-base-de-datos) · [Arquitectura](#etiqueta-arquitectura) |
 | [05 · Reglas financieras y KPIs](05-reglas-financieras.md) | 3.0.1 | ✅ Vigente | 2026-10-30 | [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
 | [06 · Nómina y capacidad de pago](06-nomina-y-capacidad-de-pago.md) | 2.1.0 | ✅ Vigente | 2026-10-06 | [Nómina](#etiqueta-nomina) · [Finanzas](#etiqueta-finanzas) · [Negocio](#etiqueta-negocio) |
-| [07 · Arquitectura técnica](07-arquitectura.md) | 6.0.3 | ✅ Vigente | 2026-10-30 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) · [Front](#etiqueta-front) · [Base de datos](#etiqueta-base-de-datos) · [Seguridad](#etiqueta-seguridad) |
-| [08 · Plan de desarrollo](08-plan-de-desarrollo.md) | 11.4.2 | ✅ Vigente | 2026-10-30 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
-| [09 · Plan de implantación](09-plan-de-implantacion.md) | 7.3.2 | ✅ Vigente | 2026-10-30 | [Plan](#etiqueta-plan) · [Entrega](#etiqueta-entrega) · [Negocio](#etiqueta-negocio) |
-| [10 · Diseño de experiencia y mockups](10-ux-y-mockups.md) | 9.0.1 | ✅ Vigente | 2026-10-30 | [UX](#etiqueta-ux) · [Front](#etiqueta-front) |
+| [07 · Arquitectura técnica](07-arquitectura.md) | 6.0.4 | ✅ Vigente | 2026-11-04 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) · [Front](#etiqueta-front) · [Base de datos](#etiqueta-base-de-datos) · [Seguridad](#etiqueta-seguridad) |
+| [08 · Plan de desarrollo](08-plan-de-desarrollo.md) | 11.4.3 | ✅ Vigente | 2026-11-04 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
+| [09 · Plan de implantación](09-plan-de-implantacion.md) | 7.3.3 | ✅ Vigente | 2026-11-04 | [Plan](#etiqueta-plan) · [Entrega](#etiqueta-entrega) · [Negocio](#etiqueta-negocio) |
+| [10 · Diseño de experiencia y mockups](10-ux-y-mockups.md) | 9.0.2 | ✅ Vigente | 2026-11-04 | [UX](#etiqueta-ux) · [Front](#etiqueta-front) |
 | [11 · Riesgos y protección de datos](11-riesgos-y-proteccion-de-datos.md) | 2.1.2 | ✅ Vigente | 2026-10-30 | [Seguridad](#etiqueta-seguridad) · [Datos personales](#etiqueta-datos-personales) · [Negocio](#etiqueta-negocio) |
-| [12 · Pruebas y calidad](12-pruebas-y-calidad.md) | 5.1.2 | ✅ Vigente | 2026-10-30 | [Calidad](#etiqueta-calidad) |
-| [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.4.3 | ✅ Vigente | 2026-10-30 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
+| [12 · Pruebas y calidad](12-pruebas-y-calidad.md) | 5.1.3 | ✅ Vigente | 2026-11-04 | [Calidad](#etiqueta-calidad) |
+| [13 · Respaldo y exportación](13-respaldo-y-exportacion.md) | 2.4.4 | ✅ Vigente | 2026-11-04 | [Base de datos](#etiqueta-base-de-datos) · [Datos personales](#etiqueta-datos-personales) |
 | [14 · Roadmap e ideas de valor](14-roadmap-e-ideas.md) | 2.1.1 | 🔄 Vivo | 2026-10-30 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [15 · Glosario](15-glosario.md) | 2.0.2 | ✅ Vigente | 2026-10-30 | [Negocio](#etiqueta-negocio) |
-| [16 · Base de datos: snapshots y datos de prueba](16-base-de-datos-y-snapshots.md) | 3.4.2 | ✅ Vigente | 2026-10-30 | [Base de datos](#etiqueta-base-de-datos) · [Calidad](#etiqueta-calidad) |
+| [16 · Base de datos: snapshots y datos de prueba](16-base-de-datos-y-snapshots.md) | 3.4.3 | ✅ Vigente | 2026-11-04 | [Base de datos](#etiqueta-base-de-datos) · [Calidad](#etiqueta-calidad) |
 | [17 · Resiliencia, trabajo sin conexión y caché](17-resiliencia-offline-y-cache.md) | 1.1.1 | ✅ Vigente | 2026-10-30 | [Front](#etiqueta-front) · [API](#etiqueta-api) · [Arquitectura](#etiqueta-arquitectura) |
 | [18 · Distribución multiplataforma y automatización (pipelines)](18-distribucion-y-pipelines.md) | 0.1.2 | 💡 Propuesta | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Front](#etiqueta-front) |
-| [19 · Ambientes, versionado y entrega](19-ambientes-y-entrega.md) | 13.2.2 | ✅ Vigente | 2026-10-30 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
+| [19 · Ambientes, versionado y entrega](19-ambientes-y-entrega.md) | 13.2.3 | ✅ Vigente | 2026-11-04 | [Entrega](#etiqueta-entrega) · [Proceso](#etiqueta-proceso) |
 | [20 · Contrato de la API](20-contrato-de-api.md) | 3.1.3 | ✅ Vigente | 2026-10-30 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
-| [21 · Trabajo en paralelo](21-trabajo-en-paralelo.md) | 7.0.2 | ✅ Vigente | 2026-10-30 | [Paralelo](#etiqueta-paralelo) · [Proceso](#etiqueta-proceso) |
+| [21 · Trabajo en paralelo](21-trabajo-en-paralelo.md) | 7.0.3 | ✅ Vigente | 2026-11-04 | [Paralelo](#etiqueta-paralelo) · [Proceso](#etiqueta-proceso) |
 | [22 · Documentación: versiones, estados y referencias](22-documentacion.md) | 2.3.2 | ✅ Vigente | 2026-10-30 | [Proceso](#etiqueta-proceso) |
 | [23 · Diagramas de los casos de uso](23-diagramas-de-casos-de-uso.md) | 0.5.2 | 🔍 En revisión | 2026-10-30 | [Requisitos](#etiqueta-requisitos) · [Negocio](#etiqueta-negocio) · [Arquitectura](#etiqueta-arquitectura) |
-| [Contrato de la API · v0.37.0](../contrato/README.md) | 5.3.0 | ✅ Vigente | 2026-10-30 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
+| [Contrato de la API · v0.37.0](../contrato/README.md) | 5.3.1 | ✅ Vigente | 2026-11-04 | [Contrato](#etiqueta-contrato) · [API](#etiqueta-api) · [Front](#etiqueta-front) |
 | [Decisiones de arquitectura (ADR)](adr/README.md) | 1.44.0 | 🔄 Vivo | 2026-11-03 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-001 · Stack tecnológico](adr/ADR-001-stack.md) | 1.0.1 | ⛔ Reemplazado | 2026-10-30 | [Arquitectura](#etiqueta-arquitectura) |
 | [ADR-002 · Arquitectura hexagonal con regla de dependencias verificada](adr/ADR-002-arquitectura-hexagonal.md) | 1.0.1 | ✅ Aceptado | 2026-10-30 | [Arquitectura](#etiqueta-arquitectura) · [API](#etiqueta-api) |

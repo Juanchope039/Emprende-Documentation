@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.3.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
+| [7.3.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/09-plan-de-implantacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Plan](INDICE.md#etiqueta-plan) · [Entrega](INDICE.md#etiqueta-entrega) · [Negocio](INDICE.md#etiqueta-negocio) |
 
 Cómo se pasa de tener el software construido a que el negocio realmente lo use.
 
@@ -16,7 +16,7 @@ Cómo se pasa de tener el software construido a que el negocio realmente lo use.
 **Nada se programa hasta que esto esté firmado.** Corregir una pantalla en el mockup cuesta
 minutos; corregirla después de construida cuesta días.
 
-Abrir [`../mockup/prisma-mockup.html`](../mockup/prisma-mockup.html) y revisar pantalla por
+Abrir [`../mockup/emprende-mockup.html`](../mockup/emprende-mockup.html) y revisar pantalla por
 pantalla:
 
 | # | Pantalla | Qué verificar | ✓ |

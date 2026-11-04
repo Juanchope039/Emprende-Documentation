@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [1.1.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
+| [1.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/00-resumen-ejecutivo.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Negocio](INDICE.md#etiqueta-negocio) · [Finanzas](INDICE.md#etiqueta-finanzas) · [Plan](INDICE.md#etiqueta-plan) |
 
 > Documento de 5 minutos. Si solo vas a leer uno, que sea este.
 
@@ -215,7 +215,7 @@ para fases posteriores.
 
 ## 8. La decisión que se pide ahora
 
-Abrir [`../mockup/prisma-mockup.html`](../mockup/prisma-mockup.html), entrar con el usuario de
+Abrir [`../mockup/emprende-mockup.html`](../mockup/emprende-mockup.html), entrar con el usuario de
 ejemplo `yuliana` (Gerencia), recorrer las 11 pantallas y marcar el checklist de aprobación del
 documento [`09-plan-de-implantacion.md`](09-plan-de-implantacion.md).
 
