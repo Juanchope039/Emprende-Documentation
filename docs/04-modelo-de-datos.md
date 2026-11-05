@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [7.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
+| [7.0.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/04-modelo-de-datos.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Arquitectura](INDICE.md#etiqueta-arquitectura) |
 
 Base de datos PostgreSQL sobre Supabase. **Solo escritura: nada se elimina jamás.**
 
@@ -2802,7 +2802,7 @@ dos copias de una regla financiera es exactamente el problema que estas funcione
 La base no sabe hablar. Cuando rechaza algo devuelve `23514 check_violation` en la restricción
 `transferencia_con_destino`, y eso no se le puede mostrar a la dueña del taller. La API traduce.
 Para que pueda traducir, cada restricción de este documento tiene **nombre explícito** ([§4.1](#41-tipos-y-convenciones-comunes)) y
-cada nombre tiene su entrada en la tabla de traducción de `prisma_api`: un **código de cinco
+cada nombre tiene su entrada en la tabla de traducción de `emprende_api`: un **código de cinco
 dígitos** del catálogo —de donde sale el mensaje en español, que no se escribe dos veces— y el
 campo del formulario al que señala.
 

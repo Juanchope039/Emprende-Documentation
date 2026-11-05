@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [2.4.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
+| [2.4.4](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/13-respaldo-y-exportacion.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Datos personales](INDICE.md#etiqueta-datos-personales) |
 
 > **Construcción: en el [Sprint 8](08-plan-de-desarrollo.md#sprint-8), no después del go-live.** El [ADR-047](adr/ADR-047-el-respaldo-y-la-auditoria-entran-al-plan.md) metió el respaldo al plan,
 > en las tareas [8.13](08-plan-de-desarrollo.md#tarea-8-13) a [8.17](08-plan-de-desarrollo.md#tarea-8-17), y retiró del 14 la deuda [D-05](14-roadmap-e-ideas.md#d-05) y la idea 01. Lo que este documento
@@ -158,7 +158,7 @@ Todo archivo de exportación incluye un `manifiesto.json`:
 ```json
 {
   "generado_en": "2026-09-30T18:42:11-05:00",
-  "generado_por": "gerencia@prisma.com",
+  "generado_por": "gerencia@emprende.com",
   "alcance": { "tipo": "mes", "anio": 2026, "mes": 9 },
   "version_esquema": "1.4.0",
   "version_api": "1.4.2",
@@ -245,7 +245,7 @@ Supabase y armaba el archivo en el navegador. Ahora **el front no habla con Supa
 | Paso | Quién | Qué pasa |
 |---|---|---|
 | 1 | `emprende_front` | Pide la exportación con su alcance y su formato |
-| 2 | `prisma_api` | Abre la transacción con la identidad de quien pidió y lee lo que RLS le permita |
+| 2 | `emprende_api` | Abre la transacción con la identidad de quien pidió y lee lo que RLS le permita |
 | 3 | `emprende_api` | Arma los archivos, calcula los `sha256`, escribe el `manifiesto.json` y la fila de `exportaciones` |
 | 4 | `emprende_front` | Baja el archivo por la API, con una acción explícita de la usuaria |
 

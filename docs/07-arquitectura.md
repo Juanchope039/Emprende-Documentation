@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [6.0.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/07-arquitectura.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Arquitectura](INDICE.md#etiqueta-arquitectura) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) · [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Seguridad](INDICE.md#etiqueta-seguridad) |
+| [6.0.4](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/07-arquitectura.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Arquitectura](INDICE.md#etiqueta-arquitectura) · [API](INDICE.md#etiqueta-api) · [Front](INDICE.md#etiqueta-front) · [Base de datos](INDICE.md#etiqueta-base-de-datos) · [Seguridad](INDICE.md#etiqueta-seguridad) |
 
 Tres partes —un front en Flutter multiplataforma, una API en Java 25 con Spring Boot y una capa
 de datos PostgreSQL siempre en línea—. Arquitectura hexagonal (puertos y adaptadores) sobre Clean
@@ -51,7 +51,7 @@ graph LR
 | Parte | Qué es | Qué hace | Qué NO hace |
 |---|---|---|---|
 | **emprende_front** | Flutter, un solo código; objetivo por defecto **web**, y el mismo código compila a Android, iOS y escritorio | Pide, recibe y muestra. Pinta lo que la API le dicta | **No decide nada.** Ni reglas, ni permisos, ni mensajes, ni cálculos de negocio |
-| **prisma_api** | Java 25 con Spring Boot | Toda la lógica. Toma todas las decisiones. Dicta qué mensaje se muestra y cuándo | No confía en el front. No decide los permisos que le tocan a la base |
+| **emprende_api** | Java 25 con Spring Boot | Toda la lógica. Toma todas las decisiones. Dicta qué mensaje se muestra y cuándo | No confía en el front. No decide los permisos que le tocan a la base |
 | **Capa de datos** | PostgreSQL en Supabase, más migraciones, funciones de negocio, índices, particiones y el pool de conexiones | Garantiza lo que no se puede romper: restricciones, RLS, atomicidad, durabilidad | No es un servicio desplegable. La API le habla directo |
 
 > **Regla dura: el front NUNCA habla con Supabase directamente.** Ni con la base, ni con Auth,
@@ -143,13 +143,13 @@ carpeta de trabajo: `documentation` —esta especificación—, `backend-api`, `
 ```
 emprende_api/
 ├── contrato/
-│   └── openapi.json               # Copia fijada del contrato de Finanzas-PRISMA. La vigila C-04 (§9.4)
+│   └── openapi.json               # Copia fijada del contrato de Emprende-Documentation. La vigila C-04 (§9.4)
 ├── build.gradle.kts               # Java 25 como toolchain: Gradle lo descarga si no está
 ├── settings.gradle.kts
 ├── gradlew                        # Nadie necesita instalar Gradle
 └── src/
     ├── main/
-    │   ├── java/com/prismamy/api/
+    │   ├── java/com/emprende/api/
     │   │   ├── EmprendeApiApplication.java
     │   │   │
     │   │   ├── dominio/                   # EL NÚCLEO — no conoce HTTP, ni SQL, ni Spring
@@ -224,7 +224,7 @@ emprende_api/
     │   └── resources/
     │       └── application.yml
     └── test/
-        └── java/com/prismamy/api/
+        └── java/com/emprende/api/
             ├── dominio/                   # Pruebas puras, sin base de datos ni red
             ├── doble/                     # Repositorios en memoria para pruebas
             ├── arquitectura/              # ArchUnit: la regla de dependencias (§3)
@@ -280,8 +280,8 @@ En la API, la regla se verifica con **ArchUnit**, como una prueba más que corre
 compilación:
 
 ```java
-// src/test/java/com/prismamy/api/arquitectura/ReglaDeDependenciasTest.java
-@AnalyzeClasses(packages = "com.prismamy.api")
+// src/test/java/com/emprende/api/arquitectura/ReglaDeDependenciasTest.java
+@AnalyzeClasses(packages = "com.emprende.api")
 class ReglaDeDependenciasTest {
 
     @ArchTest
@@ -454,7 +454,7 @@ Eso significa que:
 |---|---|
 | Transporte | HTTPS obligatorio en el front y en la API, gestionado por el despliegue |
 | Canal firmado | Sobre HTTPS, **no en vez de HTTPS**: cada petición lleva nonce, marca de tiempo y firma HMAC contra repetición y manipulación ([§9.3](#93-el-canal-firmado)) |
-| Autenticación | **Nombre de usuario y contraseña, no correo.** La traducción a correo sintético ocurre **dentro de `prisma_api`**: el front manda usuario y contraseña y nunca ve un correo. Las contraseñas nunca tocan código propio |
+| Autenticación | **Nombre de usuario y contraseña, no correo.** La traducción a correo sintético ocurre **dentro de `emprende_api`**: el front manda usuario y contraseña y nunca ve un correo. Las contraseñas nunca tocan código propio |
 | Contraseñas | Mínimo 8 caracteres, sin composición obligatoria y sin caducidad periódica. Hash bcrypt del proveedor |
 | Primer ingreso | Cambio de contraseña obligatorio. `usuarios.debe_cambiar_clave` arranca en `TRUE` al crear y al restablecer, y solo baja cuando la persona la cambia |
 | Restablecimiento | **Presencial.** Solo Gerencia genera una clave temporal desde la pantalla de Gestión de usuarios. No hay recuperación por correo |
@@ -485,7 +485,7 @@ Supabase Auth autentica contra un **correo electrónico**. Las empleadas de un t
 estampados no siempre tienen correo, y pedirles uno es una barrera real de adopción.
 
 Entonces el sistema traduce, **y traduce en el servidor**. La persona escribe `marcela`, el front
-envía usuario y contraseña a `POST /sesiones`, y `prisma_api` arma
+envía usuario y contraseña a `POST /sesiones`, y `emprende_api` arma
 `marcela@usuarios.prisma.com` y llama al proveedor.
 
 ```
@@ -543,7 +543,7 @@ Gerencia, y las que protegen nómina, adelantos y patrimonio.
 
 Eso funcionaba porque el navegador hablaba directo con la base llevando su propio token.
 
-Con `prisma_api` en medio, la base ya no ve a la empleada: ve a la API. Y entonces:
+Con `emprende_api` en medio, la base ya no ve a la empleada: ve a la API. Y entonces:
 
 | Si la API se conecta… | Qué pasa |
 |---|---|
@@ -555,7 +555,7 @@ todo el trabajo de permisos en una ilusión.
 
 ### 7.2 La solución, obligatoria
 
-`prisma_api` abre **una transacción por petición** y, antes de tocar ninguna tabla, propaga los
+`emprende_api` abre **una transacción por petición** y, antes de tocar ninguna tabla, propaga los
 claims del token del usuario a la sesión de PostgreSQL:
 
 ```java
@@ -675,7 +675,7 @@ Lo que sí hace el front: rutas, estado de pantalla, animaciones, formato de pre
 | Capa | Qué hace | Qué pasa si falla | Se puede saltar |
 |---|---|---|---|
 | **PostgreSQL** | **Decide.** `NOT NULL`, `CHECK`, `FOREIGN KEY`, `UNIQUE`, `EXCLUDE`, dominios, triggers, RLS, `REVOKE DELETE` | Error del motor con nombre de restricción, que la API traduce ([§8.5](#85-el-contrato-de-errores-lo-que-mantiene-honesta-la-redundancia)) | **No** |
-| **`prisma_api`** | **Decide.** Las reglas que la base no puede expresar, los permisos que sí puede adelantar, los cálculos y **el mensaje exacto que se va a mostrar** | Sobre de respuesta con su código de cinco dígitos y su mensaje en español ([§9.1](#91-el-sobre-de-respuesta)) | Sí, si alguien llamara a la base por fuera. Por eso la base sigue siendo el juez |
+| **`emprende_api`** | **Decide.** Las reglas que la base no puede expresar, los permisos que sí puede adelantar, los cálculos y **el mensaje exacto que se va a mostrar** | Sobre de respuesta con su código de cinco dígitos y su mensaje en español ([§9.1](#91-el-sobre-de-respuesta)) | Sí, si alguien llamara a la base por fuera. Por eso la base sigue siendo el juez |
 | **`emprende_front`** | **Pinta.** Aplica el descriptor que la API le envió ([§8.4](#84-el-descriptor-de-formulario)) y muestra los mensajes que la API redactó | Aviso inmediato en pantalla, con el texto que vino de la API, sin viaje a la red | Sí, con las herramientas del navegador. **Y no importa**: no autoriza nada |
 
 La diferencia con el modelo anterior es de fondo. Antes el front tenía su copia de las reglas
@@ -734,7 +734,7 @@ se separen con el tiempo y digan cosas distintas. Se ataca así:
 
 1. **Toda restricción de la base lleva nombre explícito.** Nada de nombres generados por
    PostgreSQL. `CONSTRAINT transferencia_con_destino CHECK (tipo <> 'transferencia' OR cuenta_destino_id IS NOT NULL)`.
-2. **Existe una tabla única de traducción** en `prisma_api`, `interfaz/error/TraduccionDeRestricciones`:
+2. **Existe una tabla única de traducción** en `emprende_api`, `interfaz/error/TraduccionDeRestricciones`:
    `(objeto, restricción)` → código de cinco dígitos + campo del formulario al que señala, y el
    mensaje sale de ese código. Un solo archivo, alimentado por el mismo catálogo de códigos de
    [§9.1](#91-el-sobre-de-respuesta). Lleva el objeto y no el nombre solo porque PostgreSQL permite repetirlo entre
@@ -899,7 +899,7 @@ La estrategia de trabajo sin conexión, por nivel de esfuerzo:
 |---|---|---|
 | 1 | La aplicación se instala y abre sin red, mostrando los últimos datos en caché | 9 |
 | 2 | Un registro hecho sin conexión se encola localmente | 9 |
-| 3 | Al reconectar, la cola se envía a `prisma_api` conservando la **fecha del movimiento** original | 9 |
+| 3 | Al reconectar, la cola se envía a `emprende_api` conservando la **fecha del movimiento** original | 9 |
 | 4 | Si un registro encolado falla, se avisa y no se pierde | 9 |
 
 La doble fecha del modelo ([RN-01](03-requisitos-y-bdd.md#rn-01)) es lo que hace posible el nivel 3: el movimiento se digita

@@ -33,6 +33,6 @@ jobs:
             echo "El PR #$PR está en el milestone «$MILESTONE»."
             exit 0
           fi
-          echo "::error::El PR #$PR no tiene milestone. Ponle el de su issue de Juanchope039/PRISMA (ADR-063)."
+          echo "::error::El PR #$PR no tiene milestone. Ponle el de su issue de Juanchope039/Emprende-MiniApp-MonoRepo (ADR-063)."
           echo "En el panel Milestone del PR, o con gh pr edit $PR --milestone '<título>'."
           exit 1

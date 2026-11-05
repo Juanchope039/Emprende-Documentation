@@ -2,7 +2,7 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [5.1.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [Calidad](INDICE.md#etiqueta-calidad) |
+| [5.1.3](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/12-pruebas-y-calidad.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [Calidad](INDICE.md#etiqueta-calidad) |
 
 ---
 
@@ -30,7 +30,7 @@ plata y los permisos**.
 | Unitario de dominio | `emprende_api` | Servicios de dominio: fórmulas financieras | **JUnit 5** | **≥ 90% de cobertura** |
 | Unitario de presentación | `emprende_front` | Formato de cifras y fechas, estado, y que el formulario aplique el descriptor que la API le dictó | `flutter test` | Cada regla del descriptor |
 | Widget | `emprende_front` | Que cada pantalla pinte lo que debe y reaccione a lo que recibe | `flutter test` | Las 12 pantallas |
-| Integración | `prisma_api` + base | Repositorios, transacciones, políticas RLS, contrato de errores | **JUnit 5 con contenedores de prueba** (`Testcontainers`): un PostgreSQL real y desechable | Casos críticos |
+| Integración | `emprende_api` + base | Repositorios, transacciones, políticas RLS, contrato de errores | **JUnit 5 con contenedores de prueba** (`Testcontainers`): un PostgreSQL real y desechable | Casos críticos |
 | Manual | Las dos | Recorridos completos en celular real | Lista de verificación | Antes de cada entrega |
 
 > **Las pruebas de integración levantan su propio PostgreSQL, no se cuelgan de la base de un
@@ -420,7 +420,7 @@ ese vigilante.
 
 | # | Prueba | Resultado esperado |
 |---|---|---|
-| [C-01](#c-01) | Recorrer `pg_constraint` y cruzar cada restricción nombrada con la tabla de traducción de `prisma_api` | Todas tienen entrada. Si falta una, la prueba falla y dice cuál |
+| [C-01](#c-01) | Recorrer `pg_constraint` y cruzar cada restricción nombrada con la tabla de traducción de `emprende_api` | Todas tienen entrada. Si falta una, la prueba falla y dice cuál |
 | [C-02](#c-02) | Arrancar el front declarando una MAJOR de API distinta a la que responde `POST /api/v0/consultas/version` | El front se planta en la primera pantalla y no deja seguir |
 | [C-03](#c-03) | Cruzar los códigos de cinco dígitos que emite el código fuente contra el catálogo | Ninguno emitido falta en el catálogo y ninguno del catálogo sobra. Falla nombrando el código |
 | [C-04](#c-04) | Regenerar el OpenAPI desde los controladores y compararlo con el `openapi.json` versionado | Idénticos, salvo las dos versiones que el documento declara de sí mismo ([ADR-042](adr/ADR-042-la-version-del-documento-es-la-de-la-api.md)), que se afirman contra su fuente. Cualquier otra diferencia rompe la compilación |

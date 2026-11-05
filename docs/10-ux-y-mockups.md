@@ -2,9 +2,9 @@
 
 | Versión | Estado | Creado | Actualizado | Etiquetas |
 |---|---|---|---|---|
-| [9.0.1](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-10-30 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
+| [9.0.2](https://github.com/Juanchope039/Emprende-Documentation/commits/main/docs/10-ux-y-mockups.md "Historial de cambios") | [✅ Vigente](22-documentacion.md#estados) | 2026-09-13 | 2026-11-04 | [UX](INDICE.md#etiqueta-ux) · [Front](INDICE.md#etiqueta-front) |
 
-Prototipo navegable: [`../mockup/prisma-mockup.html`](../mockup/prisma-mockup.html)
+Prototipo navegable: [`../mockup/emprende-mockup.html`](../mockup/emprende-mockup.html)
 
 > **El mockup HTML es el contrato de diseño, y lo sigue siendo.** El front se construye en
 > Flutter, pero lo que Flutter implementa es esto: cada pantalla, cada estado y cada texto salen
