@@ -188,7 +188,7 @@ Qué significa cada estado y cuándo sube una versión está en
 <!-- generado:estado-de-la-documentacion · no editar a mano: lo escribe scripts/docs/documentar.mjs -->
 | Documento | Versión | Estado | Actualizado | Etiquetas |
 |---|:---:|---|:---:|---|
-| [Emprende — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.10.3 | ✅ Vigente | 2026-11-04 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
+| [Emprende — Sistema de Gestión Administrativa y Financiera](../README.md) | 1.10.4 | ✅ Vigente | 2026-11-05 | [Negocio](#etiqueta-negocio) · [Plan](#etiqueta-plan) |
 | [Tareas de Emprende](../TODO.md) | 9.85.3 | 🔄 Vivo | 2026-11-04 | [Plan](#etiqueta-plan) · [Paralelo](#etiqueta-paralelo) |
 | [Índice navegable de la documentación](INDICE.md) | 1.39.2 | 🔄 Vivo | 2026-11-04 | — |
 | [00 · Resumen ejecutivo](00-resumen-ejecutivo.md) | 1.1.2 | ✅ Vigente | 2026-11-04 | [Negocio](#etiqueta-negocio) · [Finanzas](#etiqueta-finanzas) · [Plan](#etiqueta-plan) |
